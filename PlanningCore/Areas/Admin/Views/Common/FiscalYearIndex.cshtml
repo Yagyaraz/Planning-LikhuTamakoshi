@@ -1,0 +1,174 @@
+﻿@model IEnumerable<FiscalYearViewModel>
+@inject IUtility _Utility
+@{
+	ViewData["Title"] = "Index";
+	<script>
+							.oval - button {
+			border - radius: 25px;
+		}
+	</script>
+	int i = 1;
+
+}
+
+<style>
+
+
+
+	/* .table thead {
+		background-color: #dee8fa;
+		font-size: 13px;
+		line-height: 35px;
+	} */
+
+
+
+
+		.table thead th {
+			font-weight: 800;
+			border: 1px solid black !important;
+		}
+
+
+	.table tbody td {
+		vertical-align: middle;
+		border: 1px solid black !important;
+		line-height: 0px !important;
+	}
+
+	.table tbody tr {
+		text-align: center;
+		font-size: 12px;
+	}
+
+	table.table-bordered.dataTable td {
+		padding: 0px;
+	}
+
+	table.table-bordered.dataTable th {
+		padding: 0px;
+	}
+
+	tr:nth-child(even) {
+		background-color: #e9ecef;
+	}
+
+
+	tr:hover {
+		background-color: #b3ffe6;
+	}
+
+</style>
+
+
+<div class="page-breadcrumb colr1">
+	<div class="row">
+		<div class="col-12 d-flex no-block align-items-center">
+			<div class="ms-auto text-end">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="#">गृह पृष्ट</a></li>
+						<li class="breadcrumb-item active" aria-current="page">
+							आर्थिक वर्ष
+						</li>
+					</ol>
+				</nav>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container-fluid colr1">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="d-flex justify-content-between">
+				@* <h4 class=" card1">
+					आर्थिक वर्ष लिस्ट
+				</h4> *@
+				<div style="display:flex;">
+					<h4 class="card1" style="background-color:#3c8dbc; color:#fff; height:40px; width:150px; padding-top:5px; text-align:center;">आर्थिक वर्ष लिस्ट</h4>
+					<span style="height:2rem; background-color:#3c8dbc; width:10px; height:40px;"></span>
+					<span style="height: 2rem; border-top: 17px solid transparent;border-left: 25px solid #3c8dbc;border-bottom: 22px solid transparent; height:40px;"> </span>
+				</div>
+				<a asp-controller="Common" asp-action="CreateFiscalYear" asp-area="Admin" class="btn  btn-sm fw-bold text-white "
+				   style="display: flex; align-items:center; justify-content:center; height:2rem; background-color:#33b35a; border:1px solid #3ec291; ">
+					<i class="fas fa-plus-circle">
+						नँया थप्नुहोस
+					</i>
+				</a>
+			</div>
+			<br />
+			<div class="card">
+				<div class="card-body">
+					<div class="table-responsive">
+						<table id="zero_config" class="table table-bordered" style="border-collapse: collapse!important;">
+							<thead>
+								<tr style="color:#00234D;">
+									<th style="text-align:center; width:8%;">क्र. स. </th>
+									<th style="text-align:center;">@Html.DisplayNameFor(model => model.Name)</th>
+									<th style="text-align:center;">@Html.DisplayNameFor(model => model.StartYear)</th>
+									<th style="text-align:center;">@Html.DisplayNameFor(model => model.EndYear)</th>
+									<th style="text-align:center;">स्थिति</th>
+									<th style ="text-align:center;">कार्य   </th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach (var item in Model)
+								{
+
+									<tr>
+										<td> @_Utility.ConvertEnglishToNepali(i) </td>
+										<td>@item.Name</td>
+										<td> @_Utility.ConvertEnglishToNepali(item.DateFrom)</td>
+										<td>@_Utility.ConvertEnglishToNepali(item.DateTo)</td>
+										<td>
+											@if (item.IsActive == true)
+											{
+												<span>सक्रिय</span>
+											}
+											else
+											{
+												<span>निस्क्रिय</span>
+											}
+										</td>
+										<td>
+
+											<a type="button" id="सच्याउनुहोस" class="btn  btn-sm" title="Edit" asp-action="CreateFiscalYear" asp-route-id="@item.Id">
+												<i class="fa fa-edit" style=" font-weight:1; font-size:12px;">
+													<span style="color:blue;"> </span>
+												</i>
+											</a>
+											<a asp-action="DeleteUnit" asp-route-id="@item.Id" title="Delete" onclick="return confirm('Are you sure?')">
+												<i class="fa fa-trash" style="color:red; padding-left:3px;">                                                </i>
+											</a>
+										</td>
+
+									</tr>
+									i++;
+								}									
+							</tbody>
+						</table>
+						<div class=" d-flex justify-content-end">
+							<a asp-action="Setup" asp-controller="Setup" asp-area="Admin" class="btn  btn-sm mt-3 mb-2 me-2 text-white"
+							   style=" background-color:#424f63;">
+								<i class="fa fa-arrow-left" aria-hidden="true"> पछाडि फर्कनुहोस्</i>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+	<script>
+		$("#zero_config").DataTable();
+	</script>
+
+	<script>
+		$(function () { Message('@TempData["Msg"]') });
+	</script>
+}

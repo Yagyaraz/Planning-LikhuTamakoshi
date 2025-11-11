@@ -1,0 +1,413 @@
+﻿@model IEnumerable<PlanningSamjhautaViewModel>
+@inject IUtility _Utility
+@{
+    ViewData["Title"] = "Index";
+}
+<style>
+    .dt-buttons {
+        float: right
+    }
+
+    .oval-button {
+        border-radius: 25px;
+    }
+
+    #zero_config > thead > tr > th {
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    #zero_config > tbody > tr > td {
+        font-size: 13px;
+    }
+
+    table.table-bordered.dataTable th, table.table-bordered.dataTable td {
+        border-left-width: thin;
+    }
+
+        table.table-bordered.dataTable th:last-child, table.table-bordered.dataTable th:last-child, table.table-bordered.dataTable td:last-child, table.table-bordered.dataTable td:last-child {
+            border-right-width: thin;
+        }
+
+    .table thead {
+        background-color: #ccd1d9;
+        font-size: 13px;
+        line-height: 20px !important;
+    }
+
+
+
+
+        .table thead th {
+            font-size: 14px !important;
+            font-weight: 800;
+            border: 1px solid black !important;
+            padding: 0px !important;
+        }
+
+
+    .table tbody td {
+        padding: 0px !important;
+        border: 1px solid black !important;
+    }
+
+    .table tbody tr {
+        text-align: center;
+        font-size: 12px;
+    }
+
+
+
+    table.table-bordered.dataTable td {
+        padding: 0px;
+    }
+
+    table.table-bordered.dataTable th {
+        padding: 0px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #e9ecef;
+    }
+
+
+    tr:hover {
+        background-color: #b3ffe6;
+    }
+
+</style>
+
+<div class="page-breadcrumb colr1">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+
+            <div class="ms-auto text-end">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="">गृह पृष्ट</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            योजना सम्झौता
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid colr1">
+    <div class="row">
+        <div class="col-md-12">
+            <div style="display:flex; justify-content:space-between;">
+                <div style="display:flex;">
+                    <h4 class="card1" style="background-color:#3c8dbc; color:#fff; height:40px; width:120px; padding-top:5px; text-align:center;">योजना सम्झौता</h4>
+                    <span style="height:2rem; background-color:#3c8dbc; width:10px; height:40px;"></span>
+                    <span style="height: 2rem; border-top: 17px solid transparent;border-left: 25px solid #3c8dbc;border-bottom: 22px solid transparent; height:40px;"> </span>
+                </div>
+                <a asp-controller="Planningsamjhauta" asp-action="Insertplanningsamjhauta" asp-area="Admin"
+                   class="btn btn-primary btn-sm d-flex justify-content-center align-items-center "
+                   style="height:2rem; background-color:#33b35a; border:1px solid #3ec291;">
+                    <i class="fas fa-plus-circle">
+                        नयाँ थप्नुहोस
+                    </i>
+                </a>
+            </div>
+            <div class="container">
+                <form asp-action="PlanningSamjhautaIndex" method="get">
+                    <div class="pt-4 row">
+                        <div class="col-2">
+                            <label>वडा न.</label>
+                            <select name="wardId" id="wardId" asp-items="@await _Utility.GetWardList()" class="form-control">
+                                <option value="">--वडा न. छान्नुहोस--</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 col-2">
+                            <label>योजनाको नाम : </label> <br />
+                            <input type="text" name="name" id="name" class="form-control" />
+                        </div>
+
+                        <div class="col-2">
+                            <label> </label><br />
+                            <input type="submit" value="खोज्नुहोस्" class="btn btn-success" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <br />
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="zero_config" class="table table-bordered mt-4"
+                               style="border-collapse: collapse!important; width:100%!important;">
+                            <thead>
+                                <tr style="vertical-align:middle;">
+                                    <th style="text-align:center; height:70px!important;">क्र.स.</th>
+                                    <th style="width:500px!important; text-align:center!important;">@Html.DisplayNameFor(model => model.Project_Name)</th>
+                                    <th style="text-align:center;">@Html.DisplayNameFor(model => model.WardName)</th>
+                                    <th style="text-align:center!important;">@Html.DisplayNameFor(model => model.Project_estimated_Amount)</th>
+                                    <th style="text-align:center!important;">@Html.DisplayNameFor(model => model.Total_Amount_Source)</th>
+                                    <th style="text-align:center!important;">@Html.DisplayNameFor(model => model.Samjhauta_Org_Name)</th>
+                                    <th style="text-align:center!important;">@Html.DisplayNameFor(model => model.Project_Start_Date)</th>
+                                    <th style="text-align:center!important;">@Html.DisplayNameFor(model => model.Project_End_Date)</th>
+                                    <th style="text-align:center!important;">अवस्था </th>
+                                    <th style="text-align:center!important;">खर्च भएको रकम </th>
+                                    <th style="text-align:center!important;">कार्य </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td style="width:65px; height:100px; text-align:center!important;">@(Model.ToList().IndexOf(item) + 1).</td>
+                                        <td style="text-align:start;">@Html.Raw(item.YojanaNames)</td>
+                                        <td style="width:100px; text-align:start;">@Html.Raw(item.YojanaWards)</td>
+                                        <td style="text-align:center!important;">@_Utility.ConvertEnglishToNepali(item.Project_estimated_Amount)</td>
+                                        <td style="width:110px; text-align:center!important;">@_Utility.ConvertEnglishToNepali(item.Total_Amount_Source)</td>
+                                        <td style="width:100px;">@Html.DisplayFor(modelItem => item.Samjhauta_Org_Name)</td>
+                                        <td style="width:170px; text-align:center!important;">@_Utility.ConvertEnglishToNepali(item.Project_Start_Date)</td>
+                                        <td style="width:170px; text-align:center!important;">@_Utility.ConvertEnglishToNepali(item.Project_End_Date)</td>
+                                        <td style="width:120px;"></td>
+                                        <td style="width:120px;"></td>
+                                        <td style="height:100px!important; width:150px!important; border-top:none!important; border-left:none!important; justify-content:center;">
+                                            <div style="display:flex;">
+                                                @if (item.Status == false)
+                                                {
+                                                    <a id="सच्याउनुहोस" class="btn  btn-sm" style="border-right:1px solid #ccc; height:25px;" title="Edit" asp-action="InsertPlanningSamjhauta" asp-route-id="@item.PlanningSamjhautaId">
+                                                        <i class="fa fa-edit" style=" font-weight:1; font-size:12px;">
+                                                        </i>
+                                                    </a>
+                                                    <a onclick="return confirm(' के तपाइँ निश्चित रद्द गर्न चाहानुहुन्छ??')" title="Delete" asp-controller="Planningsamjhauta" asp-action="Delete" asp-area="Admin"
+                                                       class="btn btn-sm " style="border-right:1px solid #ccc; height:25px;" asp-route-id="@item.PlanningSamjhautaId">
+                                                        <i class="fas fa-trash" style="color:red;">
+                                                        </i>
+                                                    </a>
+                                                }
+                                                <a class="btn btn-sm" asp-action="Details" title="विवरण" asp-route-id="@item.PlanningSamjhautaId">
+                                                    <i class="fa fa-list ">
+                                                    </i>
+                                                </a>
+                                            </div>
+                                            <div style="display:flex;">
+                                                @if (item.Project_Complete_Date == null && User.IsInRole("SuperAdmin") || User.IsInRole("Administrator"))
+                                                {
+                                                    <a class="btn  btn-sm d-flex" title="भुक्तानि" asp-action="BhuktaniIndex" asp-route-id="@item.PlanningSamjhautaId" style="border-right:1px solid #ccc; height:25px;">
+                                                        <img src="\Images\Icon\salary.png" width="16" height="16" style=" font-weight:1; font-size:12px;">  <span>  </span>
+                                                    </a>
+                                                }
+                                                <a asp-controller="Planningsamjhauta" asp-action="CreatePlanningDocument" asp-area="Admin"
+                                                   class="btn  btn-sm d-flex " title="कागजात" asp-route-PlanningSamjhautaid="@item.PlanningSamjhautaId" style="border-right:1px solid #ccc; height:25px;">
+                                                    <i class=" fas fa-file-image" style=" font-weight:1; font-size:12px;"> </i>
+                                                </a>
+@*                                                @if (item.Project_Complete_Date == null && User.IsInRole("SuperAdmin") || User.IsInRole("Administrator") && (item.Status==true))
+ *@                                               @if(item.Status==true && item.Project_Complete_Date==null)
+                                                {
+                                                    <a class="btn  btn-sm d-flex" title="सम्पन्न" data-bs-toggle="modal" data-bs-target="#workcompletemodal" onclick="SubmitForm(this)" data-id="@item.PlanningSamjhautaId">
+                                                        <img src="~/Icon/complete.png" width="16" height="16" style=" font-weight:1; font-size:12px;">  <span> </span>
+                                                    </a>
+                                                }
+                                            </div>
+                                            @if (User.IsInRole("SuperAdmin") || User.IsInRole("Administrator"))
+                                            {
+                                                <a id="भौतिक प्रगति" class="btn  btn-sm d-flex" title="भौतिक प्रगति" data-bs-toggle="modal" data-bs-target="#pragatimodal" onclick="SubmitFormb(this)" data-id="@item.PlanningSamjhautaId">
+                                                    <img src="~/Icon/bhutikpragati.jpg" width="16" height="16" style=" font-weight:1; font-size:12px;">  <span>  </span>
+                                                </a>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+
+                        </table>
+
+                        <div class=" d-flex justify-content-end">
+                            <a asp-action="Index" asp-controller="Setup" asp-area="Admin" class="btn  btn-sm mt-3 mb-2 me-2 text-white"
+                               style=" background-color:#424f63;">
+                                <i class="fa fa-arrow-left" aria-hidden="true"> पछाडि फर्कनुहोस्</i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="workcompletemodal" tabindex="-1" role="dialog" aria-labelledby="workcompletemodalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 style="color:blue;text-align:center;">आयोजना सम्पन्न फारम</h6>
+            </div>
+            <div class="modal-body" style="padding:20px 50px;">
+                <form role="form" action="@Url.Action("UpdateProjectDate", "PlanningSamjhauta")" method="get">
+                    <input type="hidden" id="pId" name="id" />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="date"><span class="glyphicon glyphicon-user"></span> आयोजना सम्पन्न भएको मिति</label>
+                                <input type="text" class="form-control" id="date" name="date" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="detail"><span class="glyphicon glyphicon-user"></span>विवरण</label>
+                                <input type="text" class="form-control" id="detail" name="detail">
+                            </div>
+                            <div class="form-group">
+                                <label for="kaifiyat"><span class="glyphicon glyphicon-user"></span> कैफियत</label>
+                                <input type="text" class="form-control" id="kaifiyat" name="kaifiyat">
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success btn-compose"><span class="glyphicon glyphicon-plus"></span> सुरक्षित गर्नुहोस </button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="workcompletemodal">Close</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="pragatimodal" tabindex="-1" role="dialog" aria-labelledby="pragatimodalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        @* <partial name="_PragatiPratibeshan.cshtml" /> *@
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h6 style="color:blue;text-align:center;">भौतिक प्रगति  फारम</h6>
+            </div>
+            <div class="modal-body" style="padding:20px 50px;">
+                <form role="form" action="@Url.Action("UpdateBhautikPragati", "PlanningSamjhauta")" method="get">
+                    <input type="hidden" id="praId" name="praid" />
+                    <div class="row">
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+                                <label for="BittiyaPragati"><span class="glyphicon glyphicon-user"></span>वित्तीय प्रगति विवरण</label>
+                                <input type="number" class="form-control" id="BittiyaPragati" name="BittiyaPragati">
+                            </div>
+                            <div class="form-group">
+                                <label for="BhautikPragati"><span class="glyphicon glyphicon-user"></span>भौतिक प्रगति विवरण</label>
+                                <input type="number" class="form-control" id="BhautikPragati" name="BhautikPragati">
+                            </div>
+                            <div class="form-group">
+                                <label for="Remarks"><span class="glyphicon glyphicon-user"></span> कैफियत</label>
+                                <input type="text" class="form-control" id="Remarks" name="Remarks">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success btn-compose"><span class="glyphicon glyphicon-plus"></span> सुरक्षित गर्नुहोस </button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="pragatimodal">Close</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+<link href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css" rel="stylesheet" />
+	<link href="https://cdn.datatables.net/buttons/3.0.2/css/buttons.bootstrap5.css" rel="stylesheet" />
+	<link href="https://cdn.datatables.net/colreorder/2.0.3/css/colReorder.bootstrap5.css" rel="stylesheet" />
+	<script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+	<script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
+	<script src="https://cdn.datatables.net/buttons/3.0.2/js/dataTables.buttons.js"></script>
+	<script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.bootstrap5.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+	<script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.html5.min.js"></script>
+	<script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.print.min.js"></script>
+	<script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.colVis.min.js"></script>
+	<script src="https://cdn.datatables.net/colreorder/2.0.3/js/dataTables.colReorder.js"></script>
+@* 	<script>
+		$("#zero_config").DataTable();
+	</script> *@
+	<script>
+		$('#zero_config').DataTable({
+			//colReorder: true,
+			//lengthMenu: [5, 10, 50, 100, 500],
+			layout: {
+				topStart: {
+					buttons: [
+						
+						{
+							extend: 'excelHtml5',
+							exportOptions: {
+								columns: ':visible'
+							}
+						},
+						
+						'colvis',
+						"pageLength"
+					]
+				}
+			}
+		});
+	</script>
+    <script>
+        $(function () { Message('@TempData["del"]') });
+    </script>
+    <script>
+        NepaliDatePickerCal(document.getElementById('date'), document.getElementById('date'));
+        $(document).ready(function () {
+            $('#wardId').val('@ViewBag.wardId');
+            $('#name').val('@ViewBag.name');
+        })
+    </script>
+
+    <script>
+        function SubmitForm(e) {
+            var pid = $(e).attr("data-id");
+            $('#pId').val(pid);
+            $("#workcompletemodal").modal();
+        }
+    </script>
+    <script>
+        function SubmitFormb(e) {
+            var praId = $(e).attr("data-id");
+            $('#praId').val(praId);
+            $("#workcompletemodal").modal();
+        }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var closeButtons = document.querySelectorAll('[data-dismiss="workcompletemodal"]');
+            closeButtons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    var modal = this.closest('#workcompletemodal');
+                    var bootstrapModal = bootstrap.Modal.getInstance(modal);
+                    bootstrapModal.hide();
+                });
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var closeButtons = document.querySelectorAll('[data-dismiss="pragatimodal"]');
+            closeButtons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    var modal = this.closest('#pragatimodal');
+                    var bootstrapModal = bootstrap.Modal.getInstance(modal);
+                    bootstrapModal.hide();
+                });
+            });
+        });
+    </script>
+}
+
+

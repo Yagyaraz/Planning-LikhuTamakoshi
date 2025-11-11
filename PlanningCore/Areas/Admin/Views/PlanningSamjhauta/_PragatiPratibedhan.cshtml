@@ -1,0 +1,34 @@
+﻿<div class="modal-content">
+<div class="modal-header">
+				<h6 style="color:blue;text-align:center;">भौतिक प्रगति  फारम</h6>
+			</div>
+			<div class="modal-body" style="padding:20px 50px;" >
+
+
+				<form role="form" action="@Url.Action("UpdateBhautikPragati", "PlanningSamjhauta")" method="get">
+					<input type="hidden" id="praId" name="praid" />
+					<div class="row">
+						<div class="col-md-6">
+
+							<div class="form-group">
+								<label for="BittiyaPragati"><span class="glyphicon glyphicon-user"></span>वित्तीय प्रगति विवरण</label>
+								<input type="number" class="form-control" id="BittiyaPragati" name="BittiyaPragati">
+							</div>
+							<div class="form-group">
+								<label for="BhautikPragati"><span class="glyphicon glyphicon-user"></span>भौतिक प्रगति विवरण</label>
+								<input type="number" class="form-control" id="BhautikPragati" name="BhautikPragati">
+							</div>
+							<div class="form-group">
+								<label for="Remarks"><span class="glyphicon glyphicon-user"></span> कैफियत</label>
+								<input type="text" class="form-control" id="Remarks" name="Remarks">
+							</div>
+						</div>
+						<div class="form-group">
+							<button type="submit" class="btn btn-success btn-compose"><span class="glyphicon glyphicon-plus"></span> सुरक्षित गर्नुहोस </button>
+							<button type="button" class="btn btn-secondary" data-dismiss="pragatimodal">Close</button>
+						</div>
+					</div>
+				</form>
+			</div>
+
+ </div>

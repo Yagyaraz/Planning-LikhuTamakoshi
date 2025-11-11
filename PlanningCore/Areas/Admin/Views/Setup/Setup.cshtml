@@ -1,0 +1,208 @@
+﻿<style>
+
+    .col-md-2 {
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+
+    .member {
+        text-align: center;
+    }
+
+
+    .pic img {
+        border-radius: 50%;
+        border: 2px solid #ccc;
+    }
+
+
+    .member-info h4 {
+        margin-top: 10px;
+    }
+
+
+    .button {
+        width: 100%;
+        text-align: center;
+        border: 2px solid #007bff;
+        padding: 10px;
+        box-sizing: border-box;
+        cursor: pointer;
+    }
+
+
+        .button img {
+            max-width: 100%;
+            height: auto;
+        }
+
+
+            .button img[src^="https://via.placeholder.com/"] {
+            }
+
+
+        .button:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+            .button:hover a {
+                color: #fff;
+            }
+
+    .button {
+        height: 10rem;
+    }
+
+        .button > a {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            align-items: center
+        }
+</style>
+
+<div container" class="m-2 pt-5 mt-5 pb-4">
+    <div container" class="m-2 pt-3 pb-4" style=" border:1px solid black;">
+        <div class="row container">
+            @if (User.IsInRole("Administrator") || User.IsInRole("SuperAdmin"))
+            {
+                <div class="col-md-2">
+                    <button class="btn button">
+                        <a href="@Url.Action("FiscalYearIndex", "Common" , new { area = "Admin" })" class="sidebar-link">
+                            <img src="/Icon/fiscalyear.png" style="max-width:90%;" />
+                            <span class="hide-menu"> आर्थिक बर्ष </span>
+                        </a>
+                    </button>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn button">
+                        <a href="@Url.Action("MainSetting", "mainsetting" , new { area = "" })" class="sidebar-link">
+                            <img src="/Icon/officesetup.png" alt="FY">
+                            <span class="hide-menu" style="position:-ms-page;"> कार्यालय सेटअप</span>
+                        </a>
+                    </button>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn button">
+                        <a href="@Url.Action("WardIndex", "mainsetting" , new { area = "" })" class="sidebar-link">
+                            <img src="/Icon/officesetup.png" alt="FY">
+                            <span class="hide-menu" style="position:-ms-page;">वडा कार्यालय सेटअप</span>
+                        </a>
+                    </button>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn  button">
+                        <a href="@Url.Action("PadaIndex", "Common", new { area = "Admin" })" class="sidebar-link">
+                            <img src="/Icon/officesetup.png" alt="FY">
+                            <span class="hide-menu"> पद </span>
+                        </a>
+                    </button>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn  button">
+                        <a href="@Url.Action("UnitIndex", "Common", new { area = "Admin" })" class="sidebar-link">
+                            <img src="/Icon/officesetup.png" alt="FY">
+                            <span class="hide-menu"> इकाइ </span>
+                        </a>
+                    </button>
+                </div>
+
+
+                <div class="col-md-2">
+                    <button class="btn button">
+                        <a href="@Url.Action("karkattiindex", "Common", new { area = "Admin" })" class="sidebar-link">
+                            <img src="/Icon/tax-report.png" alt="FY">
+                            <span class="hide-menu"> कर-कट्टि </span>
+                        </a>
+                    </button>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn button">
+                        <a href="@Url.Action("EmployeeIndex", "Common", new { area = "Admin" })" class="sidebar-link">
+                            <img src="/Icon/Emp.jpg" alt="FY">
+                            <span class="hide-menu"> कर्मचारी </span>
+                        </a>
+                    </button>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn button">
+                        <a href="@Url.Action("AnugumanSamitiIndex", "Common", new { area = "Admin" })" class="sidebar-link">
+                            <img src="/Icon/Emp.jpg" alt="FY">
+                            <span class="hide-menu"> अनुगमन समिति </span>
+                        </a>
+                    </button>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn button">
+                        <a href="@Url.Action("BudgetSourceIndex", "Budget", new { area = "Admin" })" class="sidebar-link">
+                            <img src="/Icon/BudgetSource.png" alt="FY">
+                            <span class="hide-menu"> बजेट श्रोत </span>
+                        </a>
+                    </button>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn button">
+                        <a href="@Url.Action("ChhetraIndex", "Common", new { area = "Admin" })" class="sidebar-link">
+                            <img src="/Icon/Emp.jpg" alt="FY">
+                            <span class="hide-menu"> क्षेत्र </span>
+                        </a>
+                    </button>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn button">
+                        <a href="@Url.Action("UpaChhetraIndex", "Common", new { area = "Admin" })" class="sidebar-link">
+                            <img src="/Icon/Emp.jpg" alt="FY">
+                            <span class="hide-menu"> उप-क्षेत्र </span>
+                        </a>
+                    </button>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn button">
+                        <a href="@Url.Action("UpaChhetraDetailsIndex", "Common", new { area = "Admin" })" class="sidebar-link">
+                            <img src="/Icon/Emp.jpg" alt="FY">
+                            <span class="hide-menu">
+                                खण्डीकृत क्षेत्र
+                            </span>
+                        </a>
+                    </button>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn button">
+                        <a href="@Url.Action("DocumentTypeIndex", "Common", new { area = "Admin" })" class="sidebar-link">
+                            <img src="~/images/icon/docs.png" />
+                            <span class="hide-menu"> कागजातका प्रकारहरु </span>
+                        </a>
+                    </button>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn button">
+                        <a href="@Url.Action("BankIndex", "Common", new { area = "Admin" })" class="sidebar-link">
+                            <img src="~/images/icon/docs.png" />
+                            <span class="hide-menu"> बैंक </span>
+                        </a>
+                    </button>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn button">
+                        <a href="@Url.Action("SartaIndex", "Common", new { area = "Admin" })" class="sidebar-link">
+                            <img src="~/icon/sarta.png" />
+                            <span class="hide-menu"> सम्झौताका सर्तहरु </span>
+                        </a>
+                    </button>
+                </div>
+            }
+            <div class="col-md-2">
+                <button class="btn button">
+                    <a href="@Url.Action("YojanaIndex", "Common", new { area = "Admin" })" class="sidebar-link">
+                        <img src="/Icon/Emp.jpg" alt="FY">
+                        <span class="hide-menu"> योजना </span>
+                    </a>
+                </button>
+            </div>
+
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,198 @@
+﻿@model TolBikashSansthaViewModel
+@inject IUtility _Utility
+@{
+	ViewData["Title"] = "Index";
+
+}
+<style>
+	.form-control {
+		border-color: black;
+		/* 	border-radius: 12px; */
+	}
+
+</style>
+@* <link href="~/lib/nepalidatepicker/css/nepali.datepicker.v3.7.min.css" rel="stylesheet" /> *@
+<div class="page-breadcrumb colr1">
+	<div class="row">
+		<div class="col-12 d-flex no-block align-items-center mt-2">
+			<div style="display:flex;">
+				<h4 class="card1" style="background-color:#3c8dbc; color:#fff; height:40px; width:300px; padding-top:5px; text-align:center;">बिद्यालय व्यवस्थापन समिति सम्बन्धि विवरण :</h4>
+				<span style="height:2rem; background-color:#3c8dbc; width:10px; height:40px;"></span>
+				<span style="height: 2rem; border-top: 17px solid transparent;border-left: 25px solid #3c8dbc;border-bottom: 22px solid transparent; height:40px;"> </span>
+			</div>
+			<div class="ms-auto text-end">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="#">गृह पृष्ट</a></li>
+						<li class="breadcrumb-item active" aria-current="page" style="font-size:15px;">
+							बिद्यालय व्यवस्थापन समिति सम्बन्धि विवरण :
+						</li>
+					</ol>
+				</nav>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container-fluid colr1">
+	<div class="row">
+		<form asp-action="CreateTolbikashSamiti" enctype="multipart/form-data">
+			@Html.HiddenFor(model => model.TolBikashSansthaId)
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-body row">
+						<h5 class="col-md-12 col-12"> नया बिद्यालय व्यवस्थापन समिति थप्नुहोस</h5>
+
+						<div class="form-group mt-3 col-md-3 col-3 ">
+							<label asp-for="DartaNo"></label>
+							<input type="text" asp-for="DartaNo" class="form-control">
+						</div>
+
+						<div class="form-group mt-3 col-md-3 col-3 ">
+							<label asp-for="TolBikashSansthaName"></label>
+							<input type="text" asp-for="TolBikashSansthaName" class="form-control">
+							<span asp-validation-for="TolBikashSansthaName" class="text-danger"></span>
+						</div>
+
+						<div class="form-group mt-3 col-md-3 col-3 ">
+							<label asp-for="TolSamitiEstdDate"></label>
+							<input type="text" asp-for="TolSamitiEstdDate" class="form-control">
+							<span asp-validation-for="TolSamitiEstdDate" class="text-danger"></span>
+						</div>
+
+						<div class="form-group mt-3 col-md-3 col-3 ">
+							<label asp-for="Address"></label>
+							<input type="text" asp-for="Address" class="form-control">
+							<span asp-validation-for="Address" class="text-danger"></span>
+						</div>
+
+						@* <div class="form-group mt-3 col-md-4 col-4 " hidden>
+							<input type="datetime" asp-for="Samiti_Estd_Date" class="form-control">
+							<span asp-validation-for="Samiti_Estd_Date" class="text-danger"></span>
+						</div> *@
+						<hr />
+						<div class="col-sm-12 col-12 ">
+							<div class="btitle">
+							</div>
+							<button type="button" id="tolAdd" class="btn btn-add btn-sm"
+									style="background-color:green; color: #fff; padding: 7px 12px;  margin-bottom: 5px; height:2rem; float:right;">
+								<i class="fa fa-plus-circle"> </i> समिति सदस्य थप्नुहोस
+							</button>
+						</div>
+						<div class="col-lg-12 col-sm-12 col-12" id="tolbikashdiv">
+							<div class="col-lg-12 col-sm-12 col-12">
+								@if (Model.tolBikashSansthaMemberList.Count > 0)
+								{
+									foreach (var items in Model.tolBikashSansthaMemberList)
+									{
+										<partial name="_TolbikashMemberList.cshtml" model="@items" />
+									}
+
+								}
+								@* else
+								{
+								<partial name="_SamitiMemberList.cshtml" model="@new UpavoktaSamitiMemberDetailViewModel()" />
+								} *@
+							</div>
+						</div>
+						<hr class="mt-4" />
+
+						@* <div class="form-group mt-2 col-md-3 col-3 ">
+							<label asp-for="Beneficiaries_Attendance"></label>
+							<input type="number" asp-for="Beneficiaries_Attendance" class="form-control">
+							<span asp-validation-for="Beneficiaries_Attendance" class="text-danger"></span>
+						</div>
+						<div class="form-group mt-2 col-md-3 col-3 ">
+							<label asp-for="Beneficiaries_Absent"></label>
+							<input type="number" asp-for="Beneficiaries_Absent" class="form-control">
+							<span asp-validation-for="Beneficiaries_Absent" class="text-danger"></span>
+						</div>
+						<div class="form-group mt-2 col-md-3  col-3 ">
+							<label asp-for="Female_Present"></label>
+							<input type="number" asp-for="Female_Present" class="form-control pAge">
+							<span asp-validation-for="Female_Present" class="text-danger"></span>
+						</div>
+						<div class="form-group mt-2 col-md-3 col-3">
+							<label asp-for="NibedanMiti"></label>
+							<input type="text" asp-for="NibedanMiti" class="form-control">
+							<span asp-validation-for="NibedanMiti" class="text-danger"></span>
+						</div> *@
+
+						<div class="form-group  col-md-3 col-3 mt-2">
+							&nbsp;&nbsp; <label asp-for="YojanaId" class="control-label"></label>
+							<select asp-for="YojanaId" asp-items="await _Utility.GetyojanaList()" class="form-control form-control">
+								<option>--<label asp-for="YojanaId"></label> --</option>
+							</select>
+							<span asp-validation-for="YojanaId" class="text-danger"></span>
+						</div>
+
+						<div class="form-group mt-2 col-md-3 col-3 ">
+							<label asp-for="BankName"></label>
+							<input type="text" asp-for="BankName" class="form-control">
+							<span asp-validation-for="BankName" class="text-danger"></span>
+						</div>
+
+						<div class="form-group mt-2 col-md-3 col-3 ">
+							<label asp-for="AccountNumber"></label>
+							<input type="text" asp-for="AccountNumber" class="form-control" />
+							<span asp-validation-for="AccountNumber" class="text-danger"></span>
+						</div>
+					</div>
+					<div class="border-top">
+						<div class="card-body d-flex gap-2" style="float:right;">
+
+							<button type="submit" class="btn btn-success btn-sm text-white">
+								<i class="fa fa-save">
+									<span class="fw-normal"> सुरक्षित गर्नुहोस</span>
+								</i>
+							</button>
+
+							<a asp-action="TolBikashIndex" asp-controller="UpabhoktaSamiti" asp-area="Admin" class="btn  btn-sm  text-white"
+							   style=" background-color:#424f63;">
+								<i class="fa fa-arrow-left" aria-hidden="true"> पछाडि फर्कनुहोस्</i>
+							</a>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<link href="~/lib/nepalidatepicker/css/nepali.datepicker.v3.7.min.css" rel="stylesheet" />
+@section Scripts {
+	@{
+
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+	<script src="~/lib/nepalidatepicker/js/nepali.datepicker.v3.7.min.js"></script>
+	<script>
+		$('#tolAdd').on('click', function () {
+			debugger;
+			$.ajax({
+				url: '@Url.Action("CreateTolBikashList")',
+				success: function (result) {
+					if (result) {
+						$('#tolbikashdiv').append(result);
+					}
+				},
+				error: function () {
+					alert('error in calling ajax !!')
+				}
+			});
+		});
+	</script>
+	<script>
+		function DeleteRow(e) {
+			var confirmValue = confirm("Are you sure to delete ?");
+			if (confirmValue) {
+				$(e).closest('.new').remove();
+				$(e).closest('.tolbikashdiv').remove();
+			}
+		}
+	</script>
+
+	<script>
+		NepaliDatePickerCal(document.getElementById('TolSamitiEstdDate'), document.getElementById('TolSamitiEstdDate'))
+	</script>
+}

@@ -1,0 +1,607 @@
+﻿@inject IUtility _Utility
+@model PlanningSamjhautaViewModel
+@{
+
+	var headerData = await _Utility.GetHeaderData();
+
+}
+<div class="col-md-12 col-12" style="margin-top:66px;">
+	<div class="d-flex p-1 text-center justify-content-start align-items-center">
+		<img width="120" src="~/Images/NepalLogo.png" />
+
+		<div class="row" style="align-content:center;">
+			<h4>@headerData.PalikaName<br />@headerData.PalikaNameEng</h4>
+			<h3>@headerData.Name <br />@headerData.PalikaTypeNameEng</h3>
+			<h4>@headerData.Address,@headerData.DistrictName (@headerData.Address2,@headerData.DistrictNameEng)</h4>
+			<h4>@headerData.StateName, नेपाल (@headerData.StateNameEng, Nepal)  </h4>
+			<br />
+		</div>
+		<div class="col-md-2 col-2" style="text-align:end;">
+			<img width="120" src="@headerData.LogoPath" />
+		</div>
+	</div>
+</div>
+
+<hr style="color:#8B0000; height:2px;" ; />
+
+<div class="container custom-container">
+
+	<div style="text-align:center;font-size:20px; text-decoration:underline">
+		<strong>@Model.Project_Name </strong> सम्बन्धि छोटकरी विवरण <br />
+	</div>
+	<div class="accordion-body mt-2">
+		<strong>सम्झौता गर्ने संस्थाको नामः- @Model.Samjhauta_Org_Name </strong> <br />
+		<strong> योजना सम्झौता मितिः- @_Utility.ConvertEnglishToNepali(Model.Municipality_Manjuri_Date) </strong> <br />
+		<strong> योजना सुरु मितिः-@_Utility.ConvertEnglishToNepali(Model.Project_Start_Date) </strong> <br />
+		<strong> योजना सम्पन्न मितिः-@_Utility.ConvertEnglishToNepali(Model.Project_End_Date) </strong> <br />
+	</div>
+	<div class="container mt-4">
+
+
+		<div class="row">
+			@if (User.IsInRole("SuperAdmin"))
+			{
+				<div class="col-md-5">
+					<div style="text-align:center; font-weight:bold;color:red">@headerData.Name बाट दिने पत्रहरु </div>
+					<div class="card">
+						@* <div class="form-horizontal"> *@
+						<div class="card-body">
+							<div class="form-group row">
+								<table>
+									<tr style="text-align:center;">
+										<th>पत्रहरु</th>
+										<th>कार्य</th>
+									</tr>
+									<tr style="text-align:center">
+										<td>
+											<a class="btn btn-lg" asp-action="SamjhautaCompleteReport" asp-route-id="@Model.PlanningSamjhautaId"> सम्झौता पत्र</a>
+										</td>
+										<td>
+											<a class="btn btn-secondary btn-sm " asp-action="SamjhautaCompleteReport" asp-route-id="@Model.PlanningSamjhautaId">
+												<i class="fa fa-print"></i>
+											</a>
+										</td>
+									</tr>
+									<tr style="text-align:center">
+										@* 	<td>
+										<a  class="btn btn-lg" asp-action="KaryadeshDineSambandha" asp-route-id="@Model.PlanningSamjhautaId">टिप्पणी आदेश</a>
+									</td>
+									<td>
+										<a  class="btn btn-secondary btn-sm " asp-action="KaryadeshDineSambandha" asp-route-id="@Model.PlanningSamjhautaId">
+											<i class="fa fa-print"></i>
+										</a>
+									</td> *@
+										<td>
+											<a class="btn btn-lg" asp-action="SamjhautaReport" asp-route-id="@Model.PlanningSamjhautaId"> टिप्पणी आदेश</a>
+										</td>
+										<td>
+											<a class="btn btn-secondary btn-sm " asp-action="SamjhautaReport" asp-route-id="@Model.PlanningSamjhautaId">
+												<i class="fa fa-print"></i>
+											</a>
+										</td>
+									</tr>
+									<tr style="text-align:center">
+										<td>
+											<a class="btn btn-lg" asp-action="Karyadesh" asp-route-id="@Model.PlanningSamjhautaId">कार्यादेश</a>
+										</td>
+										<td>
+											<a class="btn btn-secondary btn-sm " asp-action="Karyadesh" asp-route-id="@Model.PlanningSamjhautaId">
+												<i class="fa fa-print"></i>
+											</a>
+										</td>
+									</tr>
+									<tr style="text-align:center">
+										<td>
+											<a class="btn btn-lg" asp-action="BankForm" asp-route-id="@Model.PlanningSamjhautaId">बैङ्क फारम</a>
+										</td>
+										<td>
+											<a class="btn btn-secondary btn-sm " asp-action="BankForm" asp-route-id="@Model.PlanningSamjhautaId">
+												<i class="fa fa-print"></i>
+											</a>
+										</td>
+									</tr>
+									<tr style="text-align:center">
+										<td>
+											<a class="btn btn-lg" asp-action="BankClose" asp-route-id="@Model.PlanningSamjhautaId">बैङ्क खाता बन्द</a>
+										</td>
+										<td>
+											<a class="btn btn-secondary btn-sm " asp-action="BankClose" asp-route-id="@Model.PlanningSamjhautaId">
+												<i class="fa fa-print"></i>
+											</a>
+										</td>
+									</tr>
+									<tr style="text-align:center">
+										<td>
+											<a class="btn btn-lg" asp-controller="Format" asp-action="AayojanaAnugaman" asp-route-id="@Model.PlanningSamjhautaId"> योजना अनुगमन समितिको सिफारिस  </a>
+										</td>
+										<td>
+											<a class="btn btn-secondary btn-sm" asp-controller="Format" asp-action="AayojanaAnugaman" asp-route-id="@Model.PlanningSamjhautaId">
+												<i class="fa fa-print"></i>
+											</a>
+										</td>
+									</tr>
+									@* <tr style="text-align:center">
+										<td>
+											<a class="btn btn-lg" asp-action="SifarishGariyeko" asp-route-id="@Model.PlanningSamjhautaId">अनुगमन सिफारिस गरिएको </a>
+										</td>
+										<td>
+											<a class="btn btn-secondary btn-sm " asp-action="SifarishGariyeko" asp-route-id="@Model.PlanningSamjhautaId">
+												<i class="fa fa-print"></i>
+											</a>
+										</td>
+									</tr> *@
+
+								</table>
+
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+			}
+			<div class="col-md-4">
+				<div style="text-align:center; font-weight:bold;color:red ">वडा कार्यालय बाट दिने पत्रहरु </div>
+				<div class="card">
+					<div class="card-body">
+						<div class="form-group row">
+							<table>
+								<tr style="text-align:center">
+									<th>पत्रहरु</th>
+									<th>कार्य</th>
+								</tr>
+								<tr style="text-align:center">
+									<td>
+										<a class="btn btn-lg" asp-action="UpavoktaSamitiGathanPratibedhan" asp-route-id="@Model.PlanningSamjhautaId">उ.स गठन  प्रतिबेदन </a>
+									</td>
+									<td>
+										<a class="btn btn-secondary btn-sm" asp-action="UpavoktaSamitiGathanPratibedhan" asp-route-id="@Model.PlanningSamjhautaId">
+											<i class="fa fa-print"></i>
+										</a>
+									</td>
+								</tr>
+								<tr style="text-align:center">
+									<td>
+										<a class="btn btn-lg" asp-action="SamjhautaGaripauPatra" asp-route-id="@Model.PlanningSamjhautaId">सम्झौता गरि पाउँ</a>
+									</td>
+									<td>
+										<a class="btn btn-secondary btn-sm " asp-action="SamjhautaGaripauPatra" asp-route-id="@Model.PlanningSamjhautaId">
+											<i class="fa fa-print"></i>
+										</a>
+									</td>
+								</tr>
+								@* 	<tr style="text-align:center">
+									<td>
+										<a  class="btn btn-lg" asp-action="SamjhautaReport" asp-route-id="@Model.PlanningSamjhautaId"> कार्यदेश दिने सम्बन्धमा</a>
+									</td>
+									<td>
+										<a  class="btn btn-secondary btn-sm " asp-action="SamjhautaReport" asp-route-id="@Model.PlanningSamjhautaId">
+											<i class="fa fa-print"></i>
+										</a>
+									</td>
+								</tr> *@
+								<tr style="text-align:center">
+									<td>
+										<a class="btn btn-lg" asp-action="YojanaAnugamanTahaSamitiPratibedan" asp-route-id="@Model.PlanningSamjhautaId">वडास्तरीय योजना अनुगमन सिफारिस </a>
+									</td>
+									<td>
+										<a class="btn btn-secondary btn-sm " asp-action="YojanaAnugamanTahaSamitiPratibedan" asp-route-id="@Model.PlanningSamjhautaId">
+											<i class="fa fa-print"></i>
+										</a>
+									</td>
+								</tr>
+								<tr style="text-align:center">
+									<td>
+										<a class="btn btn-lg" asp-action="SamjhautaGarnaPathayeko" asp-route-id="@Model.PlanningSamjhautaId">सम्झौता गर्न पठाइएको</a>
+									</td>
+									<td>
+										<a class="btn btn-secondary btn-sm " asp-action="SamjhautaGarnaPathayeko" asp-route-id="@Model.PlanningSamjhautaId">
+											<i class="fa fa-print"></i>
+										</a>
+									</td>
+								</tr>
+								@* <tr style="text-align:center">
+									<td>
+										<a class="btn btn-lg" asp-action="BhuktaniKoLagiSifarish" asp-route-id="@Model.PlanningSamjhautaId">भुक्तानीको लागि सिफारिस</a>
+									</td>
+									<td>
+										<a class="btn btn-secondary btn-sm "asp-action="BhuktaniKoLagiSifarish" asp-route-id="@Model.PlanningSamjhautaId">
+											<i class="fa fa-print"></i>
+										</a>
+									</td>
+								</tr> *@
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			@* <div class="col-md-3">
+				<div style="text-align:center; font-weight:bold;color:red "> अनूसुचि </div>
+				<div class="card">
+					<div class="card-body">
+						<div class="form-group row">
+							<table>
+								<tr style="text-align:center">
+									<th>पत्रहरु</th>
+									<th>कार्य</th>
+								</tr>
+								<tr style="text-align:center">
+									<td>
+										<a  class="btn btn-lg" asp-controller="Anusuchi" asp-action="InsertUpdateAnusuchi3" asp-route-id="@Model.PlanningSamjhautaId"> अनूसुचि १  </a>
+									</td>
+									<td>
+										<a  class="btn btn-secondary btn-sm" asp-action="UpavoktaSamitiGathanPratibedhan" asp-route-id="@Model.PlanningSamjhautaId">
+											<i class="fa fa-print"></i>
+										</a>
+									</td>
+								</tr>
+								<tr style="text-align:center">
+									<td>
+										<a  class="btn btn-lg" asp-action="UpavoktaSamitiGathanPratibedhan" asp-route-id="@Model.PlanningSamjhautaId"> अनूसुचि १  </a>
+									</td>
+									<td>
+										<a  class="btn btn-secondary btn-sm" asp-action="UpavoktaSamitiGathanPratibedhan" asp-route-id="@Model.PlanningSamjhautaId">
+											<i class="fa fa-print"></i>
+										</a>
+									</td>
+								</tr>
+								<tr style="text-align:center">
+									<td>
+										<a  class="btn btn-lg" asp-action="UpavoktaSamitiGathanPratibedhan" asp-route-id="@Model.PlanningSamjhautaId"> अनूसुचि १  </a>
+									</td>
+									<td>
+										<a  class="btn btn-secondary btn-sm" asp-action="UpavoktaSamitiGathanPratibedhan" asp-route-id="@Model.PlanningSamjhautaId">
+											<i class="fa fa-print"></i>
+										</a>
+									</td>
+								</tr>
+								<tr style="text-align:center">
+									<td>
+										<a  class="btn btn-lg" asp-action="UpavoktaSamitiGathanPratibedhan" asp-route-id="@Model.PlanningSamjhautaId"> अनूसुचि १  </a>
+									</td>
+									<td>
+										<a  class="btn btn-secondary btn-sm" asp-action="UpavoktaSamitiGathanPratibedhan" asp-route-id="@Model.PlanningSamjhautaId">
+											<i class="fa fa-print"></i>
+										</a>
+									</td>
+								</tr>
+								<tr style="text-align:center">
+									<td>
+										<a  class="btn btn-lg" asp-action="UpavoktaSamitiGathanPratibedhan" asp-route-id="@Model.PlanningSamjhautaId"> अनूसुचि १  </a>
+									</td>
+									<td>
+										<a  class="btn btn-secondary btn-sm" asp-action="UpavoktaSamitiGathanPratibedhan" asp-route-id="@Model.PlanningSamjhautaId">
+											<i class="fa fa-print"></i>
+										</a>
+									</td>
+								</tr>
+								<tr style="text-align:center">
+									<td>
+										<a  class="btn btn-lg" asp-action="UpavoktaSamitiGathanPratibedhan" asp-route-id="@Model.PlanningSamjhautaId"> अनूसुचि १  </a>
+									</td>
+									<td>
+										<a  class="btn btn-secondary btn-sm" asp-action="UpavoktaSamitiGathanPratibedhan" asp-route-id="@Model.PlanningSamjhautaId">
+											<i class="fa fa-print"></i>
+										</a>
+									</td>
+								</tr>
+								<tr style="text-align:center">
+									<td>
+										<a  class="btn btn-lg" asp-action="UpavoktaSamitiGathanPratibedhan" asp-route-id="@Model.PlanningSamjhautaId"> अनूसुचि १  </a>
+									</td>
+									<td>
+										<a  class="btn btn-secondary btn-sm" asp-action="UpavoktaSamitiGathanPratibedhan" asp-route-id="@Model.PlanningSamjhautaId">
+											<i class="fa fa-print"></i>
+										</a>
+									</td>
+								</tr>
+								<tr style="text-align:center">
+									<td>
+										<a  class="btn btn-lg" asp-action="UpavoktaSamitiGathanPratibedhan" asp-route-id="@Model.PlanningSamjhautaId"> अनूसुचि १  </a>
+									</td>
+									<td>
+										<a  class="btn btn-secondary btn-sm" asp-action="UpavoktaSamitiGathanPratibedhan" asp-route-id="@Model.PlanningSamjhautaId">
+											<i class="fa fa-print"></i>
+										</a>
+									</td>
+								</tr>
+								<tr style="text-align:center">
+									<td>
+										<a  class="btn btn-lg" asp-action="UpavoktaSamitiGathanPratibedhan" asp-route-id="@Model.PlanningSamjhautaId"> अनूसुचि १  </a>
+									</td>
+									<td>
+										<a  class="btn btn-secondary btn-sm" asp-action="UpavoktaSamitiGathanPratibedhan" asp-route-id="@Model.PlanningSamjhautaId">
+											<i class="fa fa-print"></i>
+										</a>
+									</td>
+								</tr>
+								<tr style="text-align:center">
+									<td>
+										<a  class="btn btn-lg" asp-action="UpavoktaSamitiGathanPratibedhan" asp-route-id="@Model.PlanningSamjhautaId"> अनूसुचि १  </a>
+									</td>
+									<td>
+										<a  class="btn btn-secondary btn-sm" asp-action="UpavoktaSamitiGathanPratibedhan" asp-route-id="@Model.PlanningSamjhautaId">
+											<i class="fa fa-print"></i>
+										</a>
+									</td>
+								</tr>
+								<tr style="text-align:center">
+									<td>
+										<a  class="btn btn-lg" asp-action="UpavoktaSamitiGathanPratibedhan" asp-route-id="@Model.PlanningSamjhautaId"> अनूसुचि १  </a>
+									</td>
+									<td>
+										<a  class="btn btn-secondary btn-sm" asp-action="UpavoktaSamitiGathanPratibedhan" asp-route-id="@Model.PlanningSamjhautaId">
+											<i class="fa fa-print"></i>
+										</a>
+									</td>
+								</tr>
+
+
+							</table>
+						</div>
+
+					</div>
+
+				</div>
+
+			</div> *@
+			<div class="col-md-3">
+				<div style="text-align:center; font-weight:bold;color:red "> Format </div>
+				<div class="card">
+					<div class="card-body">
+						<div class="form-group row">
+							<table>
+								<tr style="text-align:center">
+									<th>पत्रहरु</th>
+									<th>कार्य</th>
+								</tr>
+								<tr style="text-align:center">
+									<td>
+										<a class="btn btn-lg" asp-controller="Format" asp-action="Upbhoktasamitigathan" asp-route-id="@Model.PlanningSamjhautaId"> उपभोक्ता समिति गठन सम्बन्धी बैठकको ढाँचा  </a>
+									</td>
+									<td>
+										<a class="btn btn-secondary btn-sm" asp-controller="Format" asp-action="Upbhoktasamitigathan" asp-route-id="@Model.PlanningSamjhautaId">
+											<i class="fa fa-print"></i>
+										</a>
+									</td>
+								</tr>
+								<tr style="text-align:center">
+									<td>
+										<a class="btn btn-lg" asp-controller="Format" asp-action="PrabahdikLagat" asp-route-id="@Model.PlanningSamjhautaId"> प्राविधिक लगत इष्टमिट,डिजाइन तथा नक्सा निर्माणको लागि निवेदन  </a>
+									</td>
+									<td>
+										<a class="btn btn-secondary btn-sm" asp-controller="Format" asp-action="PrabahdikLagat" asp-route-id="@Model.PlanningSamjhautaId">
+											<i class="fa fa-print"></i>
+										</a>
+									</td>
+								</tr>
+								<tr style="text-align:center">
+									<td>
+										<a class="btn btn-lg" asp-controller="Format" asp-action="Yojanakarya" asp-route-id="@Model.PlanningSamjhautaId"> योजनाको कार्य प्रारम्भ हुनु पूर्व गरिने अनुगमनमा प्रयोग गरिने चेकलिष्ट  </a>
+									</td>
+									<td>
+										<a class="btn btn-secondary btn-sm" asp-controller="Format" asp-action="Yojanakarya" asp-route-id="@Model.PlanningSamjhautaId">
+											<i class="fa fa-print"></i>
+										</a>
+									</td>
+								</tr>
+								<tr style="text-align:center">
+									<td>
+										<a class="btn btn-lg" asp-controller="Format" asp-action="Tolbikashmarfat" asp-route-id="@Model.PlanningSamjhautaId"> टोल विकास/उपभोक्ता समिति मार्फत सञ्चालन हुने आयोजनामा ठुला मेसिनरी उपकरण प्रयोगको अनुमती माग/सिफारिस/स्वीकृती फारम </a>
+									</td>
+									<td>
+										<a class="btn btn-secondary btn-sm" asp-controller="Format" asp-action="Tolbikashmarfat" asp-route-id="@Model.PlanningSamjhautaId">
+											<i class="fa fa-print"></i>
+										</a>
+									</td>
+								</tr>
+								<tr style="text-align:center">
+									<td>
+										<a class="btn btn-lg" asp-controller="Format" asp-action="Upabhotasamitibaithak" asp-route-id="@Model.PlanningSamjhautaId"> उपभोक्ता समितिको बैठकका निर्णयहरु  </a>
+									</td>
+									<td>
+										<a class="btn btn-secondary btn-sm" asp-controller="Format" asp-action="Upabhotasamitibaithak" asp-route-id="@Model.PlanningSamjhautaId">
+											<i class="fa fa-print"></i>
+										</a>
+									</td>
+								</tr>
+								<tr style="text-align:center">
+									<td>
+										<a class="btn btn-lg" asp-controller="Format" asp-action="Gaupalikaledeyakosuchana" asp-route-id="@Model.PlanningSamjhautaId"> गाउँपालिकाबाट दिएको सूचना पाटी</a>
+									</td>
+									<td>
+										<a class="btn btn-secondary btn-sm" asp-controller="Format" asp-action="Gaupalikaledeyakosuchana" asp-route-id="@Model.PlanningSamjhautaId">
+											<i class="fa fa-print"></i>
+										</a>
+									</td>
+								</tr>
+								@* <tr style="text-align:center">
+									<td>
+										<a class="btn btn-lg" asp-controller="Format" asp-action="Baithakkonirnaya"> उपभोक्ता समिति/संस्थाको बैठकका निर्णयहरु </a>
+									</td>
+									<td>
+										<a  class="btn btn-secondary btn-sm" asp-controller="Format" asp-action="Baithakkonirnaya"  >
+											<i class="fa fa-print"></i>
+										</a>
+									</td>
+								</tr> *@
+								<tr style="text-align:center">
+									<td>
+										<a class="btn btn-lg" asp-controller="Format" asp-action="Myadthap" asp-route-id="@Model.PlanningSamjhautaId"> म्याद थपको लागि निवेदन  </a>
+									</td>
+									<td>
+										<a class="btn btn-secondary btn-sm" asp-controller="Format" asp-action="Myadthap" asp-route-id="@Model.PlanningSamjhautaId">
+											<i class="fa fa-print"></i>
+										</a>
+									</td>
+								</tr>
+								<tr style="text-align:center">
+									<td>
+										<a class="btn btn-lg" asp-controller="Format" asp-action="YojanaPartibedan" asp-route-id="@Model.PlanningSamjhautaId"> योजनाको कार्य निर्माणाधीन अवस्थामा गरिने अनुगमन प्रतिवेदन:  </a>
+									</td>
+									<td>
+										<a class="btn btn-secondary btn-sm" asp-controller="Format" asp-action="YojanaPartibedan" asp-route-id="@Model.PlanningSamjhautaId">
+											<i class="fa fa-print"></i>
+										</a>
+									</td>
+								</tr>
+								<tr style="text-align:center">
+									<td>
+										<a class="btn btn-lg" asp-controller="Format" asp-action="Anusuchisix" asp-route-id="@Model.PlanningSamjhautaId"> अनुसूची ६  </a>
+									</td>
+									<td>
+										<a class="btn btn-secondary btn-sm" asp-controller="Format" asp-action="Anusuchisix" asp-route-id="@Model.PlanningSamjhautaId">
+											<i class="fa fa-print"></i>
+										</a>
+									</td>
+								</tr>
+								<tr style="text-align:center">
+									<td>
+										<a class="btn btn-lg" asp-controller="Format" asp-action="AnusuchiFour" asp-route-id="@Model.PlanningSamjhautaId"> अनुसूची ४  </a>
+									</td>
+									<td>
+										<a class="btn btn-secondary btn-sm" asp-controller="Format" asp-action="AnusuchiFour" asp-route-id="@Model.PlanningSamjhautaId">
+											<i class="fa fa-print"></i>
+										</a>
+									</td>
+								</tr>
+								<tr style="text-align:center">
+									<td>
+										<a class="btn btn-lg" asp-controller="Format" asp-action="YojanaHastantaran" asp-route-id="@Model.PlanningSamjhautaId">  योजना हस्तान्त्रण फारम  </a>
+									</td>
+									<td>
+										<a class="btn btn-secondary btn-sm" asp-controller="Format" asp-action="YojanaHastantaran" asp-route-id="@Model.PlanningSamjhautaId">
+											<i class="fa fa-print"></i>
+										</a>
+									</td>
+								</tr>
+								<tr style="text-align:center">
+									<td>
+										<a class="btn btn-lg" asp-controller="Format" asp-action="AnitiAnugaman" asp-route-id="@Model.PlanningSamjhautaId">योजनाको  अन्तिम अनुगमन फारम  </a>
+									</td>
+									<td>
+										<a class="btn btn-secondary btn-sm" asp-controller="Format" asp-action="AnitiAnugaman" asp-route-id="@Model.PlanningSamjhautaId">
+											<i class="fa fa-print"></i>
+										</a>
+									</td>
+								</tr>
+								<tr style="text-align:center">
+									<td>
+										<a class="btn btn-lg" asp-controller="Format" asp-action="NibedanKodacha" asp-route-id="@Model.PlanningSamjhautaId">  योजना मुल्याङ्कनको लागि उ.स.ले पेश गर्ने निवेदनको ढाचाँ  </a>
+									</td>
+									<td>
+										<a class="btn btn-secondary btn-sm" asp-controller="Format" asp-action="NibedanKodacha" asp-route-id="@Model.PlanningSamjhautaId">
+											<i class="fa fa-print"></i>
+										</a>
+									</td>
+								</tr>
+								<tr style="text-align:center">
+									<td>
+										<a class="btn btn-lg" asp-controller="Format" asp-action="BhuktanikaLagiSifarish" asp-route-id="@Model.PlanningSamjhautaId"> भुक्तानीको लागि सिफारिसको निवेदन  </a>
+									</td>
+									<td>
+										<a class="btn btn-secondary btn-sm" asp-controller="Format" asp-action="BhuktanikaLagiSifarish" asp-route-id="@Model.PlanningSamjhautaId">
+											<i class="fa fa-print"></i>
+										</a>
+									</td>
+								</tr>
+								<tr style="text-align:center">
+									<td>
+										<a class="btn btn-lg" asp-controller="Format" asp-action="BhuktanikaLagiSifarishSecond" asp-route-id="@Model.PlanningSamjhautaId"> भुक्तानीको लागि सिफारिसको निवेदन(२)  </a>
+									</td>
+									<td>
+										<a class="btn btn-secondary btn-sm" asp-controller="Format" asp-action="BhuktanikaLagiSifarishSecond" asp-route-id="@Model.PlanningSamjhautaId">
+											<i class="fa fa-print"></i>
+										</a>
+									</td>
+								</tr>
+						@* 		<tr style="text-align:center">
+									<td>
+										<a class="btn btn-lg" asp-controller="Format" asp-action="AayojanaAnugaman" asp-route-id="@Model.PlanningSamjhautaId"> योजना अनुगमन समितिको सिफारिस सम्‍बन्‍धमा  </a>
+									</td>
+									<td>
+										<a class="btn btn-secondary btn-sm" asp-controller="Format" asp-action="AayojanaAnugaman" asp-route-id="@Model.PlanningSamjhautaId">
+											<i class="fa fa-print"></i>
+										</a>
+									</td>
+								</tr> *@
+								<tr style="text-align:center">
+									<td>
+										<a class="btn btn-lg" asp-controller="Format" asp-action="TippaniAadesh" asp-route-id="@Model.PlanningSamjhautaId"> टिप्पणी र आदेश  </a>
+									</td>
+									<td>
+										<a class="btn btn-secondary btn-sm" asp-controller="Format" asp-action="TippaniAadesh" asp-route-id="@Model.PlanningSamjhautaId">
+											<i class="fa fa-print"></i>
+										</a>
+									</td>
+								</tr>
+
+							</table>
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+<section class="card">
+	<div class="card-body">
+		<div class="row align-items-center">
+			<table class="table table-striped">
+				<thead>
+					<tr class="text-center">
+						<th>कागजातको नाम</th>
+						<th>कागजात</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var doc in Model.DocumentsList)
+					{
+						<tr>
+							<td>@doc.DocumentTypeName</td>
+							<td class="image-container text-center">
+								@if (!string.IsNullOrEmpty(doc.ImagePath))
+								{
+									@if (doc.ImagePath.Contains("pdf"))
+									{
+										<a href="@doc.ImagePath" title="Click to View PDF" target="_blank" class="btn btn-link">Click to View PDF</a>
+									}
+									else
+									{
+										<a href="@doc.ImagePath" title="Click to Enlarge Image" target="_blank">
+											<img src="@doc.ImagePath" alt="Document Image" class="img-thumbnail" style="max-width: 150px;" />
+										</a>
+										<a href="@doc.ImagePath" download class="btn btn-outline-primary btn-sm mt-2">
+											<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-download me-1" viewBox="0 0 16 16">
+												<path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+												<path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
+											</svg>
+											Download
+										</a>
+									}
+								}
+							</td>
+						</tr>
+					}
+					@if (Model.DocumentsList.Count == 0)
+					{
+						<tr>
+							<td colspan="2" class="text-center">No documents available</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</section>
+@section Scripts {
+	<script>
+		$(function () { Message('@TempData["Msg"]') });
+	</script>
+}

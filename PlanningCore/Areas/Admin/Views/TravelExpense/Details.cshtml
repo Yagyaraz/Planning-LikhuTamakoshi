@@ -1,0 +1,45 @@
+﻿@model TravelExpenseViewModel
+@inject IUtility _Utility
+@{
+
+    var headerData = await _Utility.GetHeaderData();
+
+}
+<div class="col-md-12 col-12 mt-5 pt-4">
+
+    <div class="d-flex p-1 text-center justify-content-start align-items-center">
+        <img width="120" src="~/Images/NepalLogo.png" />
+
+        <div class="row" style="align-content:center;">
+            <h4>@headerData.PalikaName</h4>
+            <h3>@headerData.Name</h3>
+            <h4>@headerData.Address </h4>
+            <h4>@headerData.StateName, नेपाल </h4>
+            <br />
+        </div>
+    </div>
+</div>
+<hr style="color:#8B0000; height:2px;" ; />
+
+<div class="container mt-4 custom-container ">
+    <div class="name" style="margin-left:70px;"><strong> भ्रमण गर्ने  पदाधिकारी वा कर्मचारीको नाम</strong> @Model.EmployeeName </div>
+    <div class="name" style="margin-left:70px;"><strong>पद</strong> - @Model.PostName </div>
+    <div class="name" style="margin-left:70px;"> <strong>कार्यालय</strong> - @headerData.PalikaName </div>
+    <div class="name" style="margin-left:70px;"> <strong>@Html.DisplayNameFor(x => x.Location)</strong> - @Model.Location </div>
+    <div class="name" style="margin-left:70px;"> <strong>@Html.DisplayNameFor(x => x.Reason)</strong> - @Model.Reason </div>
+    <div class="name" style="margin-left:70px;"> <strong> भ्रमण गर्ने अबधि  @Model.TravelFrom  देखि  @Model.TravelTo सम्म </strong>  </div>
+    <div class="name" style="margin-left:70px;"> <strong>@Html.DisplayNameFor(x => x.vehicle)</strong> - @Model.vehicle </div>
+    <div class="name" style="margin-left:70px;"> <strong>@Html.DisplayNameFor(x => x.Advance)</strong> - @Model.Advance </div>
+
+    <table class="table table-bordered-red">
+      <p>
+          @Html.DisplayNameFor(x => x.BudgetNumber)  @Model.BudgetNumber बाट नगद/चेक नं @Model.Amount
+          
+         </p>
+    </table>
+  
+
+
+</div>
+
+

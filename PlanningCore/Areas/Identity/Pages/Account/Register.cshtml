@@ -1,0 +1,97 @@
+﻿@page
+@model RegisterModel
+@inject IUtility _Utility
+@{
+    ViewData["Title"] = "प्रयोगकर्ता दर्ता";
+}
+
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">प्रयोगकर्ता दर्ता</h4>
+            <div class="ms-auto text-end">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">गृह पृष्ट</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            प्रयोगकर्ता दर्ता
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"> नया प्रयोगकर्ता दर्ता थप्नुहोस</h5>
+                        <div class="form-group mt-3">
+                            <label asp-for="Input.FullName"></label>                           
+                            <input type="text"  asp-for="Input.FullName" class="form-control"placeholder="FullName" />
+                            <span asp-validation-for="Input.FullName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label asp-for="Input.Post"></label>
+                            <input type="text" asp-for="Input.Post" class="form-control" placeholder="पद" />
+                            <span asp-validation-for="Input.Post" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label asp-for="Input.Email">Email</label>
+                            <input asp-for="Input.Email" class="form-control" placeholder="name@example.com" />
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label asp-for="Input.Password">Password</label>
+                            <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label asp-for="Input.ConfirmPassword">Confirm Password</label>
+                            <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                            <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label asp-for="Input.WardNo">वडा</label>
+                            <select asp-for="Input.WardNo" asp-items="await _Utility.GetWardList()" class="form-control WardId">
+                                <option value="">Please select वडा</option>
+                            </select>
+                        </div>
+                       @*  <div class="form-group mt-3">
+                            <label asp-for="Input.DepartmentId">शाखा</label>
+                            <select asp-for="Input.DepartmentId" asp-items="await _Utility.GetDepartmentList()" class="form-control depId">
+                                <option value="">Please select शाखा</option>
+                            </select>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label asp-for="Input.SubDepartmentId">उप-शाखा</label>
+                            <select asp-for="Input.SubDepartmentId" asp-items="await _Utility.GetSubDepartmentList()" class="form-control subId">
+                                <option value="">Please select उप-शाखा</option>
+                            </select>
+                        </div> *@
+                        <div class="form-group mt-3">
+                            <label asp-for="Input.Role">रोल</label>
+                            <select asp-for="Input.Role" asp-items="await _Utility.GetSelectListRoles()" class="form-control">
+                                <option value="">Please select Role</option>
+                            </select>
+                            <span asp-validation-for="Input.Role" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="border-top">
+                        <div class="card-body">
+                            <button type="submit" class="btn btn-success text-white">
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+    

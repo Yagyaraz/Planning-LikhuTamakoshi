@@ -1,0 +1,117 @@
+﻿<style>
+
+    .col-md-2 {
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+
+    .member {
+        text-align: center;
+    }
+
+
+    .pic img {
+        border-radius: 50%;
+        border: 2px solid #ccc;
+    }
+
+
+    .member-info h4 {
+        margin-top: 10px;
+    }
+
+
+    .button {
+        width: 100%;
+        text-align: center;
+        border: 2px solid #007bff;
+        padding: 10px;
+        box-sizing: border-box;
+        cursor: pointer;
+    }
+
+
+        .button img {
+            max-width: 100%;
+            height: auto;
+        }
+
+
+            .button img[src^="https://via.placeholder.com/"] {
+            }
+
+
+        .button:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+            .button:hover a {
+                color: #fff;
+            }
+
+    .button {
+        height: 10rem;
+    }
+
+        .button > a {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            align-items: center
+        }
+</style>
+
+<div container" class="m-2 pt-5 mt-5 pb-4">
+    <div container" class="m-2 pt-3 pb-4" style=" border:1px solid black;">
+        <div class="row container">
+
+            <div class="col-md-2">
+                <button class="btn   button">
+                    <a href="@Url.Action("Samjhuta", "Report", new { area = "Admin" })" class="sidebar-link">
+                        <img class="pb-2" src="/Icon/Report.png" alt="FY">
+                        <span class="hide-menu "> सम्झौता भएका योजना सुची </span>
+                    </a>
+                </button>
+            </div>
+
+            <div class="col-md-2">
+                <button class="btn   button">
+                    <a href="@Url.Action("InCompleteSamjhuta", "Report", new { area = "Admin" })" class="sidebar-link">
+                        <img class="pb-2" src="/Icon/Upabhokta.jpg" alt="FY">
+                        <span class="hide-menu "> सम्झौता नभएका योजना सुची </span>
+                    </a>
+                </button>
+            </div>
+
+            <div class="col-md-2">
+                <button class="btn   button">
+                    <a href="@Url.Action("CompleteSamjhuta", "Report", new { area = "Admin" })" class="sidebar-link">
+                        <img class="pb-2" src="/Icon/bankmilankhata.jpg" alt="FY">
+                        <span class="hide-menu ">  सम्पन्न योजना सुची </span>
+                    </a>
+                </button>
+            </div>
+
+            <div class="col-md-2">
+                <button class="btn   button">
+                    <a href="@Url.Action("BhotikPratiwadan", "Report", new { area = "Admin" })" class="sidebar-link">
+                        <img class="pb-2" src="/Icon/Upabhokta.jpg" alt="FY">
+                        <span class="hide-menu ">  भौतिक प्रगति प्रतिवेदन सुची </span>
+                    </a>
+                </button>
+            </div>
+
+            <div class="col-md-2">
+                <button class="btn   button">
+                    <a href="@Url.Action("BitiyaPratiwadan", "Report", new { area = "Admin" })" class="sidebar-link">
+                        <img class="pb-2" src="/Icon/bankmilankhata.jpg" alt="FY">
+                        <span class="hide-menu ">वित्तीय प्रगति प्रतिशत प्रतिवेदन सुची </span>
+                    </a>
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,458 @@
+﻿@inject IUtility _utility
+@model PlanningSamjhautaViewModel
+@{
+    ViewData["Title"] = "YojanaAnugamanTahaSamitiPratibedan";
+    var orgname = await _utility.GetMainSettingById(0);
+    var worktype = (Model.WorkTypeId == 1) ? "उपभोक्ता समिति" : (Model.WorkTypeId == 2) ? "टोल बिकास समिति" : "बिद्यालय ब्याबस्थापन समिति";
+    var Adakshya = Model.samitiView.samitiMemberDetaillist.Select(x => x.Adakshya).FirstOrDefault();
+    int? post = ViewBag.EmpId;
+    var pada = await _utility.GetPostById(ViewBag.PostId);
+    var employee = await _utility.GetEmpNameById(post);
+    bool isSavedData = Convert.ToBoolean(ViewBag.isSavedData);
+    var headerData = await _utility.GetHeaderData();
+    var fiscal = await _utility.GetCurrentFiscalYearName();
+    int i = 1;
+}
+<style>
+    table {
+        border-collapse: collapse !important;
+        width: 80% !important;
+        border: 1px solid black !important;
+    }
+
+    .tbl {
+        font-weight: bold !important;
+    }
+
+    th, td {
+        border: 1px solid black !important;
+        padding: 8px !important;
+        text-align: center !important;
+    }
+
+    span {
+        font-weight: bold;
+    }
+
+    accordion-body1 {
+        padding: 0.5rem 1.25rem;
+    }
+
+    .printpage {
+        width: 21cm;
+        min-height: 29.7cm;
+        padding: 2cm;
+        margin: 1cm auto;
+        border: 1px #d3d3d3 solid;
+        border-radius: 5px;
+        background: #fff;
+        box-shadow: 0 0 5px rgb(0 0 0 / 10%);
+        font-family: 'kalimati regular' !important;
+    }
+
+    @@media print {
+        table {
+            border-collapse: collapse !important;
+            width: 80% !important;
+            border: 1px solid black !important;
+        }
+
+        .tbl {
+            font-weight: bold !important;
+        }
+
+        th, td {
+            border: 1px solid black !important;
+            padding: 8px !important;
+            text-align: center !important;
+        }
+    }
+
+</style>
+
+@if (!isSavedData)
+{
+    <div class="container pt-4 mt-4">
+        <form asp-action="@ViewData["Title"]" method="get">
+            <div class="pt-4 row">
+                <div class="col-2">
+                    <label>पद</label>
+                    <select name="PostId" id="PostId" asp-items="@await _utility.GetPadaList()" required class="form-control">
+                        <option value="">--पद छान्नुहोस--</option>
+                    </select>
+                </div>
+                <div class="col-2">
+                    <label>नाम</label>
+                    <select name="EmpId" id="EmpId" asp-items="@await _utility.GetEmpNameByPostId(ViewBag.PostId)" required class="form-control">
+                        <option value="">--नाम छान्नुहोस--</option>
+                    </select>
+                </div>
+                <div class="col-md-2 col-2">
+                    <label>मिति : </label> <br />
+                    <input type="text" name="PrintDate" required class="form-control PrintDate" value="@Model.PrintDate" />
+                </div>
+
+                <div class="col-2">
+                    <label> </label><br />
+                    <input type="submit" value="खोज्नुहोस्" class="btn btn-success" />
+                </div>
+            </div>
+        </form>
+    </div>
+}
+
+
+<button style="float:right" class="btn btn-primary mt-2" type="button" onClick="Print('contentToPrint')"><i class="fa fa-print" aria-hidden="true"></i> Print</button>
+<div class="row" id="contentToPrint">
+    @if (!isSavedData)
+    {
+        <div class="card-body printpage">
+            <div class="printcontent">
+                <style>
+                    .footerRepeat {
+                        position: relative !important;
+                        bottom: 0px !important
+                    }
+
+                    .Header {
+                        position: relative !important;
+                        top: 0px !important
+                    }
+
+
+                    @@media print {
+                        .footerRepeat {
+                            position: fixed !important;
+                            bottom: 0px !important
+                        }
+
+                        .Header {
+                            position: fixed !important;
+                            top: 0px !important
+                        }
+
+                        .print-body {
+                            overflow: visible; /* Ensure full content is visible during printing */
+                            margin-top: 300px !important; /* Matches header height */
+                            margin-bottom: 30px !important; /* Matches footer height */
+                            page-break-inside: auto;
+                        }
+
+                        .print-body1 {
+                            overflow: visible; /* Ensure full content is visible during printing */
+                            margin-top: 300px !important; /* Matches header height */
+                            margin-bottom: 30px !important; /* Matches footer height */
+                            page-break-inside: auto;
+                        }
+                    }
+                </style>
+                <div class="row">
+
+                    <div class="Header">
+                        @* <div class="col-md-12 col-12">
+                            <div class="d-flex p-1 text-center justify-content-start align-items-center">
+                                <img width="120" src="~/Images/NepalLogo.png" />
+
+                                <div class="row" style="align-content:center;">
+                                    <h3>@headerData.PalikaName</h3>
+                                    <h4>@Model.YojanaWards कार्यालय</h4>
+                                    <h4>@Model.WardAddress, @headerData.DistrictName </h4>
+                                    <h4>@headerData.StateName, नेपाल </h4>
+                                    <br />
+                                </div>
+                            </div>
+                        </div> *@
+                        <div class="col-md-12 col-12" style="font-family:kalimati regular !important">
+                            <div class="row">
+                                <div class="col-md-2 col-2">
+                                    <img width="120" src="~/Images/NepalLogo.png" />
+                                </div>
+                                <div class="col-md-8 col-8" style="text-align:center; color:red;">
+                                    <h3>स्थानीय सरकार</h3>
+                                    <h3>Local Government</h3>
+                                    <h3>@headerData.PalikaName</h3>
+                                    <h3>@headerData.PalikaNameEng</h3>
+                                    <h1>@Model.YojanaWards</h1>
+                                    <h2 style="font-family:Open Sans">@Model.YojanaWardsEng </h2>
+                                    <h4>@Model.WardAddress, @headerData.DistrictName (@Model.YojanaAddressEng,@headerData.DistrictNameEng)  </h4>
+                                    <h4>@headerData.StateName, नेपाल (@headerData.StateNameEng,Nepal) </h4>
+                                </div>
+                                <div class="col-md-2 col-2" style="text-align:end;">
+                                    <img width="120" src="@headerData.LogoPath" />
+                                </div>
+                            </div>
+                        </div>
+                        @* <div class="Letter">
+                            <div class="d-flex p-1 text-center justify-content-start align-items-center">
+                                <span style="text-align:left">पत्र संख्या:- @fiscal  </span> <br />
+
+                            </div>
+                            <div class="d-flex p-1 text-center justify-content-start align-items-center">
+                                <span>चलानी नम्बर :</span>
+                            </div>
+                            <div class="d-flex p-1 text-center justify-content-end align-items-center">
+                            </div>
+                        </div> *@
+                        <div class="row">
+                            <div class="col-md-6 col-6">
+                                <span style="margin-left:5px;">
+                                    <span style="color:red;">पत्र संख्या (Ref No):- <b style="color:black;"> @fiscal</b> </span>  <br />
+                                    <span style="color:red; margin-left:5px;">चलानी नम्बर (Dispatch No):-</span>
+                                </span>
+                            </div>
+                            <div class="col-md-6 col-6">
+                                <br />
+                                <span style="float:right;"> <span style="color:red;">मिति (Date):- </span> <b class="pDate" style="color:black;"></b> </span>
+                            </div>
+                        </div>
+                        <div style="border-top:5px solid red; width:100%;"></div>
+                        <br />
+                    </div>
+                </div>
+                <div class="container print-body" style="color:black;">
+                    @* <div class="d-flex p-1 text-center justify-content-end align-items-center">
+						<span style="text-align:end">मिति:- @_utility.ConvertEnglishToNepali(Model.PrintDate)  </span>
+					</div> *@
+                    <div class="sign" style="font-weight:500; font-size:16px; line-height:13px;">
+                        <p>अध्यक्ष श्री, @Model.Samiti_Adakshya_Name </p>
+                        <p>@Model.Samjhauta_Org_Name</p>
+                    </div>
+                    <br />
+                    <p style="text-align:center; font-weight:500; font-size:16px;">
+                        <span id="reportname"> <u> बिषय:- वडास्तरीय योजना अनुगमन समितिको प्रतिवेदन | </u> </span>
+                    </p>
+                    <p style="text-indent:24px; letter-spacing:1px; line-height:30px; font-weight:500; font-size:16px; padding-top:15px; text-align:justify !important; ">
+                        @* 	चालु आ.व.<b> @Model.FiscalYearName </b>
+						मा यस <b> @orgname.PalikaName </b> को कार्यालयबाट संचालित <b> @Model.Project_Name  </b>
+						आयोजना मिति <b> ............... </b> मा स्थलगत अनुगमन हुँदा योजनाको मुख्य मुख्य कार्य
+						गरी आयोजनाबाट प्रत्यक्ष रुपमा स्थानीय वासिन्दाहरु लाभान्वित भएका र आयोजनाको प्रगति लक्ष्य
+						अनुसार चित्तवुझदो ढंगबाट कार्य संचालित भई सम्पन भएकोले उक्त योजनाको लागि यस कार्यालयबाट
+						विनियोजित रकम भुक्तानी दिनुहुन सिफारिस गर्दछु  । *@
+                        @headerData.PalikaName<nobr></nobr>को आ.व. @Model.FiscalYearName को गाउँ सभाले पारित गरेको यस  @Model.YojanaWards अन्तर्गत संचालन भएका तपशिल बमोजिमको योजना संचालन पश्चात फरफारक पूर्व वडास्तरीय योजना अनुगमन टोली योजनाको अनुगमन गरी पेश गरेको अनुगमन प्रतिवेदन ।<br />
+                        योजना नं.:@Model.SerialNo  <br />
+                        अनुगमन भएको मितिः........................<br />
+                        विनियोजित रकमः@Model.Municipality<br />
+                        योजनाको नामः@Model.YojanaNames
+
+
+                    </p>
+                    <br />
+                    <div class="row">
+                        @* <div class="col-md-2 col-2" style="line-height:15px; text-align:center;">
+							<p>..........................</p>
+							<p>अनुगमन समितिको संयोजक</p>
+						</div>
+						<div class="col-md-2 col-2" style="line-height:15px; text-align:center;">
+							<p>..........................</p>
+							<p>@Model.SwikritGarneName</p>
+							<p>@Model.SwikritGarnePost</p>
+
+						</div>
+						<div class="col-md-2 col-2" style="line-height:15px; text-align:center;">
+							<p>..........................</p>
+							<p>@Model.SifarishGarneName</p>
+							<p>@Model.SifarishGarnePost</p>
+
+						</div>
+						<div class="col-md-2 col-2" style="line-height:15px; text-align:center;">
+							<p>..........................</p>
+							<p>सूचना प्रबिधि अधिकृत</p>
+
+						</div>
+						<div class="col-md-2 col-2" style="line-height:15px; text-align:center;">
+							<p>..........................</p>
+							<p>सब-इन्जिरीयर</p>
+						</div>
+						<div class="col-md-2 col-2" style="line-height:15px; text-align:center;">
+							<p>..........................</p>
+							<p>पर्यर्वेक्षक(गाउँपालिका अध्यक्ष )</p>
+						</div>
+ *@
+                        <p><b>अनुगमन समितिका पदाधिकारिहरूः</b></p>
+                        <table style="width:90% !important" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>क्र.स.</th>
+                                    <th style="width:35%;">नाम थर</th>
+                                    <th>पद</th>
+                                    <th>दस्तखत</th>
+                                    <th>कैफियत</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach(var item in Model.AnugamanSamitiSetup.AnugamanSamitiList)
+                                {
+                                    <tr>
+                                        <td>@_utility.ConvertEnglishToNepali(i)</td>
+                                        <td>@item.Name</td>
+                                        <td>@item.PostName</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                }
+                                
+@*                                 <tr>
+                                    <td>2</td>
+                                    <td></td>
+                                    <td>सदस्य</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td></td>
+                                    <td>सदस्य</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td></td>
+                                    <td>सदस्य</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td></td>
+                                    <td>सदस्य</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td></td>
+                                    <td>सदस्य सचिव</td>
+                                    <td></td>
+                                    <td>वडा सचिव</td>
+                                </tr>
+                                <tr>
+                                    <td>7</td>
+                                    <td></td>
+                                    <td>प्राविधिक</td>
+                                    <td></td>
+                                    <td>वडा प्राविधिक</td>
+                                </tr> *@
+
+                            </tbody>
+                        </table>
+                        <br />
+                        <div class="col-md-12 col-12">
+                            <p>अनुगमनबाट देखिएका ब्यहोराः</p>
+                            <p>१.कार्यान्वयन प्रकृयाः @worktype</p>
+                            <p>२.कार्ययोजना अनुसार कार्यान्वयन भए/नभएकोः</p>
+                            <div class="print-body1">
+                                <p style ="page-break-before:always;">३.वित्तीय अवस्थाःयोजनाको लक्ष्य अनुसार बजेट लगानी र खर्च भए/नभएकोः</p>
+                                <p>४.समय कार्य तालिका बमोजिमको समयमा कार्य भए/नभएकोः </p>
+                                <p >५.गुणस्तर निर्दिष्ट गुणस्तर कायम हुने गरी कार्य भए/नभएकोः </p>
+                                <p>६.तोकिएको लक्षीत समुहमा कार्यक्रम पुगेको नपुगेको,तिनिहरुको सहभागिता भए/नभएकोः</p>
+                                <p>७.सार्वजनिक परिक्षण भए/नभएकोः </p>
+                                <p>८.सार्वजनिक परिक्षण गरेको मितिःउपस्थिति सङ्ख्याः(           )</p>
+                                <p>९.सम्बन्धित विषय विज्ञ प्राविधिकबाट भएको अनुगमन (पूर्वाधार निर्माण सम्बन्धी योजनाको हकमा चरणबद्ध प्राविधिक प्रतिवेदनमा संलग्न भए/नभएकोः </p><br />
+                                <p><b>अनुगमन समितिको निष्कर्षः</b></p>
+                                <p>
+                                    अनुगमन समितिद्वारा यस योजनाको अनुगमन गर्दा लगत अनुगमन बमोजिमको कार्य सम्पन्न भईसकेको/नभएको,उपभोक्ता
+                                    समितिको तर्फबाट जनश्रमदान उत्कृष्ठ भएको/नभएको तथा नियमानुसार सार्वजनिक परिक्षण समेत भईसकेको/नभएको
+                                    पाईएकोले योजना फरफारक लागि गाउँपालिकालाई सिफारिस गर्ने/नगर्ने निर्णय गरियो ।
+                                </p>
+                            </div>
+                           
+                        </div>
+                    </div>
+
+
+                </div>
+                <footer style=" width:100%; " class="footerRepeat" id="footer">
+                    <partial name="_printfooter" />
+                </footer>
+            </div>
+        </div>
+    }
+</div>
+
+
+<link href="~/lib/nepalidatepicker/css/nepali.datepicker.v3.7.min.css" rel="stylesheet" />
+
+
+@section Scripts
+{
+    <script>
+        NepaliDatePickerCalWithClass(document.getElementsByClassName('PrintDate'))
+    </script>
+    <script>
+        $('#PostId').change(function () {
+            $.ajax({
+                url: '@Url.Action("GetEmpNameByPostId", "Ajax", new { area = "" })',
+                type: 'GET',
+                data: { id: $(this).val() },
+                success: function (data) {
+                    $('#EmpId').empty().append("<option value=''>-नाम छान्नुहोस्-</option>");
+                    $.each(data, function (index, item) {
+                        $('#EmpId').append(`<option value="${item.Value}">${item.Text} </option>`);
+                    });
+                },
+                error: function () {
+                    alert('error in calling ajax !!');
+                }
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#PostId').val('@ViewBag.PostId');
+            $('#EmpId').val('@ViewBag.EmpId').trigger('change');
+                    if ('@Model.PrintDate' != '') {
+            $('.pDate').html('@Model.PrintDate')
+        }
+            $('#fiscalId').val('@ViewBag.fiscalId').trigger('change');
+            $('#btnPrint').attr('style', "display: " + ('@ViewBag.fiscalId' != '' ? 'block' : 'none'));
+            if ('@isSavedData' === 'True') {
+                $.ajax({
+                    url: '@Url.Action("GetPrintReportContent", "Ajax", new { area = "" })',
+                    type: 'get',
+                    data: { ReportName: '@ViewData["Title"]', PlanningSamjhautaId: '@Model.PlanningSamjhautaId' },
+                    success: function (result) {
+                        if (result) {
+                            $('#contentToPrint').html(result);
+                        }
+                    },
+                    error: function () {
+                        alert('error in calling ajax !!')
+                    }
+                });
+            }
+        });
+
+        function PrintContent(divele) {
+            var elementHTML = document.getElementById(divele).innerHTML;
+            var oldPage = document.body.innerHTML;
+            document.body.innerHTML = elementHTML;
+            window.print();
+            document.body.innerHTML = oldPage;
+            window.location.reload();
+        }
+
+        function Print() {
+            if ('@isSavedData' == 'True') {
+                PrintContent('contentToPrint')
+                return;
+            }
+            var printdata = $('#contentToPrint').html();
+            var reportname = $('#reportname').html();
+            var planningsamjhautaid = "@Model.PlanningSamjhautaId";
+            $.ajax({
+                url: '@Url.Action("PrintReport", "Ajax", new { area = "" })',
+                type: 'post',
+                data: { PrintContent: printdata, ReportName: '@ViewData["Title"]', PlanningSamjhautaId: planningsamjhautaid },
+                success: function (result) {
+                    if (result) {
+                        PrintContent('contentToPrint')
+                    }
+                },
+                error: function () {
+                    alert('error in calling ajax !!')
+                }
+            });
+        }
+    </script>
+}

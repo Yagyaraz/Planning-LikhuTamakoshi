@@ -1,0 +1,158 @@
+﻿@model AnugamanSamitiSetupViewModel
+@inject IUtility _Utility
+@{
+	ViewData["Title"] = "Index";
+	int i = 1;
+}
+
+<style>
+
+	/* .table thead {
+				background-color: #ccd1d9;
+				font-size: 13px;
+				line-height: 35px !important;
+			} */
+
+	.table thead th {
+		font-weight: 800;
+		border: 1px solid black !important;
+		padding: 0px !important;
+	}
+
+
+	.table tbody td {
+		padding: 0px !important;
+		border: 1px solid black !important;
+		vertical-align: middle;
+	}
+
+	.table tbody tr {
+		text-align: center;
+		font-size: 12px;
+		height: 27px !important;
+	}
+
+
+
+	table.table-bordered.dataTable td {
+		padding: 0px;
+	}
+
+	table.table-bordered.dataTable th {
+		padding: 0px;
+	}
+
+	tr:nth-child(even) {
+		background-color: #e9ecef;
+	}
+
+
+	tr:hover {
+		background-color: #b3ffe6;
+	}
+
+</style>
+
+<div class="page-breadcrumb colr1">
+	<div class="row">
+		<div class="col-12 d-flex no-block align-items-center">
+
+			<div class="ms-auto text-end">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="#">गृह पृष्ट</a></li>
+						<li class="breadcrumb-item active" aria-current="page">
+							अनुगमन समिति सदस्यहरु 
+						</li>
+					</ol>
+				</nav>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container-fluid colr1">
+	<div class="row">
+		<div class="col-md-12">
+			<div style=" display:flex; justify-content:space-between;">
+				<div style="display:flex;">
+					<h4 class="card1" style="background-color:#3c8dbc; color:#fff; height:40px; width:156px; padding-top:5px; text-align:center;">अनुगमन समिति सदस्य लिस्ट</h4>
+					<span style="height:2rem; background-color:#3c8dbc; width:10px; height:40px;"></span>
+					<span style="height: 2rem; border-top: 17px solid transparent;border-left: 25px solid #3c8dbc;border-bottom: 22px solid transparent; height:40px;"> </span>
+				</div>
+				@* <a asp-controller="Common" asp-action="CreateAnugamanSamiti" asp-area="Admin" class="btn  btn-sm fw-bold text-white"
+				   style="display:flex; align-items:center; justify-content:center; height:2rem; background-color:#33b35a; border:1px solid #3ec291;;">
+					<i class="fas fa-plus-circle"> नँया थप्नुहोस </i>
+				</a> *@
+			</div>
+
+
+			<div class="card">
+				<div class="card-body">
+					@*   <h5 class="card-title">Basic Datatable</h5> *@
+
+					<div class="table-responsive">
+						<table id="zero_config"
+							   class="table table-bordered" style="border-collapse: collapse!important;">
+							<thead>
+								<tr style="color:#00234D; ">
+									<th style="text-align:center; width:8%;">सि.न</th>
+									<th style="text-align:center;width:30%">नाम</th>
+									@* <th style="text-align:center;">वडा</th> *@
+									<th style="text-align:center;">पद</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach (var item in Model.AnugamanSamitiList )
+								{
+									<tr style="text-align:center;">
+										<td>@_Utility.ConvertEnglishToNepali(i)</td>
+
+										<td style="text-align:start;">
+											@Html.DisplayFor(modelItem => item.Name)
+										</td>
+										<td>@item.PostName</td>
+
+										@* <td>
+											<a type="button" id="सच्याउनुहोस" class="btn  btn-sm " title="Edit" asp-action="CreateAnugamanSamiti" asp-route-id="@item.Id">
+												<i class="fa fa-edit" style="font-weight:1; color:#00234D; display:flex;justify-content:center; align-items:center; font-size:12px;">
+													<span style="color:blue; padding-left:3px;"> </span>
+												</i>
+											</a>
+											<a asp-action="DeleteAnugumanSamiti" asp-route-id="@item.Id" class="text-danger" title="Delete" onclick="return confirm('Are you sure?')"> <i class="fa fa-trash"></i> </a>
+											<a class="btn btn-sm" asp-action="GetAnugamanSamitiMember" title="विवरण" asp-route-id="@item.Id">
+												<i class="fa fa-list ">
+												</i>
+											</a>
+										</td> *@
+									</tr>
+									i++;
+								}
+							</tbody>
+
+						</table>
+
+						<div class="d-flex justify-content-end">
+							<a asp-action="AnugumanSamitiIndex" asp-controller="Common" asp-area="Admin" class="btn  btn-sm mt-3 mb-2 text-white"
+							   style=" background-color:#424f63;">
+								<i class="fa fa-arrow-left" aria-hidden="true"> पछाडि फर्कनुहोस्</i>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+	<script>
+		$("#zero_config").DataTable();
+	</script>
+
+	<script>
+		$(function () { Message('@TempData["Msg"]') });
+	</script>
+}

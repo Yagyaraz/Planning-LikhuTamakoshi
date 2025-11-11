@@ -1,0 +1,83 @@
+﻿
+@using PlanningCore.Utilities
+@inject IUtility _Utility
+@{
+    var headerData = await _Utility.GetHeaderData();
+    var fiscal = await _Utility.GetCurrentFiscalYearName();
+}
+@if (User.IsInRole("Administrator") || User.IsInRole("SuperAdmin"))
+{
+    <div class="col-md-12 col-12">
+        <div class="row">
+            <div class="col-md-3 col-3">
+                <img width="120" src="~/Images/NepalLogo.png" />
+            </div>
+            <div class="col-md-6 col-6" style="text-align:center; color:red;">
+                <h4 style="font-size:23px;">@headerData.PalikaName</h4>
+                <h1 style="font-size:26px;">@headerData.Name</h1>
+                <h4 style="font-size:16px;">@headerData.Address </h4>
+                <h4 style="font-size:16px;">@headerData.StateName, नेपाल </h4>
+            </div>
+            <div class="col-md-3 col-3" style="text-align:end;">
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 col-6">
+            <span style="margin-left:5px;">
+                <span style="color:red;">पत्र संख्या:- <b style="color:black;"> @fiscal</b> </span>  <br />
+                <span style="color:red; margin-left:5px;">दर्ता न.: <b style="color:black"> @_Utility.ConvertEnglishToNepali(Model.DartaNo)</b> </span>
+            </span>           
+        </div>
+        <div class="col-md-6 col-6">
+            <br />
+            <span style="float:right;"> <span style="color:red;">मिति:- </span> <b class="pDate" style="color:black;"></b> </span>
+        </div>
+    </div>
+    <div style="border-top:5px solid red; width:100%;"></div>
+    <br />
+}
+else
+{
+    <div class="col-md-12 col-12">
+        <div class="row">
+            <div class="col-md-3 col-3">
+                <img width="120" src="~/Images/NepalLogo.png" />
+            </div>
+            <div class="col-md-6 col-6" style="text-align:center; color:red;">
+                <h4 style="font-size:23px;">@headerData.PalikaName</h4>
+                <h1 style="font-size:26px;">@headerData.Name</h1>
+                <h4 style="font-size:16px;">@headerData.Address </h4>
+                <h4 style="font-size:16px;">@headerData.StateName, नेपाल </h4>
+            </div>
+            <div class="col-md-3 col-3" style="text-align:end;">
+                
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-3">
+            <span style="margin-left:5px;">
+                <span style="color:red;">पत्र संख्या:-</span> @fiscal <br />
+                <span style="color:red; margin-left:5px;">चलानी नम्बर :</span>
+            </span>
+        </div>
+        <div class="col-md-6 col-6"></div>
+        <div class="col-md-3 col-3">
+            <br />
+            <span style="float:right;"> <span style="color:red;">मिति:-</span> <b class="pDate"></b>  </span>
+        </div>
+    </div>
+    <div style="border-top:5px solid red; width:100%;"></div>
+    <br />
+}
+
+@* 
+<script src="~/lib/nepalidatepicker/js/nepali.datepicker.v3.7.min.js"></script>
+<script src="~/js/nepali-date-custom.js"></script>
+<script type="text/javascript">
+    
+        // NepaliDatePickerStaticDateForClass(document.getElementsByClassName('pDate'));
+</script> *@

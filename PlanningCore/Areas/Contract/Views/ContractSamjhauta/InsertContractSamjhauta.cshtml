@@ -1,0 +1,372 @@
+﻿ @model ContractSamjhautaViewModel
+@inject IUtility _Utility
+@{
+    ViewData["Title"] = "Index";
+    var orgname = await _Utility.GetMainSettingById(0);
+    var selectList = new SelectList(await _Utility.GetSelectListWard(), "Value", "Text");
+}
+<link rel="stylesheet" type="text/css" href="~/template/assets/libs/select2/dist/css/select2.min.css" rel="stylesheet" />
+<style>
+    .form-control {
+        border-color: black;
+    }
+
+    .Sign {
+        border: 1px solid #000;
+        padding: 20px;
+        margin-left: 5px;
+    }
+
+   /*  .select2-container--default .select2-selection--multiple .select2-selection__choice {
+        background-color: #2255a4;
+    } */
+
+    .readonly-dropdown {
+        pointer-events: none;
+        background-color: #e9ecef;
+    }
+</style>
+<div class="page-breadcrumb colr1">
+    <div class="row">
+        <partial name="_PrintHeader" />
+        <div class="col-12 d-flex no-block align-items-center">
+            <div style="display:flex;">
+                <h4 class="card1" style="background-color:#3c8dbc; color:#fff; height:40px; width:150px; padding-top:5px; text-align:center;">ठेक्का सम्झौता फारम </h4>
+                <span style="height:2rem; background-color:#3c8dbc; width:10px; height:40px;"></span>
+                <span style="height: 2rem; border-top: 17px solid transparent;border-left: 25px solid #3c8dbc;border-bottom: 22px solid transparent; height:40px;"> </span>
+            </div>
+            <div class="ms-auto text-end">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">गृह पृष्ट</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            ठेक्का सम्झौता फारम
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid colr1">
+    <div class="row">
+        <form asp-action="InsertContractSamjhauta" method="post">
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.ContractSamjhautaDetailsId)
+
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body row">
+                        <div class="form-group  mt-2 col-md-3 col-3">
+                            <label asp-for="ThekkaTypeId"></label>
+                            <select asp-for="ThekkaTypeId" asp-items="await _Utility.GetThekkaTypeList()" class="form-control">
+                                <option value="">--<label asp-for="ThekkaTypeId"></label> --</option>
+                            </select>
+                        </div>
+                        <div class="form-group mt-2 col-md-3 col-3">
+                            <label asp-for="ContractTypeId"></label>
+                            <select asp-for="ContractTypeId" asp-items="await _Utility.GetContractType()" class="form-control" required="true">
+                                <option value="">--<label asp-for="ContractTypeId"></label> --</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group  mt-2 col-md-3 col-3">
+                            <label asp-for="ConsultantId"></label>
+                            <select asp-for="ConsultantId" asp-items="await _Utility.GetConsultantList()" class="form-control">
+                                <option value="">--<label asp-for="ConsultantId"></label> --</option>
+                            </select>
+                        </div>
+                        <div class="form-group mt-2 col-md-3 col-3">
+                            <label asp-for="YojanaId"></label>
+                            <select asp-for="YojanaId" asp-items="await _Utility.GetThekkaYojanaList()" class="form-control">
+                                <option value="">--<label asp-for="YojanaId"></label> --</option>
+                            </select>
+                        </div>
+                        <div class="form-group mt-2 col-md-3 col-3">
+                            <label asp-for="WardIds"></label>
+                            <select asp-for="WardIds" asp-items="await _Utility.GetWardList()" class="select2 form-select form-control shadow-none mt-3 wardIds" style="width: 100%; height: 36px" multiple="multiple">
+                                <option value="">-- Select Ward(s) --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="card-body row">
+                        <strong> सम्झौताको आर्थिक विवरण </strong>
+                        <div class="form-group mt-2 col-md-3 col-3">
+                            <label asp-for="EstimatedAmount"></label>
+                            <input type="text" asp-for="EstimatedAmount" class="form-control" readonly onchange="calculation()" />
+                            <span asp-validation-for="EstimatedAmount"></span>
+                        </div>
+                        <div class="form-group mt-2 col-md-3 col-3">
+                            <label asp-for="VAT"></label>
+                            <input type="text" asp-for="VAT" value="13" class="form-control" readonly onchange="calculation()">
+                            <span asp-validation-for="VAT" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mt-2 col-md-3 col-3">
+                            <label asp-for="ContractAmtEclVat"></label>
+                            <input type="text" asp-for="ContractAmtEclVat" class="form-control" onchange="calculation()">
+                            <span asp-validation-for="ContractAmtEclVat" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mt-2 col-md-3 col-3">
+                            <label asp-for="PsAmount"></label>
+                            <input type="text" asp-for="PsAmount" class="form-control" onchange="calculation()">
+                            <span asp-validation-for="PsAmount" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mt-2 col-md-3 col-3">
+                            <label asp-for="EmployeerId"></label>
+                            <select asp-for="EmployeerId" asp-items="await _Utility.GetEmployeer()" class="form-control" required="true">
+                                <option value="">--<label asp-for="EmployeerId"></label> --</option>
+                            </select>
+                        </div>
+                        <div class="form-group mt-2 col-md-3 col-3">
+                            <label asp-for="ContractorId"></label>
+                            <select asp-for="ContractorId" asp-items="await _Utility.GetSupplier()" class="form-control" required="true">
+                                <option value="">--<label asp-for="ContractorId"></label> --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="card-body row">
+                        <strong>आयोजनाको ठेगाना सम्बन्धि विवरण </strong>
+                        <div class="form-group mt-2 col-md-3 col-3">
+                            <label asp-for="StateId"></label>
+                            <select asp-for="StateId" asp-items="await _Utility.GetStateSelectListItems()" class="form-control">
+                                <option value="">--<label asp-for="StateId"></label> --</option>
+                            </select>
+                        </div>
+                        <div class="form-group mt-2 col-md-3 col-3">
+                            <label asp-for="DistrictId"></label>
+                            <select asp-for="DistrictId" asp-items="await _Utility.GetDistrictByStateId(Model.StateId)" class="form-control">
+                                <option value="">--<label asp-for="DistrictId"></label> --</option>
+                            </select>
+                        </div>
+                        <div class="form-group mt-2 col-md-3 col-3">
+                            <label asp-for="PalikaId"></label>
+                            <select asp-for="PalikaId" asp-items="await _Utility.GetPalikaByDistrictId(Model.DistrictId)" class="form-control">
+                                <option value="">--<label asp-for="PalikaId"></label> --</option>
+                            </select>
+                        </div>
+                        <div class="form-group mt-2 col-md-3 col-3">
+                            <label asp-for="YojanaAddress"></label>
+                            <input type="text" asp-for="YojanaAddress" class="form-control">
+                            <span asp-validation-for="YojanaAddress" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="card-body row">
+                        <strong> आयोजनाको अन्य विवरण </strong>
+
+                        <div class="form-group mt-2 col-md-3 col-3">
+                            <label asp-for="ThekkaNumber"></label>
+                            <input type="text" asp-for="ThekkaNumber" class="form-control" class="form-control" />
+                            <span asp-validation-for="ThekkaNumber"></span>
+                        </div>
+                        <div class="form-group mt-2 col-md-3 col-3">
+                            <label asp-for="IFBNumber"></label>
+                            <input type="text" asp-for="IFBNumber" class="form-control" class="form-control" />
+                            <span asp-validation-for="IFBNumber"></span>
+                        </div>
+                        <div class="form-group mt-2 col-md-3 col-3">
+                            <label asp-for="BolPatraDate"></label>
+                            <input type="text" asp-for="BolPatraDate" class="form-control" class="form-control" />
+                            <span asp-validation-for="BolPatraDate"></span>
+                        </div>
+                        <div class="form-group mt-2 col-md-3 col-3">
+                            <label asp-for="ProjectStartDate"></label>
+                            <input type="text" asp-for="ProjectStartDate" class="form-control" class="form-control" />
+                            <span asp-validation-for="ProjectStartDate"></span>
+                        </div>
+                        <div class="form-group mt-2 col-md-3 col-3">
+                            <label asp-for="ProjectEndDate"></label>
+                            <input type="text" asp-for="ProjectEndDate" class="form-control" class="form-control" />
+                            <span asp-validation-for="ProjectEndDate"></span>
+                        </div>
+                        <div class="form-group mt-2 col-md-3 col-3">
+                            <label asp-for="ContractDate"></label>
+                            <input type="text" asp-for="ContractDate" class="form-control" class="form-control" />
+                            <span asp-validation-for="ContractDate"></span>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="Sign row container d-flex">
+                        <div class="col-md-4 col-4">
+                            <p class="fw-bold"> समिति/ठेकदारको तर्फबाट : </p>
+                            <p>
+                                <label asp-for="SamjhautaPerson" class="mb-0"></label>
+                                <input type="text" asp-for="SamjhautaPerson" class="form-control ">
+                                <label asp-for="SamjhautaPersonPost" class="mt-3 mb-0"></label>
+                                <input type="text" asp-for="SamjhautaPersonPost" class="form-control">
+                                <span asp-validation-for="SamjhautaPerson" class="text-danger"></span>
+                                <label asp-for="Rahobar" class="mt-2 mb-0"></label>
+                                <input type="text" asp-for="Rahobar" class="form-control">
+                                <span asp-validation-for="Rahobar" class="text-danger"></span>
+                            </p>
+                        </div>
+
+                        <div class="col-md-4 col-4">
+                            <p class="fw-bold"> सिफारिश को तर्फ वाट </p>
+                            <p class="fw-bold" style="font-size:12px; padding-top:3px;">
+                                नामः-
+                                <select asp-for="SifarishId" asp-items="await _Utility.GetEmpList()" class="form-control">
+                                    <option value="">नाम</option>
+                                </select>
+                            </p>
+                            <p class="fw-bold" style="font-size:12px; ">
+                                पद:-
+                                <select asp-for="SifarishPadId" asp-items="await _Utility.GetPadaList()" class="form-control readonly-dropdown">
+                                    <option value="">पद</option>
+                                </select>
+                            </p>
+                            <p class="m-0" style="padding-top:12px;"> हस्ताक्षरः- </p>
+                        </div>
+
+                        <div class="col-md-4 col-4">
+                            @* <p> @orgname.PalikaName को तर्फवाटः </p>*@
+                            <p class="fw-bold"> स्वीकृत गर्ने को तर्फवाटः </p>
+                            <p class="fw-bold" style="font-size:12px; padding-top:3px;">
+                                नामः-
+                                <select asp-for="SwikritId" asp-items="await _Utility.GetEmpList()" class="form-control">
+                                    <option value="">नाम</option>
+                                </select>
+                            </p>
+                            <p class="fw-bold" style="font-size:12px; ">
+                                पद:-
+                                <select asp-for="SwikritPadId" asp-items="await _Utility.GetPadaList()" class="form-control readonly-dropdown">
+                                    <option value="">पद</option>
+                                </select>
+                            </p>
+                            <p class="m-0" style="padding-top:12px;">हस्ताक्षरः-</p>
+                        </div>
+                    </div>
+
+                    <div class="card-body d-flex justify-content-end gap-2">
+                        <button type="submit" class="btn btn-sm btn-success text-white ">
+                            <i class=" fas fa-save">  </i>
+                            सुरक्षित गर्नुहोस
+                        </button>
+
+                        <a asp-action="Index" asp-controller="ContractSamjhauta" asp-area="Contract" class="btn  btn-sm text-white"
+                           style=" background-color:#424f63;">
+                            <i class="fa fa-arrow-left" aria-hidden="true"> पछाडि फर्कनुहोस्</i>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<link href="~/lib/nepalidatepicker/css/nepali.datepicker.v3.7.min.css" rel="stylesheet" />
+
+@section Scripts {
+    @{
+        <script src="~/template/assets/libs/select2/dist/js/select2.full.min.js"></script>
+        <script src="~/template/assets/libs/select2/dist/js/select2.min.js"></script>
+    }
+    <script>
+        NepaliDatePickerCal(document.getElementById('BolPatraDate'))
+        NepaliDatePickerCal(document.getElementById('ProjectStartDate'))
+        NepaliDatePickerCal(document.getElementById('ProjectEndDate'))
+        NepaliDatePickerCal(document.getElementById('ContractDate'))
+
+    </script>
+    <script>
+        $('#StateId').change(function () {
+            $.ajax({
+                url: '@Url.Action("GetDistrictByStateId", "Ajax", new { area = "" })',
+                type: 'GET',
+                data: { id: $(this).val() },
+                success: function (data) {
+                    $('#PalikaId').empty().append("<option value=''>-न.पा/ग.पा छान्नुहोस्-</option>");
+                    $('#DistrictId').empty().append("<option value=''>-जिल्ला छान्नुहोस्-</option>");
+                    $.each(data, function (index, item) {
+                        $('#DistrictId').append(`<option value="${item.Value}">${item.Text} </option>`);
+                    });
+                },
+                error: function () {
+                    alert('error in calling ajax !!');
+                }
+            });
+        });
+        $('#DistrictId').change(function () {
+            $.ajax({
+                url: '@Url.Action("GetPalikaByDistId", "Ajax", new { area = "" })',
+                type: 'GET',
+                data: { id: $(this).val() },
+                success: function (data) {
+                    $('#PalikaId').empty().append("<option value=''>-न.पा/ग.पा छान्नुहोस्-</option>");
+                    $.each(data, function (index, item) {
+                        $('#PalikaId').append(`<option value="${item.Value}">${item.Text}</option>`);
+                    });
+                },
+                error: function () {
+                    alert('error in calling ajax !!');
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $(".select2").select2();
+            $('#YojanaId').change(function () {
+                $.ajax({
+                    url: '@Url.Action("GetCon_YojanaDetail", "Ajax", new { area = "" })',
+                    type: 'GET',
+                    data: { id: $(this).val() },
+                    success: function (data) {
+                        $('.wardIds').val(data.WardIds).trigger('change');
+                        $('#EstimatedAmount').val(data.EstimatedAmount);
+                        $('#YojanaAddress').val(data.YojanaAddress);
+                        calculation()
+                    },
+                    error: function () {
+                        alert('error in calling ajax !!');
+                    }
+                });
+            });
+        });
+        function calculation() {
+            var vat = parseFloat($('#VAT').val());
+            var est = parseFloat($('#EstimatedAmount').val());
+            var vatdata = (vat / 100);
+            var amt = (est * vatdata);
+            var finaldata = (est - amt);
+            $('#ContractAmtEclVat').val(finaldata);
+        }
+
+        $('#SifarishId').change(function () {
+            $.ajax({
+                url: '@Url.Action("GetPadaDetail", "Ajax", new { area = "" })',
+                type: 'GET',
+                data: { id: $(this).val() },
+                success: function (data) {
+                    // Correctly set the value of the dropdown
+                    $('#SifarishPadId').val(data.Id).trigger('change');
+                },
+                error: function () {
+                    alert('error in calling ajax !!');
+                }
+            });
+        });
+        $('#SwikritId').change(function () {
+            $.ajax({
+                url: '@Url.Action("GetPadaDetail", "Ajax", new { area = "" })',
+                type: 'GET',
+                data: { id: $(this).val() },
+                success: function (data) {
+                    // Correctly set the value of the dropdown
+                    $('#SwikritPadId').val(data.Id);
+                },
+                error: function () {
+                    alert('error in calling ajax !!');
+                }
+            });
+        });
+    </script>
+    <script>
+        document.getElementById('readonlyDropdown').addEventListener('mousedown', function (event) {
+            event.preventDefault();
+        });
+    </script>
+}       

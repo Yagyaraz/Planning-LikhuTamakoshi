@@ -1,0 +1,158 @@
+﻿@model TravelExpenseViewModel
+@inject IUtility _Utility
+@{
+    ViewData["Title"] = "Index";
+}
+<link href="~/lib/nepalidatepicker/css/nepali.datepicker.v3.7.min.css" rel="stylesheet" />
+<div class="page-breadcrumb colr1">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <div style="display:flex;">
+                <h4 class="card1" style="background-color:#3c8dbc; color:#fff; height:40px; width:100px; padding-top:5px; text-align:center;">भ्रमण आदेश</h4>
+                <span style="height:2rem; background-color:#3c8dbc; width:10px; height:40px;"></span>
+                <span style="height: 2rem; border-top: 17px solid transparent;border-left: 25px solid #3c8dbc;border-bottom: 22px solid transparent; height:40px;"> </span>
+            </div>
+            <div class="ms-auto text-end">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">गृह पृष्ट</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            भ्रमण आदेश
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid colr1">
+    <div class="row">
+        <form asp-action="Create" method="post">
+            @Html.HiddenFor(model => model.Id)
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body row">
+                        <h5 class="card-title"> नयाँ थप्नुहोस</h5>
+                        <div class="form-group mt-3 col-md-3 col-3 ">
+                            <label asp-for="EmployeeName"></label>
+                            <input type="text" asp-for="EmployeeName" class="form-control  ">
+                            <span asp-validation-for="EmployeeName" class="text-danger "></span>
+                        </div> 
+                        <div class="form-group mt-3 col-md-3 col-3 ">
+                            <label asp-for="PostId"></label>                            
+                            <select asp-for="PostId" asp-items="await _Utility.GetPadaList()" style=" border-color:black" class="form-control WardId">
+                                <option value="">--Please select --</option>
+                            </select>
+                        </div>
+                        <div class="form-group mt-3 col-md-3 col-3 ">
+                            <label asp-for="Location"></label>
+                            <input type="text" asp-for="Location" class="form-control  ">
+                            <span asp-validation-for="Location" class="text-danger "></span>
+                        </div>
+                        <div class="form-group mt-3 col-md-3 col-3 ">
+                            <label asp-for="Reason"></label>
+                            <input type="text" asp-for="Reason" class="form-control  ">
+                            <span asp-validation-for="Reason" class="text-danger "></span>
+                        </div>
+                        <div class="form-group mt-3 col-md-3 col-3 ">
+                            <label asp-for="TravelFrom"></label>
+                            <input type="text" asp-for="TravelFrom" class="form-control  ">
+                            <span asp-validation-for="TravelFrom" class="text-danger "></span>
+                        </div>
+                        <div class="form-group mt-3 col-md-3 col-3 ">
+                            <label asp-for="TravelTo"></label>
+                            <input type="text" asp-for="TravelTo" class="form-control  ">
+                            <span asp-validation-for="TravelTo" class="text-danger "></span>
+                        </div>
+                        <div class="form-group mt-3 col-md-3 col-3 ">
+                            <label asp-for="vehicle"></label>
+                            <input type="text" asp-for="vehicle" class="form-control  ">
+                            <span asp-validation-for="vehicle" class="text-danger "></span>
+                        </div>
+                        <div class="form-group mt-3 col-md-3 col-3 ">
+                            <label asp-for="Advance"></label>
+                            <input type="text" asp-for="Advance" class="form-control  ">
+                            <span asp-validation-for="Advance" class="text-danger "></span>
+                        </div>
+
+                        <div class="form-group mt-3 col-md-3 col-3 ">
+                            <label asp-for="BudgetNumber"></label>
+                            <input type="text" asp-for="BudgetNumber" class="form-control  ">
+                            <span asp-validation-for="BudgetNumber" class="text-danger "></span>
+                        </div>
+
+                        <div class="form-group mt-3 col-md-3 col-3 ">
+                            <label asp-for="ChequeNumber"></label>
+                            <input type="text" asp-for="ChequeNumber" class="form-control  ">
+                            <span asp-validation-for="ChequeNumber" class="text-danger "></span>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="form-group mt-4 col-md-3 col-3 ">
+                        <span style="font:bold"> &nbsp; भ्रमण सम्बन्धि अन्य आबस्यक कुरा भए </span>
+                    </div>
+                    <div class="col-sm-12 col-12">
+                        <div class="btitle">
+                        </div>
+                        <button type="button" id="travelAdd" class="btn btn-add btn-sm pull-right" style="background-color:green; color: #fff; padding: 7px 12px;  margin-bottom: 5px;"><i class="fa fa-plus-circle"> &nbsp;</i> थप्नुहोस  </button>
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-12" id="traveldiv">
+                        <div class="col-lg-12 col-sm-12 col-12">
+                            @if (Model.TravelExpenseList.Count > 0)
+                            {
+                                foreach (var items in Model.TravelExpenseList)
+                                {
+                                    <partial name="_ExpenseOtherItems.cshtml" model="@items" />
+                                }
+
+                            }
+                            @* else
+                            {
+                            <partial name="_SamitiMemberList.cshtml" model="@new UpavoktaSamitiMemberDetailViewModel()" />
+                            } *@
+                        </div>
+                    </div>
+
+                    <hr />
+                    <div class="border-top">
+                        <div class="card-body d-flex gap-2" style="float:right;">
+                            <button type="submit" class="btn btn-success btn-sm text-white">
+                                <i class="fa fa-save">
+                                    <span class="fw-normal"> सुरक्षित गर्नुहोस</span>
+                                </i>
+                            </button>
+
+                            <a asp-action="Index" asp-controller="TravelExpense" asp-area="Admin" class="btn  btn-sm  text-white"
+                               style=" background-color:#424f63;">
+                                <i class="fa fa-arrow-left" aria-hidden="true"> पछाडि फर्कनुहोस्</i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        <script>
+            $('#travelAdd').on('click', function () {
+                debugger;
+                $.ajax({
+                    url: '@Url.Action("CreateTravelExpenseOther")',
+                    success: function (result) {
+                        if (result) {
+                            $('#traveldiv').append(result);
+                        }
+                    },
+                    error: function () {
+                        alert('error in calling PartialView !!')
+                    }
+                });
+            });
+        </script>
+    }
+}

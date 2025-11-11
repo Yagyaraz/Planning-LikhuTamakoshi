@@ -1,0 +1,722 @@
+﻿@inject IUtility _Utility
+@model FormatViewModel
+@{
+    var headerdata =await _Utility.GetHeaderData();
+}
+
+<style>
+
+    .printpage {
+        width: 21cm;
+        min-height: 29.7cm;
+        padding: 2cm;
+        margin: 1cm auto;
+        border: 1px #d3d3d3 solid;
+        border-radius: 5px;
+        background: #fff;
+        box-shadow: 0 0 5px rgb(0 0 0 / 10%);
+        font-family: 'kalimati regular' !important;
+    }
+
+    p {
+        font-size: 18px;
+    }
+
+    .table tbody tr td {
+        height: 3rem !important;
+    }
+
+</style>
+
+<div class="d-flex justify-content-end">
+    <button class="btn btn-primary mt-5" type="button" onClick="Print('contentToPrint')"><i class="fa fa-print" aria-hidden="true"></i> Print</button>
+</div>
+<div class="row" id="contentToPrint">
+    <style>
+        p {
+            font-size: 18px;
+        }
+
+        .table tbody tr td {
+            height: 3rem !important;
+        }
+    </style>
+    <section style="page-break-after:always; padding-top:1cm">
+        <div class="container">
+            <div>
+                <h4 class="text-center">उपभोक्ता समिति गठन सम्बन्धी बैठकको ढाँचा</h4>
+                <p class="pt-2" style="text-align:justify;">
+                    आज मिति २०........... साल.........महिना.......गते..................का दिन यस @headerdata.PalikaName द्वारा आर्थिक वर्ष @Model.PlanningSamjhauta.FiscalYearName  
+                    सालको वार्षिक बजेट तथा कार्यक्रमबाट बिनियोजित रकम मध्‍य यस @Model.PlanningSamjhauta.YojanaWards को  @Model.PlanningSamjhauta.YojanaNames योजनाकोलागी विनियोजित रकम रु. @Model.PlanningSamjhauta.Project_estimated_Amount /- (अक्षरुपिः@_Utility.ConvertNumberToNepaliText(Model.PlanningSamjhauta.Project_estimated_Amount.ToString()) को उपभोक्ता/टोल विकास/निर्माण समिति/कार्यक्रम सञ्चालन समिति गठन गर्न यस @headerdata.PalikaName @Model.PlanningSamjhauta.YojanaWards का
+                    वडा अध्यक्ष/वडा सदस्य/वडा सचिव/वडा प्राविधिक/वडा कार्यालय कर्मचारी प्रतिनिधि
+                    श्री............................. ज्‍युको अध्‍यक्षतामा भेला बसी विभिन्‍न छलफल तथा निर्णय गरियो।
+                </p>
+            </div>
+            <div>
+                <h5>
+                    उपस्थितिः
+                </h5>
+                <table class="table table-bordered w-100">
+                    <thead class="text-center">
+                        <tr>
+                            <th style="width:50px;">क्र.स.</th>
+                            <th>नाम थर</th>
+                            <th>पद</th>
+                            <th>ठेगाना</th>
+                            <th>फोन नं.</th>
+                            <th>दस्‍तखत</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section style="page-break-after:always; padding-top:1cm">
+        <div class="container">
+            <table class="table table-bordered w-100 ">
+                 <thead class="text-center">
+                        <tr>
+                            <th style="width:50px;"></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section style="page-break-after:always; padding-top:1cm">
+        <div class="container">
+            <div>
+                <p><u>प्रस्‍तावहरु:</u></p>
+                <ol style="list-style-type: none;">
+                    <li>१)	उपभोक्ता/अन्य समिति गठन सम्‍बन्‍धमा।</li>
+                    <li>२)	उपभोक्ता/अन्य समितिका सदस्यहरुको योग्यता सिफारिस सम्बन्धमा ।</li>
+                    <li>३)	योजना सम्‍झौता गर्ने सम्‍बन्‍धमा ।</li>
+                    <li>४)	योजना संञ्चालनका लागि उपभोक्ता/अन्य समितिको खाता संचालन सम्‍बन्‍धमा ।</li>
+                    <li>५)	योजना अनुगमन समिति गठन सम्‍बन्‍धमा ।</li>
+                    <li>६)	योजना सुचारु सम्बन्‍धमा|</li>
+                    <li>७)	विविध ।</li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+
+    <section style="page-break-after:always; padding-top:1cm">
+        <div class="container">
+            <h6><u>निर्णयहरु:</u></h6>
+            <h6><u>निर्णय नं. १.</u></h6>
+            <p style="text-align:justify;">
+                प्रस्‍ताव नं. १ माथी छलफल गर्दा यस @headerdata.PalikaName .... नं. वडा ..............................मा आ.व.२०...../०........ को वार्षिक बजेट तथा कार्यक्रम अन्तर्गत........................................................................................ शिर्षकमा विनियोजित
+                योजना कार्यान्‍वयन गर्नका लागि तपसिल बमोजिमका उपभोक्ता/अन्य कार्यक्रम संचालन समिति गठन गर्ने निर्णय गरियो ।
+            </p>
+            <h6><u>तपशिल:</u></h6>
+            <table class="table table-bordered w-100">
+                <thead style="text-align:center;">
+                    <tr>
+                        <th style="width:80px;">क्र.स.</th>
+                        <th>नाम थर</th>
+                        <th>पद</th>
+                        <th>फोन नं.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section style="page-break-after:always; padding-top:1cm">
+        <div class="container">
+            <div>
+                <h6><u>निर्णय नं. २.</u></h6>
+                <p style="text-align:justify;">प्रस्‍ताव नं.  २ माथी छलफल गर्दा नियम बमोजिम गठन भएको उपभोक्ता/अन्य समितिमा स्थानिय निकायका वहालवाला कर्मचारीहरु, राजनितिक दलको प्रतिनिधिको रुपमा स्थानिय निकायको कुनै पनि पदमा आसिन व्यक्ति, वहालवाला कर्मचारी, शिक्षक, निर्माण व्यवसायी, सरकारी पेश्की वा बेरुजु फर्छौट नगरेको कुनै व्यक्ति, नैतिक पतन देखिने फौजदारी अभियोगमा सजाय पाई उक्त सजाय भुक्तान गरेको तिन वर्ष ननागेको व्यक्ति, सरकारी सम्पत्ति हिनामिना गरेको व्यक्ति एकिन गरि सोहि बेहोरा स्थानिय निकायलाई जानकारी गराउदै उक्त आयोजना कार्यान्वयनका लागि यस आम भेलाको निर्णयले गठन गरेको उपभोक्ता समितिसँग सम्झौता गर्न सिफारिस सहित अनुरोध गर्ने निर्णय गरियो ।</p>
+            </div>
+            <div>
+                <h6><u>निर्णय नं. ३.</u></h6>
+                <p style="text-align:justify;">प्रस्‍ताव नं. ३ माथी छलफल गर्दा यस उपभोक्ता समितिमा रहेको कुनै पनि व्यक्ति हाल यो भन्दा बढी उपभोक्ता/अन्य समितिको कुनै पनि सदस्यमा नरहेको र एकासंगोलका परिवारबाट एक जना भन्दा बढि व्यक्ति यो समितिमा नरहेको एकिन गरि सोहि बेहोरा स्थानिय निकाय समक्ष सिफारिस सहित जानकारी गराउँदै योजनाको सम्‍झौता गर्न गाउँ कार्यपालिकाको कार्यालय धोवी बजारमा पठाउने निर्णय गरियो ।</p>
+            </div>
+            <div>
+                <h6><u>निर्णय नं. ४.</u></h6>
+                <p style="text-align:justify;">
+                    प्रस्‍ताव नं. ४ माथी छलफल गर्दा यस ............................................................................................................................
+                    योजनाको उपभोक्ता/अन्य समितिको खाता संचालन गर्न नेपाल इन्‍भेष्‍टमेन्‍ट बैँक लि. धोवीबजार शाखामा तपशिलमा उल्‍लेखित पदाधिकारीबाट संचालन गर्ने निर्णय गरियो ।
+                </p>
+            </div>
+            <table class="table table-bordered w-100">
+                <thead class="text-center">
+                    <tr>
+                        <th style="width:80px;">क्र.स.</th>
+                        <th>नाम थर</th>
+                        <th>पद</th>
+                        <th>फोन नं.</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section style="page-break-after:always; padding-top:1cm">
+        <div class="container">
+            <div>
+                <h6><u>निर्णय नं. ५.</u></h6>
+                <p style="text-align:justify;">
+                    प्रस्‍ताव नं. ५ माथी छलफल गर्दा यस............................................................................................................
+                    उपभोक्ता समितिले गरेको कामको अनुगमन तथा सुपरिवेक्षण गर्न सर्वसहमत तरिकाले तपशिल अनुसारको अनुगमन तथा सुपरिवेक्षण समिति गठन गर्ने निर्णय गरियो।
+                </p>
+            </div>
+            <table class="table table-bordered w-100">
+                <thead class="text-center">
+                    <tr>
+                        <th style="width:80px;">क्र.स.</th>
+                        <th>नाम थर</th>
+                        <th>पद</th>
+                        <th>फोन नं.</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+            <br />
+            <div>
+                <h6><u>निर्णय नं. ६.</u></h6>
+                <p style="text-align:justify;">
+                    प्रस्‍ताव नं. ६ माथी छलफल गर्दा यस........................................................................................................................
+                    योजना/कार्यक्रम सम्‍झौता कार्य सम्पन्न भएको भोलीपल्‍ट देखिनै काम संचालन गर्ने निर्णय गरियो ।
+                </p>
+            </div>
+            <div>
+                <h6><u>निर्णय नं. ७.</u></h6>
+                <p style="text-align:justify;">
+                    प्रस्‍ताव नं. ७ माथी छलफल गर्दा उपभोक्ता समिति मार्फत संञ्चालन गरेको कार्यक्रमको स्थानिय जनताहरुबाट माग भएमा माग गरिएको जानकारी
+                    उपलब्ध गराउन उपभोक्ता/कार्यक्रम संचालन समिति/संस्थालाई निर्देशन दिने निर्णय गरियो ।
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section style="page-break-after:always; padding-top:1cm">
+        <div class="container">
+            <h3>उपभोक्ता/अन्य समिति गठनको समयमा आमभेला भएको योजना संचालन स्थलको फोटो(उपभोक्ता/अन्य समितिका सदस्यहरु सहित कार्यालय प्रतिनिधिको रोहवर)</h3>
+        </div>
+    </section>
+
+    <section style="page-break-after:always; padding-top:1cm">
+        <div class="container">
+            <h3>उपभोक्ता/अन्य समितिका पदाधिकारीहरुको नागरिकता प्रमाणपत्रको प्रमाणित प्रतिलिपिहरु</h3>
+        </div>
+    </section>
+
+
+    <section style="page-break-after:always; padding-top:1cm">
+        <div class="container">
+            <h6 class="fw-bold">उपभोक्ता समिति/कार्यक्रम सञ्चालक संस्थामा रहन योग्य भएको भन्ने सम्बन्धितहरुको घोषणापत्र</h6>
+            <p style="text-align:justify;">यस........................................................................................................................आयोजनाबाट प्रत्यक्ष लाभान्वित हुने हामी तपसिलमा उल्लेखित उपभोक्ता/सदस्यहरुको "गाउँपालिकामा कार्यान्वयन हुने कार्यक्रम वा आयोजना संचालन तथा व्यवस्थापन सम्बन्धी नियमानुसार प्रस्तावित उपभोक्ता/अन्य समितिमा रही गर्ने कामकारबाहीमा आफ्नो कुनै स्वार्थ नबाझिएको रनियम बमोजिम गठन भएको उपभोक्ता समितिमा स्थानिय निकायका वहालवाला कर्मचारीहरु, राजनितिक दलको प्रतिनिधिको रुपमा स्थानिय निकायको कुनै पनि पदमा आसिन व्यक्ति, वहालवाला कर्मचारी, शिक्षक, निर्माण व्यवसायी, सरकारी पेश्की वा बेरुजु फर्छौट नगरेको कुनै व्यक्ति, नैतिक पतन देखिने फौजदारी अभियोगमा सजाय पाई उक्त सजाय भुक्तान गरेको तिन वर्ष ननागेको व्यक्ति, सरकारी सम्पत्ति हिनामिना गरेको व्यक्ति एकिन गरि विवरण ठिक साँचो हो ब्यहोरा झुठा ठहरे कानून बमोजिम सहुला बुझाउला भनी यो स्वघोषणापत्र दस्तखत गरी पेश गरेका छौँ।</p>
+
+            <table class="table table-bordered w-100">
+                <thead class="text-center">
+                    <tr>
+                        <th style="width:80px;">क्र.स.</th>
+                        <th>नाम थर</th>
+                        <th>पद</th>
+                        <th>फोन नं.</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+
+<link href="~/lib/nepalidatepicker/css/nepali.datepicker.v3.7.min.css" rel="stylesheet" />
+
+@section Scripts
+{
+    <script type="text/javascript">
+        //$(function () {
+        //    $('.currentdate').html(GetNepaliCurrentDate());
+        //});
+        function Print() {
+            var elementHTML = document.getElementById('contentToPrint').innerHTML;
+            var oldPage = document.body.innerHTML;
+            document.body.innerHTML = elementHTML;
+            window.print();
+            //document.body.innerHTML = oldPage;
+            window.location.reload(true);
+        }
+    </script>
+        
+}

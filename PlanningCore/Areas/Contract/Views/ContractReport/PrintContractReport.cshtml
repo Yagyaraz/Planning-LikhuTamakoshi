@@ -1,0 +1,63 @@
+﻿@inject IUtility _Utility﻿
+@model IEnumerable<Con_PrintReportDetailViewModel>
+
+
+@{
+    ViewData["Title"] = "PrintContractReport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+	<style>
+		#download {
+			display: inline-block;
+			padding: 10px 20px;
+			font-size: 16px;
+			font-weight: bold;
+			color: white;
+			background-color: #007bff;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			text-align: center;
+			text-decoration: none;
+			transition: background-color 0.3s ease;
+			margin-top: 20px;
+			float: right;
+		}
+	</style>
+
+<div class="mt-5">
+	<button id="download">pdf</button>
+</div>
+<div id="content">
+	@foreach (var item in Model)
+	{
+
+@* 		<div> 
+			@item.ReportName
+		</div>
+ *@
+		<div>
+			@Html.Raw(item.PrintContent)
+		</div>
+	}
+</div>
+
+@section Scripts {
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+
+	<script>
+		document.getElementById('download').addEventListener('click', () => {
+			debugger;
+			const element = document.getElementById('content');
+			html2pdf(element, {
+				margin: 1,
+				filename: 'output.pdf',
+				//image: { type: 'jpeg', quality: 0.98 },
+				html2canvas: { scale: 2 },
+				jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+			});
+		});
+	</script>
+}
+

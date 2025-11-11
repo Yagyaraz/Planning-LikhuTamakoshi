@@ -1,0 +1,79 @@
+﻿@model IEnumerable<BudgetTypeViewModel>
+@inject IUtility _Utility
+@{
+	ViewData["Title"] = "Index";
+
+}
+
+<div class="page-breadcrumb">
+	<div class="row">
+		<div class="col-12 d-flex no-block align-items-center">
+			<h4 class="page-title">बजेट शिर्षक</h4>
+			<div class="ms-auto text-end">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="">गृह पृष्ट</a></li>
+						<li class="breadcrumb-item active" aria-current="page">
+							बजेट शिर्षक
+						</li>
+					</ol>
+				</nav>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div style="text-align: right;">
+				<a asp-controller="Budget" asp-action="CreateBudgetType" asp-area="Admin" class="btn btn-primary oval-button">नयाँ बजेट शिर्षक </a>
+				<a asp-controller="Budget" asp-action="CreateBudgetSubType" asp-area="Admin" class="btn btn-primary oval-button">नयाँ बजेट उप-शिर्षक </a>
+			</div>
+			<br />
+			<div class="card">
+				<div class="card-body">
+					@*   <h5 class="card-title">Basic Datatable</h5> *@
+
+					<div class="table-responsive">
+						<table id="zero_config"
+							   class="table table-striped table-bordered">
+							<thead>
+								<tr>
+									<th>क्र.स.</th>
+									<th> @Html.DisplayNameFor(model => model.BudgetTypeName)
+
+								</tr>
+							</thead>
+							<tbody>
+								@foreach (var item in Model)
+								{
+									<tr>
+										<td>1</td>
+										<td>@Html.DisplayFor(modelItem => item.BudgetTypeName)</td>
+
+										<td>
+											<a type="button" id="सच्याउनुहोस" class="btn btn-secondary oval-button" asp-action="CreateBudgetType" asp-route-id="@item.BudgetTypeId">
+												<i class="fa fa-edit">सच्याउनुहोस</i>
+											</a>
+										</td>
+
+									</tr>
+								}
+							</tbody>
+
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+	<script>
+		$("#zero_config").DataTable();
+	</script>
+}

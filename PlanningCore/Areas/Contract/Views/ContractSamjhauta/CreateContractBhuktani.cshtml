@@ -1,0 +1,191 @@
+﻿@model Con_BhuktaniViewModel
+@inject IUtility _Utility
+<div class="page-breadcrumb colr1">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <div style="display:flex;">
+                <h4 class="card1" style="background-color:#3c8dbc; color:#fff; height:40px; width:170px; padding-top:5px; text-align:center;">सम्बन्धि भुक्तानी विवरण</h4>
+                <span style="height:2rem; background-color:#3c8dbc; width:10px; height:40px;"></span>
+                <span style="height: 2rem; border-top: 17px solid transparent;border-left: 25px solid #3c8dbc;border-bottom: 22px solid transparent; height:40px;"> </span>
+            </div>
+            <div class="ms-auto text-end">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">गृह पृष्ट</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">
+
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid colr1">
+    <div class="row">
+        <form asp-action="CreateContractBhuktani" method="post">
+            @Html.HiddenFor(model => model.ContractSamjhautaId)           
+            @Html.HiddenFor(model => model.ConBhuktaniId)
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body row">
+                        <div class="aayojana row">
+
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="BhuktaniTypeId"></label>
+                                <select asp-for="BhuktaniTypeId" asp-items="await _Utility.GetBhuktaniType()" class="form-control" required="true">
+                                    <option value="">--<label asp-for="BhuktaniTypeId"></label> --</option>
+                                </select>
+                            </div>
+
+
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="ContractAmt"></label> 
+                                <input type="number" asp-for="ContractAmt" class="form-control">
+                                <span asp-validation-for="ContractAmt" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="BhuktaniAmount"></label>
+                                <input type="number" asp-for="BhuktaniAmount" class="form-control">
+                                <span asp-validation-for="BhuktaniAmount" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="BhuktaniDate"></label>
+                                <input type="text" asp-for="BhuktaniDate" class="form-control">
+                                <span asp-validation-for="BhuktaniDate" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <hr style="color:red" ;>
+
+
+                        <div class="budget row">
+                            <div class="form-group mt-2 col-md-3 col-3">
+
+                                <label asp-for="PrabidhikDetailsAmount"></label>
+                                <input type="number" asp-for="PrabidhikDetailsAmount" class="form-control" onchange="sum()">
+                                <span asp-validation-for="PrabidhikDetailsAmount" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="RunningBill"></label>
+                                <input type="number" asp-for="RunningBill" class="form-control" onchange="sum()">
+                                <span asp-validation-for="RunningBill" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="PsAmount"></label>
+                                <input type="number" asp-for="PsAmount" class="form-control" onchange="sum()">
+                                <span asp-validation-for="PsAmount" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="VAT"></label>
+                                <input type="number" asp-for="VAT" class="form-control" onchange="sum()">
+                                <span asp-validation-for="VAT" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="PrabidhikDetailsMiti"></label>
+                                <input type="text" asp-for="PrabidhikDetailsMiti" class="form-control" onchange="sum()">
+                                <span asp-validation-for="PrabidhikDetailsMiti" class="text-danger"></span>
+                            </div>
+                          
+
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="PaskiAmount"></label>
+                                <input type="number" asp-for="PaskiAmount" class="form-control" onchange="sum()">
+                                <span asp-validation-for="PaskiAmount" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="KaryDiyekoAmount"></label>
+                                <input type="number" asp-for="KaryDiyekoAmount" class="form-control" onchange="sum()">
+                                <span asp-validation-for="KaryDiyekoAmount" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="YojanaMulykanDate"></label>
+                                <input type="number" asp-for="YojanaMulykanDate" class="form-control" onchange="sum()">
+                                <span asp-validation-for="YojanaMulykanDate" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="GoshwaraVoucherNo"></label>
+                                <input type="text" asp-for="GoshwaraVoucherNo" class="form-control" onchange="sum()">
+                                <span asp-validation-for="GoshwaraVoucherNo" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="BillNumber"></label>
+                                <input type="text" asp-for="BillNumber" class="form-control" onchange="sum()">
+                                <span asp-validation-for="BillNumber" class="text-danger"></span>
+                            </div>
+
+                        </div>
+                        <hr />
+                        <div class="col-sm-12 col-12">
+                            <div class="taxd">
+                            </div>
+                            <button type="button" id="taxadd" class="btn btn-add btn-sm pull-right" style="background-color:green; color: #fff; padding: 7px 12px;  margin-bottom: 5px;"><i class="fa fa-plus-circle"> &nbsp;</i> समिति सदस्य थप्नुहोस  </button>
+                        </div>
+                        <div class="col-lg-12 col-sm-12 col-12" id="taxdiv">
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                @if (Model.ConTaxList.Count > 0)
+                                {
+                                    foreach (var items in Model.ContractBhuktaniList)
+                                    {
+                                        <partial name="_TaxDeduction.cshtml" model="@items" />
+                                    }
+
+                                }
+                             
+                            </div>
+                        </div>
+
+                        <br />
+                        <div class="d-flex justify-content-end gap-2">
+                            <button type="submit" class="btn btn-sm btn-success text-white ">
+                                <i class=" fas fa-save">  </i>
+                                सुरक्षित गर्नुहोस
+                            </button>
+
+                            <a asp-action="ContractBhuktaniIndex" asp-controller="ContractSamjhauta" asp-area="Contract" class="btn  btn-sm text-white"
+                               style=" background-color:#424f63;">
+                                <i class="fa fa-arrow-left" aria-hidden="true"> पछाडि फर्कनुहोस्</i>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+@section Scripts {
+    @{
+
+        <script>
+            $('#taxadd').on('click', function () {
+                debugger;
+                $.ajax({
+                    url: '@Url.Action("CreateTaxDeduction")',
+                    success: function (result) {
+                        if (result) {
+                            $('#taxdiv').append(result);
+                        }
+                    },
+                    error: function () {
+                        alert('error in calling ajax !!')
+                    }
+                });
+            });
+        </script>
+        <script>
+            function DeleteRow(e) {
+                var confirmValue = confirm("Are you sure to delete ?");
+                if (confirmValue) {
+                    $(e).closest('.new').remove();
+                    $(e).closest('.taxdiv').remove();
+                }
+            }
+        </script>
+    }
+}

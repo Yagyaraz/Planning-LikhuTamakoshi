@@ -1,0 +1,266 @@
+﻿@model BidSecurityViewModel
+@inject IUtility _Utility
+@{
+	ViewData["Title"] = "Index";
+	var orgname = await _Utility.GetMainSettingById(0);
+}
+<style>
+	.form-control {
+		border-color: black;
+	}
+
+	.Sign {
+		border: 1px solid #000;
+		padding: 20px;
+		margin-left: 5px;
+	}
+</style>
+<style>
+	.row123 {
+		display: none; /* Hide the div initially using CSS */
+	}
+</style>
+
+<div class="page-breadcrumb colr1">
+	<div class="row">
+		<partial name="_PrintHeader" />
+		<div class="col-12 d-flex no-block align-items-center">
+			<div style="display:flex;">
+				<h4 class="card1" style="background-color:#3c8dbc; color:#fff; height:40px; width:150px; padding-top:5px; text-align:center;">Bid Security फारम</h4>
+				<span style="height:2rem; background-color:#3c8dbc; width:10px; height:40px;"></span>
+				<span style="height: 2rem; border-top: 17px solid transparent;border-left: 25px solid #3c8dbc;border-bottom: 22px solid transparent; height:40px;"> </span>
+			</div>
+			<div class="ms-auto text-end">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="#">गृह पृष्ट</a></li>
+						<li class="breadcrumb-item active" aria-current="page">
+							Bid Security फारम
+						</li>
+					</ol>
+				</nav>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container-fluid colr1">
+	<div class="row">
+		<form asp-action="InsertUpdateBidSecurity" enctype="multipart/form-data">
+			@Html.HiddenFor(model => model.Id)
+
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-body row">
+						<div class="form-group  mt-2 col-md-3 col-3">
+							<label asp-for="YojanaId"></label>
+							<select asp-for="YojanaId" asp-items="await _Utility.GetThekkaYojanaList()" class="form-control">
+								<option value="">--<label asp-for="YojanaId"></label> --</option>
+							</select>
+						</div>
+						<div class="form-group mt-2 col-md-3 col-3">
+							<label asp-for="Name"></label>
+							<input type="text" asp-for="Name" class="form-control" readonly />
+							<span asp-validation-for="Name"></span>
+						</div>
+						<div class="form-group mt-2 col-md-3 col-3">
+							<label asp-for="Address"></label>
+							<input type="text" asp-for="Address" class="form-control" readonly >
+							<span asp-validation-for="Address" class="text-danger"></span>
+						</div>
+
+						<div class="form-group mt-2 col-md-3 col-3">
+							<label asp-for="BGAmount"></label>
+							<input type="number" asp-for="BGAmount" step="0.01" class="form-control" readonly />
+							<span asp-validation-for="BGAmount"></span>
+						</div>
+
+						<div class="form-group mt-2 col-md-3 col-3">
+							<label asp-for="ConsultantId"></label>
+							<select asp-for="ConsultantId" asp-items="await _Utility.GetConsultantList()" class="form-control">
+								<option value="">--<label asp-for="ConsultantId"></label> --</option>
+							</select>
+						</div>
+						<div class="form-group mt-2 col-md-3 col-3">
+							<label asp-for="BSAmount"></label>
+							<input type="number" asp-for="BSAmount" class="form-control" step="0.01" class="form-control" />
+							<span asp-validation-for="BSAmount"></span>
+						</div>
+						<div class="form-group mt-2 col-md-3 col-3">
+							<label asp-for="PaymentTypeId"></label>
+							<select asp-for="PaymentTypeId" asp-items="await _Utility.GetPaymentTypeList()" class="form-control" required="true">
+								<option value="">--<label asp-for="PaymentTypeId"></label> --</option>
+							</select>
+						</div>
+						<div class="form-group mt-2 col-md-3 col-3">
+							<label asp-for="BankId"></label>
+							<select asp-for="BankId" asp-items="await _Utility.GetBankList()" class="form-control" required="true">
+								<option value="">--<label asp-for="BankId"></label> --</option>
+							</select>
+						</div>
+						<div class="form-group mt-2 col-md-3 col-3">
+							<label asp-for="BankAccNumber"></label>
+							<input type="text" asp-for="BankAccNumber" class="form-control" />
+							<span asp-validation-for="BankAccNumber"></span>
+						</div>
+						<div class="form-group mt-2 col-md-3 col-3">
+							<label asp-for="BGNumber"></label>
+							<input type="text" asp-for="BGNumber" class="form-control" />
+							<span asp-validation-for="BGNumber"></span>
+						</div>
+
+						<div class="form-group mt-2 col-md-3 col-3">
+							<label asp-for="FromDate"></label>
+							<input type="text" asp-for="FromDate" class="form-control" />
+							<span asp-validation-for="FromDate"></span>
+						</div>
+						<div class="form-group mt-2 col-md-3 col-3">
+							<label asp-for="FromDate"></label>
+							<input type="date" asp-for="FromDateEng" class="form-control" readonly />
+							<span asp-validation-for="FromDateEng"></span>
+						</div>
+						<div class="form-group mt-2 col-md-3 col-3">
+							<label asp-for="TODate"></label>
+							<input type="text" asp-for="TODate" class="form-control" />
+							<span asp-validation-for="TODate"></span>
+						</div>
+						<div class="form-group mt-2 col-md-3 col-3">
+							<label asp-for="TODate"></label>
+							<input type="date" asp-for="ToDateEng" class="form-control" readonly />
+							<span asp-validation-for="ToDateEng"></span>
+						</div>
+						<div class="form-group mt-2 col-md-3 col-3">
+							<label asp-for="JariDate"></label>
+							<input type="text" asp-for="JariDate" class="form-control" />
+							<span asp-validation-for="JariDate"></span>
+						</div>
+						<div class="form-group mt-2 col-md-3 col-3">
+							<label asp-for="JariDate"></label>
+							<input type="date" asp-for="JariDateEng" class="form-control" readonly />
+							<span asp-validation-for="JariDateEng"></span>
+						</div>
+						<div class="form-group mt-2 col-md-3 col-3">
+							<label asp-for="Docs"></label>
+							<input type="file" asp-for="File" accept="image/*" class="form-control" />
+							<span asp-validation-for="File"></span>
+						</div>
+						<div class="card-body row">
+							<div class="form-group mt-2 col-md-3 col-3">
+								<label asp-for="FukuwaStatus"></label>
+								<input type="checkbox" asp-for="FukuwaStatus" class="form-check-input fukuwa-status-checkbox" />
+								<span asp-validation-for="FukuwaStatus"></span>
+							</div>
+						</div>
+
+						<div class="card-body row row123" style="margin-top:-20px;">
+							<div class="form-group  mt-2 col-md-3 col-3">
+								<label asp-for="FukuwaTypeId"></label>
+								<select asp-for="FukuwaTypeId" asp-items="await _Utility.GetFukuwaTypeList()" class="form-control">
+									<option value="">--<label asp-for="FukuwaTypeId"></label> --</option>
+								</select>
+							</div>
+							<div class="form-group mt-2 col-md-3 col-3">
+								<label asp-for="DecisionDate"></label>
+								<input type="text" asp-for="DecisionDate" class="form-control DecisionDate" class="form-control" />
+								<span asp-validation-for="DecisionDate"></span>
+							</div>
+							<div class="form-group mt-2 col-md-3 col-3">
+								<label asp-for="DecisionDate"></label>
+								<input type="date" asp-for="DecisionDateEng" class="form-control" readonly />
+								<span asp-validation-for="DecisionDateEng"></span>
+							</div>
+
+							<div class="form-group mt-2 col-md-3 col-3">
+								<label asp-for="DecisionOfficer"></label>
+								<input type="text" asp-for="DecisionOfficer" class="form-control" />
+								<span asp-validation-for="DecisionOfficer"></span>
+							</div>
+							<div class="form-group mt-2 col-md-3 col-3">
+								<label asp-for="FukuwaDate"></label>
+								<input type="text" asp-for="FukuwaDate" class="form-control FukwaDate" class="form-control" />
+								<input type="text" asp-for="FukuwaDateEng" class="form-control FukuwaDateEng" class="form-control" hidden />
+								<span asp-validation-for="FukuwaDate"></span>
+							</div>
+							<div class="form-group mt-2 col-md-3 col-3">
+								<label asp-for="FukuwaDate"></label>
+								<input type="date" asp-for="FukuwaDateEng" class="form-control" readonly />
+								<span asp-validation-for="FukuwaDateEng"></span>
+							</div>
+							<div class="form-group mt-2 col-md-3 col-3">
+								<label asp-for="FukuwaAmount"></label>
+								<input type="text" asp-for="FukuwaAmount" class="form-control" />
+								<span asp-validation-for="FukuwaAmount"></span>
+							</div>
+						</div>
+
+
+						<div class="card-body d-flex justify-content-end gap-2">
+							<button type="submit" class="btn btn-sm btn-success text-white ">
+								<i class=" fas fa-save">  </i>
+								सुरक्षित गर्नुहोस
+							</button>
+
+							<a asp-action="BidSecurityIndex" asp-controller="BidSecurity" asp-area="Contract" class="btn  btn-sm text-white"
+							   style=" background-color:#424f63;">
+								<i class="fa fa-arrow-left" aria-hidden="true"> पछाडि फर्कनुहोस्</i>
+							</a>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+
+	</div>
+
+</div>
+
+
+@section Scripts {
+	<link href="~/lib/nepalidatepicker/css/nepali.datepicker.v3.7.min.css" rel="stylesheet" />
+	@if (Model.FukuwaStatus)
+	{
+		<script>
+			$('.row123').css('display', 'flex');
+		</script>
+	}
+	<script>
+		NepaliDatePickerCalWithAdDateConverter(document.getElementById('FromDate'), document.getElementById('FromDateEng'))
+		NepaliDatePickerCalWithAdDateConverter(document.getElementById('TODate'), document.getElementById('ToDateEng'))
+		NepaliDatePickerCalWithAdDateConverter(document.getElementById('JariDate'), document.getElementById('JariDateEng'))
+		NepaliDatePickerCalWithAdDateConverter(document.getElementById('DecisionDate'), document.getElementById('DecisionDateEng'))
+		NepaliDatePickerCalWithAdDateConverter(document.getElementById('FukuwaDate'), document.getElementById('FukuwaDateEng'))
+	</script>
+	<script>
+		$('#YojanaId').change(function () {
+			$.ajax({
+				url: '@Url.Action("GetYojanaInfo")',
+				type: 'GET',
+				data: { id: $(this).val() },
+				success: function (data) {
+					$('#Name').val(data.name)
+					$('#Address').val(data.address)
+					$('#BGAmount').val(data.amount)
+				},
+				error: function () {
+					alert('error in calling ajax !!');
+				}
+			});
+		})
+	</script>
+
+	<script>
+		$('.fukuwa-status-checkbox').change(function () {
+			if (this.checked) {
+				$('.row123').css('display', 'flex');
+			} else {
+				$('.row123').hide();
+				// Clear all input fields within the row123 div
+				$('.row123 input[type="text"]').val('');
+				// Reset all select fields within the row123 div
+				$('.row123 select').val('');
+			}
+		});
+	</script>
+
+}

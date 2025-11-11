@@ -1,0 +1,124 @@
+﻿@inject IUtility _utility
+@model PlanningSamjhautaViewModel
+@{
+	var orgname = await _utility.GetMainSettingById(0);
+}
+
+
+<style>
+	table {
+		border-collapse: collapse !important;
+		width: 80% !important;
+		border: 1px solid black !important;
+	}
+
+	.tbl {
+		font-weight: bold !important;
+	}
+
+	th, td {
+		border: 1px solid black !important;
+		padding: 8px !important;
+		text-align: center !important;
+	}
+
+	span {
+		font-weight: bold;
+	}
+
+	accordion-body1 {
+		padding: 0.5rem 1.25rem;
+	}
+
+	.printpage {
+		width: 21cm;
+		min-height: 29.7cm;
+		padding: 2cm;
+		margin: 1cm auto;
+		border: 1px #d3d3d3 solid;
+		border-radius: 5px;
+		background: #fff;
+		box-shadow: 0 0 5px rgb(0 0 0 / 10%);
+		font-family: 'kalimati regular' !important;
+	}
+
+	@@media print {
+		table {
+			border-collapse: collapse !important;
+			width: 80% !important;
+			border: 1px solid black !important;
+		}
+
+		.tbl {
+			font-weight: bold !important;
+		}
+
+		th, td {
+			border: 1px solid black !important;
+			padding: 8px !important;
+			text-align: center !important;
+		}
+
+		#hr {
+			color: #8B0000;
+			height: 2px;
+		}
+	}
+
+</style>
+<button style="float:right" class="mt-2" type="button" onClick="Print('contentToPrint')"><i class="fa fa-print" aria-hidden="true"></i> Print</button>
+<div class="row" id="contentToPrint">
+	<div class="card-body printpage">
+		<div class="Header">
+			<partial name="_PrintHeader" />
+		</div>
+		<div class="container">
+			<p>अध्यक्ष श्री,</p>
+			<p>@Model.Samiti_Adakshya_Name</p>
+			<p>@Model.Samjhauta_Org_Name</p>
+			<br />
+			<div class="accordion-header text-center font-bold text-decoration-underline"> विषय:आयोजना सम्झौता गरी कार्यदेश दिने सम्बन्धमा ।</div>
+			@* <p style="text-indent:24px; letter-spacing:1px; line-height:30px; font-weight:500; font-size:16px; padding-top:15px; text-align:justify !important;  ">*@
+			<p style="text-indent:24px; letter-spacing:1px; line-height:30px; font-weight:500; font-size:16px; padding-top:15px; text-align:justify !important; ">
+				यस @orgname.PalikaName को @orgname.PalikaTypeName सभाबाट चालू आ.ब.<strong> @Model.FiscalYearName </strong> को लागि स्वीकृत भएको
+				यस @orgname.PalikaName <strong> @Model.WardName </strong> मा <strong> @Model.Project_Name</strong> आयोजना / कार्याक्रम छनौट भई सो आयोजना/ कार्याक्रमको लागि
+				रु.<strong>@_utility.ConvertEnglishToNepali(Model.Project_estimated_Amount)</strong>
+				वजेट विनियोजन भई सकेको र नियमानुसार उपभोक्ता समिति गठन भई सोको प्रतिवेदन @orgname.PalikaTypeName पालिकामा पेश भैसकेकोले उपभोक्ता समितिको  <strong>
+					@Model.RepresentativeDesignition @Model.RepresentativeName
+				</strong> लाई सम्झौता गर्न पठाईएको छ । नियमानुसार सम्झौता गरी कार्यदेश दिनु हुन अनुरोध छ ।
+			</p>
+			<br />
+			<br />
+			<div class="row">
+				<div class="col-md-3 col-3 offset-9">
+					<p>..........................</p>
+					<p>@Model.SwikritGarneName</p>
+					<p>@Model.SwikritGarnePost</p>
+				</div>
+			</div>
+			<br />
+			<br />
+			<br />
+			<br />
+			<p><u><b>बोधार्थ :</b></u></p>
+			<p>श्री  @Model.WardName</p>
+			<p>एक प्रति सम्झौता र कार्यादेश यसै साथ संलग्न छ साइट इन्चार्ज/ प्राविधिक खटाइ यसै बमोजिम सम्पुर्ण कार्य गराउनु हुन ।</p>
+			<p>
+				@orgname.PalikaName @orgname.Address,@orgname.StateName,नेपाल ।
+			</p>
+		</div>
+	</div>
+</div>
+
+@section Scripts
+{
+	<script>
+		function Print(divele) {
+			var elementHTML = document.getElementById(divele).innerHTML;
+			var oldPage = document.body.innerHTML;
+			document.body.innerHTML = elementHTML;
+			window.print();
+			document.body.innerHTML = oldPage;
+		}
+	</script>
+}

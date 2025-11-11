@@ -1,0 +1,141 @@
+﻿@model InsuranceViewModel
+@inject IUtility _Utility
+@{
+	ViewData["Title"] = "Index";
+	var orgname = await _Utility.GetMainSettingById(0);
+}
+<style>
+	.form-control {
+		border-color: black;
+	}
+
+	.Sign {
+		border: 1px solid #000;
+		padding: 20px;
+		margin-left: 5px;
+	}
+</style>
+<style>
+	.row123 {
+		display: none; /* Hide the div initially using CSS */
+	}
+</style>
+
+<div class="page-breadcrumb">
+	<div class="row">
+		<partial name="_PrintHeader" />
+		<div class="col-12 d-flex no-block align-items-center">
+			<h4 class="page-title"><u><strong>@ViewBag.ContractName</strong> को बिमा फारम </u> </h4>
+			<div class="ms-auto text-end">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="#">गृह पृष्ट</a></li>
+						<li class="breadcrumb-item active" aria-current="page">
+							 बिमा फारम
+						</li>
+					</ol>
+				</nav>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container-fluid">
+	<div class="row">
+		<form asp-action="InsertContractBima" method="post">
+			@Html.HiddenFor(model => model.Id)
+			@Html.HiddenFor(model => model.ConSamjhautaId)
+
+			<div class="col-md-12">
+				<div class="card ">
+					<div class="card-body row">
+						@* <div class="form-group  mt-2 col-md-2 col-2">
+							<label asp-for="YojanaId"></label>
+							<select asp-for="YojanaId" asp-items="await _Utility.GetThekkaYojanaList()" class="form-control">
+								<option value="">--<label asp-for="YojanaId"></label> --</option>
+							</select>
+						</div> *@
+					
+						<div class="form-group mt-2 col-md-2 col-2">
+							<label asp-for="Name"></label>
+							<input type="text" asp-for="Name" class="form-control" class="form-control" />
+							<span asp-validation-for="Name"></span>
+						</div>
+						<div class="form-group mt-2 col-md-2 col-2">
+							<label asp-for="InsuranceType"></label>
+							<input type="text" asp-for="InsuranceType" class="form-control" class="form-control" />
+							<span asp-validation-for="InsuranceType"></span>
+						</div>
+						<div class="form-group mt-2 col-md-2 col-2">
+							<label asp-for="Amount"></label>
+							<input type="text" asp-for="Amount" class="form-control" class="form-control" />
+							<span asp-validation-for="Amount"></span>
+						</div>
+						<div class="form-group mt-2 col-md-2 col-2">
+							<label asp-for="PolicyNumber"></label>
+							<input type="text" asp-for="PolicyNumber" class="form-control" class="form-control" />
+							<span asp-validation-for="PolicyNumber"></span>
+						</div>
+						<div class="form-group mt-2 col-md-2 col-2">
+							<label asp-for="CompanyName"></label>
+							<input type="text" asp-for="CompanyName" class="form-control" class="form-control" />
+							<span asp-validation-for="CompanyName"></span>
+						</div>
+
+					
+						<div class="form-group mt-2 col-md-2 col-2">
+							<label asp-for="IssueDate"></label>
+							<input type="text" asp-for="IssueDate" class="form-control IssueDate" class="form-control" />
+							<input type="text" asp-for="IssueDateEng" class="form-control IssueDateEng" class="form-control" hidden />
+							
+							<span asp-validation-for="IssueDate"></span>
+						</div>
+						<div class="form-group mt-2 col-md-2 col-2">
+							<label asp-for="ValidFrom"></label>
+							<input type="text" asp-for="ValidFrom" class="form-control ValidFrom" class="form-control" />
+							<input type="text" asp-for="ValidFromEng" class="form-control ValidFromEng" class="form-control" hidden />
+							
+							<span asp-validation-for="ValidFrom"></span>
+						</div>
+						<div class="form-group mt-2 col-md-2 col-2">
+							<label asp-for="ValidTo"></label>
+							<input type="text" asp-for="ValidTo" class="form-control ValidTo" class="form-control" />
+							<input type="text" asp-for="ValidToEng" class="form-control ValidToEng" class="form-control" hidden/>
+							<span asp-validation-for="ValidTo"></span>
+						</div>
+				
+						<div class="form-group mt-2 col-md-2 col-2">
+							<label asp-for="Remarks"></label>
+							<input type="text" asp-for="Remarks" class="form-control" class="form-control" />
+							<span asp-validation-for="Remarks"></span>
+						</div>
+					</div>
+
+					<hr />
+					
+				</div>
+				<hr />
+	
+				<div class="card-body">
+					<button type="submit" class="btn btn-success text-white oval-button">सुरक्षित गर्नुहोस</button>
+					<a asp-controller="Contract" asp-action="ContractBimaIndex" asp-area="Admin" class="btn btn-sm btn-success oval-button"><i class="mdi mdi-arrow-left-box"></i>Back to List </a>
+
+				</div>
+			</div>
+		</form>
+	</div>
+
+
+</div>
+
+<link href="~/lib/nepalidatepicker/css/nepali.datepicker.v3.7.min.css" rel="stylesheet" />
+
+@section Scripts {
+	<script>
+		NepaliDatePickerCalWithAdDateConverter(document.getElementsByClassName('ValidFrom'), document.getElementsByClassName('ValidFromEng'))
+		NepaliDatePickerCalWithAdDateConverter(document.getElementsByClassName('ValidTo'), document.getElementsByClassName('ValidToEng'))
+		NepaliDatePickerCalWithAdDateConverter(document.getElementsByClassName('IssueDate'), document.getElementsByClassName('IssueDateEng'))
+		
+	</script>
+	
+}        

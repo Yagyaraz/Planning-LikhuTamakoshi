@@ -1,0 +1,92 @@
+﻿@inject IUtility _Utility
+@model FormatViewModel
+@{
+    var headerdata = await _Utility.GetHeaderData();
+}
+
+<style>
+
+    .printpage {
+    width: 21cm;
+    min-height: 29.7cm;
+    padding: 2cm;
+    margin: 1cm auto;
+    border: 1px #d3d3d3 solid;
+    border-radius: 5px;
+    background: #fff;
+    box-shadow: 0 0 5px rgb(0 0 0 / 10%);
+    font-family: 'kalimati regular' !important;
+    }
+
+    p {
+    font-size: 18px;
+    }
+
+    .table tbody tr td {
+    height: 3rem !important;
+    }
+
+</style>
+
+<div class="d-flex justify-content-end">
+    <button class="btn btn-primary mt-5" type="button" onClick="Print('contentToPrint')"><i class="fa fa-print" aria-hidden="true"></i> Print</button>
+</div>
+<div class="row" id="contentToPrint">
+    <style>
+        p {
+        font-size: 18px;
+        }
+
+        .table tbody tr td {
+        height: 3rem !important;
+        }
+    </style>
+    <section style="page-break-after:always; padding-top:1cm">
+        <div class="container">
+            <div>
+                <h4>गाउँपालिकाबाट दिएको सूचना पाटी टास्नुहोस । साथै उक्त सूचना पाटीको होडिङ वोर्ड लाई काम सुरु पुर्व सवैले देख्ने ठाउँमा राख्नुहोस ।</h4>
+                <h4 class="text-center pt-2">अनुसूची ५</h4>
+                <h6 class="text-center pt-2">(कार्यविधिको दफा ११(७) संग सम्वन्धित)</h6>
+                <h6 class="text-center pt-2">आयोजना सूचना पाटीको नमूना</h6>
+            </div>
+            <div>
+                <p>१.  आयोजनाको नामः @Model.PlanningSamjhauta.YojanaNames</p>
+                <p>२. आयोजना संचालन गर्ने कार्यालयको नामः@headerdata.PalikaName</p>
+                <p>३. उपभोक्ता समितिको अध्यक्षको नाम र सम्पर्क नं.@Model.UpavoktaSamiti.AdakshyaPhone</p>
+                <p>४. उपभोक्ता समितिको सचिवको नाम र सम्पर्क नं.@Model.UpavoktaSamiti.SachibPhone</p>
+                <p>५. उपभोक्ता समितिको कोषाध्यक्षको नाम र सम्पर्क नं.@Model.UpavoktaSamiti.KosadakshyaPhone</p>
+                <p>६. कुल विनियोजित रकम रुः @Model.PlanningSamjhauta.Project_estimated_Amount</p>
+                <p>७. आयोजनाको कुल लागत रकम रुः @Model.PlanningSamjhauta.Amount_Estimate</p>
+                <p style="text-indent:25px;">७.१. आयोजनामा कार्यालयबाट व्यहोर्ने लागत रुः @Model.PlanningSamjhauta.Municipality</p>
+                <p style="text-indent:25px;">७.२. जनसहभागिताबाट व्यहोर्ने लागत रकम रुः @Model.PlanningSamjhauta.Loan_Grant</p>
+                <p style="text-indent:25px;">७.३. आयोजनामा लगानी गर्ने अन्य निकायको नाम  र व्यहोर्ने लागत रकम रुः</p>
+                <p>८. आयोजना सम्झौता मितिः@Model.PlanningSamjhauta.Municipality_Manjuri_Date</p>
+                <p>९. आयोजना सम्पन्न गर्ने मितिः@Model.PlanningSamjhauta.Project_End_Date</p>
+                <p>१०. आयोजनाबाट लाभान्वित जनसंख्याः@{
+                        var male = Model.PlanningSamjhauta.Total_Male;
+                        var female = Model.PlanningSamjhauta.Total_Female;
+                        var total = male + female;
+                    }@total</p>
+            </div>
+		</div>
+	</section>
+</div>
+
+<link href="~/lib/nepalidatepicker/css/nepali.datepicker.v3.7.min.css" rel="stylesheet" />
+
+@section Scripts
+{
+    <script type="text/javascript">
+        //$(function () {
+        //    $('.currentdate').html(GetNepaliCurrentDate());
+        //});
+        function Print() {
+            var elementHTML = document.getElementById('contentToPrint').innerHTML;
+            var oldPage = document.body.innerHTML;
+            document.body.innerHTML = elementHTML;
+            window.print();
+            //document.body.innerHTML = oldPage;
+            window.location.reload(true);
+        }
+    </script>
+}

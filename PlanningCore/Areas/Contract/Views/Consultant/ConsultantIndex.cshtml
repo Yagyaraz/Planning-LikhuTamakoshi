@@ -1,0 +1,201 @@
+﻿@model IEnumerable<ConsultantViewModel>
+@inject IUtility _Utility
+@{
+	ViewData["Title"] = "Index";
+}
+
+<style>
+
+
+
+	.table thead {
+		background-color: #ccd1d9;
+		font-size: 13px;
+		line-height: 35px !important;
+	}
+
+
+
+
+		.table thead th {
+			font-weight: 800;
+			border: 1px solid black !important;
+			padding: 0px !important;
+		}
+
+
+	.table tbody td {
+		padding: 0px !important;
+		border: 1px solid black !important;
+		vertical-align: middle;
+	}
+
+	.table tbody tr {
+		text-align: center;
+		font-size: 12px;
+		height: 27px !important;
+	}
+
+
+
+	table.table-bordered.dataTable td {
+		padding: 0px;
+	}
+
+	table.table-bordered.dataTable th {
+		padding: 0px;
+	}
+
+	tr:nth-child(even) {
+		background-color: #e9ecef;
+	}
+
+
+	tr:hover {
+		background-color: #b3ffe6;
+	}
+
+</style>
+
+<div class="page-breadcrumb colr1">
+	<div class="row">
+		<div class="col-12 d-flex no-block align-items-center">
+
+			<div class="ms-auto text-end">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="">गृह पृष्ट</a></li>
+						<li class="breadcrumb-item active" aria-current="page">
+							निर्माण व्यवसायी
+						</li>
+					</ol>
+				</nav>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container-fluid colr1">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="d-flex justify-content-between">
+				<div style="display:flex;">
+					<h4 class="card1" style="background-color:#3c8dbc; color:#fff; height:40px; width:150px; padding-top:5px; text-align:center;">निर्माण व्यवसायी</h4>
+					<span style="height:2rem; background-color:#3c8dbc; width:10px; height:40px;"></span>
+					<span style="height: 2rem; border-top: 17px solid transparent;border-left: 25px solid #3c8dbc;border-bottom: 22px solid transparent; height:40px;"> </span>
+				</div>
+				<a asp-controller="Consultant" asp-action="InsertConsultant" asp-area="Contract"
+				   class="btn btn-sm btn-primary d-flex justify-content-center align-items-center gap-1 fw-bold"
+				   style="height:2rem; background-color:#4789cf;">
+					<i class="fas fa-plus-circle"> </i>
+					<span> नया थप्नुहोस </span>
+				</a>
+			</div>
+
+			<div class="card">
+				<div class="card-body">
+					@*   <h5 class="card-title">Basic Datatable</h5> *@
+
+					<div class="table-responsive">
+						<table id="zero_config"
+							   class="table  table-bordered" style="border-collapse: collapse!important;">
+							<thead>
+								<tr>
+									<th style="width:5%; text-align:center;">क्र.स.</th>
+									<th style="text-align:center;"> @Html.DisplayNameFor(model => model.Name)</th>
+									<th style="text-align:center;"> @Html.DisplayNameFor(model => model.MainPersonName)</th>
+									<th style="width:90px; text-align:center;"> @Html.DisplayNameFor(model => model.MainPersonAddress)</th>
+									<th style="text-align:center;"> @Html.DisplayNameFor(model => model.MainPersonPhoneNumber)</th>
+									<th style="text-align:center;"> @Html.DisplayNameFor(model => model.EjajatNumber)</th>
+									<th style="text-align:center;">  कार्य </th>
+
+								</tr>
+							</thead>
+							<tbody>
+								@foreach (var item in Model)
+								{
+									<tr>
+										<td style="text-align:center;">1</td>
+										<td style="text-align:center;">@Html.DisplayFor(modelItem => item.Name)</td>
+										<td style="text-align:center;">@Html.DisplayFor(modelItem => item.MainPersonName)</td>
+										<td style="text-align:center; width:190px;">@Html.DisplayFor(modelItem => item.MainPersonAddress)</td>
+										<td style="text-align:center;">@Html.DisplayFor(modelItem => item.MainPersonPhoneNumber)</td>
+										<td style="text-align:center;">@Html.DisplayFor(modelItem => item.EjajatNumber)</td>
+										<td class="d-flex justify-content-center" style="border-top:none!important; border-left:none!important;">
+											<a type="button" id="सच्याउनुहोस" class="btn  btn-sm" title="Edit" asp-action="InsertConsultant" asp-route-id="@item.Id">
+												<i class="fa fa-edit" style=" font-weight:1; font-size:12px;"></i>
+											</a>
+											@* <a type="button" id="विवरण" class="btn  btn-sm" asp-action="InsertConsultant" title="विवरण" asp-route-id="@item.Id">
+												<i class="fa fa-address-card" style="font-weight:1; font-size:12px;">  </i>
+											</a> *@
+											@if (item.IsAllowToDelete)
+											{
+												<a asp-action="DeleteConsultant" asp-route-id="@item.Id" title="Delete" onclick="return confirm('Are you sure?')" style="margin-top:5px;">
+													<i class="fa fa-trash" style="color:red; padding-left:3px; ">
+													</i>
+												</a>
+											}
+										</td>
+
+									</tr>
+								}
+							</tbody>
+
+						</table>
+
+						<div class="d-flex justify-content-end">
+							<a asp-action="Index" asp-controller="Setup" asp-area="Contract" class="btn  btn-sm mt-3 mb-2 text-white"
+							   style=" background-color:#424f63;">
+								<i class="fa fa-arrow-left" aria-hidden="true"> पछाडि फर्कनुहोस्</i>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+	<link href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css" rel="stylesheet" />
+	<link href="https://cdn.datatables.net/buttons/3.0.2/css/buttons.bootstrap5.css" rel="stylesheet" />
+	<link href="https://cdn.datatables.net/colreorder/2.0.3/css/colReorder.bootstrap5.css" rel="stylesheet" />
+	<script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+	<script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
+	<script src="https://cdn.datatables.net/buttons/3.0.2/js/dataTables.buttons.js"></script>
+	<script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.bootstrap5.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+	<script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.html5.min.js"></script>
+	<script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.print.min.js"></script>
+	<script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.colVis.min.js"></script>
+	<script src="https://cdn.datatables.net/colreorder/2.0.3/js/dataTables.colReorder.js"></script>
+	@* 	<script>
+		$("#zero_config").DataTable();
+	</script> *@
+	<script>
+		$('#zero_config').DataTable({
+			//colReorder: true,
+			//lengthMenu: [5, 10, 50, 100, 500],
+			layout: {
+				topStart: {
+					buttons: [
+
+						{
+							extend: 'excelHtml5',
+							exportOptions: {
+								columns: ':visible'
+							}
+						},
+
+						'colvis',
+						"pageLength"
+					]
+				}
+			}
+		});
+	</script>
+}

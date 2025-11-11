@@ -1,0 +1,339 @@
+﻿@inject IUtility _Utility
+@model FormatViewModel
+@{
+    var headerdata = await _Utility.GetHeaderData();
+    int i = 1;
+}
+
+<style>
+
+    .printpage {
+    width: 21cm;
+    min-height: 29.7cm;
+    padding: 2cm;
+    margin: 1cm auto;
+    border: 1px #d3d3d3 solid;
+    border-radius: 5px;
+    background: #fff;
+    box-shadow: 0 0 5px rgb(0 0 0 / 10%);
+    font-family: 'kalimati regular' !important;
+    }
+
+    p {
+    font-size: 18px;
+    }
+
+    .table tbody tr td {
+    height: 3rem !important;
+    }
+</style>
+
+<div class="d-flex justify-content-end">
+    <button class="btn btn-primary mt-5" type="button" onClick="Print('contentToPrint')"><i class="fa fa-print" aria-hidden="true"></i> Print</button>
+</div>
+<div class="row" id="contentToPrint">
+    <style>
+        p {
+        font-size: 18px;
+        }
+
+        .table tbody tr td {
+        height: 3rem !important;
+        }
+    </style>
+    <section style="page-break-after:always; padding-top:4px;">
+        <div class="container">
+            <h3 class="text-center">अनुसूची ४</h3>
+            <h5 class="text-center">(कार्यविधिको दफा ११ (६) सँग सम्वन्धित)</h5>
+            <h5 class="text-center">खर्च सार्वजनिक सूचना फाराम</h5>
+            <div class="d-flex justify-content-end fw-bold">
+                <p>मितिः २०...../...../.....</p>
+            </div>
+            <div class="fw-bold">
+                <p>१. आयोजनाको नामः-@Model.PlanningSamjhauta.YojanaNames</p>
+                <p>२. आयोजना स्थलः-@Model.PlanningSamjhauta.YojanaAddress</p>
+                <p>३. विनियोजित वजेटः-@Model.PlanningSamjhauta.Municipality</p>
+                <p>४. आयोजना स्विकृत भएको आ.वः-@Model.PlanningSamjhauta.FiscalYearName</p>
+                <p>५. आयोजना सम्झौता भएको मितिः-@Model.PlanningSamjhauta.Municipality_Manjuri_Date</p>
+                <p>६. काम सम्पन्न गर्नु पर्ने मितिः-@Model.PlanningSamjhauta.Project_End_Date</p>
+                <p>७. काम सम्पन्न भएको मितिः-<@Model.PlanningSamjhauta.Project_Extend_End_Date/p>
+                    <p>८. उ.स. को बैठकले खर्च स्वीकृत गरेको मितिः- </p>
+                    <p>खर्च सार्वजनिक समयको उपस्थिति विवरणः</p>
+            </div>
+            <table class="table table-bordered">
+                <thead class="text-center">
+                    <tr>
+                        <th style="width:50px;">क्र.श.</th>
+                        <th>नाम थर</th>
+                        <th style="width:100px;">दस्तखत</th>
+                        <th style="width:50px;">क्र.श.</th>
+                        <th>नाम थर</th>
+                        <th style="width:100px;">दस्तखत</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(var item in Model.UpavoktaSamiti.samitiMemberDetaillist)
+                    {
+                        <tr>
+                            <td>@_Utility.ConvertEnglishToNepali(i)</td>
+                            <td>@item.MemberName</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        i++;
+                    }
+
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="table table-bordered">
+                <tr>
+                    <td style="width:50px;"></td>
+                    <td>&nbsp;</td>
+                    <td style="width:100px;"></td>
+                    <td style="width:50px;"></td>
+                    <td>&nbsp;</td>
+                    <td style="width:100px;"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+            </table>
+        </div>
+    </section>
+</div>
+
+<link href="~/lib/nepalidatepicker/css/nepali.datepicker.v3.7.min.css" rel="stylesheet" />
+
+@section Scripts
+{
+    <script type="text/javascript">
+        //$(function () {
+        //    $('.currentdate').html(GetNepaliCurrentDate());
+        //});
+        function Print() {
+            var elementHTML = document.getElementById('contentToPrint').innerHTML;
+            var oldPage = document.body.innerHTML;
+            document.body.innerHTML = elementHTML;
+            window.print();
+            //document.body.innerHTML = oldPage;
+            window.location.reload(true);
+        }
+    </script>
+}

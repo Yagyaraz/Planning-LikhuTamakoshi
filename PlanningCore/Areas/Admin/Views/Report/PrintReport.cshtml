@@ -1,0 +1,202 @@
+﻿@model IEnumerable<PrintReportViewModel>
+@inject IUtility _Utility
+
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari&display=swap" rel="stylesheet">
+<style>
+	#download {
+		display: inline-block;
+		padding: 10px 20px;
+		font-size: 16px;
+		font-weight: bold;
+		color: white;
+		background-color: #007bff;
+		border: none;
+		border-radius: 5px;
+		cursor: pointer;
+		text-align: center;
+		text-decoration: none;
+		transition: background-color 0.3s ease;
+		margin-top: 20px;
+		float: right;
+		font-family: 'Noto Sans Devanagari', sans-serif;
+		line-height: 1.5;
+		word-spacing: 0.1em;
+		white-space: normal;
+	}
+</style>
+<style>
+	/* Apply font and spacing to content */
+	#content {
+		font-family: 'Noto Sans Devanagari', sans-serif;
+		font-size: 16px;
+		line-height: 1.8; /* Proper spacing to avoid overlapping */
+		white-space: normal;
+		margin: 20px;
+	}
+
+	h1, p {
+		margin: 0 0 10px;
+	}
+</style>
+<div class="container m-2 pt-5 mt-5 pb-4">
+	<div class="row container">
+		<div class="container">
+			<form asp-action="PrintReport" method="get">
+				<div class="pt-4 row">
+					<div class="col-5">
+						<label>योजना</label>
+						<select name="PlanningSamjhautaId" asp-items="@await _Utility.GetYojanaAccToSamjhautaList()" class="form-control">
+							<option value="">--छान्नुहोस--</option>
+						</select>
+					</div>
+					<div class="col-2">
+						<label> </label><br />
+						<input type="submit" value="खोज्नुहोस्" class="btn btn-success" />
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<div class="mt-5">
+			<button id="download" class="btn btn-primary">Download PDF</button>
+		</div>
+
+		<div id="content" class="mt-4">
+			@foreach (var item in Model)
+			{
+				if (item.DocTypeName == null)
+				{
+					<div class="report-section mb-3 print-content" style="page-break-after:always;">
+						<h3>@item.ReportName</h3>
+						<div>
+							@Html.Raw(item.PrintContent)
+						</div>
+					</div>
+				}
+				else
+				{
+					<div class="report-section mb-3 print-content" style="page-break-after:always;">
+						<h3>@item.DocTypeName</h3>
+						<div>
+							<img src="@item.DocPath" />
+						</div>
+					</div>
+				}
+
+			}
+		</div>
+	</div>
+</div>
+@section Scripts {
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+	@* 	 <script>
+		document.getElementById('download').addEventListener('click', async () => {
+			const { jsPDF } = window.jspdf;
+
+			const pdf = new jsPDF('p', 'mm', 'a4');
+			const margin = 10;
+			const pageHeight = pdf.internal.pageSize.height - margin * 2;
+			let y = margin; // Vertical position on the PDF
+
+			// Select all print-content divs
+			const printContents = document.querySelectorAll('.print-content');
+
+			for (const content of printContents) {
+				// Render each content section
+				const canvas = await html2canvas(content, {
+					scale: 2,
+					useCORS: true,
+					letterRendering: true
+				});
+
+				const imgData = canvas.toDataURL('image/png');
+				const imgWidth = pdf.internal.pageSize.width - margin * 2;
+				const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+				if (y + imgHeight > pageHeight) {
+					pdf.addPage();
+					y = margin; // Reset y for the new page
+				}
+
+				pdf.addImage(imgData, 'PNG', margin, y, imgWidth, imgHeight);
+				y += imgHeight + 10; // Add spacing between sections
+			}
+
+			pdf.save('रीपोर्ट.pdf');
+		});
+	</script>  *@
+	<script>
+		document.getElementById('download').addEventListener('click', async () => {
+			const { jsPDF } = window.jspdf;
+
+			// Initialize jsPDF instance
+			const pdf = new jsPDF('p', 'mm', 'a4');
+			const margin = 10;
+			const pageWidth = pdf.internal.pageSize.width - margin * 2;
+			const pageHeight = pdf.internal.pageSize.height - margin * 2;
+			let currentY = margin; // Current Y position in the PDF
+
+			// Select all print-content divs
+			const printContents = document.querySelectorAll('.print-content');
+
+			for (const content of printContents) {
+				// Render each content section to a canvas
+				const canvas = await html2canvas(content, {
+					scale: 2, // High scale for better resolution
+					useCORS: true, // Allow cross-origin images
+				});
+
+				const imgWidth = pageWidth;
+				const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+				let imgPosition = 0; // Current Y position in the canvas
+
+				// Split the canvas into pages properly
+				while (imgPosition < canvas.height) {
+					// Create a temporary canvas for the current page
+					const pageCanvas = document.createElement('canvas');
+					pageCanvas.width = canvas.width;
+					pageCanvas.height = Math.min(canvas.height - imgPosition, (pageWidth * pageHeight) / imgWidth);
+
+					const ctx = pageCanvas.getContext('2d');
+					ctx.drawImage(
+						canvas,
+						0, imgPosition, // Source X, Y in the original canvas
+						canvas.width, pageCanvas.height, // Source width and height
+						0, 0, // Destination X, Y in the temporary canvas
+						pageCanvas.width, pageCanvas.height // Destination width and height
+					);
+
+					// Convert the temporary canvas to an image
+					const imgData = pageCanvas.toDataURL('image/jpeg', 0.7); // JPEG format for smaller size
+
+					// Check if the current content fits within the page
+					if (currentY + (pageCanvas.height * imgWidth) / canvas.width > pageHeight) {
+						pdf.addPage(); // Add a new page if the content doesn't fit
+						currentY = margin; // Reset Y position for the new page
+					}
+
+					// Add the image to the PDF
+					pdf.addImage(imgData, 'JPEG', margin, currentY, imgWidth, (pageCanvas.height * imgWidth) / canvas.width);
+
+					imgPosition += pageCanvas.height; // Move to the next portion of the canvas
+					currentY += (pageCanvas.height * imgWidth) / canvas.width; // Update Y position
+				}
+
+				// Add spacing between sections
+				currentY += 10;
+
+				// Ensure a new page if the current section exceeds page bounds
+				if (currentY + 10 > pageHeight) {
+					pdf.addPage();
+					currentY = margin;
+				}
+			}
+
+			// Save the PDF
+			pdf.save('रीपोर्ट.pdf');
+		});
+	</script>
+}

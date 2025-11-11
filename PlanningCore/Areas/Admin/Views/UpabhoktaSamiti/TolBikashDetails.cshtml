@@ -1,0 +1,84 @@
+﻿@model TolBikashSansthaViewModel
+@inject IUtility _Utility
+@{
+
+    var headerData = await _Utility.GetHeaderData();
+
+}
+<div class="col-md-12 col-12 mt-5 pt-4">
+
+    <div class="d-flex p-1 text-center justify-content-start align-items-center">
+        <img width="120" src="~/Images/NepalLogo.png" />
+
+        <div class="row" style="align-content:center;">
+            <h4>@headerData.PalikaName</h4>
+            <h3>@headerData.Name</h3>
+            <h4>@headerData.Address </h4>
+            <h4>@headerData.StateName, नेपाल </h4>
+            <br />
+        </div>
+    </div>
+</div>
+<hr style="color:#8B0000; height:2px;" ; />
+
+<div class="container mt-4 custom-container ">
+    <div class="name" style="margin-left:70px;"><strong> टोलविकास समितिको नामः-</strong> @Model.TolBikashSansthaName </div>
+    <div class="name" style="margin-left:70px;"><strong>योजानाको नाम</strong> - @Model.YojanaName </div>
+    <div class="name" style="margin-left:70px;"> <strong>समिति गठन भएको मिति </strong> @_Utility.ConvertEnglishToNepali(Model.TolSamitiEstdDate)</div>
+    <div class="name" style="margin-left:70px;"> <strong>बिल पुर्जी भए/नभएको </strong> 
+    @if(Model.BiupurjiAmount>0)
+        {
+            <span>भएको</span>
+        }
+        else
+        {
+            <span>नभएको</span>
+        }
+    </div>
+
+    <div class="name" style="margin-left:70px;"> <strong>बिल पुर्जी रकम </strong> @_Utility.ConvertEnglishToNepali(Model.TolSamitiEstdDate)</div>
+    @{
+      
+        var female = Convert.ToInt32(Model.Female_Present);
+        
+    }
+
+    <div class="accordion-body1" style="margin-left: 24px;">
+        @{
+            var i = 1;
+        }
+        <table class="table table-bordered border-dark">
+            <tr class="tbl" style="font-weight:bolder;">
+                <td>क्र.सं.</td>
+                <td>नाम</td>
+                <td>पद</td>
+                <td>ठेगाना</td>
+                <td>बाबु को नाम</td>
+                <td>जन्म मिति(उमेर)</td>
+                <td>सम्पर्क नं.</td>
+
+            </tr>
+
+
+            @foreach (var item in Model.tolBikashSansthaMemberList)
+            {
+
+                <tr>
+                    <td>@_Utility.ConvertEnglishToNepali(i)</td>
+                    <td>@item.Name</td>
+                    <td>@item.PostName</td>
+                    <td>@item.Address</td>
+                    <td>@item.FatherName</td>
+                
+                </tr>
+                i++;
+            }
+
+        </table>
+
+
+    </div>
+
+</div>
+
+

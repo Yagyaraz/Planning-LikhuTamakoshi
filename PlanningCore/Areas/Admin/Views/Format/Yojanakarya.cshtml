@@ -1,0 +1,563 @@
+﻿@model YojanaKaryakramChecklistViewModel
+@inject IUtility _Utility
+@{
+    var headerdata = await _Utility.GetHeaderData();
+
+}
+
+<style>
+
+    .printpage {
+        width: 21cm;
+        min-height: 29.7cm;
+        padding: 2cm;
+        margin: 1cm auto;
+        border: 1px #d3d3d3 solid;
+        border-radius: 5px;
+        background: #fff;
+        box-shadow: 0 0 5px rgb(0 0 0 / 10%);
+        font-family: 'kalimati regular' !important;
+    }
+
+    p {
+        font-size: 18px;
+    }
+
+    .table tbody tr td {
+        height: 3rem !important;
+    }
+
+</style>
+
+<div class="d-flex justify-content-end">
+    <button class="btn btn-primary mt-5" type="button" onClick="Print('contentToPrint')"><i class="fa fa-print" aria-hidden="true"></i> Print</button>
+</div>
+<form asp-action="Yojanakarya" method="post">
+    @* @if (ViewBag.IsSaved == true)
+    {
+        <div class="row" id="contentToPrint">
+            <style>
+                p {
+                    font-size: 18px;
+                }
+
+                .table tbody tr td {
+                    height: 3rem !important;
+                }
+            </style>
+             <style>
+                input[type="checkbox"] {
+                    appearance: none;
+                    -webkit-appearance: none; /* For Safari */
+                    width: 20px;
+                    height: 20px;
+                    background-color: transparent;
+                    border: 1px solid transparent;
+                    cursor: pointer;
+                }
+
+                    input[type="checkbox"]:checked {
+                        background-color: transparent;
+                        content: "✔"; /* Add a checkmark for checked state */
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
+
+                    input[type="checkbox"]:after {
+                        content: "✔";
+                        font-size: 16px;
+                        color: #000;
+                        position: relative;
+                        top: -2px;
+                    }
+            </style> 
+            <section style="page-break-after:always; padding-top:3px;">
+
+                @Html.HiddenFor(model => model.PlanningSamjhuataId)
+                @Html.HiddenFor(model => model.Id)
+                <div class="container">
+                    <h4 class="text-center">योजनाको कार्य प्रारम्भ हुनु पूर्व गरिने अनुगमनमा प्रयोग गरिने चेकलिष्ट</h4>
+                    <table class="table table-bordered w-100">
+                        <thead>
+                            <tr>
+                                <th style="width:80px;">क्र.स.</th>
+                                <th style="width:60%;">विवरण</th>
+                                <th style="width:100px;">भएको</th>
+                                <th style="width:100px;">नभएको</th>
+                                <th style="width:100px;">कैफियत</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>१</td>
+                                <td style="text-align:start; padding-left:10px;">समितिको गठन उपभोक्ताहरुको भेलाबाट भएको छ/छैन (कम्तिमा ७ जना)</td>
+                                <td><input type="checkbox" asp-for="Bhelabata" /></td>
+                                <td><input type="checkbox" name="AnotherCheckbox" /></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>२</td>
+                                <td style="text-align:start; padding-left:10px;">अध्यक्ष,सचिव र कोषाध्यक्ष मध्ये एक पदमा महिला प्रतिनिधि भएको र यी मध्ये खाता सञ्चालनमा महिलाको प्रतिनिधित्व भए/नभएको</td>
+                                <td><input type="checkbox" asp-for="MahilaPratinidhi" /></td>
+                                <td><input type="checkbox" name="AnotherCheckbox" /></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>३</td>
+                                <td style="text-align:start; padding-left:10px;">समितिका पदाधिकारीहरु मध्ये३३% महिला प्रतिनिधित्व अवस्था भए /नभएको</td>
+                                <td><input type="checkbox" asp-for="FemalePercentage" /></td>
+                                <td><input type="checkbox" name="AnotherCheckbox" /></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>४</td>
+                                <td style="text-align:start; padding-left:10px;">उपभोक्ता समितिको गठन गाउँपालिकाको/वडा अध्यक्ष/वडा सदस्य/वा वडा प्रतिनिधिको रोहवर भए नभएको</td>
+                                <td><input type="checkbox" asp-for="Rahobhar" /></td>
+                                <td><input type="checkbox" name="AnotherCheckbox" /></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>५</td>
+                                <td style="text-align:start; padding-left:10px;">समितका पदाधिकारीहरु प्रचलित कानूनको बमोजिम भए/नभएको</td>
+                                <td><input type="checkbox" asp-for="KanunBamojim" /></td>
+                                <td><input type="checkbox" name="AnotherCheckbox" /></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>६</td>
+                                <td style="text-align:start; padding-left:10px;">अनुगमन तथा सहजिकरण समितिमा पदाधिकारीहरुमध्ये कम्तिमा दुई जना महिला प्रतिनिधित्व भए/नभएको</td>
+                                <td><input type="checkbox" asp-for="AtleastTwoFemale" /></td>
+                                <td><input type="checkbox" name="AnotherCheckbox" /></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>७</td>
+                                <td style="text-align:start; padding-left:10px;">समिति गठन गर्दा ५ सदस्यीय अनुगमन समिति गठन भएको/नभएको</td>
+                                <td><input type="checkbox" asp-for="AnugamanSamiti" /></td>
+                                <td><input type="checkbox" name="AnotherCheckbox" /></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>८</td>
+                                <td style="text-align:start; padding-left:10px;">उपभोक्ता समिति गठनको निर्णय पेश भए/नभएको</td>
+                                <td><input type="checkbox" asp-for="GathanNirnaya" /></td>
+                                <td><input type="checkbox" name="AnotherCheckbox" /></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>९</td>
+                                <td style="text-align:start; padding-left:10px;">उ.स.का प्रत्येक सदस्यहरुको नागरिकता प्रमाणपत्रको प्रमाणित प्रतिलिपि </td>
+                                <td><input type="checkbox" asp-for="Citizenship" /></td>
+                                <td><input type="checkbox" name="AnotherCheckbox" /></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>१०</td>
+                                <td style="text-align:start; padding-left:10px;">काम गर्ने स्थानको फोटो अनिवार्य रुपमा राख्नु पर्ने छ सो भए/नभएको</td>
+                                <td><input type="checkbox" asp-for="PhotoOfworkingArea" /></td>
+                                <td><input type="checkbox" name="AnotherCheckbox" /></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>११</td>
+                                <td style="text-align:start; padding-left:10px;">प्राविधिकबाट तयार गरिएको लागत अनुमान पेश भए/नभएको</td>
+                                <td><input type="checkbox" asp-for="LagatAnuman" /></td>
+                                <td><input type="checkbox" name="AnotherCheckbox" /></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>१२</td>
+                                <td style="text-align:start; padding-left:10px;">यो समितिको नाममा कुनै योजना फरफारक हुन बाँकीको अवस्था भएको नभएको</td>
+                                <td><input type="checkbox" asp-for="FarfarakBaki" /></td>
+                                <td><input type="checkbox" name="AnotherCheckbox" /></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>१३</td>
+                                <td style="text-align:start; padding-left:10px;">एकै घरपरिवारका १ भन्दा बढी पदाधिकारी समितिमा राख्न नमिल्ने सो भए नभएको</td>
+                                <td><input type="checkbox" asp-for="EkpariwarKobadiSadshya" /></td>
+                                <td><input type="checkbox" name="AnotherCheckbox" /></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>१४</td>
+                                <td style="text-align:start; padding-left:10px;">वडा कार्यालयको सिफारिस पत्र भए/नभएको</td>
+                                <td><input type="checkbox" asp-for="WardSifarish" /></td>
+                                <td><input type="checkbox" name="AnotherCheckbox" /></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" style="background-color: #ccc;">खाता सञ्चालन गर्नका लागि आवश्यक कागजातहरु</td>
+                            </tr>
+                            <tr>
+                                <td colspan="5">खाता सञ्चालन गर्नका लागि उ.स. को निर्णय र वडा/गाउँपालिकाको सिफारिस पत्र /खाता सञ्चालको नागरिकता प्रमाणपत्रको प्रतिलिपि २ प्रति, २ प्रति फोटो,  र नमुना दस्तखत कार्ड</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-bordered w-100" style="position:relative; bottom: 17px;">
+                        <tr>
+                            <td style="text-align: start; border-top:none!important; width:34%;">
+                                उपभोक्ता समितिको अध्यक्ष <br />
+                                सहिः <br />
+                                नामः <br /><br />
+                            </td>
+                            <td style="text-align: start; border-top:none!important;">
+                                वडा सचिव <br />
+                                सहिः <br />
+                                नामः <br /><br />
+                            </td>
+                            <td style="text-align: start; border-top:none!important;">
+                                वडा अध्यक्ष <br />
+                                सहिः <br />
+                                नामः <br /><br />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="border-top">
+                    <div class="card-body d-flex gap-2 justify-content-end">
+                        <button type="submit" class="btn btn-success btn-sm mt-3 mb-2 text-white">
+                            <i class="fa fa-check" aria-hidden="true"> सुरक्षित गर्नुहोस </i>
+                        </button>
+                    </div>
+
+                </div>
+
+            </section> *@
+             <section style="page-break-after:always; padding-top:3px;">
+                <div class="container">
+                    <h4 class="text-center">योजनाको कार्य प्रारम्भ हुनु पूर्व गरिने अनुगमनमा प्रयोग गरिने चेकलिष्ट</h4>
+                    <table class="table table-bordered w-100">
+                        <thead>
+                            <tr>
+                                <th style="width:80px;">क्र.स.</th>
+                                <th style="width:60%;">विवरण</th>
+                                <th style="width:100px;">भएको</th>
+                                <th style="width:100px;">नभएको.</th>
+                                <th style="width:100px;">कैफियत</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>१</td>
+                                <td style="text-align:start; padding-left:10px;">समितिको गठन उपभोक्ताहरुको भेलाबाट भएको छ/छैन (कम्तिमा ७ जना)</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>२</td>
+                                <td style="text-align:start; padding-left:10px;">अध्यक्ष,सचिव र कोषाध्यक्ष मध्ये एक पदमा महिला प्रतिनिधि भएको र यी मध्ये खाता सञ्चालनमा महिलाको प्रतिनिधित्व भए/नभएको</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>३</td>
+                                <td style="text-align:start; padding-left:10px;">समितिका पदाधिकारीहरु मध्ये३३% महिला प्रतिनिधित्व अवस्था भए /नभएको</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>४</td>
+                                <td style="text-align:start; padding-left:10px;">उपभोक्ता समितिको गठन गाउँपालिकाको/वडा अध्यक्ष/वडा सदस्य/वा वडा प्रतिनिधिको रोहवर भए नभएको</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>५</td>
+                                <td style="text-align:start; padding-left:10px;">समितका पदाधिकारीहरु प्रचलित कानूनको बमोजिम भए/नभएको</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>६</td>
+                                <td style="text-align:start; padding-left:10px;">अनुगमन तथा सहजिकरण समितिमा पदाधिकारीहरुमध्ये कम्तिमा दुई जना महिला प्रतिनिधित्व भए/नभएको</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>७</td>
+                                <td style="text-align:start; padding-left:10px;">समिति गठन गर्दा ५ सदस्यीय अनुगमन समिति गठन भएको/नभएको</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>८</td>
+                                <td style="text-align:start; padding-left:10px;">उपभोक्ता समिति गठनको निर्णय पेश भए/नभएको</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>९</td>
+                                <td style="text-align:start; padding-left:10px;">उ.स.का प्रत्येक सदस्यहरुको नागरिकता प्रमाणपत्रको प्रमाणित प्रतिलिपि </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>१०</td>
+                                <td style="text-align:start; padding-left:10px;">काम गर्ने स्थानको फोटो अनिवार्य रुपमा राख्नु पर्ने छ सो भए/नभएको</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>११</td>
+                                <td style="text-align:start; padding-left:10px;">प्राविधिकबाट तयार गरिएको लागत अनुमान पेश भए/नभएको</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>१२</td>
+                                <td style="text-align:start; padding-left:10px;">यो समितिको नाममा कुनै योजना फरफारक हुन बाँकीको अवस्था भएको नभएको</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>१३</td>
+                                <td style="text-align:start; padding-left:10px;">एकै घरपरिवारका १ भन्दा बढी पदाधिकारी समितिमा राख्न नमिल्ने सो भए नभएको</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>१४</td>
+                                <td style="text-align:start; padding-left:10px;">वडा कार्यालयको सिफारिस पत्र भए/नभएको</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" style="background-color: #ccc;">खाता सञ्चालन गर्नका लागि आवश्यक कागजातहरु</td>
+                            </tr>
+                            <tr>
+                                <td colspan="5">खाता सञ्चालन गर्नका लागि उ.स. को निर्णय र वडा/गाउँपालिकाको सिफारिस पत्र /खाता सञ्चालको नागरिकता प्रमाणपत्रको प्रतिलिपि २ प्रति, २ प्रति फोटो,  र नमुना दस्तखत कार्ड</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-bordered w-100" style="position:relative; bottom: 17px;">
+                        <tr>
+                            <td style="text-align: start; border-top:none!important; width:34%;">
+                                उपभोक्ता समितिको अध्यक्ष <br />
+                                सहिः <br />
+                                नामः <br /><br />
+                            </td>
+                            <td style="text-align: start; border-top:none!important;">
+                                वडा सचिव <br />
+                                सहिः <br />
+                                नामः <br /><br />
+                            </td>
+                            <td style="text-align: start; border-top:none!important;">
+                                वडा अध्यक्ष <br />
+                                सहिः <br />
+                                नामः <br /><br />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </section> 
+        </div>
+@*     }
+    @if (ViewBag.IsSaved == false)
+    {
+
+
+        <div class="row" id="contentToPrint">
+            <style>
+                p {
+                    font-size: 18px;
+                }
+
+                .table tbody tr td {
+                    height: 3rem !important;
+                }
+            </style>
+            <section style="page-break-after:always; padding-top:3px;">
+
+                @Html.HiddenFor(model => model.PlanningSamjhuataId)
+                @Html.HiddenFor(model => model.Id)
+                <div class="container">
+                    <h4 class="text-center">योजनाको कार्य प्रारम्भ हुनु पूर्व गरिने अनुगमनमा प्रयोग गरिने चेकलिष्ट</h4>
+                    <table class="table table-bordered w-100">
+                        <thead>
+                            <tr>
+                                <th style="width:80px;">क्र.स.</th>
+                                <th style="width:60%;">विवरण</th>
+                                <th style="width:100px;">भएको</th>
+                                <th style="width:100px;">नभएको</th>
+                                <th style="width:100px;">कैफियत</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>१</td>
+                                <td style="text-align:start; padding-left:10px;">समितिको गठन उपभोक्ताहरुको भेलाबाट भएको छ/छैन (कम्तिमा ७ जना)</td>
+                                <td><input  asp-for="Bhelabata" /></td>
+                                <td><input  /></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>२</td>
+                                <td style="text-align:start; padding-left:10px;">अध्यक्ष,सचिव र कोषाध्यक्ष मध्ये एक पदमा महिला प्रतिनिधि भएको र यी मध्ये खाता सञ्चालनमा महिलाको प्रतिनिधित्व भए/नभएको</td>
+                                <td><input  asp-for="MahilaPratinidhi" /></td>
+                                <td><input  /></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>३</td>
+                                <td style="text-align:start; padding-left:10px;">समितिका पदाधिकारीहरु मध्ये३३% महिला प्रतिनिधित्व अवस्था भए /नभएको</td>
+                                <td><input  asp-for="FemalePercentage" /></td>
+                                <td><input  /></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>४</td>
+                                <td style="text-align:start; padding-left:10px;">उपभोक्ता समितिको गठन गाउँपालिकाको/वडा अध्यक्ष/वडा सदस्य/वा वडा प्रतिनिधिको रोहवर भए नभएको</td>
+                                <td><input  asp-for="Rahobhar" /></td>
+                                <td><input  /></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>५</td>
+                                <td style="text-align:start; padding-left:10px;">समितका पदाधिकारीहरु प्रचलित कानूनको बमोजिम भए/नभएको</td>
+                                <td><input  asp-for="KanunBamojim" /></td>
+                                <td><input  /></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>६</td>
+                                <td style="text-align:start; padding-left:10px;">अनुगमन तथा सहजिकरण समितिमा पदाधिकारीहरुमध्ये कम्तिमा दुई जना महिला प्रतिनिधित्व भए/नभएको</td>
+                                <td><input  asp-for="AtleastTwoFemale" /></td>
+                                <td><input  /></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>७</td>
+                                <td style="text-align:start; padding-left:10px;">समिति गठन गर्दा ५ सदस्यीय अनुगमन समिति गठन भएको/नभएको</td>
+                                <td><input  asp-for="AnugamanSamiti" /></td>
+                                <td><input  /></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>८</td>
+                                <td style="text-align:start; padding-left:10px;">उपभोक्ता समिति गठनको निर्णय पेश भए/नभएको</td>
+                                <td><input  asp-for="GathanNirnaya" /></td>
+                                <td><input  /></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>९</td>
+                                <td style="text-align:start; padding-left:10px;">उ.स.का प्रत्येक सदस्यहरुको नागरिकता प्रमाणपत्रको प्रमाणित प्रतिलिपि </td>
+                                <td><input  asp-for="Citizenship" /></td>
+                                <td><input  /></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>१०</td>
+                                <td style="text-align:start; padding-left:10px;">काम गर्ने स्थानको फोटो अनिवार्य रुपमा राख्नु पर्ने छ सो भए/नभएको</td>
+                                <td><input  asp-for="PhotoOfworkingArea" /></td>
+                                <td><input  /></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>११</td>
+                                <td style="text-align:start; padding-left:10px;">प्राविधिकबाट तयार गरिएको लागत अनुमान पेश भए/नभएको</td>
+                                <td><input  asp-for="LagatAnuman" /></td>
+                                <td><input  /></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>१२</td>
+                                <td style="text-align:start; padding-left:10px;">यो समितिको नाममा कुनै योजना फरफारक हुन बाँकीको अवस्था भएको नभएको</td>
+                                <td><input  asp-for="FarfarakBaki" /></td>
+                                <td><input  /></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>१३</td>
+                                <td style="text-align:start; padding-left:10px;">एकै घरपरिवारका १ भन्दा बढी पदाधिकारी समितिमा राख्न नमिल्ने सो भए नभएको</td>
+                                <td><input  asp-for="EkpariwarKobadiSadshya" /></td>
+                                <td><input  /></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>१४</td>
+                                <td style="text-align:start; padding-left:10px;">वडा कार्यालयको सिफारिस पत्र भए/नभएको</td>
+                                <td><input  asp-for="WardSifarish" /></td>
+                                <td><input  /></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" style="background-color: #ccc;">खाता सञ्चालन गर्नका लागि आवश्यक कागजातहरु</td>
+                            </tr>
+                            <tr>
+                                <td colspan="5">खाता सञ्चालन गर्नका लागि उ.स. को निर्णय र वडा/गाउँपालिकाको सिफारिस पत्र /खाता सञ्चालको नागरिकता प्रमाणपत्रको प्रतिलिपि २ प्रति, २ प्रति फोटो,  र नमुना दस्तखत कार्ड</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-bordered w-100" style="position:relative; bottom: 17px;">
+                        <tr>
+                            <td style="text-align: start; border-top:none!important; width:34%;">
+                                उपभोक्ता समितिको अध्यक्ष <br />
+                                सहिः <br />
+                                नामः <br /><br />
+                            </td>
+                            <td style="text-align: start; border-top:none!important;">
+                                वडा सचिव <br />
+                                सहिः <br />
+                                नामः <br /><br />
+                            </td>
+                            <td style="text-align: start; border-top:none!important;">
+                                वडा अध्यक्ष <br />
+                                सहिः <br />
+                                नामः <br /><br />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="border-top">
+                    <div class="card-body d-flex gap-2 justify-content-end">
+                        <button type="submit" class="btn btn-success btn-sm mt-3 mb-2 text-white">
+                            <i class="fa fa-check" aria-hidden="true"> सुरक्षित गर्नुहोस </i>
+                        </button>
+                    </div>
+
+                </div>
+
+            </section>
+        </div>
+    } *@
+</form>
+<link href="~/lib/nepalidatepicker/css/nepali.datepicker.v3.7.min.css" rel="stylesheet" />
+
+@section Scripts
+{
+    <script type="text/javascript">
+        //$(function () {
+        //    $('.currentdate').html(GetNepaliCurrentDate());
+        //});
+        function Print() {
+            var elementHTML = document.getElementById('contentToPrint').innerHTML;
+            var oldPage = document.body.innerHTML;
+            document.body.innerHTML = elementHTML;
+            window.print();
+            //document.body.innerHTML = oldPage;
+            window.location.reload(true);
+        }
+    </script>
+    <script>
+        $(function () { Message('@TempData["Msg"]') });
+    </script>
+}

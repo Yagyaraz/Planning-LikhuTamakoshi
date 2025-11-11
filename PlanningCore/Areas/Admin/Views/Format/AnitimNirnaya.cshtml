@@ -1,0 +1,349 @@
+﻿@inject IUtility _Utility
+@{
+    var headerdata = await _Utility.GetHeaderData();
+	bool isSavedData = true;
+}
+
+<style>
+	.printpage {
+		width: 21cm;
+		min-height: 29.7cm;
+		padding: 2cm;
+		margin: 1cm auto;
+		border: 1px #d3d3d3 solid;
+		border-radius: 5px;
+		background: #fff;
+		box-shadow: 0 0 5px rgb(0 0 0 / 10%);
+		font-family: 'kalimati regular' !important;
+	}
+
+	p {
+		font-size: 18px;
+	}
+
+	.table tbody tr td {
+		height: 3rem !important;
+	}
+
+</style>
+
+<div class="d-flex justify-content-end">
+	<button class="btn btn-primary mt-5" type="button" onClick="Print('contentToPrint')"><i class="fa fa-print" aria-hidden="true"></i> Print</button>
+</div>
+<div class="row" id="contentToPrint">
+	<style>
+		p {
+			font-size: 18px;
+		}
+
+		.table tbody tr td {
+			height: 3rem !important;
+		}
+	</style>
+    <section style="page-break-after:always; padding-top:4px;">
+        <div class="container">
+            <h3 class="text-center">उपभोक्ता समितिको बैठकका अन्तिम निर्णयहरु</h3>
+            <p style="text-align:justify;">आज मिति...................................... का दिन तपसिल बमोजिमका पदाधिकारीहरुको उपस्थितिमा उपभोक्ता समितिको बैठक बसी निम्न अनुसारको प्रस्ताव उपर छलफल गरी निर्णय गरीयो ।</p>
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th style="width:50px;">क्र.श.</th>
+                        <th>पदाधिकारीहरुको नाम थर</th>
+                        <th style="width:150px;">पद</th>
+                        <th>दस्तखत</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="height:1rem!important;">१</td>
+                        <td></td>
+                        <td>अध्यक्ष</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>२</td>
+                        <td></td>
+                        <td>सचिव</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>३</td>
+                        <td></td>
+                        <td>कोषाध्यक्ष</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>४</td>
+                        <td></td>
+                        <td>सदस्य</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>५</td>
+                        <td></td>
+                        <td>सदस्य</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>६</td>
+                        <td></td>
+                        <td>सदस्य</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>७</td>
+                        <td></td>
+                        <td>सदस्य</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>८</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>९</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>१०</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>११</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>१२</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>१३</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>१४</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>१५</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div style="text-indent:20px;">
+                <h5><u>प्रस्तावहरु:</u></h5>
+                <p>१)	उपभोक्ता समितिको भौतिक तथा वित्तीय प्रगति प्रतिवेदनसार्बजनिक गर्ने सम्‍बन्‍धमा ।</p>
+                <p>२)	सार्वजनिक परीक्षण गर्ने सम्बन्धमा ।</p>
+                <p>३)	खर्च सार्वजनिक गर्ने सम्‍बन्‍धमा ।</p>
+                <p>४)	योजना अनुगमन, मुल्याङ्कन तथा सुपरिवेक्षण गराउने सम्‍बन्‍धमा ।</p>
+                <p>५)	योजनाको रकम भुक्तानी उपलब्ध गराई दिने सम्बन्धमा ।</p>
+                <p>६)	खर्च अनुमोदन गर्ने सम्बन्धमा ।</p>
+                <p>७)	विविध ।</p>
+            </div>
+        </div>
+    </section>
+
+    <section style="page-break-after:always; padding-top:4px;">
+        <div class="container">
+            <h5><u>निर्णयहरु:</u></h5>
+            <h5><u>निर्णय नं. १.</u></h5>
+            <p style="text-align:justify;">
+                प्रस्‍ताव नं. १ माथी छलफल गर्दा यस @headerdata.PalikaName .... नं. वडा .............................मा आ.व.२०....../०...... को वार्षिक बजेट तथा कार्यक्रम अन्तर्गत....................................................................................................................................................................................................................................
+                शिर्षकमा विनियोजितयोजना कार्यान्‍वयन गरि उपभोक्ता समितिको भौतिक तथा वित्तीय प्रगति प्रतिवेदनसार्बजनिक गर्ने निर्णय गरियो ।
+            </p>
+            <h5><u>निर्णय नं. २.</u></h5>
+            <p style="text-align:justify;">
+                प्रस्‍ताव नं. २ माथी छलफल गर्दा यस उपभोक्ता समितिबाट भई गरेको खर्चसार्वजनिक परीक्षण गर्ने तथा प्राप्त प्रतिवेदन गाउँपालिकाकार्यालयमा पेश गर्ने निर्णय गरियो ।
+            </p>
+            <h5><u>निर्णय नं. ३.</u></h5>
+            <p>
+                प्रस्‍ताव नं. ३ माथी छलफल गर्दायस...................................................................................................................................... योजनाको काम सम्पन्न भएको हुँदा मिति २०......./ ...../.....   गतेका दिन आम उपभोक्ताहरुलाई उपस्थित गराई खर्च भएको रकमको यथार्थ विवरण उपभोक्ता समितिले यस योजनाबाट लाभान्वीत उपभोक्ताहरुमा खर्च सार्वजनिक गर्ने निर्णय गरियो ।
+            </p>
+            <h5><u>निर्णय नं. ४.</u></h5>
+            <p>
+                प्रस्‍ताव नं. ४ माथी छलफल गर्दा यस.................................................................................................................................उपभोक्ता समितिले गरेको कामको अनुगमन तथा सुपरिवेक्षण गर्नयोजना अनुगमन, मुल्याङ्कन तथा सुपरिवेक्षण गराउन सर्वसहमत तरिकाले तपशिल अनुसारको अनुगमन तथा सुपरिवेक्षण समितिलाई बोलाई अनुगमन तथा निरिक्षण गर्ने निर्णय गरियो।
+            </p>
+            <h5><u>निर्णय नं. ५.</u></h5>
+            <p>
+                प्रस्‍ताव नं. ५ माथी छलफल गर्दा यस.......................................................................................................................योजना निर्णय ३ बमोजिम तोकिएको मितिमा खर्च सार्वजनिकिकरण गरे पश्चात कार्य सम्पन्न भएकोले योजनाको रकम भुक्तानीका लागि आवश्यक कागजात र प्राविधिकको मुल्याङ्कन र आवश्यक बिल भरपाई र कागजात सहित रकम उपलब्ध गराई दिन गाउँपालिकामा भुक्तानी माग गर्ने निर्णय गरियो |
+            </p>
+
+        </div>
+    </section>
+
+    <section style="page-break-after:always; padding-top:4px;">
+        <div class="container">
+            <h5><u>निर्णय नं. ६.</u></h5>
+            <p style="text-align:justify;">
+                प्रस्‍ताव नं. ६ माथी छलफल गर्दा आयोजनाको कार्यान्वयनका क्रममा देहाय बमोजिमका शिर्षकमा भएको रकम सर्वसहमतिबाट अनुमोदन गर्ने निर्णय गरियो ।
+            </p>
+
+            <table class="table table-bordered">
+                <thead class="text-center fw-bold">
+                    <tr>
+                        <th colspan="2" style="width:50%;">आम्दानी.</th>
+                        <th colspan="2" style="width:50%;">खर्च</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="fw-bold text-center">
+                        <td style="width:25%;">विवरण</td>
+                        <td style="width:25%;">रकम रू</td>
+                        <td style="width:25%;">विवरण</td>
+                        <td style="width:25%;">रकम</td>
+                    </tr>
+                    <tr>
+                        <td>प्रथम किस्ता</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>दोश्रो किस्ता</td>
+                        <td></td>
+                        <td>निर्माण सामाग्री खरिद</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>तेश्रो किस्ता</td>
+                        <td></td>
+                        <td>ढुङ्गा/ गिट्टि/ बालुवा</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>जनश्रमदान</td>
+                        <td></td>
+                        <td>ढुवानी/भाडा</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>वस्तुगत सहायता</td>
+                        <td></td>
+                        <td>व्यवस्थापन खर्च</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>लागत सहभागिता</td>
+                        <td></td>
+                        <td>डिजेल/पेट्रोल</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>पाइप/ जस्तापाता/तारजाली</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>डोजर लगायतका मेशिनरी</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>सिमेन्ट/अन्य</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>दक्ष कामदारको ज्याला भुक्तानी</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>अदक्ष कामदारको ज्याला भुक्तानी</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>अन्य सामग्री भए</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h5><u>निर्णय नं. ७.</u></h5>
+            <p style="text-align:justify;">
+                प्रस्‍ताव नं. ७ माथी छलफल गर्दा उपभोक्ता समिति मार्फत संञ्चालन गरेको कार्यक्रमको स्थानिय जनताहरुबाट माग भएमा माग गरिएको जानकारी उपलब्ध गराउन उपभोक्ता समितिलाई निर्देशन दिने निर्णय गरियो ।
+            </p>
+        </div>
+    </section>
+</div>
+
+<link href="~/lib/nepalidatepicker/css/nepali.datepicker.v3.7.min.css" rel="stylesheet" />
+
+@section Scripts
+{
+    <script type="text/javascript">
+        //$(function () {
+        //    $('.currentdate').html(GetNepaliCurrentDate());
+        //});
+        function Print() {
+            var elementHTML = document.getElementById('contentToPrint').innerHTML;
+            var oldPage = document.body.innerHTML;
+            document.body.innerHTML = elementHTML;
+            window.print();
+            //document.body.innerHTML = oldPage;
+            window.location.reload(true);
+        }
+    </script>
+}

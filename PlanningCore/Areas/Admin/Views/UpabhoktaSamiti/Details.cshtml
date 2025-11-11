@@ -1,0 +1,89 @@
+﻿@model UpavoktaSamitiDetailViewModel
+@inject IUtility _Utility
+@{
+    var headerData = await _Utility.GetHeaderData();
+}
+<div class="col-md-12 col-12 mt-5 pt-4">
+    <div class="d-flex p-1 text-center justify-content-start align-items-center">
+        <img width="120" src="~/Images/NepalLogo.png" />
+
+        <div class="row" style="align-content:center;">
+            <h4>@headerData.PalikaName</h4>
+            <h3>@headerData.Name</h3>
+            <h4>@headerData.Address </h4>
+            <h4>@headerData.StateName, नेपाल </h4>
+            <br />
+        </div>
+    </div>
+</div>
+<hr style="color:#8B0000; height:2px;" ; />
+
+<div class="container mt-4 custom-container ">
+    <div class="name" style="margin-left:70px;"><strong> उपभोक्ता समितिको नामः-</strong> @Model.Name </div>
+    <div class="name" style="margin-left:70px;"><strong>योजानाको नाम</strong> - @string.Join(", ", Model.YojanaNames) </div>
+    <div class="name" style="margin-left:70px;"> <strong>समिति गठन भएको मिति </strong> @_Utility.ConvertEnglishToNepali(Model.NepaliSamitiEstdDate)</div>
+    @{
+        var male = Convert.ToInt16(Model.Male_Present);
+        var female = Convert.ToInt32(Model.Female_Present);
+        var Total = male + female;
+    }
+    <div class="name" style="margin-left:70px;">
+        <strong>समिति गठन गर्दा उपस्थित लाभान्वितको संख्या : </strong> @_Utility.ConvertEnglishToNepali(Total)
+    </div>
+    <div class="accordion-body1" style="margin-left: 24px;">
+        @{
+            var i = 1;
+            var j = 1;
+        }
+        <div>
+            उपभोक्ता समिति सदस्यहरू
+        </div>
+        <table class="table table-bordered border-dark">
+            <tr class="tbl" style="font-weight:bolder;">
+                <td>क्र.सं.</td>
+                <td>नाम</td>
+                <td>पद</td>
+                <td>ठेगाना</td>
+                <td>नागरिकता नं.</td>
+                <td>जन्म मिति(उमेर)</td>
+                <td>सम्पर्क नं.</td>
+            </tr>
+            @foreach (var item in Model.samitiMemberDetaillist)
+            {
+                <tr>
+                    <td>@_Utility.ConvertEnglishToNepali(i)</td>
+                    <td>@item.MemberName</td>
+                    <td>@item.PadaName</td>
+                    <td>@item.Address</td>
+                    <td>@item.CitizenshipNumber</td>
+                    <td>@_Utility.ConvertEnglishToNepali(item.DOB),(@_Utility.ConvertEnglishToNepali(item.Age))</td>
+                    <td>@_Utility.ConvertEnglishToNepali(item.PhoneNo)</td>
+                </tr>
+                i++;
+            }
+        </table>
+        <span>
+            अनुगमन समिति सदस्यहरू
+        </span>
+        <table class="table table-bordered border-dark">
+            <tr class="tbl" style="font-weight:bolder;">
+                <td>क्र.सं.</td>
+                <td>नाम</td>
+                <td>पद</td>
+                <td>ठेगाना</td>
+            </tr>
+            @foreach (var item in Model.AnugamanMemberList)
+            {
+                <tr>
+                    <td>@_Utility.ConvertEnglishToNepali(j)</td>
+                    <td>@item.Name</td>
+                    <td>@item.PadaName</td>
+                    <td>@item.Address</td>
+                </tr>
+                j++;
+            }
+        </table>
+    </div>
+</div>
+
+

@@ -1,0 +1,1819 @@
+﻿ @model ContractSamjhautaViewModel
+ @inject IUtility _utility
+@{
+    <link href="~/css/agreementstyle.css" rel="stylesheet"/>
+    var orgname = await _utility.GetMainSettingById(0);
+    var pada = await _utility.GetPostById(ViewBag.PostId);
+    int? post = ViewBag.PostId;
+    var employee = await _utility.GetEmpNameById(post);
+}
+
+
+   @if (Model.PrintContent == null)
+    {
+    <header>
+        <div class="text-center mt-5 lh-base">
+        <div class="Header">
+            <partial name="_EnglishHeader" />
+        </div>
+            <br>
+            <h2 class="mt-5 fw-bold">CONTRACT AGGREEMENT</h2> <br>
+            <h3 class="fst-italic mt-5">@Model.YojanaName</h3>
+            <h5 class="lh-lg mt-5">
+                @Model.YojanaAddress <br>
+                IFB No. @Model.IFBNumber <br>
+                Contract ID: @Model.ThekkaNumber
+            </h5>
+            <div class="issue mt-5 mb-5">
+                <h4 class="lh-lg">
+                    <span style="text-decoration: underline;">ISSUED BY:</span> <br>
+                 @orgname.PalikaNameEng
+                </h4>
+            </div>
+        </div>
+    </header>
+
+    <section>
+        <div>
+            <div class="head text-center fw-bold fst-italic"><h5>सम्झौता</h5></div>
+            <p class="lh-lg">
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp मिति @Model.ContractDate गतेका दिन @orgname.PalikaName  @orgname.Name,@orgname.Address,@orgname.DistrictName
+                (जसलाई कार्यालय भनेर सम्बोधन गरिने छ) 
+                एक पक्ष र <span> @Model.ConsultantName,@Model.MainPersonAddress </span> (जसलाई
+                ठेकेदार भनेर सम्बोधन गरिने छ) अर्को पक्ष बीच कार्यालय द्वारा मिति
+             @Model.BolPatraDate गतेको सूचना अनुसार ठेक्का क्र.स. @Model.ThekkaNumber <span>
+                    @Model.YojanaName,@Model.YojanaAddress
+                </span>को कार्य गराउन बोलपत्र
+                गरिएकोमा ठेकेदारले सो कार्य मू.अ.कर सहित रु. @Model.ContractAmt अक्षेरुपी
+                <span>( @_utility.ConvertNumberToNepaliText(Model.ContractAmt.ToString())) </span> मात्रमा 
+                पुरा गर्ने गरि बोलपत्र स्वीकृत भए बमोजीमको यो ठेक्का सम्झौता गरिएको छ ।
+            </p>
+            <h5>यसमा निम्न शर्तहरु एवं व्यवस्थाहरु समावेश छन् :-</h5>
+            <div class="alpha">
+                <ol class="lh-lg">
+                    <li>ठेक्कामा शब्द र अभिव्यक्तिको अयं यसपछि संकेत गरिए‌को ठेक्काको शर्तहरुमा निर्धारित गरे अनुसार हुने छ।</li>
+                    <li>
+                        कार्यालयले ठेकेदारलाई दिइने
+                        भुक्तानी वापत ठेकेदारले सम्झौता गरेको कार्य ठेक्काको शतं अनुसार
+                        निर्माण गरि पुरा गर्ने छ।
+                    </li>
+                    <li>
+                        कार्यालयले सम्झौता गरेको कार्य निर्माण गरि
+                        पुरा गरेको र संभार गरेको रकम ठेक्कामा उल्लेख भएको रीत अनुसार समयमा
+                        ठेकेदार नाई भुक्तानी गर्ने छ।
+                    </li>
+                    <li>
+                        कार्यालय संग सम्झौता गरेको मितिले ७ (सात) दिन भित्र ठेकेदारले
+                        निर्माण कार्य शुरु गरी @_utility.ConvertEnglishToNepali(Model.ProjectEndDate) सम्म सम्पन्न गॉरसक्नु पर्नेछ ।
+                    </li>
+                    <li>
+                        कार्यालयले असामान्य एवं विशेष कारण बाहेक ठेकेदारलाई
+                        म्याद थप गर्ने छैन। यस्तो कार्यविधि सार्वजनिक खरिद ऐन,
+                        २०५३ र नियमावली २०६४ संशोधन सहित) बमोजिम बोलपत्रदातालाई जानकारी भएको
+                        मानिनेछ ।
+                    </li>
+                    <li>
+                        ठेक्काको म्याद थप गर्ने, जरिवाना सम्वन्धी व्यवस्था, हजांना र
+                        क्षतिपुर्ति सम्बन्धी कुराहरु ठेक्का तोडिने व्यवस्था र भुक्तानीको तरिका स्थानीय निकाय आर्थिक प्रशासन नियमावली २०६४ तथा ठेकेदारले
+                        हस्ताक्षर गरेको बोलपत्र पुस्तिकामा उल्लेखित छन् । यी दुईमा द्विविधा
+                        भएमा उल्लेखित सार्वजनिक खरिद ऐन, २०६३ र नियमावली, २०६४ (संशोधन सहित)
+                        उल्लेख भए‌कोमा
+                        सोही बमोजिम र नभएमा बोलपत्र पुस्तिकामा उल्लेख भए बमोजिम हुने कुरामा
+                        दुवै पक्षलाई मान्य छ।
+                    </li>
+                    <li>
+                        बोलपत्र आव्हान सम्बन्धी सूचनाको ठेक्का न.
+                        @Model.ThekkaNumber मा उल्लेखित शर्तहरु यसै सम्झौताका अंग हुने कुरामा दुवै पक्ष
+                        मजुर छन् ।
+                    </li>
+                    <li>
+                        निम्न कागजपत्रहरु यस ठेक्काको व्याख्या गर्नको लागि ठेक्काको अंगको
+                        रुपमा मानिने छ । <br>
+                        क) बोलपत्र र संलग्न परिशिष्ट ख) नक्साहरु। ग) ठेक्का शर्तहरु घ) भवन
+                        निर्माण कार्यका भवन विभागको स्पेशिफिकेशन । ङ) पमिाणका मुल्य पत्र। च)
+                        विशेष शर्तहरु छ) क देखि च सम्मका कागजातहरुको परिशिष्ट भएमा। ज) ठेक्का
+                        प्रदान
+                        गरेको सूचना। झ) कार्य शुरु गर्ने सूचना पत्र। ण) कार्य सम्पन्न गर्ने
+                        कार्य तालिका ।
+                    </li>
+                    <li>
+                        यस ठेक्का पट्टाको मर्मत सम्भार गर्नु पर्ने अवधि कार्य
+                        सम्पन्न भएको मितिले १३ महिना हुनेछ।
+                        यी बाहेक अन्य कुराहरुका हकमा प्रचलित सार्वजनिक खरिद ऐन, २०६३ र
+                        नियमावली, २०६४ (संशोधन सहित) हुनेछ ।
+                    </li>
+                </ol>
+                <p style="margin-left: 125px; margin-top: 50px;">
+                    दुवै पक्षले साक्षीको रोहवरमा माथि लेखिए‌को मितिका दिन यस ठेक्काको
+                    ठेक्का सम्झौतामा सही छाप गरि ठेक्कापट्टा गरिएको छ।
+                </p>
+            </div>
+            <div class="row text-center">
+                <div class="col-6">
+                    <p>--------------------------------</p>
+                    <p>
+                        @Model.SamjhautaPerson <br>
+                        @Model.SamjhautaPersonPost <br> ठेकेदारको तर्फबाट सहीछाप गर्ने <br>(कम्पनीको छाप) ---
+                    </p>
+                    <p>--------------------------------</p>
+                    <p>(साक्षीको सहीछाप)</p>
+                </div>
+                <div class="col-6">
+                    <p>--------------------------------</p>
+                    <p>
+                        @Model.CEOName
+                        <br>
+                        प्रमुख प्रशासकीय अधिकृत <br> कार्यालयको तर्फवाट सहीछाप गर्ने <br> (कार्यालयको छाप)
+                    </p>
+                    <p>--------------------------------</p>
+                    <p>(साक्षीको सहीछाप)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="list">
+            <h4 class="my-5">Abbreviations</h4>
+            <p>BD .......................................... Bidding Document</p>
+            <p>BDF...........................................Bidding Forms</p>
+            <p>BDS...........................................Bid Data Sheet</p>
+            <p>BOQ...........................................Bill of Quantities</p>
+            <p>COF...........................................Contract Forms</p>
+            <p>DP............................................Development Partners</p>
+            <p>DoLIDAR.......................................Department of Local Infrastructure Development and   Agricultural Roads</p>
+            <p>ELI...........................................Eligibility</p>
+            <p>EEC...........................................Evaluation and Eligibility Criteria</p>
+            <p>GCC...........................................General Conditions of Contract</p>
+            <p>GoN...........................................Government of Nepal</p>
+            <p>ICC...........................................International Chamber of Commerce</p>
+            <p>IFB...........................................Invitation for Bids</p>
+            <p>ITB...........................................Instructions to Bidders</p>
+            <p>JV............................................Joint Venture</p>
+            <p>NCB...........................................National Competitive Bidding</p>
+            <p>PAN...........................................Permanent Account Number</p>
+            <p>PPA...........................................Public Procurement Act</p>
+            <p>PPMO..........................................Public Procurement Monitoring Office</p>
+            <p>PPR...........................................Public Procurement Regulations</p>
+            <p>SBD...........................................Standard Bidding Document</p>
+            <p>SCC...........................................Special Conditions of Contract</p>
+            <p>TS............................................Technical Specifications</p>
+            <p>VAT...........................................Value Added Tax</p>
+            <p>WRQ...........................................Works Requirements</p>
+        </div>
+
+        <div class="clauses">
+            <h4 class="mt-4 fw-bold">Table of Clauses</h4>
+            <h6>General ...................................................................................................................................... 6 </h6>
+            <p>
+                <ol>
+                    <li>Definitions............................................................................................................................. 6 </li>
+                    <li>Interpretation ......................................................................................................................... 7 </li>
+                    <li>Language and Law ................................................................................................................. 8 </li>
+                    <li>Contract Agreement ................................................................................................................. 8 </li>
+                    <li>Assignment............................................................................................................................ 8 </li>
+                    <li>Care and Supply of Documents ................................................................................................ 8 </li>
+                    <li>Confidential Details ................................................................................................................ 9 </li>
+                    <li>Compliance with Laws ............................................................................................................ 9 </li>
+                    <li>Joint and Several Liability ....................................................................................................... 9 </li>
+                    <li>Project Manager's Decisions .................................................................................................. 9 </li>
+                    <li>Delegation ........................................................................................................................... 9 </li>
+                    <li>Communications................................................................................................................... 9 </li>
+                    <li>Subcontracting ..................................................................................................................... 9 </li>
+                    <li>Other Contractors ................................................................................................................. 9 </li>
+                    <li>Personnel and Equipment ..................................................................................................... 10 </li>
+                    <li>Employer’s and Contractor's Risk ......................................................................................... 10 </li>
+                    <li>Employer’s Risks ............................................................................................................... 10 </li>
+                    <li>Contractor’s Risks ............................................................................................................. 10 </li>
+                    <li>Insurance ......................................................................................................................... 10 </li>
+                    <li>Site Investigation Reports ................................................................................................... 11 </li>
+                    <li>Contractor to Construct the Works ........................................................................................ 11 </li>
+                    <li>The Works to Be Completed within intended Completion Date ............................................... 11 </li>
+                    <li>Design by contractor and Approval by the Project Manager ..................................................... 11 </li>
+                    <li>Safety, Security and Protection of the Environment ................................................................ 11 </li>
+                    <li>Discoveries ....................................................................................................................... 12 </li>
+                    <li>Possession of the Site ......................................................................................................... 12 </li>
+                    <li>Access to the Site ............................................................................................................... 12 </li>
+                    <li>Instructions, Inspections and Audits ....................................................................................... 12 </li>
+                    <li>Dispute Settlement ............................................................................................................. 12 </li>
+                    <li>Procedures for Disputes ...................................................................................................... 12 </li>
+                    <p class="fw-bold">B. Staff and Labor .................................................................................................................... 13 </p>
+                    <li>Forced Labor...................................................................................................................... 13 </li>
+                    <li>Child Labor ....................................................................................................................... 13</li>
+                    <li>Non-discrimination and Equal Opportunity ............................................................................. 13 </li>
+                    <p class="fw-bold">Time Control ............................................................................................................................ 13 </p>
+                    <li>Program ........................................................................................................................... 13 </li>
+                    <li>Extension of the Intended Completion Date ........................................................................... 13 </li>
+                    <li>Acceleration ..................................................................................................................... 14 </li>
+                    <li>Delays Ordered by the Project Manager ................................................................................ 14 </li>
+                    <li>Management Meetings ....................................................................................................... 14 </li>
+                    <li>Early Warning ................................................................................................................... 14 </li>
+                    <p class="fw-bold">C. Quality Control .................................................................................................................... 14 </p>
+                    <li>Identifying Defects ............................................................................................................. 14 </li>
+                    <li>Tests .............................................................................................................14 </li>
+                    <li>Correction of Defects ........................................................................................................... 15</li>
+                    <li>Uncorrected Defects ............................................................................................................ 15 </li>
+                    <p class="fw-bold">D. Cost Control ........................................................................................................................ 15 </p>
+                    <li>Contract Price ................................................................................................................... 15 </li>
+                    <li>Changes in the Contract Price .............................................................................................. 15</li>
+                    <li>Variations .......................................................................................................................... 15 </li>
+                    <li>Cash Flow Forecasts ............................................................................................................ 16</li>
+                    <li>Payment Certificates ............................................................................................................ 16 </li>
+                    <li>Payments .......................................................................................................................... 16 </li>
+                    <li>Compensation Events ........................................................................................................... 16 </li>
+                    <li>Tax ........................................................................................................... 17 </li>
+                    <li>Currency ........................................................................................................................... 17 </li>
+                    <li>Price Adjustment ............................................................................................................... 17 </li>
+                    <li>Retention .......................................................................................................................... 19 </li>
+                    <li>Liquidated Damages ........................................................................................................... 19 </li>
+                    <li>Bonus ............................................................................................................................... 20 </li>
+                    <li>Advance Payment ............................................................................................................... 20 </li>
+                    <li>Securities........................................................................................................................... 20 </li>
+                    <li>Day works ......................................................................................................................... 20 </li>
+                    <li>Cost of Repairs .................................................................................................................. 21 </li>
+                    <p class="fw-bold">F.   Force Majeure .................................................................................................................... 21 </p>
+                    <li>Definition of Force Majeure ................................................................................................. 21 </li>
+                    <li>Notice of Force Majeure ...................................................................................................... 21 </li>
+                    <li>Duty to Minimize Delay ...................................................................................................... 21 </li>
+                    <li>Consequences of Force Majeure ........................................................................................... 22 </li>
+                    <li>Force Majeure Affecting Subcontractor ................................................................................. 22 </li>
+                    <li>Optional Termination, Payment and Release ........................................................................... 22 </li>
+                    <li>Release from Performance ................................................................................................... 22</li>
+                    <p class="fw-bold">G. Finishing the Contract ....................................................................................................... 23 </p>
+                    <li>Completion ...................................................................................................................... 23 </li>
+                    <li>Taking Over ..................................................................................................................... 23 </li>
+                    <li>Final Account .................................................................................................................... 23 </li>
+                    <li>Operating and Maintenance Manuals .................................................................................... 23 </li>
+                    <li>Termination ...................................................................................................................... 24 </li>
+                    <li>Fraud and Corruption ........................................................................................................... 24 </li>
+                    <li>Black Listing ..................................................................................................................... 25 </li>
+                    <li>Payment upon Termination .................................................................................................. 25 </li>
+                    <li>Property ............................................................................................................................ 26 </li>
+                    <li>Release from Performance .................................................................................................... 26</li>
+                    <li>Suspension of DP Loan/Credit/Grant .................................................................................... 26 </li>
+                    <li>Eligibility .......................................................................................................................... 26 </li>
+                    <li>ProjectManager’s Duties and Authorities ................................................................................ 26 </li>
+                    <li>Quarries and  Spoil Dumps ................................................................................................... 26 </li>
+                    <li>Local Taxation .................................................................................................................. 26 </li>
+                    <li>Value Added Tax ............................................................................................................... 27 </li>
+                    <li>Income Taxes on Staff ........................................................................................................ 27 </li>
+                    <li>Duties, Taxes and Royalties ................................................................................................ 27 </li>
+                    <li>Member of Government, etc, not Personally Liable ................................................................ 27 </li>
+                    <li>Approval of Use of Explosives ............................................................................................ 27 </li>
+                    <li>Permission for Blasting ...................................................................................................... 27 </li>
+                    <li>Records of  Explosives ......................................................................................................... 27 </li>
+                    <li>Traffic Diversion ................................................................................................................ 28 </li>
+                </ol>
+            </p>
+        </div>
+        <div class="gen mt-5">
+            <h3 class="text-center">General Conditions of Contract</h3>
+            <p>This Section provides the General Conditions of Contract that will apply to the Contract for which the Biding Biding document is issued. </p>
+        </div>
+    </section>
+
+    <section>
+        <table border="1">
+            <td style="text-align: center; font-weight: bold; border: 1px solid black;" colspan="2">
+                <h5>General</h5>
+            </td>
+            <tr>
+                <td>1. Definitions</td>
+                <td>
+                    1.1 Boldface type is used to identify defined terms. <br>
+                    (a)	The <span>Accepted Contract Amount</span> means the amount accepted in the Letter of Acceptance for the execution and completion of the Works and the remedying of any defects. <br>
+                    (b)	The  <span>Activity  Schedule</span>  is  a  schedule  of  the  activities comprising  the  construction,  installation,  testing,  and commissioning of the Works in a lump sum contract. It includes a lump sum price for each activity, which is used for valuations and for assessing the effects of Variations and Compensation Events.<br> (c) <span>Bill of Quantities</span>  means the priced and completed Bill of Quantities forming part of the Bid. <br>
+                    (d)	<span>Compensation Events</span> are those defined in GCC 50 hereunder. <br>
+                    (e)	The <span>Completion Date</span> is the date of completion of the Works as certified by the Project Manager, in accordance with GCC 68.1. <br>
+                    (f)	The <span>Contract</span> is the Contract between the Employer and the Contractor to execute, complete, and maintain the Works. It consists of the documents listed in GCC 2.3 below. <br>
+                    (g)The <span>Contractor</span> is the party whose Bid to carry out the Works has been accepted by the Employer. <br>
+                    (h)The <span>Contractor’s Bid</span> is the completed bidding document submitted by the Contractor to the Employer. <br>
+                    (i)The <span>Contract Price</span> is the Accepted Contract Amount stated in the Letter of Acceptance and thereafter as adjusted in accordance with the Contract. <br>
+                    (j)	<span>Days</span> are calendar days; months are calendar-months. <br>
+                    (k)	<span>Dayworks</span> are varied work inputs subject to payment on a time basis for the
+                    Contractor’s employees and Equipment, in addition to payments for associated Materials and Plant.<br>
+                    (l)	A <span> Defect</span>  is  any  part  of  the  Works  not  completed  in accordance with the Contract. <br>
+                    (m)	The <span>Defects Liability Certificate</span> is the certificate issued by Project Manager upon correction of defects by the Contractor. <br>
+                    (n)	The <span>Defects Liability Period</span> is the period calculated from the Completion Date where the Contractor remains responsible for remedying defects.<br>
+                    (o)	<span>Drawings</span>  include  calculations  and  other  information provided  or  approved  by  the  Project  Manager  for  the execution of the Contract.  <br>
+                    (p)	The <span>Employer</span> is the party who employs the Contractor to carry out the Works, as specified in the SCC.  <br>
+                    (q)	<span>Equipment</span> is the Contractor’s machinery and vehicles brought temporarily to the Site to construct the Works.  <br>
+                    (r)	<span>Force Majeure</span> means an exceptional event or circumstance: which is beyond a Party's control; which such Party could not reasonably have provided against before entering into the Contract; which, having arisen, such Party could not reasonably have avoided or overcome; and, which is not substantially attributable to the other Party. <br>
+                    (s) The <span>Initial Contract Price</span> is the Contract Price listed in the Employer’s Letter of Acceptance. <br>
+                    (t)	In <span>writing or written</span> means hand written, type written, printed or electronically made, and resulting in permanent record. <br>
+                    (u)	The <span>Intended Completion Date</span> is the date on which it is intended that the Contractor shall complete the Works.  The Intended Completion Date is specified in the SCC. The Intended Completion Date may be revised only by the Project Manager by issuing an extension of time or an acceleration order. <br>
+                    (v)	<span>Letter of Acceptance</span> means the formal acceptance by the Employer of the Bid and denotes the formation of the contract at the date of acceptance. <br>
+                    (w)	<span>Materials</span> are all supplies, including consumables, used by the Contractor for incorporation in the Works.  <br>
+                    (x) <span>Party</span> means the Employer or the Contractor, as the context requires.<br>
+                    (y)	<span>SCC </span>means Special Conditions of Contract  <br>
+                    (aa)	<span>Plant</span> is any integral part of the Works that shall have a mechanical, electrical, chemical, or biological function. <br>
+                    (bb)	The <span>Project Manager</span> is the person named in the SCC (or any other competent person appointed by the Employer and notified to the Contractor, to act in replacement of the Project Manager) who is responsible for supervising the execution of the Works and administering the Contract. <br>
+                    (cc)	<span>Retention Money</span> means the aggregate of all monies retained by the Employer pursuant to GCC 54.1.  <br>
+                    (dd)	<span>Schedules</span> means the document(s) entitled schedules, completed by the Contractor and submitted with the Letter of Bids, as included in the Contract. Such document may include the Bill of Quantities, data, lists, and schedules of rates and/or prices. <br>
+                    (ee)	The <span>Site</span> is the area defined as such in the SCC <br>
+                    (ff)	<span>Site Investigation Reports</span> are those that were included in the bidding documents and are factual and interpretative reports about the surface and subsurface conditions at the Site.<br>
+                    (gg)	<span>Specification</span> means the Specification of the Works included in the Contract and any modification or addition made or approved by the Project Manager.  <br>
+                    (hh)	The <span>Start Date</span> is given in <span>the SCC</span>.   It is the latest date when the Contractor shall commence execution of the Works. It does not necessarily coincide with any of the Site Possession Dates.<br>
+                    (ii)	A <span>Subcontractor</span> is a person or corporate body who has a Contract with the Contractor to carry out a part of the work in the Contract, which includes work on the Site. <br>
+                    (jj)	<span>Temporary Works</span> are works designed, constructed, installed, and removed by the Contractor that are needed for construction or installation of the Works.  <br>
+                    (kk)	A <span>Variation</span> is an instruction given by the Project Manager which varies the Works <br>
+                    (ll)	The <span>Works</span> are what the Contract requires the Contractor to construct, install, and turn over to the Employer, as <span>defined in the SCC.</span> <br>
+                </td>
+            </tr>
+            <tr>
+                <td>2. Interpretation </td>
+                <td>
+                    2.1 In interpreting these GCC, singular also means plural, male also means female or neuter, and the other way around. Headings have no significance.
+                    Words have their normal meaning under the language of the Contract unless specifically defined. The Project Manager shall provide instructions clarifying queries about these GCC. <br> 2.2 If sectional completion is <span>specified in the SCC</span>, references in the GCC to the Works, the
+                    Completion Date, and the Intended Completion Date apply to any Section of the Works (other
+                    than references to the Completion Date and Intended Completion Date for the whole of the
+                    Works). <br>
+                    2.3 The documents forming the Contract shall be interpreted in the following order of priority: <br>
+                    (a) Contract Agreement,<br>
+                    (b) Letter of Acceptance, <br>
+                    (c) Letters of Bid,<br>
+                    (d) Special Conditions of Contract,<br>
+                    (e) General Conditions of Contract,<br>
+                    (f) Specifications,<br>
+                    (g) Drawings,<br>
+                    (h) Bill of Quantities (or Schedules of Prices for lump sum contracts), and <br>
+                    (i) Any other document <span>listed in the SCC</span> as forming part of the Contract.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="2">3. Language and Law</td>
+                <td rowspan="1">3.1 The language of the Contract and the law governing the Contract are <span>stated in the SCC.</span></td>
+            </tr>
+            <tr>
+                <td rowspan="1">
+                    a. Throughout the execution of the Contract, the Contractor shall comply with the import of
+                    goods and services prohibitions in the Employer’s country when
+                    (a) by an act of compliance with a decision of the United Nations Security Council taken
+                    under Chapter VII of the Charter of the United Nations, the Borrower’s Country prohibits
+                    any import of goods from, or any payments to, a particular country, person, or entity.
+                    Where the borrower’s country prohibits payments to a particular firm or for particular
+                    goods by such an act of compliance, that firm may be excluded.
+                </td>
+            </tr>
+            <tr>
+                <td>4.Contract Agreement</td>
+                <td>
+                    4.1 The Parties shall enter into a Contract Agreement within 15 days after the Contractor receives
+                    the Letter of Acceptance, unless the Special Conditions establish otherwise. The Contract
+                    Agreement shall be based upon the attached Contract forms in Section IX.
+                </td>
+            </tr>
+            <tr>
+                <td>5. Assignment</td>
+                <td>
+                    5.1 Neither Party shall assign the whole or any part of the Contract or any benefit or interest in or
+                    under the Contract. However, either Party
+                    (a) may assign the whole or any part with the prior agreement of the other Party, at the sole
+                    discretion of such other Party; and
+                    (b) may, as security in favor of a bank or financial institution, assign its right to any moneys
+                    due, or to become due, under the Contract.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="4">
+                    6. Care and Supply of
+                    Documents
+                </td>
+                <td rowspan="1">
+                    6.1 The Specification and Drawings shall be in the custody and care of the Employer. Unless
+                    otherwise stated in the Contract, one copy of the Contract and of each subsequent Drawing
+                    shall be supplied to the Contractor, who may make or request further copies at the cost of the
+                    Contractor.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="1">
+                    6.2 Each of the Contractor’s Documents shall be in the custody and care of the Contractor, unless
+                    and until taken over by the Employer. Unless otherwise stated in the Contract, the Contractor
+                    shall supply to the Engineer six copies of each of the Contractor’s Documents.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="1">
+                    6.3 The Contractor shall keep, on the Site, a copy of the Contract, publications named in the
+                    Specification, the Contractor’s Documents (if any), the Drawings and Variations and other
+                    communications given under the Contract. The Employer’s Personnel shall have the right of
+                    access to all these documents at all reasonable times.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="1">
+                    6.4 If a Party becomes aware of an error or defect in a document which was prepared for use in
+                    executing the Works, the Party shall promptly give notice to the other Party of such error or
+                    defect.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="3">7. Confidential Details</td>
+                <td rowspan="1">
+                    7.1 The Contractor’s and the Employer’s Personnel shall disclose all such confidential and other
+                    information as may be reasonably required in order to verify the Contractor’s compliance with
+                    the Contract and allow its proper implementation.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="1">
+                    7.2 Each of them shall treat the details of the Contract as private and confidential, except to the
+                    extent necessary to carry out their respective obligations under the Contract or to comply with
+                    applicable Laws. Each of them shall not publish or disclose any particulars of the Works
+                    prepared by the other Party without the previous agreement of the other Party. However, the
+                    Contractor shall be permitted to disclose any publicly available information, or information
+                    otherwise required to establish his qualifications to compete for other projects.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="1">
+                    7.3 Notwithstanding the above, the Contractor may furnish to its Subcontractor(s) such documents,
+                    data and other information it receives from the Employer to the extent required for the
+                    Subcontractor(s) to perform its work under the Contract, in which event the Contractor shall
+                    obtain from such Subcontractor(s) an undertaking of confidentiality similar to that imposed on
+                    the Contractor under this Clause.
+                </td>
+            </tr>
+            <tr>
+                <td>8. Compliance with Laws</td>
+                <td>8.1 The Contractor shall, in performing the Contract, comply with applicable Laws.</td>
+            </tr>
+            <tr>
+                <td>9. Joint and Several Liability</td>
+                <td>
+                    9.1 If the Contractor is a joint venture of two or more entities , all such entities shall be jointly and
+                    severally liable to the Employer for the fulfillment of the provisions of the Contract, and shall
+                    designate one of such persons to act as a leader with authority to bind the joint venture. <span>
+                        The
+                        contractor shall not handover the responsibility of the contract to any one member or
+                        some members of Joint Venture or any other parties, not involved in the contract.
+                    </span> The
+                    composition or the constitution of the joint venture shall not be altered without the prior
+                    consent of the Employer.
+                </td>
+            </tr>
+            <tr>
+                <td>10. Project Manager&#39;s Decisions</td>
+                <td>
+                    10.1 Except where otherwise specifically stated, the Project Manager shall decide contractual matters
+                    between the Employer and the Contractor in the role representing the Employer.
+                </td>
+            </tr>
+            <tr>
+                <td>11. Delegation</td>
+                <td>
+                    11.1 The Project Manager may delegate any of his duties and responsibilities to other people after
+                    notifying the Contractor, and may cancel any delegation after notifying the Contractor.
+                </td>
+            </tr>
+            <tr>
+                <td>12. Communications</td>
+                <td>
+                    12.1 Communications between parties that are referred to in the Conditions shall be effective only
+                    when in writing. A notice shall be effective only when it is delivered.
+                </td>
+            </tr>
+            <tr>
+                <td>13. Subcontracting</td>
+                <td>
+                    13.1 A list of approved Subcontractors including its value/works is included as Article 2 (k) of contract
+                    Agreement. Approval by the Employer for any of the Subcontractors shall not relieve the
+                    Contractor from any of its obligations, duties, or responsibilities under the contract.
+                </td>
+            </tr>
+            <tr>
+                <td>14. Other Contractors</td>
+                <td>
+                    14.1 The Contractor shall cooperate and share the Site with other contractors, public authorities,
+                    utilities, and the Employer between the dates given in the Schedule of Other Contractors, <span>
+                        as
+                        referred to in the SCC.
+                    </span> The Contractor shall also provide facilities and services for them as
+                    described in the Schedule. The Employer may modify the Schedule of Other Contractors, and
+                    shall notify the Contractor of any such modification
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="3">
+                    15 Personnel and
+                    Equipment
+                </td>
+                <td rowspan="1">
+                    15.1 The Contractor shall employ the key personnel and use the equipment identified in its Bid to
+                    carry out the Works, or other personnel and equipment approved by the Project Manager. The
+                    Project Manager shall approve any proposed replacement of key personnel and equipment only if
+                    their relevant qualifications or characteristics are substantially equal to or better than those
+                    proposed in the Bid.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="1">
+                    15.2 If the Project Manager asks the Contractor to remove a person who is a member of the
+                    Contractor’s staff or work force, stating the reasons, the Contractor shall ensure that the person
+                    leaves the Site within seven days and has no further connection with the work in the Contract.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="1">
+                    15.3 If the Employer, Project Manager, or Contractor determines, that any employee of the
+                    Contractor be determined to have engaged in corrupt, fraudulent, collusive, coercive, or other
+                    prohibited practices during the execution of the Works, then that employee shall be removed in
+                    accordance with Clause 15.2 above.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    16. Employer’s and
+                    Contractor&#39;s Risk
+                </td>
+                <td>
+                    16.1 The Employer carries the risks which this Contract states are Employer’s risks, and the
+                    Contractor carries the risks which this Contract states are Contractor’s risks.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="2">17. Employer’s Risks</td>
+                <td rowspan="1">
+                    17.1 From the Start Date until the Defects Liability Certificate has been issued, the following are
+                    Employer’s risks: <br>
+                    (a) The risk of personal injury, death, or loss of or damage
+                    to property (excluding the Works, Plant, Materials, and Equipment), which are due to <br>
+                    (i) use or occupation of the Site by the Works or for the purpose of the Works, which is the
+                    unavoidable result of the Works or <br>
+                    (ii) negligence, breach of statutory duty, or interference with any legal right by the
+                    Employer or by any person employed by or contracted to him except the Contractor. <br>
+                    (b) The risk of damage to the Works, Plant, Materials, and Equipment to the extent that it is
+                    due to a fault of the Employer or in the Employer’s design, or due to war or radioactive
+                    contamination directly affecting the country where the Works are to be executed.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="1">
+                    17.2 From the Completion Date until the Defects Liability Certificate has been issued, the risk of loss of
+                    or damage to the Works, Plant, and Materials is an Employer’s risk except loss or damage due to <br>
+                    (a) a Defect which existed on the Completion Date, <br>
+                    (b) an event occurring before the Completion Date, which was not itself an Employer’s risk, or <br>
+                    (c) the activities of the Contractor on the Site after the Completion Date.
+                </td>
+            </tr>
+            <tr>
+                <td>18. Contractor’s Risks</td>
+                <td>
+                    18.1 From the Starting Date until the Defects Liability Certificate has been issued, the risks of personal
+                    injury, death, and loss of or damage to property (including, without limitation, the Works, Plant,
+                    Materials, and Equipment) which are not Employer’s risks are Contractor’s risks.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="5">19. Insurance</td>
+                <td rowspan="1">
+                    19.1 The Contractor shall provide insurance in the joint names of the Employer and the Contractor
+                    from the Start Date to the end of the Defects Liability Period, in the amounts and deductibles
+                    <span>stated in the SCC</span> for the following events which are due to the Contractor’s risks: <br>
+                    (a) loss of or damage to the Works, Plant, and Materials;<br>
+                    (b) loss of or damage to Equipment;<br>
+                    (c) loss of or damage to property (except the Works, Plant, Materials, and Equipment) in
+                    connection with the Contract; and <br>
+                    (d) Personal injury or death.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="1">
+                    19.2 Policies and certificates for insurance shall be delivered by the Contractor to the Project
+                    Manager for the Project Manager’s approval before the Start Date. All such insurance shall
+                    provide for compensation to be payable in the proportions of Nepalese Rupees required to
+                    rectify the loss or damage incurred.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="1">
+                    19.3 If the Contractor does not provide any of the policies and certificates required, the
+                    Employer may affect the insurance which the Contractor should have provided and recover
+                    the premiums the Employer has paid from payments otherwise due to the Contractor or, if no
+                    payment is due, the payment of the premiums shall be a debt due.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="1">
+                    19.4 Alterations to the terms of insurance shall not be made without the approval of the Project
+                    Manager.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="1">19.5 Both parties shall comply with any conditions of the insurance policies.</td>
+            </tr>
+            <tr>
+                <td>
+                    20. Site Investigation
+                    Reports
+                </td>
+                <td>
+                    20.1 The Contractor, in preparing the Bid, shall rely on any Site Investigation Reports referred to
+                    <span>in the SCC</span>, supplemented by any information available to the Contractor.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    21. Contractor to
+                    Construct the Works
+                </td>
+                <td>
+                    21.1 The Contractor shall construct and install the Works in accordance with the Specifications and
+                    Drawings.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    22. The Works to Be
+                    Completed within
+                    intended Completion
+                    Date
+                </td>
+                <td>
+                    22.1 The Contractor may commence execution of the Works on the Start Date and shall carry out
+                    the Works in accordance with the Program submitted by the Contractor, as updated with the
+                    approval of the Project Manager, and complete them within the intended Completion Date.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    23. Design by
+                    contractor and
+                    Approval by the Project
+                    Manager
+                </td>
+                <td>
+                    23.1 The contractor shall be responsible for the design of permanent works as specified in SCC.
+                    23.2 Contractor shall be responsible for design of the Temporary Works. The Contractor shall submit
+                    Specifications and Drawings showing the proposed Temporary Works to the Project Manager,
+                    for his approval.
+                    23.3 All Drawings prepared by the Contractor for the execution of the temporary or permanent
+                    Works, shall be subject to prior approval by the Project Manager before their use.
+                    23.4 The Project Manager’s approval shall not alter the Contractor’s responsibility for design of
+                    temporary works.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    24. Safety, Security
+                    and Protection of the
+                    Environment
+                </td>
+                <td>
+                    24.1 The Contractor shall, throughout the execution, and completion of the works and remedying of
+                    any defects therein: <br>
+                    a. Have full regard for the safety of all persons entitled to be upon the site and keep the site (so as
+                    the same is under his control) and the works (so far as the same are not completed or
+                    occupied by the Employer) in an orderly state appropriate to the avoidance of danger to such
+                    persons. <br>
+                    b. Provide and maintain at his own cost all lights, guards, fencing, warning signs and watching,
+                    when necessary or required by the Project Manager or by any duly constituted authority,
+                    for the protection of the Works of for the safety and convenience of the public or others. <br>
+                    c. Take all reasonable steps to protect the environment on and off the site and to avoid damage
+                    or nuisance to persons
+                    or to property of the public or others resulting from pollution, noise or other causes arising as
+                    a consequence of his methods of operation. <br>
+
+                    d. Ensure that any cut or fill slopes are planted in grass or other plant cover as soon as possible to
+                    protect them from erosion. <br>
+                    e. Any spoil or material removed from drains shall be disposed of to designated stable tipping
+                    areas as directed by the Project Manager. <br>
+                    f. Shall not use fuel wood as a means of heating during the processing or preparation of
+                    any materials forming part of the works. <br>
+                    g. The Project Manager shall have the power to disallow any working practice or activity of
+                    the Contractor or direct that such practices or activities be modified should the Project
+                    Manager consider, on the advice of the relevant Government Departments, that the
+                    practices or activities will be harmful to wildlife. <br>
+                    h. Provide on the Site such lifesaving apparatus as may be appropriate and an adequate
+                    and easily accessible first aid outfit or such outfits as may be required by any
+                    government ordinance, factory act, etc., subsequently published and amended from time to
+                    time.
+                </td>
+            </tr>
+            <tr>
+                <td>25. Discoveries</td>
+                <td>
+                    25.1 Anything of historical or other interest or of significant value unexpectedly discovered on the
+                    Site shall be the property of the employer. The Contractor shall notify the Project Manager of
+                    such discoveries and carry out the Project Manager’s instructions for dealing with them.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    26. Possession of the
+                    Site
+                </td>
+                <td>
+                    26.1 The Employer shall give possession of all parts of the Site to the Contractor. If possession of a
+                    part is not given by the date stated in the SCC, the Employer shall be deemed to have delayed
+                    the start of the relevant activities, and this shall be a Compensation Event.
+                </td>
+            </tr>
+            <tr>
+                <td>27. Access to the Site</td>
+                <td>
+                    27.1 The Contractor shall allow the Project Manager and any person authorized by the Project
+                    Manager access to the Site and to any place where work in connection with the Contract is
+                    being carried out or is intended to be carried out.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="3">
+                    28.Instructions,
+                    Inspections and Audits
+                </td>
+                <td rowspan="1">
+                    28.1 The Contractor shall carry out all instructions of the Project Manager which comply with the
+                    applicable laws where the Site is located.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="1">
+                    28.2 The Contractor shall keep, and shall make all reasonable efforts to cause its Subcontractors
+                    and sub consultants to keep accurate and systematic accounts and records in respect of the
+                    Works in such form and details as will clearly identify relevant time changes and costs.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="1">
+                    28.3 The Contractor shall permit the GoN/DP and/or persons appointed by the GoN/DP to inspect
+                    the Site and/or the accounts and records of the Contractor and its sub-contractors relating to the
+                    performance of the Contract, and to have such accounts and records audited by auditors
+                    appointed by the GoN/DP if required by the GoN/DP. The Contractor’s attention is drawn to
+                    Sub-Clause 73.2 which provides, inter alia, that acts intended to materially impede the exercise
+                    of the GoN’s/DP’s inspection and audit rights provided for under this Sub-Clause constitute a
+                    obstructive practice subject to contract termination.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="2">29. Dispute Settlement</td>
+                <td rowspan="1">
+                    29.1 The Employer and the Contractor shall attempt to settle amicably by direct negotiation any
+                    disagreement or dispute arising between them under or in connection with the Contract.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="1">
+                    29.2 Any dispute between the Parties as to matters arising pursuant to this Contract which cannot
+                    be settled amicably within thirty (30) days after receipt by one Party of the other Party‘s
+                    request for such amicable settlement may be referred to Arbitration within 30 days after the
+                    expiration of amicable settlement period.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    30. Procedures for
+                    Disputes
+                </td>
+                <td>
+                    30.1 In case of arbitration, the arbitration shall be conducted in accordance with procedures in
+                    accordance with law of Nepal at the place <span>given in the SCC.</span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="font-weight: bold; text-align: center;"><h5>B. Staff and Labor </h5></td>
+            </tr>
+            <tr>
+                <td>31. Forced Labor</td>
+                <td>
+                    31.1 The Contractor shall not employ forced labor, which consists of any work or service, not
+                    voluntarily performed, that is exacted from an individual under threat of force or penalty. This
+                    covers any kind of involuntary or compulsory labor, such as indentured labor, bonded labor,
+                    or similar labor–contracting arrangements.
+                </td>
+            </tr>
+            <tr>
+                <td>32. Child Labor</td>
+                <td>
+                    32.1 The Contractor shall not employ children in a manner that is economically exploitative, or is
+                    likely to be hazardous, or to interfere with, the child&#39;s education, or to be harmful to the
+                    child&#39;s health or physical, mental, spiritual, moral, or social development. Where national
+                    laws have provisions for employment of minors, the Contractor shall follow those laws
+                    applicable to the Contractor. Children below the age of 18 years shall not be employed in
+                    dangerous work.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    33.Non-discrimination
+                    and Equal Opportunity
+                </td>
+                <td>
+                    33.1 The Contractor shall not make employment decisions on the basis of personal characteristics
+                    unrelated to inherent job requirements. The Contractor shall base the employment relationship
+                    on the principle of equal opportunity and fair treatment, and shall not discriminate with
+                    respect to aspects of the employment relationship, including recruitment and hiring,
+                    compensation (including wages and benefits), working conditions and terms of employment,
+                    access to training, promotion, termination of employment or retirement, and discipline. In
+                    countries where national law provides for non-discrimination in employment, the Contractor
+                    shall comply with national law. When national laws are silent on nondiscrimination in
+                    employment, the Contractor shall meet this Sub clause&#39;s requirements. Special measures of
+                    protection or assistance to remedy past discrimination or selection for a particular job based
+                    on the inherent requirements of the job shall not be deemed discrimination.
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center; font-weight: bold;"><h5>Time Control</h5></td>
+            </tr>
+            <tr>
+                <td rowspan="4">34. Program</td>
+                <td rowspan="1">
+                    34.1 Within the time <span>stated in the SCC</span>, after the date of the Letter of Acceptance, the Contractor
+                    shall submit to the Project Manager for approval a Program showing the general methods,
+                    arrangements, order, and timing for all the activities in the Works. In the case of a lump sum
+                    contract, the activities in the Program shall be consistent with those in the Activity Schedule.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="1">
+                    34.2 An update of the Program shall be a program showing the actual progress achieved on each
+                    activity and the effect of the progress achieved on the timing of the remaining work, including
+                    any changes to the sequence of the activities.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="1">
+                    34.3 The Contractor shall submit to the Project Manager for approval an updated Program at intervals
+                    no longer than the period <span>stated in the SCC</span>. If the Contractor does not submit an updated
+                    Program within this period, the Project Manager may withhold the amount stated in the SCC from
+                    the next payment certificate and continue to withhold this amount until the next payment after
+                    the date on which the overdue Program has been submitted. In the case of a lump sum contract, the
+                    Contractor shall Provide an updated Activity Schedule within 15 days of being instructed to by the
+                    Project Manager.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="1">
+                    34.4 The Project Manager’s approval of the Program shall not alter the Contractor’s obligations. The
+                    Contractor may revise the Program and submit it to the Project Manager again at any time. A
+                    revised Program shall show the effect of Variations and Compensation Events.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="2">
+                    35. Extension of the
+                    Intended Completion
+                    Date
+                </td>
+                <td rowspan="1">
+                    35.1 The Project Manager shall extend the Intended Completion Date if a Compensation Event
+                    occurs or a Variation is issued which makes it impossible for Completion to be achieved by
+                    the Intended Completion Date without the Contractor taking steps to accelerate the remaining
+                    work, which would cause the Contractor to incur additional cost.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="1">
+                    35.2 The Project Manager shall decide whether and by how much to extend the Intended
+                    Completion Date within 21 days of the Contractor asking the Project Manager for a decision
+                    upon the effect of a Compensation Event or Variation and submitting full supporting
+                    information at least 21 days prior to the intended completion date. If the Contractor has failed to
+                    give early warning of a delay or has failed to cooperate in dealing with a delay, the delay by this
+                    failure shall not be considered in assessing the new Intended Completion Date. Along with full
+                    supporting information the contractor shall also submit Performance Security, Advanced
+                    Payment Guarantee and insurance Policy with extended validity as well as revised work
+                    schedule.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="2">
+                    36. Acceleration
+                </td>
+                <td rowspan="1">
+                    36.1 When the Employer wants the Contractor to finish before the Intended Completion Date, the
+                    Project Manager shall obtain priced proposals for achieving the necessary acceleration from the
+                    Contractor. If the Employer accepts these proposals, the Intended Completion Date shall be
+                    adjusted accordingly and confirmed by both the Employer and the Contractor.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="1">
+                    36.2 If the Contractor’s priced proposals for acceleration are accepted by the Employer, they are
+                    incorporated in the Contract Price and treated as a Variation.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    37. Delays Ordered by
+                    the Project Manager
+                </td>
+                <td>
+                    37.1 The Project Manager may instruct the Contractor to delay the start or progress of any activity
+                    within the Works.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="2">
+                    38. Management
+                    Meetings
+                </td>
+                <td rowspan="1">
+                    38.1 Either the Project Manager or the Contractor may require the other to attend a management
+                    meeting. The business of a management meeting shall be to review the plans for remaining work
+                    and to deal with matters raised in accordance with the early warning procedure..
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="1">
+                    38.2 The Project Manager shall record the business of management meetings and provide copies of
+                    the record to those attending the meeting and to the Employer. The responsibility of the parties
+                    for actions to be taken shall be decided by the Project Manager either at the management
+                    meeting or after the management meeting and stated in writing to all who attended the
+                    meeting.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="2">
+                    39. Early Warning
+                </td>
+                <td rowspan="1">
+                    39.1 The Contractor shall warn the Project Manager at the earliest opportunity of specific likely
+                    future events or circumstances that may adversely affect the quality of the work, increase the
+                    Contract Price, or delay the execution of the Works. The Project Manager may require the
+                    Contractor to provide an estimate of the expected effect of the future event or circumstance
+                    on the Contract Price and Completion Date. The estimate shall be provided by the Contractor
+                    as soon as reasonably possible.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="1">
+                    39.2 The Contractor shall cooperate with the Project Manager in making and considering proposals
+                    for how the effect of such an event or circumstance can be avoided or reduced by anyone
+                    involved in the work and in carrying out any resulting instruction of the Project Manager.
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="font-weight: bold; text-align: center;">C. Quality Control</td>
+            </tr>
+            <tr>
+                <td>40. Identifying Defects</td>
+                <td>
+                    40.1 The Project Manager shall check the Contractor’s work and notify the Contractor of any Defects
+                    that are found. Such checking shall not affect the Contractor’s responsibilities. The Project
+                    Manager may instruct the Contractor to search for a Defect and to uncover and test any work that
+                    the Project Manager considers may have a Defect.
+                </td>
+            </tr>
+            <tr>
+                <td>41. Tests </td>
+                <td>41.1 If the Project Manager instructs the Contractor to carry out a test not specified in the Specification to check whether any work has a Defect and the test shows that it does, the Contractor shall pay for the test and any samples.   If there is no Defect, the test shall be a Compensation Event. </td>
+            </tr>
+            <tr>
+                <td>
+                    42.Correction 	of
+                    Defects
+                </td>
+                <td>
+                    42.1 The Project Manager shall give notice to the Contractor of any Defects before the end of the Defects Liability Period, which begins at issuance of taking over certificate pursuant to clause 69.2, and is defined in the SCC. The Defects Liability Period shall be extended for as long as Defects remain to be corrected. <br>
+                    42.2 Every time notice of a Defect is given, the Contractor shall correct the notified Defect within the length of time specified by the Project Manager’s notice.
+                </td>
+            </tr>
+            <tr>
+                <td>43.Uncorrected Defects </td>
+                <td>43.1 If the Contractor has not corrected a Defect within the time specified in the Project Manager’s notice, the Project Manager shall assess the cost of having the Defect corrected, and the Contractor shall pay this amount. </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="font-weight: bold;"><h5>D. Cost Control</h5> </td>
+            </tr>
+            <tr>
+                <td rowspan="2">44.  Contract Price </td>
+                <td rowspan="1">
+                    44.1 In the case of a Unit Rate contract, the Bill of Quantities shall contain priced items for the Works to be performed by the Contractor. The Bill of Quantities is used to calculate the Contract Price.   The Contractor will be paid for the quantity of the work accomplished at the rate in the Bill of Quantities for each item.
+                </td>
+            </tr>
+            <tr>
+                <td> 44.2 In the case of a lump sum contract, the Activity Schedule shall contain the priced activities for the Works to be performed by the Contractor. The Activity Schedule is used to monitor and control the performance of activities on which basis the Contractor will be paid. If payment for Materials on Site shall be made separately, the Contractor shall show delivery of Materials to the Site separately on the Activity Schedule.</td>
+            </tr>
+            <tr>
+                <td rowspan="2">
+                    45. Changes in the
+                    Contract Price
+                </td>
+                <td rowspan="1">
+                    45.1 In the case of an Unit Rate contract: <br>
+                    (a)	If the final quantity of the work done differs from the quantity in the Bill of Quantities for the particular item by more than 25 percent, provided the change exceeds 2 percent of the Initial Contract Price, the Project Manager shall adjust the rate to allow for the change. <br>
+                    (b)	The Project Manager shall not adjust rates from changes in quantities if thereby the Initial Contract Price is exceeded by more than 10 percent, except with the prior approval of the Employer. <br>
+                    (c)	If requested by the Project Manager, the Contractor shall provide the Project Manager with a detailed cost breakdown of any rate in the Bill of Quantities.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    45.2 In the case of a lump sum contract, the Activity Schedule shall be amended by the Contractor to
+                    accommodate changes of Program or method of working made at the Contractor’s own discretion. Prices in the Activity Schedule shall not be altered when the Contractor makes such changes to the Activity Schedule.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="6">46. Variations </td>
+                <td rowspan="1">46.1 All Variations shall be included in updated Programs, and, in the case of a lump sum contract, also in the Activity Schedule, produced by the Contractor. </td>
+            </tr>
+            <tr>
+                <td rowspan="1">46.2 The Contractor shall provide the Project Manager with a quotation for carrying out the Variation when requested to do so by the Project Manager. The Project Manager shall assess the quotation, which shall be given within seven (7) days of the request or within any longer period stated by the Project Manager and before the Variation is ordered. </td>
+            </tr>
+            <tr>
+                <td rowspan="1">46.3 If the Contractor’s quotation is unreasonable, the Project Manager may order the Variation and make a change to the Contract Price, which shall be based on the Project Manager’s own forecast of the effects of the Variation on the Contractor’s costs. </td>
+            </tr>
+            <tr>
+                <td rowspan="1">46.4 If the Project Manager decides that the urgency of varying the work would prevent a quotation being given and considered without delaying the work, no quotation shall be given and the Variation shall be treated as a Compensation Event. </td>
+            </tr>
+            <tr>
+                <td rowspan="1">46.5 The Contractor shall not be entitled to additional payment for costs that could have been avoided by giving early warning</td>
+            </tr>
+            <tr>
+                <td rowspan="1">46.6 In the case of an Unit Rate contract, if the work in the Variation corresponds to an item description in the Bill of Quantities and if, in the opinion of the Project Manager, the quantity of work above the limit stated in GCC 45.1 or the timing of its execution do not cause the cost per unit of quantity to change, the rate in the Bill of Quantities shall be used to calculate the value of the Variation.  If the cost per unit of quantity changes, or if the nature or timing of the work in the Variation does not correspond with items in the Bill of Quantities, the quotation by the Contractor shall be in the form of new rates for the relevant items of work. </td>
+            </tr>
+            <tr>
+                <td>47.Cash Flow Forecasts </td>
+                <td>47.1 When the Program, or, in the case of a lump sum contract, the Activity Schedule, is updated, the Contractor shall provide the Project Manager with an updated cash flow forecast.    </td>
+            </tr>
+            <tr>
+                <td rowspan="6">48.Payment Certificates </td>
+                <td rowspan="1">48.1 The Contractor shall submit to the Project Manager monthly statements of the estimated value of the work executed less the cumulative amount certified previously. </td>
+            </tr>
+            <tr>
+                <td rowspan="1">48.2 The Project Manager shall check the Contractor’s monthly statement and certify the amount to be paid to the Contractor within 30 days of submission by contractor.  </td>
+            </tr>
+            <tr>
+                <td rowspan="1">48.3 The value of work executed shall be determined by the Project Manager. </td>
+            </tr>
+            <tr>
+                <td rowspan="1">
+                    48.4 The value of work executed shall comprise:  <br>
+                    (a)	In the case of an Unit Rate contract, the value of the quantities of work in the Bill of Quantities that have been completed; or  <br>
+                    (b)	In the case of a lump sum contract, the value of work executed shall comprise the value of completed activities in the Activity Schedule.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="1">48.5 The value of work executed shall include the valuation of Variations and Compensation Events.  </td>
+            </tr>
+            <tr>
+                <td rowspan="1">48.6 The Project Manager may exclude any item certified in a previous certificate or reduce the proportion of any item previously certified in any certificate in the light of later information. </td>
+            </tr>
+            <tr>
+                <td rowspan="3">49.  Payments </td>
+                <td rowspan="1">49.1 Payments shall be adjusted for deductions for advance payments and retention. The Employer shall pay the Contractor the amounts certified by the Project Manager within 30 days of the date of each certificate.   If the Employer makes a late payment, the Contractor shall be paid interest as indicated in the SCC on the late payment in the next payment.  Interest shall be calculated from the date by which the payment should have been made up to the date when the late payment is made.  </td>
+            </tr>
+            <tr>
+                <td rowspan="1">49.2 If an amount certified is increased in a later certificate or as a result of an award by an Arbitrator, the Contractor shall be paid interest upon the delayed payment as set out in this clause.   Interest shall be calculated from the date upon which the increased amount would have been certified in the absence of dispute.  </td>
+            </tr>
+            <tr>
+                <td rowspan="1">
+                    49.3 Items of the Works for which no rate or price has been entered in BOQ shall not be paid for by the
+                    Employer and shall be deemed covered by other rates and prices in the Contract.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="4">
+                    50.Compensation
+                    Events
+                </td>
+                <td rowspan="1">
+                    50.1 The following shall be Compensation Events: <br>
+                    (a)	The Employer does not give access to a part of the Site by the Site Possession Date pursuant to GCC 26.1.  <br>
+                    (b)	The Employer modifies the Schedule of Other Contractors in a way that affects the work of the Contractor under the Contract. <br>
+                    (c)	The Project Manager orders a delay or does not issue Drawings, Specifications, or instructions required for execution of the Works on time.  <br>
+                    (d)	The Project Manager instructs the Contractor to uncover or to carry out additional tests upon work, which is then found to have no Defects. <br>
+                    (e)	The Project Manager unreasonably does not approve a subcontract to be let. <br>
+                    (f)	Ground conditions are substantially more adverse than could reasonably have been assumed before issuance of the Letter of Acceptance from the information issued to bidders (including the Site Investigation Reports), from information available publicly and from a visual inspection of the Site. <br>
+                    (g)	The Project Manager gives an instruction for dealing with an unforeseen condition, caused by the Employer, or additional work required for safety or other reasons. <br>
+                    (h)	Other  contractors,  public  authorities,  utilities,  or  the Employer  does  not  work  within  the  dates  and  other constraints stated in the Contract, and they cause delay or extra cost to the Contractor. <br>
+                    (i)	The advance payment is delayed. <br>
+                    (j)	The effects on the Contractor of any of the Employer’s Risks. <br>
+                    (k)	The Project Manager unreasonably delays issuing a Certificate of Completion. <br>
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="1">50.2 If a Compensation Event would cause additional cost or would prevent the work being completed before the Intended Completion Date, the Contract Price shall be increased and/or the Intended Completion Date shall be extended.   The Project Manager shall decide whether and by how much the Contract Price shall be increased and whether and by how much the Intended Completion Date shall be extended. </td>
+            </tr>
+            <tr>
+                <td rowspan="1">50.3 As soon as information demonstrating effect of each Compensation Event upon the Contractor’s forecast cost has been provided by the Contractor, it shall be assessed by the Project Manager, and the Contract Price shall be adjusted accordingly. If the Contractor’s forecast is deemed unreasonable, the Project Manager shall adjust the Contract Price based on the Project Manager’s own forecast.   The Project Manager shall assume that the Contractor shall react competently and promptly to the event. </td>
+            </tr>
+            <tr>
+                <td rowspan="1">50.4 The  Contractor  shall  not  be  entitled  to  compensation  to the  extent  that  the  Employer’s  interests  are  adversely affected by the Contractor’s not having given early warning or not having cooperated with the Project Manager. </td>
+            </tr>
+            <tr>
+                <td>51. Tax </td>
+                <td>51.1 The Project Manager shall adjust the Contract Price if taxes, duties, and other levies are changed between the date 30 days before the submission of bids for the Contract and the date of the last Completion certificate.  The adjustment shall be the change in the amount of tax payable by the Contractor, provided such changes are not already reflected in the Contract Price or are a result of GCC 53. </td>
+            </tr>
+            <tr>
+                <td>52.  Currency </td>
+                <td>52.1 The currency of Contracts shall be Nepalese Rupees. </td>
+            </tr>
+            <tr>
+                <td rowspan="5">53.  Price Adjustment </td>
+                <td rowspan="1">
+                    53.1 Prices shall be adjusted for fluctuations in the cost of inputs only if provided for in the SCC.
+                    If so provided, the amounts certified in each payment certificate, before deducting for Advance Payment, shall be adjusted by applying the respective price adjustment factor to the payment amounts due.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="1">
+                    53.2 Adjustment Formulae :  The formulae will be of the following general type: <br>
+                    pn = A + b Ln/Lo + c Mn/Mo + etc. <br>
+                    Where: <br>
+                    pn is a price adjustment factor to be applied to the amount for the payment of the work carried out in the subject month, determined in accordance with Clause 49;
+                    A is a constant, specified in the Bidding Forms- Table of Price Adjustment  data,  representing  the  nonadjustable  portion  in contractual payments; b, c, d, etc., coefficients representing the estimated proportion of each cost element (labor, materials, equipment usage, etc.) in the Works or sections thereof, net of Provisional Sums, as specified in the SCC;
+                    Ln, Mn, En, etc., are the current cost indices or reference prices of the cost elements for month “n,” determined pursuant to Sub-Clause 53.4, applicable to each cost element; and
+                    Lo, Mo, Eo, etc., are the base cost indices or reference prices corresponding to the above cost elements at the date specified in Sub-Clause 53.4
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="1">53.3 Sources of Indices and Weightings: The sources of indices shall be those listed in the Bidding Forms- Table of Price Adjustment data, as approved by the Project Manager and stated in SCC. Indices shall be appropriate for their purpose and shall relate to the Contractor’s proposed source of supply of inputs on the basis of which his Contract shall have been computed.  As the proposed basis for price adjustment, the Contractor shall have submitted with his bid the tabulation of Weightings and Source of Indices in the Bidding Forms, which shall be subject to approval by the Project Manager. </td>
+            </tr>
+            <tr>
+                <td rowspan="1">53.4 Base, Current and Provisional Indices: The base cost indices or prices shall be those prevailing on the day 30 days prior to the latest date for submission of bids. Current indices or prices shall be those prevailing on the day 30 days prior to the last day of the period to which a particular Interim Payment Certificate is related. If at any time the current indices are not available, provisional indices as determined by the Project Manager will be used, subject to subsequent correction of the amounts paid to the Contractor when the current indices become available. </td>
+            </tr>
+            <tr>
+                <td rowspan="1">53.5 Weightings: The weightings for each of the factors of cost given in the Bidding Forms shall be adjusted if, in the opinion of the Project Manager, they have been rendered unreasonable, unbalanced or inapplicable as a result of varied or additional work already executed or instructed under Clause 46 or for any other reason. </td>
+            </tr>
+        </table>
+
+        <hr style="border: 1px solid rgb(0, 0, 0); width: 200px;">
+        <p>
+            <ol>
+                <li>For complex Works involving several types of construction work with different inputs, a family of Formulae will be necessary. The various items of Day work may also require different formulae, depending on the nature and source of the inputs</li>
+                <li> Insert a figure for factor A only where there is a part of the Contractors’ expenditures which will not be subject to fluctuation in cost   or to compensate for the unreliability of some indices. A should normally be 0.15. The sum of A, b, c, d, etc., should be one. </li>
+            </ol>
+        </p>
+        <hr style="border: 1px solid black; width: 200px;">
+
+        <table>
+            <tr>
+                <td rowspan="3"></td>
+                <td rowspan="1">
+                    53.6 Where, price adjustment provision is not applicable pursuant to Sub-clause 53.1 then the Contract is subject to price adjustment only for construction material in accordance with this clause. If the prices of the construction materials stated in the contract is increased or decreased in an unexpected manner in excess of ten (10%) percent in comparison to the base price construction material stated in Section –IV, Bidding Forms-Table of Price Adjustment Data, then the price adjustment for the increase or decrease of price of the construction material beyond 10% shall be made by applying the following formulas: <br>
+                    For unexpected increase in price  <br>
+                    P =[R1 -(R0 ×1.10)]× Q  <br>
+                    For unexpected decrease in price P <br>
+                    = [R1 -(R0 ×0.90)]× Q Where:  <br>
+                    “P” is price adjustment amount  <br>
+                    “R1” is the present price of the construction material (Source of indices shall be those listed in the
+                    Bidding forms) <br>
+                    “R0” is the base price of the construction material  <br>
+                    “Q” is quantity of the construction material consumed in construction during the period of price adjustment consideration If the Base price and source is to be proposed by the Bidder as per the provision made in Section –IV, Bidding Forms-Table of Price Adjustment Data then the Base price and source filled by Bidder for the construction material stated in the Bidding Form shall be subject to the approval of the Project manager and shall be as <span>stated in SCC</span>..
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="1">53.7 The Price Adjustment amount shall be limited to a maximum of the initial Contract Amount <span>as specified in the SCC</span>. </td>
+            </tr>
+            <tr>
+                <td rowspan="1">
+                    53.8 The Price Adjustment provision shall not be applicable for delayed period if the contract is not completed in time due to the delay caused by the contractor or the contract is a Lump sum
+                    Contract
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="4">54.  Retention </td>
+                <td rowspan="1">54.1 The Employer shall retain from each payment due to theContractor the proportion stated in the SCC until Completion of the whole of the Works. </td>
+            </tr>
+            <tr>
+                <td rowspan="1">
+                    54.2 Upon the issue of a Defects Liability Certificate by the Project Manager, <span>
+                        in accordance with
+                        GCC
+                    </span> 70.1, half the total amount retained shall be repaid to the Contractor and half when the Contractor has submitted the evidence of submission of tax return to the concerned Internal Revenue Office.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="1">
+                    54.3 The Contractor may substitute retention money with an unconditional  bank guarantee issued from Commercial Bank or Financial Institution eligible to issue Bank Guarantee as per prevailing Law if: <br>
+                    (a)	at least eighty (80) percent of the whole works have been completed, <br>
+                    (b)	progress of the works is satisfactory in accordance with the Contract as per approved work schedule, and  <br>
+                    (c)	it can be assured that the works can be completed at the intended completion date.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="1">54.4 If retention money is substituted by bank guarantee in accordance with clause 54.2, the bank guarantee shall be submitted either using the Retention Money Security Form included in Section X (Contract Forms) or in another Form acceptable to the employer. The validity of the bank guarantee shall be at least one month more than the end of defect liability period. </td>
+            </tr>
+            <tr>
+                <td rowspan="2">55. Liquidated Damages</td>
+                <td rowspan="1">55.1 The Contractor shall pay liquidated damages to the Employer at the rate per day <span>stated in the SCC</span> for each day that the Completion Date is later than the Intended Completion Date.  The total amount of liquidated damages shall not exceed the amount defined in the SCC.   The Employer may deduct liquidated damages from payments due to the Contractor.  Payment of liquidated damages shall not affect the Contractor’s liabilities. </td>
+            </tr>
+            <tr>
+                <td rowspan="1">55.2 If the Intended Completion Date is extended after liquidated damages have been paid, the Project Manager shall correct any overpayment of liquidated damages by the Contractor by adjusting the next payment certificate. The Contractor shall be paid interest on the overpayment, calculated from the date of payment to the date of repayment, at the rates specified in GCC.49 </td>
+            </tr>
+            <tr>
+                <td>56. Bonus </td>
+                <td>
+                    56.1 The Contractor shall be paid a Bonus calculated at the rate per  calendar  day  <span>
+                        stated  in  the
+                        SCC
+                    </span>  for  each  day  (less  any days for which the Contractor is paid for acceleration) that the Completion is earlier than the Intended Completion Date. The Project Manager shall certify that the Works are complete, although they may not be due to be complete.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="3">57. Advance Payment </td>
+                <td rowspan="1">57.1 The Employer shall make advance payment to the Contractor of the amounts <span>stated in the SCC</span> in two equal installments by the date stated in the SCC, against provision by the Contractor of an unconditional bank guarantee from Commercial Bank or Financial Institution eligible to issue Bank Guarantee as per prevailing Law in a form acceptable to the Employer in amounts equal to the advance payment. The guarantee shall remain effective until the advance payment has been repaid, but the amount of the guarantee shall be progressively reduced by the amounts repaid by the Contractor.   Interest shall not be charged on the advance payment. </td>
+            </tr>
+            <tr>
+                <td rowspan="1">57.2 The Contractor is to use the advance payment only to pay for Equipment, Plant, Materials, and mobilization expenses required specifically for execution of the Contract. The Contractor shall demonstrate that advance payment has been used in this way by supplying copies of invoices or other documents to the Project Manager. </td>
+            </tr>
+            <tr>
+                <td rowspan="1">57.3 The advance payment shall be repaid by deducting proportionate amounts, as stated in SCC, from payments otherwise due Contractor, following the schedule of completed percentages of the Works on a payment basis.   No account shall be taken of the advance payment or its repayment in assessing valuations of work done, Variations, price adjustments, Compensation Events, Bonuses, or Liquidated Damages. </td>
+            </tr>
+            <tr>
+                <td>58. Securities </td>
+                <td>
+                    58.1 The Performance Security, including any additional security required as per ITB 32.5 and ITB 37.1, shall be provided to the Employer no later than the date specified in the Letter of Acceptance and shall be issued in an amount <span>specified in the SCC</span>, by a Commercial Bank or Financial Institution eligible to issue Bank Guarantee as per prevailing Law acceptable to the Employer, and denominated in Nepalese Rupees. The Performance Security shall be valid until a date 30 days from the date of issue of the Defect Liability Certificate in the case of a bank guarantee.  <br>
+                    Any additional performance security required as per ITB 32.5 shall be valid until a date 30 days from the date of issue of the certificate of Completion in the case of a bank guarantee. <br>
+                    Any additional performance security required as per ITB 37.1 shall be valid until a date 30 days from the date of issue of the certificate of DLP in the case of a bank guarantee. <br>
+                    58.2 The performance security issued by any foreign Bank outside Nepal must be counter guaranteed by an Commercial Bank or Financial Institution eligible to issue Bank Guarantee as per prevailing Law in Nepal.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="3">59. Day works </td>
+                <td rowspan="1">59.1 If applicable, the Day works rates in the Contractor’s Bid shall be used for small additional amounts of work only when the Project Manager has given written instructions in advance for additional work to be paid for in that way. </td>
+            </tr>
+            <tr>
+                <td rowspan="1">59.2 All work to be paid for as Day works shall be recorded by the Contractor on forms approved by the Project Manager. Each completed form shall be verified and signed by the Project Manager within two days of the work being done. </td>
+            </tr>
+            <tr>
+                <td rowspan="1">59.3 The Contractor shall be paid for Day works subject to obtaining signed Day works forms. </td>
+            </tr>
+            <tr>
+                <td>60.  Cost of Repairs </td>
+                <td>
+                    60.1 Loss or damage to the Works or Materials to be incorporated in the Works between the Start Date and the end of the Defects Correction periods shall be remedied by the Contractor at the
+                    Contractor’s cost if the loss or damage arises from the Contractor’s acts or omissions.
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="font-weight: bold; margin-left: 30px;">F. Force Majeure </td>
+            </tr>
+            <tr>
+                <td rowspan="2">
+                    61. Definition of Force
+                    Majeure
+                </td>
+                <td rowspan="1">
+                    61.1 In this Clause, “Force Majeure” means an exceptional event or circumstance, <br>
+                    (a)	which is beyond a Party’s control; <br>
+                    (b)	which such Party could not reasonably have provided against before entering into the Contract; <br>
+                    (c)	which, having arisen, such Party could not reasonably have avoided or overcome; and <br> (d) which is not substantially attributable to the other Party.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="1">
+                    61.2  Force Majeure may include, but is not limited to, exceptional events or circumstances of the kind listed below, so long as conditions (a) to (d) above are satisfied: <br>
+                    (a)	war, hostilities (whether war be declared or not), invasion, act of foreign enemies;
+                    (b)	rebellion, terrorism, sabotage by persons other than the Contractor’s Personnel, revolution, insurrection, military or usurped power, or civil war; <br>
+                    (c)	riot, commotion, disorder, strike or lockout by persons other than the Contractor’s Personnel; <br>
+                    (d)	munitions of war, explosive materials, ionizing radiation or contamination by radioactivity, except as may be attributable to the Contractor’s use of such munitions, explosives, radiation or radio-activity; and <br>
+                    (e)	natural catastrophes such as earthquake, hurricane, typhoon or volcanic activity.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="3">
+                    62. Notice of Force
+                    Majeure
+                </td>
+                <td rowspan="1">62.1 If a Party is or will be prevented from performing its substantial obligations under the Contract by Force Majeure, then it shall give notice to the other Party of the event or circumstances constituting the Force Majeure and shall specify the obligations, the performance of which is or will be prevented. The notice shall be given within 14 days after the Party became aware, or should have become aware, of the relevant event or circumstance constituting Force Majeure. </td>
+            </tr>
+            <tr>
+                <td>62.2 The Party shall, having given notice, be excused performance of its obligations for so long as such Force Majeure prevents it from performing them. </td>
+            </tr>
+            <tr>
+                <td>62.3   Notwithstanding any other provision of this Clause, Force Majeure shall not apply to obligations of either Party to make payments to the other Party under the Contract. </td>
+            </tr>
+            <tr>
+                <td rowspan="2">
+                    63. Duty to Minimize
+                    Delay
+                </td>
+                <td rowspan="1">63.1 Each Party shall at all times use all reasonable endeavors to minimize any delay in the performance of the Contract as a result of Force Majeure. </td>
+            </tr>
+            <tr>
+                <td>63.2 A Party shall give notice to the other Party when it ceases to be affected by the Force Majeure. </td>
+            </tr>
+            <tr>
+                <td rowspan="2">
+                    64. Consequences of
+                    Force Majeure
+                </td>
+                <td rowspan="1">
+                    64.1 If the Contractor is prevented from performing its substantial obligations under the Contract by Force Majeure of which notice has been given under GCC 62, and suffers delay and/or incurs Cost by reason of such Force Majeure, the Contractor shall be entitled subject to GCC 30 to
+                    (a)	an extension of time for any such delay, if completion is or will be delayed, under GCC35 ; and
+                    (b)	if the event or circumstance is of the kind described in sub-paragraphs (a) to (d) of GCC 61.2 and, in the case of subparagraphs (b) to (d), occurs in the Country, payment of any such Cost, including the costs of rectifying or replacing the Works and/or Goods damaged or destructed by Force Majeure, to the extent they are not indemnified through the insurance policy referred to in GCC 19.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="1">64.2 After receiving this notice, the Project Manager shall proceed in accordance with GCC 10 to agree or determine these matters. </td>
+            </tr>
+            <tr>
+                <td>
+                    65. 	Force 	Majeure
+                    Affecting
+                    Subcontractor
+                </td>
+                <td>65.1 If any Subcontractor is entitled under any contract or agreement relating to the Works to relief from force majeure on terms additional to or broader than those specified in this Clause, such additional or broader force majeure events or circumstances shall not excuse the Contractor’s nonperformance or entitle him to relief under this Clause. </td>
+            </tr>
+            <tr>
+                <td rowspan="2">
+                    66.Optional
+                    Termination, Payment and Release
+                </td>
+                <td rowspan="1">66.1 If the execution of substantially all the Works in progress is prevented for a continuous period of 90 days by reason of Force Majeure of which notice has been given under GCC 62, or for multiple periods which total more than 150 days due to the same notified Force Majeure, then either Party may give to the other Party a notice of termination of the Contract. In this event, the termination shall take effect 7 days after the notice is given, and the Contractor shall proceed in accordance with GCC 72.5. </td>
+            </tr>
+            <tr>
+                <td rowspan="1">
+                    66.2 Upon such termination, the Project Manager shall determine the value of the work done and issue a Payment Certificate, which shall include <br>
+                    (a)	the amounts payable for any work carried out for which a price is stated in the Contract; <br>
+                    (b)	the Cost of Plant and Materials ordered for the Works which have been delivered to the Contractor, or of which the Contractor is liable to accept delivery: this Plant and Materials shall become the property of (and be at the risk of) the Employer when paid for by the Employer, and the Contractor shall place the same at the Employer’s disposal; <br>
+                    (c)	other Costs or liabilities which in the circumstances were reasonably and necessarily incurred by the Contractor in the expectation of completing the Works; <br>
+                    (d)	the Cost of removal of Temporary Works and Contractor’s Equipment from the Site and the return of these items to the Contractor’s works in his country (or to any other destination at no greater cost); and <br>
+                    (e)	the Cost of repatriation of the Contractor’s staff and labor employed wholly in connection with the Works at the date of termination.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    67. Release from
+                    Performance
+                </td>
+                <td>
+                    67.1 Notwithstanding any other provision of this Clause, if any event or circumstance outside the control of the Parties (including, but not limited to, Force Majeure) arises, which makes it impossible or unlawful for either or both Parties to fulfill its or their contractual obligations or which, under the law governing the Contract, entitles the Parties to be released from further performance of the Contract, then upon notice by either Party to the other Party of such event or circumstance, <br> (a)	the Parties shall be discharged from further performance, without prejudice to the rights of either Party in respect of any previous breach of the Contract; and <br>
+                    (b)	the sum payable by the Employer to the Contractor shall be the same as would have been payable under GCC 66 if the Contract had been terminated under GCC 66.
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="font-weight: bold;">G.  Finishing the Contract </td>
+            </tr>
+            <tr>
+                <td rowspan="2">68.  Completion </td>
+                <td rowspan="1">68.1 The Contractor shall request the Project Manager to issue a certificate of Completion of the Works, and the Project Manager shall do so upon deciding that the work is completed. </td>
+            </tr>
+            <tr>
+                <td rowspan="1">68.2   In addition to the other provisions, before acceptance of the completed works, Employer shall verify and assure that such works are within the set objective, quality and appropriate to operate and use. </td>
+            </tr>
+            <tr>
+                <td rowspan="3">69.  Taking Over </td>
+                <td rowspan="1">69.1 In the contractor’s Opinion, if the works are complete and ready for taking over, the contractor may apply by notice to the Project Manager for a Taking-Over Certificate. If the Works are divided into Sections, the Contractor may similarly apply for a TakingOver Certificate for each Section. </td>
+            </tr>
+            <tr>
+                <td rowspan="1">
+                    69.2 The Project Manager shall, within 30 days after receiving the Contractor’s application: <br>
+                    (a)	issue the Taking-Over Certificate to the Contractor if physical progress of works is at least ninety (90) percent in accordance with the Contract except for any minor outstanding work and defects (as listed in the Taking-Over Certificate)  which will not substantially affect the use of the Works or Section for their intended purpose (either until or whilst this work is completed and these defects are remedied); or  <br>
+                    (b)	reject the application, giving reasons and specifying the work required to be done by the Contractor to enable the Taking-Over Certificate to be issued. The Contractor shall then complete this work before issuing a further notice under this Sub-Clause.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="1">69.3 If the Engineer fails either to issue the Taking-Over Certificate or to reject the Contractor’s application within the period of 30 days, and if the Works or Section (as the case may be) are substantially completed in accordance with the Contract, the TakingOver Certificate shall be deemed to have been issued on the last day of that period. </td>
+            </tr>
+            <tr>
+                <td>70.  Final Account </td>
+                <td>70.1 The Contractor shall supply the Project Manager with a detailed account of the total amount that the Contractor considers payable under the Contract before the end of the Defects Liability Period. The Project Manager shall issue a Defects Liability Certificate and certify any final payment that is due to the Contractor within 60 days of receiving the Contractor’s account if it is correct and complete.   If it is not, the Project Manager shall issue within 60  days  a  schedule  that  states  the  scope  of  the  corrections or additions that are necessary.    If the Final Account is still unsatisfactory after it has been resubmitted, the Project Manager shall decide on the amount payable to the Contractor and issue a payment certificate. </td>
+            </tr>
+            <tr>
+                <td rowspan="2">
+                    71. 	Operating 	and
+                    Maintenance Manuals
+                </td>
+                <td rowspan="1">71.1 If “as built” Drawings and/or operating and maintenance manuals are required, the Contractor shall supply them by the dates <span>stated in the SCC.</span>  </td>
+            </tr>
+            <tr>
+                <td rowspan="1">71.2 If the Contractor does not supply the Drawings and/or manuals by the dates <span>stated in the SCC</span> pursuant to <span>GCC 71.1</span>, or they do not receive the Project Manager’s approval, the Project Manager shall withhold the amount <span>stated in the SCC</span> from payments due to the Contractor. </td>
+            </tr>
+            <tr>
+                <td rowspan="6">72.  Termination</td>
+                <td rowspan="1">
+                    72.1 The Employer may terminate the Contract at any time if the contractor; <br>
+                    a.	does not commence the work as per the Contract, <br>
+                    b.	abandons the work without completing,  <br>
+                    c.	fails to achieve progress as per the Contract
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="1">72.2 The Employer or the Contractor may terminate the Contract if the other party causes a fundamental breach of the Contract. </td>
+            </tr>
+            <tr>
+                <td rowspan="1">
+                    72.3 Fundamental breaches of Contract shall include, but shall not be limited to, the following : <br>
+                    (a)	The Contractor uses the advance payment for matters other than the contractual  obligations, <br>
+                    (b)	the Contractor stops work for 30 days when no stoppage of work is shown on the current Program and the stoppage has not been authorized by the Project Manager; <br>
+                    (c)	the Project Manager instructs the Contractor to delay the progress of the Works, and the instruction is not withdrawn within 30 days; <br>
+                    (d)	the Employer  or  the  Contractor  is  made  bankrupt  or goes into liquidation other than for a reconstruction or amalgamation. <br>
+                    (e)	a payment certified by the Project Manager is not paid by the Employer to the Contractor within 90 days of the date of the Project Manager’s certificate;  <br>
+                    (f)	the Project Manager gives Notice that failure to correct a particular Defect is a fundamental breach of Contract and the Contractor fails to correct it within a reasonable period of time determined by the Project Manager;  <br>
+                    (g)	the Project Manager gives two consecutive Notices to update the Program and accelerate the works to ensure compliance with GCC Sub clause 22.1 and the Contractor fails to update the Program and demonstrate acceleration of the works within a reasonable period of time determined by the Project Manager; <br>
+                    (h)	the Contractor does  not  maintain  a  Security,  which  is required;  <br>
+                    (i)	the Contractor has delayed the completion of the Works by the number of days for which the maximum amount of  liquidated damages can be paid, as defined in the SCC; and <br>
+                    (j)	If the Contractor, in the judgment of the Employer has engaged in corrupt or fraudulent practices in competing for or in executing the Contract, pursuant to GCC 73.1.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="1">72.4 When either party to the Contract gives notice of a breach of Contract to the Project Manager for a cause other than those listed under GCC 72.3 above, the Project Manager shall decide whether the breach is fundamental or not.  </td>
+            </tr>
+            <tr>
+                <td rowspan="1">72.5	Notwithstanding the above, the Employer may terminate the Contract for convenience.  </td>
+            </tr>
+            <tr>
+                <td rowspan="1">72.6	If the Contract is terminated, the Contractor shall stop work immediately, make the Site safe and secure, and leave the Site as soon as reasonably possible. </td>
+            </tr>
+            <tr>
+                <td rowspan="2">
+                    73.Fraud  and
+                    Corruption
+                </td>
+                <td rowspan="1">73.1 If the Employer determines that the Contractor has engaged in corrupt, fraudulent, collusive, coercive or obstructive practices, in competing for or in executing the Contract, then the Employer may, after giving 15 days’ notice to the Contractor, terminate the Contractor's employment under the Contract and expel him from the Site. </td>
+            </tr>
+            <tr>
+                <td rowspan="1">
+                    73.2 Should any employee of the Contractor be determined to have engaged in corrupt, fraudulent, collusive, coercive, or obstructive practice during the execution of the Works, then that employee shall be removed in accordance with GCC Clause 15. For the purposes of this GCC 73; <br>
+                    (i)  “corrupt practice”  is  the  offering,  giving,  receiving  or soliciting, directly or indirectly, of anything of value to influence improperly the actions of another party. <br>
+                    (ii)	“fraudulent practice”5 is any act or omission, including a misrepresentation, that knowingly or recklessly misleads, or attempts to mislead, a party to obtain a financial or other benefit or to avoid an obligation; <br>
+                    (iii)	“collusive practice”6 is an arrangement between two or more parties designed to achieve an improper purpose, including to influence improperly the  actions of another party; <br>
+                    (iv)	“coercive practice”7 is impairing or harming, or threatening to impair or harm, directly or indirectly, any party or the property of the party to influence improperly the actions of a party; <br>
+                    (v)	“obstructive practice” is <br>
+                    (aa)	deliberately   destroying,   falsifying,   altering   or concealing of evidence material to the investigation or making false statements to investigators in order to materially impede a investigation into allegations of a corrupt, fraudulent, coercive or collusive practice;  <br>
+                    and/or  threatening,  harassing  or  intimidating  any party to prevent it from disclosing its knowledge of matters relevant to the investigation or from pursuing the investigation; or <br>
+                    (bb)	acts intended to materially impede the exercise of the GON’s/DP’s inspection and audit rights provided for under GCC28.3.
+                </td>
+            </tr>
+            <tr>
+                <td>74.  Black Listing </td>
+                <td>
+                    74.1 Without prejudice to any other rights of the Employer under this Contract, GoN, Public Procurement Monitoring Office (PPMO), on the recommendation of procuring entity,  may blacklist a Bidder for its conduct for a period of one (1) to three (3) years on the following grounds and seriousness of the act committed by the bidder: <br>
+                    (a)	if it is established  that  the  Contractor  has  committed substantial defect in implementation of the contract or has not substantially fulfilled its obligations under the contract or the completed work is not of the specified quality as per the contract. <br>
+                    (b)	If convicted from a court of law in a criminal offense liable to be disqualified for taking part in procurement contract, <br>
+                    (c)	If it is established that the Contractor has engaged in corrupt or fraudulent practices in competing for or in executing the Contract.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="3">
+                    75. Payment upon
+                    Termination
+                </td>
+                <td rowspan="1">75.1 If the Contract is terminated because of a fundamental breach of Contract by the Contractor, the Project Manager shall issue a certificate for the value of the work done and Materials ordered less advance payments received up to the date of the issue of the certificate. Additional Liquidated Damages shall not apply.   If the total amount due to the Employer exceeds any payment due to the Contractor, the difference shall be a debt payable to the Employer. </td>
+            </tr>
+            <tr>
+                <td rowspan="1">75.2 If the Contract is terminated for the Employer’s convenience or because of a fundamental breach of Contract by the Employer, the Project Manager shall issue a certificate for the value of the work done, Materials ordered, the reasonable cost of removal of Equipment, repatriation of the Contractor’s personnel employed solely on the Works, and the Contractor’s costs of protecting and securing the Works, and less advance payments received up to the date of the certificate. </td>
+            </tr>
+            <tr>
+                <td rowspan="1">
+                    75.3 If the Contract is terminated because of fundamental breach of Contract or for any other fault by the Contractor, the performance security shall be forfeited by the Employer.
+                    In such case, amount to complete the remaining works as per the Contract shall be recovered from the Contractor as Government dues.
+                </td>
+            </tr>
+            <tr>
+                <td>76.  Property </td>
+                <td>76.1 All Materials on the Site, Plant, Equipment, Temporary Works, and Works shall be deemed to be the property of the Employer if the Contract is terminated because of the Contractor’s default. </td>
+            </tr>
+            <tr>
+                <td>
+                    77.Release 	from
+                    Performance
+                </td>
+                <td>77.1 If the Contract is frustrated by the outbreak of war or by any other event entirely outside the control of either the Employer or the Contractor, the Project Manager shall certify that the Contract has been frustrated. The Contractor shall make the Site safe and stop work as quickly as possible after receiving this certificate and shall be paid for all work carried out before receiving it and for any work carried out afterwards to which a commitment was made. </td>
+            </tr>
+            <tr>
+                <td>
+                    78. Suspension of DP
+                    Loan/Credit/Grant
+                </td>
+                <td>
+                    78.1 In the event that the DP suspends the loan/ credit/grant to the Employer from which part of the payments to the Contractor  are being made: <br>
+                    a.	the  Employer  is  obligated  to  notify  the  Contractor  of  such suspension  within  7  days  of  having  received  the  DP's suspension notice; and <br>
+                    b.	if the Contractor has not received sums due him within the  30 days  for  payment  provided  for  in  GCC 49.1,  the Contractor may immediately issue a 15-day termination notice.
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="3">79. Eligibility </td>
+                <td rowspan="1">79.1 The Contractor shall have the nationality of an eligible country as specified in Section V of the bidding document.  The Contractor shall be deemed to have the nationality of a country if the Contractor is a citizen or is constituted, or incorporated, and operates in conformity with the provisions of the laws of that country. This criterion shall also apply to the determination of the nationality of proposed subcontractors or suppliers for any part of the Contract including related services. </td>
+            </tr>
+            <tr>
+                <td rowspan="1">79.2 The materials, equipment, and services to be supplied under the Contract shall have their origin in eligible source countries as specified in Section V of the bidding document and all expenditures under the Contract will be limited to such materials, equipment, and services. At the Employer’s request, the Contractor may be required to provide evidence of the origin of materials, equipment, and services. </td>
+            </tr>
+            <tr>
+                <td rowspan="1">79.3 For purposes of GCC 79.2, “origin” means the place where the materials and equipment are mined, grown, produced, or manufactured, and from which the services are provided.  Materials and equipment are produced when, through manufacturing, processing, or substantial or major assembling of components, a commercially recognized product results that differs substantially in its basic characteristics or in purpose or utility from its components. </td>
+            </tr>
+            <tr>
+                <td>
+                    80.ProjectManager’s
+                    Duties and Authorities
+                </td>
+                <td>80.1 The Project Manager’s duties and authorities are restricted to the extent as stated in the SCC. </td>
+            </tr>
+            <tr>
+                <td>
+                    81.Quarries and  Spoil
+                    Dumps
+                </td>
+                <td>81.1 Any quarry operated as part of this Contract shall be maintained and left in a stable condition without steep slopes and be either refilled or drained and be landscaped by appropriate planting.  Rock or gravel taken from a river shall be removed over some distance so as to limit the depth of material removed at any one location, not disrupt the river flow or damage or undermine the river banks. The  Contractor  shall  not  deposit  excavated  material  on  land    in Government  or  private  ownership  except  as  directed  by  the  Project Manager  in  writing  or  by  permission  in  writing  of  the  authority responsible for such land in Government ownership, or of the owner or responsible representative  of  the  owner  of  such  land  in  private ownership, and only then  in those places and under such conditions as the authority, owner or responsible representative may prescribe. </td>
+            </tr>
+            <tr>
+                <td>82.  Local Taxation </td>
+                <td>82.1  The prices bid by the Contractor shall include all taxes that may be levied in  accordance to the laws and regulations  in being in Nepal on the date 30 days prior   to the closing date for submissions of Bids on the  Contractor’s  equipment,  plant   and  materials  acquired  for  the purpose  of  the  Contract  and  on  the  services   performed  under  the Contract. Nothing in the Contract shall relieve the Contractor from his responsibility  to  pay  any  tax  that  may  be  levied  in  Nepal on  profits  made by him in respect of the Contract. </td>
+            </tr>
+            <tr>
+                <td>83.  Value Added Tax </td>
+                <td>83.1  The  Contract  is  not  exempted  from  value  added  tax.   An amount specified in the schedule of taxes shall be paid by the Contractor in the concerned VAT office within time frame specified in VAT regulation. </td>
+            </tr>
+            <tr>
+                <td rowspan="2">
+                    84.  Income Taxes on
+                    Staff
+                </td>
+                <td rowspan="1">84.1  The  Contractor’s  staff,  personnel  and  labor  will  be  liable  to  pay personal income taxes in Nepal in respect of their salaries and wages, as are chargeable under the laws and regulations for the time being in force, and the Contractor shall perform such duties in regard to such deductions as may be imposed on him by such laws and regulations. </td>
+            </tr>
+            <tr>
+                <td rowspan="1">84.2  The issue of the Final Account Certificate pursuant to clause GCC 70  shall  be  made only  upon  submittal  by  the  Contractor  of  a  certificate  of income tax clearance from  the Government of Nepal. </td>
+            </tr>
+            <tr>
+                <td rowspan="3">
+                    85.  Duties, Taxes and
+                    Royalties
+                </td>
+                <td rowspan="1">85.1  Any element of royalty, duty or tax in the price of any goods including fuel  oil,  and lubricating  oil,  cement,  timber,  iron  and  iron  goods  locally procured  by  the Contractor for  the  works  shall  be  included  in  the Contract  rates  and  prices and  no  reimbursement  or  payment  in  that respect shall be made to the  Contractor. </td>
+            </tr>
+            <tr>
+                <td rowspan="1">85.2  The Contractor shall familiarize himself with GON the rules and regulations  with  regard  to  customs,  duties,  taxes,  clearing  of  goods  and  equipment,  immigration and the like, and it will be necessary for him to follow the required  procedures regardless of the assistance as may be provided by the Employer wherever possible. </td>
+            </tr>
+            <tr>
+                <td rowspan="1">85.3  The Contractor shall pay and shall not be entitled to the reimbursement of  cost  of  extracting  construction  materials  such  as  sand,  stone/boulder, gravel, etc. from  the river beds or quarries. Such prices will  be  levied  by  the  local  District Development  Committee  (DDC)  as may  be  in  force  at  the  time.  The Contractor, sub-contractor(s) employed directly by him and for whom he is responsible, will not be exempted from payment of royalties, taxes or other kinds of surcharges on these construction materials so extracted and paid for to the DDC. </td>
+            </tr>
+            <tr>
+                <td>
+                    86. Member 	of
+                    Government, etc, not
+                    Personally Liable
+                </td>
+                <td>86.1  No member or officer of  GoN or the Employer or the Project Manager or  any  of their  respective  employees  shall  be  in  any  way  personally bound  or  liable  for  the  act  or  obligations  of  the  Employer  under  the Contract or answerable for any default or omission in the observance or  performance  of  any  of  act,  matter or  thing  which  are  herein contained.   </td>
+            </tr>
+            <tr>
+                <td>
+                    87.  Approval of Use of
+                    Explosives
+                </td>
+                <td>87.1  No explosives of any kind shall be used by the Contractor without the prior  consent  of  the  Employer  in  writing  and  the  Contractor  shall provide,  store  and  handle  these  and  all  other  items  of  every  kind whatsoever required for blasting operations, all at his own expense in a manner approved in writing by the Employer. </td>
+            </tr>
+            <tr>
+                <td>
+                    88  Compliance with Regulations for
+                    Explosives
+                </td>
+                <td>88.1 The  Contractor  shall  comply  with  all  relevant  ordinances,  instructions and regulations  which  the  Government,  or  other  person  or  persons having  due  authority,  may  issue  from  time  to  time  regarding  the handling, transportation, storage and use of explosives.              </td>
+            </tr>
+            <tr>
+                <td>
+                    89.  Permission for
+                    Blasting
+                </td>
+                <td>89.1  The  Contractor  shall  at  all  times  maintain  full  liaison  with  and  inform well  in   advance, and  obtain  such  permission  as  is  required  from  all Government authorities,  public  bodies and private parties whatsoever concerned or affected, or likely to be concerned or affected by blasting operation. </td>
+            </tr>
+            <tr>
+                <td>
+                    90.Records 	of
+                    Explosives
+                </td>
+                <td>
+                    90.1  Before the beginning of the Defects Liability Period, the Contractor shall account  to the
+                    satisfaction  of  the  Project  Manager  for  all  explosives brought  on  to  the Site  during  the  execution  of  the  Contract  and  the Contractor  shall  remove  all unused  explosives  from  the  Site  on completion of works when ordered by the Project Manager.
+                </td>
+            </tr>
+            <tr>
+                <td>91. Traffic Diversion </td>
+                <td>91.1 The Contractor shall include the necessary safety procedures regarding and pedestrian traffic diversion that is needed in execution of the works.  The Contractor shall include in his costing of works, any temporary works or diversion that are needed during the construction period. All traffic diversion should be designed for the safety of both the motoring public and the men at work. It shall ensure the uninterrupted flow  of  traffic  and  minimum  inconvenience  to the  public  during  the period  concerned.  As such, adequate warning signs, flagmen and other relevant safety precautionary measures shall be provided to warn motorists and pedestrians well ahead of the intended diversion as directed by the Project Manager. All traffic devices used shall be designed in accordance with the instruction of Project Manager. </td>
+            </tr>
+        </table>
+    </section>
+
+    <section>
+        <div class="m-5">
+            <h3 style="font-weight: bold;">Section VIII: Special Conditions of Contract </h3>
+            <p>The following Special Conditions of Contract shall supplement the GCC. Whenever there is a conflict, the provisions herein shall prevail over those in the GCC . </p>
+        </div>
+        <h3 style="font-weight: bold; text-align: center;">Special Conditions of Contract </h3>
+        <table border="1">
+            <tr>
+                <td colspan="2" style="background-color:  rgb(161, 152, 152);"><h5>A. General </h5></td>
+            </tr>
+            <tr>
+                <td>GCC 1.1 (q) </td>
+                <td>The Employer is <span>
+                   @orgname.PalikaNameEng, Office of The Rural Municipal Executive, @orgname.Address2,@orgname.DistrictNameEng,@orgname.StateNameEng,Nepal
+                    </span> </td>
+            </tr>
+            <tr>
+                <td>GCC 1.1 (v) </td>
+                <td>The Intended Completion Date for the whole of the Works shall be <span> @Model.ContractDate BS </span></td>
+            </tr>
+            <tr>
+                <td>
+                    GCC 1.1(bb) &
+                    10.1
+                </td>
+                <td>
+                    The Project Manager is <span>Municipal Engineer</span> <br>
+                    The Project Manager and Engineer are synonyms.
+                </td>
+            </tr>
+            <tr>
+                <td>GCC 1.1 (ee) </td>
+                <td>The Site is located at <span>@Model.YojanaAddress,@Model.WardIds</span>  </td>
+            </tr>
+            <tr>
+                <td>GCC 1.1 (hh) </td>
+                <td>The Start Date shall be <span>Within one week from date of agreement.</span> </td>
+            </tr>
+            <tr>
+                <td>GCC 1.1 (ll) </td>
+                <td>The Works consist of
+                    <span>  @Model.YojanaName,@Model.YojanaAddress</span>
+               </td>
+            </tr>
+            <tr>
+                <td>GCC 2.2 </td>
+                <td>Sectional Completions are: <span> Not Applicable </span> </td>
+            </tr>
+            <tr>
+                <td>GCC 2.3(i) </td>
+                <td>The following documents also form part of the Contract: <span> Not Applicable </span></td>
+            </tr>
+            <tr>
+                <td>GCC 3.1 </td>
+                <td>
+                    The language of the contract is <span>ENGLISH/NEPALI</span> <br>
+                    The law that applies to the Contract is the law of NEPAL
+                </td>
+            </tr>
+            <tr>
+                <td>GCC 11.1 </td>
+                <td>The Project Manager may delegate any of his duties and responsibilities. </td>
+            </tr>
+            <tr>
+                <td>GCC 14.1 </td>
+                <td>Schedule of other contractors: <span> Not Applicable </span> </td>
+            </tr>
+            <tr>
+                <td>GCC 19.1 </td>
+                <td>
+                    The minimum insurance amounts and deductibles shall be: <br>
+                    1.	The minimum cover for loss of or damage to the Works, Plant and Materials is: <span> 115 % </span>of the Contract Amount. <br>
+                    2.	The maximum deductible for insurance of the Works and of Plant and Materials is: <span>1 % of sum insured</span>   <br>
+                    3.	The minimum cover for loss or damage to immovable Equipment/plants is : <span>100% (i.e Replacement Cost)</span> <br>
+                    4.	The maximum deductible for insurance of Equipment/plant is: <span>1 % of sum  insured </span><br>
+                    5.	The minimum cover for loss of or damage to  other property is: <span>NRs. 5,00,000.00<sup>3</sup></span>  with unlimited number of occurrences <br>
+                    6.	The maximum deductible for insurance of other property is: <span>1 % of sum  insured</span> <br>
+                    7.	The minimum cover for personal injury or death insurance <br>
+                    i. for the Contractor’s employees is that specified in the Labor act of Nepal and <br> ii. for other people is  : <span>0.7 million</span> with an unlimited number of occurrences
+                </td>
+            </tr>
+            <tr>
+                <td>GCC 20.1 </td>
+                <td>Site Investigation Reports are: <span> Not Applicable </span>  </td>
+            </tr>
+        </table>
+        <hr style="width: 250px; color: black;">
+        <table border="1">
+            <tr>
+                <td style="width: 100px;">GCC 23.1 </td>
+                <td>The following shall be designed by the Contractor <span> Not Applicable </span>  </td>
+            </tr>
+            <tr>
+                <td>GCC 26.1 </td>
+                <td>
+                    The Site Possession Date(s) shall be: <span>Start Date</span> <br>
+                    <span style="font-style: italic;">[Note: If the Site is made available by section, the different dates should be listed here]  </span>
+                </td>
+            </tr>
+            <tr>
+                <td>GCC  30.1 </td>
+                <td>The place of arbitration shall be: <span>Nepal Council of Arbitration, Kathmandu Nepal.</span> </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="font-weight: bold; background-color:  rgb(161, 152, 152);"><h5>C. Time Control</h5> </td>
+            </tr>
+            <tr>
+                <td>GCC 34.1 </td>
+                <td>The Contractor shall submit for approval a Program for the Works within <span> 15 (Fifteen) days</span> from the date of the Letter of Acceptance. </td>
+            </tr>
+            <tr>
+                <td>GCC 34.3  </td>
+                <td>
+                    The period between Program updates is. <span>30 days.</span> <br>
+                    The amount to be withheld for late submission of an updated Program is <span>Rs. 100,000.00 </span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="font-weight: bold; background-color:  rgb(161, 152, 152);"><h5>D. Quality Control </h5> </td>
+            </tr>
+            <tr>
+                <td>GCC 42.1 </td>
+                <td>The Defects Liability Period is: <span>[insert 365]</span> days. </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="font-weight: bold; background-color:  rgb(161, 152, 152);"><h5>E. Cost Control </h5> </td>
+            </tr>
+            <tr>
+                <td>GCC 49.1 </td>
+                <td><span>Not Applicable.</span> </td>
+            </tr>
+        </table>
+        <div style="margin-top: 50px; margin-bottom: 50px;">
+            <hr style="width: 250px; color: black;">
+            <p>3. The amount depends on location, environment of construction site, surrounding property etc. and hence differs case to case. Suitable amount should be inserted depending upon site condition and surrounding environment. </p>
+        </div>
+        <table border="1">
+            <tr>
+                <td style="width: 100px;">GCC 53.1 </td>
+                <td>
+                    The Contract <span>“is not”</span> subject to price adjustment, and the following information regarding coefficients <span>“does not”</span> apply.  <br>
+                    The coefficients and indices for adjustment of prices in Nepalese Rupees shall be as specified in the Table of Adjustment Data submitted by bidder together with the Letter of Price Bid which is approved by the Project manager and attached as Annex-1.
+                </td>
+            </tr>
+            <tr>
+                <td>GCC 53.6 </td>
+                <td>Base Price of Construction Materials applicable for price adjustment shall be  as per the Table of Adjustment Data submitted by Bidder together with the Letter of Price Bid which is approved by the Project manager and attached as Annex-1</td>
+            </tr>
+            <tr>
+                <td>GCC 53.7 </td>
+                <td>
+                    The Price Adjustment amount shall be limited to a maximum of:  <br>
+                    : <span>10 %</span> percentage of the initial Contract Amount.
+                </td>
+            </tr>
+            <tr>
+                <td>GCC 54.1 </td>
+                <td>The proportion of payments retained is: <span> 5 (five) percent </span></td>
+            </tr>
+            <tr>
+                <td>GCC 55.1 </td>
+                <td>The liquidated damages for the whole of the Works are 0.05 Percent of the final Contract Price per day. The maximum amount of liquidated damages for the whole of the Works is 10 Percent of the final Contract Price. </td>
+            </tr>
+            <tr>
+                <td>GCC 56.1 </td>
+                <td>The Bonus for the whole of the Works is 0.05 Percent per day. The maximum amount of Bonus for the whole of the Works is <span>not applicable</span> of the final Contract Price. </td>
+            </tr>
+            <tr>
+                <td>GCC 57.1 </td>
+                <td>
+                    The Advance Payments shall be: <span>20% </span>and shall be paid in two equal installments and to the Contractor. <br>
+                    The First installment of <span>10 % (Ten percent)</span> shall be made to the contractor upon submission of
+                    acceptable Bank Guarantee for advance payment and the second installment of <mark><span>10 % (Ten percent)</span></mark> shall be made after the contractor completes the following conditions  <br><br>
+                    <mark>•	Mobilization at site and establishment of site camp.  <br></mark>
+                    <mark>•	Mobilization of key personnel and equipment as per contract. <br></mark>
+                    <mark>•	Fulfillment of contractual obligation of submission of insurance policies. <br></mark>
+                    <mark>•	Submission of revised / updated Work Schedule. <br></mark>
+                    <mark>•	Submission of acceptable bank guarantee <br></mark>
+                    <mark>•	According as work progress. </mark>
+                </td>
+            </tr>
+            <tr>
+                <td>GCC 57.3 </td>
+                <td>Deductions from Payment Certificates will commence in the first certificate in which the value of works executed exceeds 30% of the Contract Price. Deduction will be at the rate of  <span>20%<sup>4</sup></span> of the respective Monthly Interim Payment Certificate until such time as the advance payment  has  been  repaid;  provided  that  the  advance  payment  shall  be completely repaid prior to the end of 80 % of the approved contract price. </td>
+            </tr>
+        </table>
+
+        <div style="margin-top: 50px; margin-bottom: 50px;">
+            <hr style="width: 250px; color: black;">
+            <p style="font-weight: bold;"> 4. [% of advance payment × 100/(80-30)]  </p>
+        </div>
+
+        <table>
+            <tr>
+                <td style="width: 100px;">GCC 58.1 </td>
+                <td>
+                    The Performance Security amount is:  <br>
+                    i)	If bid price of the bidder selected for acceptance is up to 15 (fifteen) percent below the approved cost estimate, the performance security amount shall be 5 (five) percent of the bid price.  <br>
+                    ii)	For the bid price of the bidder selected for acceptance is more than 15 (fifteen) percent below of the cost estimate, the performance security amount shall be determined as follows: <br>
+                    <span>Performance Security Amount</span> = <mark>[(0.85 x Cost Estimate –Bid Price) x 0.5] + 5% of Bid Price.</mark> The Bid Price and Cost Estimate shall be inclusive of Value Added Tax.
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="font-weight: bold; background-color: rgb(161, 152, 152);"><h5>G. Finishing the Contract  </h5> </td>
+            </tr>
+            <tr>
+                <td>GCC 71.1 </td>
+                <td>The date by which operating and maintenance manuals are required is; <span>Not Applicable</span> </td>
+            </tr>
+            <tr>
+                <td>GCC 71.2 </td>
+                <td>
+                    The date by which “as built” drawings are required is:  <br>
+                    •	With every Interim payment request in stage wise  <br>
+                    •	And final compiled before the final payment <br>
+                    The amount to be withheld for failing to produce “as built” drawings and/or
+                    Operating and maintenance manuals is: <span>: NRs 100,000.00 or 0.1% of final contract price whichever in higher.</span>
+                </td>
+            </tr>
+            <tr>
+                <td>GCC 72.3 (i) </td>
+                <td>The maximum number of days is: <span>200 </span></td>
+            </tr>
+   
+            <tr>
+                <td>GCC 80 </td>
+                <td>
+                    The Project Manager has to obtain the specific approval of the Employer for taking any of the following actions : <br>
+                    a.	Approving subcontracting of any part of the works under General Conditions of Contract Clause
+                    13; <br>
+                    b.	Certifying additional costs determined under General Conditions of Contract Clause 50;  <br>
+                    c.	Determining start date under General Conditions of Contract Clause 1;  <br>
+                    d.	Determining the extension of the intended Completion Date under General Conditions of Contract Clause 35;  <br>
+                    e.  Issuing a Variation under General Conditions of Contract Clause 1 and 46, except in an emergency situation, as reasonably determined by the Project Manager; emergency situation may be defined as the situation  when  protective measures must be taken for the safety of life or of the works or of adjoining property.  <br>
+                    f.  Adjustment of rates under General Conditions of Contract Clause 45;
+                </td>
+            </tr>
+        </table>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+}

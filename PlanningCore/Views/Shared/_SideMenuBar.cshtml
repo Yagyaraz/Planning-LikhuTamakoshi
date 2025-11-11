@@ -1,0 +1,46 @@
+﻿<aside class="left-sidebar" data-sidebarbg="skin5">
+	<!-- Sidebar scroll-->
+	<div class="scroll-sidebar">
+		<!-- Sidebar navigation-->
+		<nav class="sidebar-nav">
+			<ul id="sidebarnav" class="pt-4">
+
+				<li class="sidebar-item">
+					<a asp-controller="Home" asp-action="Index" asp-area="" class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false">
+						<i class="mdi mdi-view-dashboard"></i>
+						<span class="hide-menu">
+							गृह पृष्ट
+						</span>
+					</a>
+				</li>
+				@if (User.IsInRole("Administrator") || User.IsInRole("SuperAdmin") || User.IsInRole("User") || User.IsInRole("Admin"))
+				{
+					<li class="sidebar-item">
+						<a asp-action="Setup" asp-controller="Setup" asp-area="Admin" class="sidebar-link">
+							<i class="mdi mdi-arrow-all"></i><span class="hide-menu">  सेटअप </span>
+						</a>
+					</li>
+					<li class="sidebar-item">
+						<a asp-action="Index" asp-controller="Setup" asp-area="Admin" class="sidebar-link">
+							<i class="mdi mdi-arrow-all"></i><span class="hide-menu">  योजना व्यवस्थापन </span>
+						</a>
+					</li>
+				}
+				@if (User.IsInRole("Contract_Admin") || User.IsInRole("Administrator") || User.IsInRole("SuperAdmin"))
+				{
+					<li class="sidebar-item">
+						<a asp-action="Index" asp-controller="Setup" asp-area="Contract" class="sidebar-link">
+							<i class="mdi mdi-note-outline"></i><span class="hide-menu"> ठेक्का-व्यवस्थापन </span>
+						</a>
+					</li>
+				}
+
+			 	<li class="sidebar-item">
+					<a asp-action="Index" asp-controller="TravelExpense" asp-area="Admin" class="sidebar-link">
+				<i class=" fas fa-address-book"></i><span class="hide-menu"> भ्रमण आदेश </span>
+				</a>
+				</li> 
+             </ul>
+		</nav>
+	</div>
+</aside>

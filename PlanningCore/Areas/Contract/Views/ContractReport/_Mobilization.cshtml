@@ -1,0 +1,70 @@
+﻿ @model ContractSamjhautaViewModel
+ @inject IUtility _utility
+@{
+    var orgname = await _utility.GetMainSettingById(0);
+    var pada = await _utility.GetPostById(ViewBag.PostId);
+    int? post = ViewBag.PostId;
+    var employee = await _utility.GetEmpNameById(post);
+}
+
+@if (Model.PrintContent == null)
+{
+
+    <div class="row">
+        <div class="Header">
+            <partial name="_PrintHeader" />
+        </div>
+    </div>
+    <div class="container">
+        <div class="sign" style="font-weight:500; font-size:16px;">
+            <p>श्रीमान्, @Model.ConsultantName, </p>
+            <p>@Model.MainPersonAddress</p>
+        </div>
+        <br />
+        <p style="text-indent:320px; letter-spacing:1px; line-height:30px; font-weight:500; font-size:16px; padding-top:15px; text-align:justify !important; ">
+            <span id="reportname"> <u> विषयः- मोबिलाइजेशन पेश्की सम्बन्धमा। </u> </span>
+        </p>
+        <p style="text-indent:24px; letter-spacing:1px; line-height:30px; font-weight:500; font-size:16px; padding-top:15px; text-align:justify !important; ">
+            प्रस्तुत बिषयमा यस कार्यलयको ठेक्का नं. @Model.ThekkaNumber @Model.YojanaName,@Model.YojanaAddress को मिति @Model.ContractDate गते मू.अ.क.
+            सहित रू.@_utility.ConvertEnglishToNepali(Model.EstimatedAmount)
+            मा समपन्न गर्ने गरी सम्झौता सम्पन्न भई @Model.ProjectEndDate गतेको 
+            मिति राखि समबन्धित ठेकेदार @Model.ConsultantName,@Model.MainPersonAddress
+            ले पेश्की पाँउ भनी मिति ....... मा जारी भएको रू.@Model.BhuktaniAmount को .......... गते सम्म 
+            मान्य अवधि भएको अग्रीम बैंक जमानत समेत पेश गरेको हुँदा सार्वजनिक खरीद ऐनको दफा ५२(क) को उपदफा २ बमोजिम 
+            पहिलो पटकमा १०% (कबोल अंकको) पेश्की रकम र बाँकी १०% रकम कार्य प्रगतीका आधारमा उपलब्ध गराउन सक्ने व्यहोरा
+            उल्लेख भए अनुसार पहिलो पटकलाई रू. @Model.PaskiAmount (@_utility.ConvertNumberToNepaliText(Model.PaskiAmount.ToString())) पेश्की रकम उपलब्ध गराउन मनासिब देखि
+            निर्णयार्थ पेश गरेको छु ।
+
+        </p>
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-md-3 col-3 offset-9">
+                <p>@employee</p>
+                <p>@pada</p>
+            </div>
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        @* <p><u><b>बोधार्थ :</b></u></p> *@
+        @* 	<p>श्री  @Model.WardName</p> *@
+        @* 	<p>एक प्रति सम्झौता र कार्यादेश यसै साथ संलग्न छ साइट इन्चार्ज/ प्राविधिक खटाइ यसै बमोजिम सम्पुर्ण कार्य गराउनु हुन ।</p> *@
+        @* 	<p>
+    @orgname.PalikaName @orgname.Address,@orgname.StateName,नेपाल ।
+    </p> *@
+    </div>
+}
+else
+{
+    @Html.Raw(Model.PrintContent)
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(function () {
+            Message1('@TempData["Message"]')
+        });
+    });
+</script>

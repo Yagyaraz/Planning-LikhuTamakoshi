@@ -1,0 +1,166 @@
+﻿@model PlanningCore.Models.WardViewModel
+@using PlanningCore.Utilities;
+@inject IUtility _Utility
+@{
+    ViewData["Title"] = " वडा सेटअप";
+}
+<div class="page-breadcrumb colr1">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <div style="display:flex;">
+                <h4 class="card1" style="background-color:#3c8dbc; color:#fff; height:40px; width:150px; padding-top:5px; text-align:center;">वडा सम्बन्धि विवरण </h4>
+                <span style="height:2rem; background-color:#3c8dbc; width:10px; height:40px;"></span>
+                <span style="height: 2rem; border-top: 17px solid transparent;border-left: 25px solid #3c8dbc;border-bottom: 22px solid transparent; height:40px;"> </span>
+            </div>
+            <div class="ms-auto text-end">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">गृह पृष्ट</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            वडा सम्बन्धि विवरण :
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid colr1">
+    <div class="main-card mb-3 card">
+        <div class="card-body">
+            <h5>वडा सेटअप </h5>
+            <form asp-action="CreateWard" method="post">
+                @Html.HiddenFor(model => model.Id)
+                @* 	@Html.HiddenFor(model=>model.PalikaId) *@
+                <div class="row ">
+                    <div class="form-group mt-3 col-md-3 col-3 ">
+
+                        <label asp-for="Name" class="control-label"></label><span style="color:red"> *</span>
+                        <input asp-for="Name" class="form-control" required />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mt-3 col-md-3 col-3 ">
+                        <label asp-for="Name_En" class="control-label fw-bold"></label>
+                        <input style="font-family:'Open Sans';" asp-for="Name_En" class="form-control" />
+                        <span asp-validation-for="Name_En" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mt-3 col-md-3 col-3 ">
+                        <label asp-for="Code" class="control-label fw-bold"></label>
+                        <input asp-for="Code" class="form-control" />
+                        <span asp-validation-for="Code" class="text-danger"></span>
+                    </div>
+                    @* 	<div class="form-group mt-3 col-md-3 col-3">
+                    <label asp-for="PalikaId" class="control-label"></label>
+                    <input asp-for="PalikaId" class="form-control" />
+                    </div> *@
+                    <div class="form-group mt-3 col-md-3 col-3 ">
+                        <label asp-for="Address" class="control-label"></label>
+                        <input asp-for="Address" class="form-control" />
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="form-group mt-3 col-md-3 col-3 ">
+
+                        <label asp-for="AddressEng" class="control-label"></label>
+                        <input asp-for="AddressEng" class="form-control" />
+                        <span asp-validation-for="AddressEng" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mt-3 col-md-3 col-3 ">
+                        <label asp-for="Adakshya" class="control-label fw-bold"></label>
+                        <input asp-for="Adakshya" class="form-control" />
+                        <span asp-validation-for="Adakshya" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mt-3 col-md-3 col-3 ">
+                        <label asp-for="Sachib" class="control-label"></label>
+                        <input asp-for="Sachib" class="form-control" />
+                        <span asp-validation-for="Sachib" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mt-3 col-md-3 col-3 ">
+
+                        <label asp-for="Koshadhaskhya" class="control-label"></label>
+                        <input asp-for="Koshadhaskhya" class="form-control" />
+                        <span asp-validation-for="Koshadhaskhya" class="text-danger"></span>
+                    </div>
+                </div><div class="row ">
+
+                    <div class="form-group mt-3 col-md-3 col-3 ">
+                        <label asp-for="AdakshyaContact" class="control-label fw-bold"></label>
+                        <input asp-for="AdakshyaContact" class="form-control" />
+                        <span asp-validation-for="AdakshyaContact" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mt-3 col-md-3 col-3 ">
+                        <label asp-for="SachibContact" class="control-label fw-bold"></label>
+                        <input asp-for="SachibContact" class="form-control" />
+                        <span asp-validation-for="SachibContact" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mt-3 col-md-3 col-3 ">
+                        <label asp-for="KoshadhaskhyaContact" class="control-label"></label>
+                        <input asp-for="KoshadhaskhyaContact" class="form-control" />
+                        <span asp-validation-for="KoshadhaskhyaContact" class="text-danger"></span>
+                    </div>
+                </div>
+                <br />
+                <div class="form-buttons d-flex gap-2" style="justify-content:end;">
+
+                    <button class="btn btn-success btn-sm text-white" type="submit">
+                        <i class="fa fa-save">
+                        </i> सुरक्षित गर्नुहोस्
+                    </button>
+                    <a asp-action="WardIndex" asp-controller="mainsetting" class="btn  btn-sm  text-white"
+                       style=" background-color:#424f63;">
+                        <i class="fa fa-arrow-left" aria-hidden="true"> पछाडि फर्कनुहोस्</i>
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<link href="~/lib/nepalidatepicker/css/nepali.datepicker.v3.7.min.css" rel="stylesheet" />
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $('#StateId').change(function () {
+            debugger;
+            $.ajax({
+                url: '@Url.Action("GetDistrictByStateId", "Ajax", new { area = "" })',
+                type: 'GET',
+                data: { id: $(this).val() },
+                success: function (data) {
+                    $('#PalikaId').empty().append("<option value=''>-न.पा/ग.पा छान्नुहोस्-</option>");
+                    $('#DistrictId').empty().append("<option value=''>-जिल्ला छान्नुहोस्-</option>");
+                    $.each(data, function (index, item) {
+                        debugger
+                        $('#DistrictId').append(`<option value="${item.Value}">${item.Text} </option>`);
+                    });
+                },
+                error: function () {
+                    alert('error in calling ajax !!');
+                }
+            });
+        });
+
+        $('#DistrictId').change(function () {
+            $.ajax({
+                url: '@Url.Action("GetPalikaByDistId", "Ajax", new { area = "" })',
+                type: 'GET',
+                data: { id: $(this).val() },
+                success: function (data) {
+                    $('#PalikaId').empty().append("<option value=''>-न.पा/ग.पा छान्नुहोस्-</option>");
+                    $.each(data, function (index, item) {
+                        $('#PalikaId').append(`<option value="${item.Value}">${item.Text}</option>`);
+                    });
+                },
+                error: function () {
+                    alert('error in calling ajax !!');
+                }
+            });
+        });
+    </script>
+}

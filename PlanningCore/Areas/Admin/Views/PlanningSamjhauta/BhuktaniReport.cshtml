@@ -1,0 +1,403 @@
+﻿@inject IUtility _utility
+@model PlanningCore.Areas.Admin.Models.PlanningBhuktaniViewModel;
+@* @model BhuktaniReportViewModel *@
+@{
+    var orgname = await _utility.GetMainSettingById(0);
+    int? post = ViewBag.PostId;
+    var pada = await _utility.GetPostById(ViewBag.PostId);
+    var employee = (await _utility.GetEmpNameById(ViewBag.EmpId));
+    var headerData = await _utility.GetHeaderData();
+    bool isSavedData = Convert.ToBoolean(ViewBag.isSavedData);
+    ViewData["Title"] = "BhuktaniReport";
+}
+@{
+
+    decimal kantenjency = 0;
+    decimal Samajik_Surekchya = 0;
+    decimal Agrim_Shulka = 0;
+    decimal Parishramik = 0;
+    decimal Bahal_Kar = 0;
+    decimal MarmatShmar = 0;
+    decimal Royality = 0;
+    decimal Dhuwani = 0;
+}
+@if (Model.PlanningBhuktaniKarKattiViewModelList.Count > 0)
+{
+    foreach (var item in Model.PlanningBhuktaniKarKattiViewModelList)
+    {
+
+        kantenjency = item.Kantigenci;
+        Samajik_Surekchya = item.Samajik_Surekchya;
+        Agrim_Shulka = item.Agrim_Shulka;
+        Parishramik = item.Parishramik;
+        Bahal_Kar = item.Bahal_Kar;
+        MarmatShmar = item.MarmatShmar;
+        Royality = item.Royality;
+        Dhuwani = item.Dhuwani;
+    }
+}
+
+<style>
+    table {
+        border-collapse: collapse !important;
+        width: 80% !important;
+        border: 1px solid black !important;
+    }
+
+    .tbl {
+        font-weight: bold !important;
+    }
+
+    th, td {
+        border: 1px solid black !important;
+        padding: 8px !important;
+        text-align: center !important;
+    }
+
+    span {
+        font-weight: bold;
+    }
+
+    accordion-body1 {
+        padding: 0.5rem 1.25rem;
+    }
+
+    .printpage {
+        width: 21cm;
+        min-height: 29.7cm;
+        padding: 2cm;
+        margin: 1cm auto;
+        border: 1px #d3d3d3 solid;
+        border-radius: 5px;
+        background: #fff;
+        box-shadow: 0 0 5px rgb(0 0 0 / 10%);
+    }
+
+    @@media print {
+        table {
+            border-collapse: collapse !important;
+            width: 80% !important;
+            border: 1px solid black !important;
+        }
+
+        .tbl {
+            font-weight: bold !important;
+        }
+
+        th, td {
+            border: 1px solid black !important;
+            padding: 8px !important;
+            text-align: center !important;
+        }
+
+        .table tr td {
+            border: none !important;
+            border: 0 !important;
+            border-color: #fff !important;
+            padding: 5px !important;
+        }
+
+        .table tbody > tr {
+            border: none !important;
+            border: 0 !important;
+        }
+
+        .table, .table tbody > tr, td {
+            border: none !important;
+            border: 0 !important;
+        }
+    }
+
+</style>
+@if (!isSavedData)
+{
+    <div class="container pt-4 mt-4">
+        <form asp-action="BhuktaniReport" pid="@Model.PlanningSamjhautaId" method="get">
+            <div class="pt-4 row">
+                <div class="col-2">
+                    <label>पद</label>
+                    <select name="PostId" id="PostId" asp-items="@await _utility.GetPadaList()" class="form-control">
+                        <option value="">--पद छान्नुहोस--</option>
+                    </select>
+                </div>
+                <div class="col-2">
+                    <label>नाम</label>
+                    <select name="EmpId" id="EmpId" asp-items="@await _utility.GetEmpNameByPostId(ViewBag.PostId)" class="form-control">
+                        <option value="">--नाम छान्नुहोस--</option>
+                    </select>
+                </div>
+                <div class="col-md-2 col-2">
+                    <label>मिति : </label> <br />
+                    <input type="text" name="PrintDate" required class="form-control PrintDate" value="@Model.PrintDate" />
+                </div>
+                <div hidden>
+                    <input type="number" name="pid" value="@Model.PlanningSamjhautaId" />
+                </div>
+                <div class="col-2">
+                    <label> </label><br />
+                    <input type="submit" value="खोज्नुहोस्" class="btn btn-success" />
+                </div>
+            </div>
+        </form>
+    </div>
+}
+<div class="d-flex justify-content-end">
+    <button style=" margin-top:50px !important;" class="mt-2" type="button" onClick="Print('contentToPrint')"><i class="fa fa-print" aria-hidden="true"></i> Print</button>
+
+</div>
+<div class="row" id="contentToPrint">
+    <div class="card-body printpage">
+        <style>
+            .table tbody tr td {
+                padding-top: 2px !important;
+                padding-left: 4px !important;
+            }
+
+            th, td {
+                padding: 6px !important;
+            }
+
+            @@media print {
+                .table tbody tr td {
+                    padding-top: 2px !important;
+                    padding-left: 4px !important;
+                }
+
+                th, td {
+                    padding: 6px !important;
+                }
+            }
+        </style>
+        <div class="printcontent">
+            <div class="row">
+
+                <div class="Header">
+                    <partial name="_PrintHeaderTippaniAndSamjhautapatrta" />
+                </div>
+
+            </div>
+            <div class="container" style="margin-top: -15px;">
+                <div class="accordion-header text-center font-bold text-decoration-underline" style="font-size:15px;"> टिप्पणी र आदेश ।</div>
+                <div class="accordion-header text-center font-bold text-decoration-underline" style="font-size:15px;"> विषय:भुक्तानी सम्बन्धमा।</div>
+                <div class="sign " style="font-weight:500; font-size:15px;">
+                    <p class="mb-0"><b>श्रीमान,</b> </p>
+                </div>
+                <p class="mb-2" style="text-indent:24px; letter-spacing:1px; line-height:22px; font-weight:500; font-size:15px; text-align:justify !important; ">
+                    उपरोक्त सम्बन्धमा आ.व. <b>@Model.FiscalYearName</b> को वार्षिक स्विकृत योजना/कार्यक्रम अन्तर्गत यस @orgname.PalikaName वडा नं @Model.Address मा सञ्चालित
+                    तपसिल बमोजिमको योजना सम्पन्न भएकोले योजना फरफारक गरी अन्तिम किस्ता रकम निकासा पाउँ भनी योजना उपभोक्ता समितिले  निवेदन पेश गरेको ।
+                </p>
+                <p class="mb-0" style=" letter-spacing:1px; line-height:22px; font-weight:500; font-size:15px; text-align:justify !important; ">
+                    साथै हालसम्म सम्पन्न भएको सो योजनाको प्राविधिक मूल्याङ्कनबाट परिमाण र गुणस्तरको एकिन भइसकेको वडाको सिफारिस र अनुगमन प्रतिवेदनबाट उक्त निर्माणको
+                    भौतिक कार्यको समेत पुष्टी भएकाले वडा कार्यालयको भुक्तानी सिफारिस पत्र, अनुगमन प्रतिवेदन, उपभोक्ता समितिको बैठक निर्णय, खर्च सार्वजनिक सुनुवाइ तथा सार्वजनिक लेखा परीक्षण, विल भरपाइ तथा भौतिक पूर्बाधार शाखाले गरेको प्राविधिक मूल्याङ्कनबाट
+                    कार्यसम्पन्न प्रतिवेदन तथा बिलमा हुन आएको रकम भुक्तानीका लागी मनासिव देखिएकोले निर्णयार्थ यो टिप्पणी पेश गरेको छु।
+
+                </p>
+                <p class="mb-0"><b><u>तपसिलः</u></b></p>
+                <div>
+                    <table class="table" style="width:100%  !important">
+                        <tr>
+                            <td width="5%" style="border: 1px solid black !important">१.</td>
+                            <td width="20%" style="border: 1px solid black !important">योजना/कार्यक्रमको नाम</td>
+                            <td width="25%" style="border: 1px solid black !important">@Model.Aayojana_Karyakram</td>
+                            <td width="5%" style="border: 1px solid black !important">२.</td>
+                            <td width="20%" style="border: 1px solid black !important">संचालन हुने स्थानः-</td>
+                            <td width="25%" style="border: 1px solid black !important"> वडा नं.  @_utility.ConvertEnglishToNepali(Model.Address)</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid black !important">३.</td>
+                            <td style="border: 1px solid black !important"> सम्झौता मिति:- </td>
+                            <td style="border: 1px solid black !important">@_utility.ConvertEnglishToNepali(Model.SamjhautaDate)</td>
+                            <td style="border: 1px solid black !important">४.</td>
+                            <td style="border: 1px solid black !important"> कार्यसम्पन्न मिति:- </td>
+                            <td style="border: 1px solid black !important">@_utility.ConvertEnglishToNepali(Model.KaryasampannaDate)</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid black !important">५.</td>
+                            <td style="border: 1px solid black !important">विनियोजित रकम रु.</td>
+                            <td style="border: 1px solid black !important">@_utility.ConvertEnglishToNepali(Model.NaPa_Binayajit)</td>
+                            <td style="border: 1px solid black !important">६.</td>
+                            <td style="border: 1px solid black !important">लागत अनुमान रु.</td>
+                            <td style="border: 1px solid black !important">@_utility.ConvertEnglishToNepali(Model.Kul_La_Ie)</td>
+
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid black !important">७.</td>
+                            <td style="border: 1px solid black !important">कन्टिजेन्सि रकम रु (@_utility.ConvertEnglishToNepali(kantenjency) %) </td>
+                            <td style="border: 1px solid black !important">
+                                @_utility.ConvertEnglishToNepali(Model.Kantigenci)
+                                @* @{
+								var ghati = (Convert.ToDouble(item.Technical_Amount) - Convert.ToDouble(item.Kul_La_Ie));
+								var kulale = Convert.ToDouble(item.Kul_La_Ie);
+								var ghatibadi = Math.Abs((ghati / kulale) * 100);
+								var roundedGhatibadi = Math.Round(ghatibadi, 2);
+							} @Planning.Utility.NepaliEnglishNumber.English_Nepali(roundedGhatibadi.ToString()) % *@
+                            </td>
+
+                            <td style="border: 1px solid black !important">८.</td>
+                            <td style="border: 1px solid black !important">कन्टिजेन्सि कट्टी गरि भुक्तानी हुने रकम</td>
+                            <td style="border: 1px solid black !important">
+                                @{
+                                    var contikatti = Convert.ToDouble(Model.NaPa_Binayajit) - Convert.ToDouble(Model.Kantigenci);
+                                }
+                                @_utility.ConvertEnglishToNepali(contikatti)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid black !important">९.</td>
+                            <td style="border: 1px solid black !important">सामाजिक सुरक्षा कर रकम रु (@_utility.ConvertEnglishToNepali(Samajik_Surekchya) %) .</td>
+                            <td style="border: 1px solid black !important">@_utility.ConvertEnglishToNepali(Model.Samajik_Surekchya)</td>
+                            <td style="border: 1px solid black !important">१०.</td>
+                            <td style="border: 1px solid black !important">बहाल कर रकम रु (@_utility.ConvertEnglishToNepali(Bahal_Kar)%)</td>
+                            <td style="border: 1px solid black !important">@* @{
+								var pratham = (Convert.ToDouble(item.Peski));
+							} @Planning.Utility.NepaliEnglishNumber.English_Nepali(pratham.ToString()) *@ @_utility.ConvertEnglishToNepali(Model.Bahal_Kar)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid black !important">११.</td>
+                            <td style="border: 1px solid black !important">अग्रिम आय कर रकम रु.(@_utility.ConvertEnglishToNepali(Agrim_Shulka) %)</td>
+                            <td style="border: 1px solid black !important">@_utility.ConvertEnglishToNepali(Model.Agrim_Shulka)</td>
+                            <td style="border: 1px solid black !important">१२.</td>
+                            <td style="border: 1px solid black !important">पारिश्रमिक कर(@_utility.ConvertEnglishToNepali(Parishramik) %) </td>
+                            <td style="border: 1px solid black !important">
+                                @_utility.ConvertEnglishToNepali(Model.Parishramik) @* @{
+								var pratham = (Convert.ToDouble(item.Peski));
+							} @Planning.Utility.NepaliEnglishNumber.English_Nepali(pratham.ToString()) *@ </td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid black !important">१३.</td>
+                            <td style="border: 1px solid black !important">जनसहभागिता रु.</td>
+                            <td style="border: 1px solid black !important">@_utility.ConvertEnglishToNepali(Model.Jana_Sahabagita)</td>
+                            <td style="border: 1px solid black !important">१४.</td>
+                            <td style="border: 1px solid black !important">का.स. अनुसार घटाउन पर्ने रकम रु.</td>
+                            <td style="border: 1px solid black !important">
+                                @_utility.ConvertEnglishToNepali(Model.KaryasampannaAnushar)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid black !important">१५.</td>
+                            <td style="border: 1px solid black !important">अन्तिम किस्ता भुक्तानी रु.</td>
+                            <td style="border: 1px solid black !important">
+                                @{
+                                    var antimbhuktani = Model.NaPa_Binayajit - Model.Kantigenci - Model.Samajik_Surekchya - Model.Bahal_Kar - Model.Agrim_Shulka - Model.Parishramik - Model.KaryasampannaAnushar;
+                                    var khudbhutani = antimbhuktani;
+                                }	@_utility.ConvertEnglishToNepali(antimbhuktani)
+                            </td>
+                            <td style="border: 1px solid black !important">१६.</td>
+                            <td style="border: 1px solid black !important">भुक्तानी दिने समिति/संस्था वा व्यक्तिको नाम</td>
+                            <td style="border: 1px solid black !important">@Model.Aayojana_Karyakram योजना उपभोक्ता समिति </td>
+                        </tr>
+                        @* <tr>
+							<td style="border: 1px solid black !important">१६.</td>
+							<td style="border: 1px solid black !important">बैंकको नाम</td>
+							<td style="border: 1px solid black !important"></td>
+							<td style="border: 1px solid black !important">१७.</td>
+							<td style="border: 1px solid black !important">समिति/संस्थाको खाता नं.</td>
+							<td style="border: 1px solid black !important"></td>
+						</tr> *@
+                        <tr>
+                            <td style="border: 1px solid black !important">१७.</td>
+                            <td style="border: 1px solid black !important">खुद भुक्तानी दिनुपर्ने रु.</td>
+                            <td style="border: 1px solid black !important"> @_utility.ConvertEnglishToNepali(khudbhutani) </td>
+                            <td style="border: 1px solid black !important">१८.</td>
+                            <td style="border: 1px solid black !important">उ.स. को खाता न. </td>
+                            <td style="border: 1px solid black !important"> @_utility.ConvertEnglishToNepali(Model.AccountNumber)</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" style="border: 1px solid black !important">अक्षेरुपि रु. @_utility.ConvertNumberToNepaliText(khudbhutani.ToString())</td>
+                            <td style="border: 1px solid black !important">१९.</td>
+                            <td style="border: 1px solid black !important">फरफारक गरिएको मिति</td>
+                            <td style="border: 1px solid black !important"> @_utility.ConvertEnglishToNepali(Model.FarfarakDate)</td>
+                        </tr>
+                       
+                    </table>
+                </div>
+                <br />
+                <div class="row" style="margin-top:20px;">
+                    <div class="col-md-4 col-4 offset-8 text-center" style="font-weight:bold;">
+                        <p class="mb-0" style="font-size:15px">............................</p>
+ 					@if(employee!=null){
+
+                         <p class="mb-0" style="font-size:15px">(@employee)</p>
+                     }
+                        <p class="mb-0" style="font-size:15px">@pada</p>
+                    </div>
+                </div>
+
+            </div>
+@*             <footer>
+                <partial name="_printfooter" />
+            </footer> *@
+        </div>
+    </div>
+</div>
+<link href="~/lib/nepalidatepicker/css/nepali.datepicker.v3.7.min.css" rel="stylesheet" />
+
+
+@section Scripts
+{
+    <script>
+        NepaliDatePickerCalWithAdDateConverter(document.getElementsByClassName('PrintDate'), document.getElementsByClassName('PrintDateEng'))
+    </script>
+    <script>
+        function Print(divele) {
+            var elementHTML = document.getElementById(divele).innerHTML;
+            var oldPage = document.body.innerHTML;
+            document.body.innerHTML = elementHTML;
+            window.print();
+            document.body.innerHTML = oldPage;
+        }
+    </script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#fiscalId').val('@ViewBag.fiscalId').trigger('change');
+            $('#btnPrint').attr('style', "display: " + ('@ViewBag.fiscalId' != '' ? 'block' : 'none'));
+            if ('@Model.PrintDate' != '') {
+            $('.pDate').html('@Model.PrintDate')}
+        });
+        function Print() {
+            debugger;
+            var printdata = $('#contentToPrint').html();
+            var reportname = $('#reportname').html();
+            var planningsamjhautaid = "@Model.PlanningSamjhautaId";
+            $.ajax({
+                url: '@Url.Action("PrintReport", "Ajax", new { area = "" })',
+                type: 'post',
+                data: { PrintContent: printdata, ReportName: '@ViewData["Title"]', PlanningSamjhautaId: @Model.PlanningSamjhautaId },
+                success: function (result) {
+
+                    if (result) {
+                        var elementHTML = document.getElementById('contentToPrint').innerHTML;
+                        var oldPage = document.body.innerHTML;
+                        document.body.innerHTML = elementHTML;
+                        window.print();
+                        document.body.innerHTML = oldPage;
+                    }
+                },
+                error: function () {
+                    alert('error in calling ajax !!')
+                }
+            });
+        }
+    </script>
+    <script>
+        $('#PostId').change(function () {
+            $.ajax({
+                url: '@Url.Action("GetEmpNameByPostId", "Ajax", new { area = "" })',
+                type: 'GET',
+                data: { id: $(this).val() },
+                success: function (data) {
+                    $('#EmpId').empty().append("<option value=''>-नाम छान्नुहोस्-</option>");
+                    $.each(data, function (index, item) {
+                        $('#EmpId').append(`<option value="${item.Value}">${item.Text} </option>`);
+                    });
+                },
+                error: function () {
+                    alert('error in calling ajax !!');
+                }
+            });
+        });
+    </script>
+}

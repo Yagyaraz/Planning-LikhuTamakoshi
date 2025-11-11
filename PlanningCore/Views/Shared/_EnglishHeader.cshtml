@@ -1,0 +1,16 @@
+﻿@using PlanningCore.Utilities
+@inject IUtility _Utility
+@{
+	var headerData = await _Utility.GetHeaderData();
+	var miti = (DateTime.Today.Date).ToShortDateString();
+	var nepalimiti = _Utility.ConvertEnglishToNepali(miti);
+}
+<div class="d-flex pt-5 mt-4 " style="justify-content: center;">
+	<img style="width:12rem" src="~/Images/NepalLogo.png" />
+</div>
+<div class="text-center">
+	<h3>@headerData.PalikaNameEng</h3>
+	<h4>@headerData.PalikaTypeNameEng</h4>
+	<h5>@headerData.Address2,@headerData.DistrictNameEng</h5>
+	<h5>@headerData.StateNameEng</h5>
+	</div>

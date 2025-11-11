@@ -1,0 +1,235 @@
+﻿@model TolBikashSansthaViewModel
+@inject IUtility _utility
+@{
+    ViewData["Title"] = "TolBikashDarta";
+    var headerData = await _utility.GetHeaderData();
+    bool isSavedData = Convert.ToBoolean(ViewBag.isSavedData);
+    int? post = ViewBag.EmpId;
+    var pada = await _utility.GetPostById(ViewBag.PostId);
+    var employee = await _utility.GetEmpNameById(post);
+    var palikaid = await _utility.GetCurrentPalikaId();
+}
+<link href="https://fonts.googleapis.com/css?family=Laila&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="KrishiPrintFull.css" media="print">
+
+@if (!isSavedData)
+{
+    <div class="container pt-4 mt-4">
+        <form asp-action="@ViewData["Title"]" method="get">
+            <div class="pt-4 row">
+                <div class="col-2">
+                    <label>पद</label>
+                    <select name="PostId" id="PostId" asp-items="@await _utility.GetPadaList()" required class="form-control">
+                        <option value="">--पद छान्नुहोस--</option>
+                    </select>
+                </div>
+                <div class="col-2">
+                    <label>नाम</label>
+                    <select name="EmpId" id="EmpId" asp-items="@await _utility.GetEmpNameByPostId(ViewBag.PostId)" required class="form-control">
+                        <option value="">--नाम छान्नुहोस--</option>
+                    </select>
+                </div>
+                <div class="col-md-2 col-2">
+                    <label>मिति : </label> <br />
+                    @*                     <input type="text" name="PrintDate" required class="form-control PrintDate" value="@Model.PrintDate" />
+ *@                     <input type="text" name="PrintDate" required class="form-control PrintDate" id="PrintDate" />
+                </div>
+
+                <div class="col-2">
+                    <label> </label><br />
+                    <input type="submit" value="खोज्नुहोस्" class="btn btn-success" />
+                </div>
+            </div>
+        </form>
+    </div>
+}
+
+<div class="random" style="margin-top:100px; margin-left:45px;">
+    <button style="float:right" class="mt-2" type="button" onClick="Print('contentToPrint')"><i class="fa fa-print" aria-hidden="true"></i> Print</button>
+    @*     @if (palikaid == 135)
+    {
+        <div class="col-md-12" style="border-image: url('/Images/pramanpatra-border.png') 30 / 32px round !important; /*padding: 4rem 6rem;*/ box-sizing: border-box;">
+            @if (!isSavedData)
+            {
+                <div class="card-body printpage">
+                    <div class="printcontent">
+                        <div class="col-md-12 col-12 mt-5 pt-4">
+                            <partial name="_PrintHeaderPramanPatra" />
+                        </div>
+                        <div class="container" style="color:black; font-size:16px !important;">
+                              <div class="d-flex p-1 text-center justify-content-end align-items-center">
+                            <span style="text-align:end" id="dateView">मिति:- </span>
+                        </div> 
+                            <div class="container custom-container ">
+                                <div class="name offset-5" style="font-weight:bold;"> &nbsp; विषय : बिद्यालय व्यवस्थापन समिति दर्ता प्रमाण–पत्र </div>
+                            </div>
+                            <div class="">
+                                <p>@Model.Name</p>
+                                <p>@Model.Address</p>
+                            </div>
+                            <div class="content mt-4" style="text-align: justify;">
+                                <p>
+                                    @headerData.PalikaName अन्तर्गतको वडा कार्यालयको समन्वय तथा रोहबरमा तपसिलको
+                                    योजना संचालन गर्ने गरी गठन भएको तपसिल बमोजिमको योजना सञ्चालन बिद्यालय व्यवस्थापन समितिलाई
+                                    यस कार्यालयमा दर्ता गरी यो प्रमाण–पत्र प्रदान गरिएको छ ।
+                                    <br /><br /><br />
+                                    यस @headerData.PalikaName को आर्थिक, सामाजिक, भौतिक, पूर्वाधार, पर्यावरण, सुशासन तथा मानव
+                                    संसाधन विकासमा यस उपभोक्ता समितिको सक्रिय र अर्थपूर्ण सहभागिताको अपेक्षाका साथै
+                                    उत्तरोत्तर प्रगतिको शुभकामना व्यक्त गर्दछु ।
+                                </p>
+                                <p><b>तपसिल:-</b></p>
+                                <p>योजनाः- @string.Join(", ", Model.YojanaNames)</p>
+                                <p>ठेगानाः @Model.Address</p>
+                                <p>अध्यक्षको नाम:- @Model.NewToleBikashMemberList.Where(x => x.SamitiPostId == 1).Select(x => x.MemberName).FirstOrDefault()</p>
+
+                                <div class="row">
+                                    <div class="col-md-3 col-3 offset-9" style="line-height:10px; text-align:center;">
+                                        <p>..................................................</p>
+                                        <p>@employee</p>
+                                        <p>@pada</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else{    
+ *@    <div class="row" id="contentToPrint" style="border:1px solid black !important;">
+        @if (!isSavedData)
+        {
+            <div class="card-body printpage">
+                <div class="printcontent">
+                    <div class="col-md-12 col-12 mt-5 pt-4">
+                        <partial name="_PrintHeaderPramanPatra" />
+                    </div>
+                    <div class="container" style="color:black; font-size:16px !important;">
+                        @*    <div class="d-flex p-1 text-center justify-content-end align-items-center">
+                            <span style="text-align:end" id="dateView">मिति:- </span>
+                        </div> *@
+                        <div class="container custom-container ">
+                            <div class="name offset-5" style="font-weight:bold;"> &nbsp; विषय : बिद्यालय व्यवस्थापन समिति दर्ता प्रमाण–पत्र </div>
+                        </div>
+                        <div class="">
+                            <p>@Model.TolBikashSansthaName</p>
+                            <p>@Model.Address</p>
+                        </div>
+                        <div class="content mt-4" style="text-align: justify;">
+                            <p>
+                                @headerData.PalikaName अन्तर्गतको वडा कार्यालयको समन्वय तथा रोहबरमा तपसिलको
+                                योजना संचालन गर्ने गरी गठन भएको तपसिल बमोजिमको योजना सञ्चालन बिद्यालय व्यवस्थापन समितिलाई
+                                यस कार्यालयमा दर्ता गरी यो प्रमाण–पत्र प्रदान गरिएको छ ।
+                                <br /><br /><br />
+                                यस @headerData.PalikaName को आर्थिक, सामाजिक, भौतिक, पूर्वाधार, पर्यावरण, सुशासन तथा मानव
+                                संसाधन विकासमा यस बिद्यालय व्यवस्थापन समितिको सक्रिय र अर्थपूर्ण सहभागिताको अपेक्षाका साथै
+                                उत्तरोत्तर प्रगतिको शुभकामना व्यक्त गर्दछु ।
+                            </p>
+                            <p><b>तपसिल:-</b></p>
+                            <p>योजनाः- @string.Join(", ", Model.YojanaName)</p>
+                            <p>ठेगानाः @Model.Address</p>
+                            <p>अध्यक्षको नाम:- @Model.tolBikashSansthaMemberList.Where(x => x.SchoolPostId == 1).Select(x => x.Name).FirstOrDefault()</p>
+
+                            <div class="row">
+                                <div class="col-md-3 col-3 offset-9" style="line-height:10px; text-align:center;">
+                                    <p>..................................................</p>
+                                    <p>@employee</p>
+                                    <p>@pada</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    @* } *@
+</div>
+
+<link href="~/lib/nepalidatepicker/css/nepali.datepicker.v3.7.min.css" rel="stylesheet" />
+
+@section Scripts {
+    <script>
+        NepaliDatePickerCalWithClass(document.getElementsByClassName('PrintDate'));
+    </script>
+    <script>
+        $(document).ready(function () {
+        if ('@Model.PrintDate' != '') {
+            $('.pDate').html('@Model.PrintDate')
+        }            if ('@isSavedData' === 'True') {
+                $.ajax({
+                    url: '@Url.Action("GetPrintReportContentUpabhokta", "Ajax", new { area = "" })',
+                    type: 'get',
+                    data: { ReportName: '@ViewData["Title"]', UpabhoktaSamitiDetailId: '@Model.TolBikashSansthaId' },
+                    success: function (result) {
+                        if (result) {
+                            $('#contentToPrint').html(result);
+                        }
+                    },
+                    error: function () {
+                        alert('error in calling ajax !!')
+                    }
+                });
+            }
+        });
+    </script>
+    <script>
+        // function PrintDateSet() {
+        //     var value = $('#PrintDate').val();
+        //     if (value) {
+        //         $('#dateView').html(`मिति:- ${englishToNepali(value)}`)
+        //     }
+        // }
+        function PrintContent(divele) {
+            var elementHTML = document.getElementById(divele).innerHTML;
+            var oldPage = document.body.innerHTML;
+            document.body.innerHTML = elementHTML;
+            window.print();
+            document.body.innerHTML = oldPage;
+            window.location.reload();
+        }
+
+        function Print() {
+            if ('@isSavedData' == 'True') {
+                PrintContent('contentToPrint')
+                return;
+            }
+            var printdata = $('#contentToPrint').html();
+            var reportname = $('#reportname').html();
+            var upabhoktaSamitiDetailId = "@Model.TolBikashSansthaId";
+            $.ajax({
+                url: '@Url.Action("PrintReportUpabhokta", "Ajax", new { area = "" })',
+                type: 'post',
+                data: { PrintContent: printdata, ReportName: '@ViewData["Title"]', UpabhoktaSamitiDetailId: upabhoktaSamitiDetailId },
+                success: function (result) {
+                    if (result) {
+                        PrintContent('contentToPrint')
+                    }
+                },
+                error: function () {
+                    alert('error in calling ajax !!')
+                }
+            });
+        }
+
+    </script>
+    <script>
+        $('#PostId').change(function () {
+            $.ajax({
+                url: '@Url.Action("GetEmpNameByPostId", "Ajax", new { area = "" })',
+                type: 'GET',
+                data: { id: $(this).val() },
+                success: function (data) {
+                    $('#EmpId').empty().append("<option value=''>-नाम छान्नुहोस्-</option>");
+                    $.each(data, function (index, item) {
+                        $('#EmpId').append(`<option value="${item.Value}">${item.Text} </option>`);
+                    });
+                },
+                error: function () {
+                    alert('error in calling ajax !!');
+                }
+            });
+        });
+    </script>
+}

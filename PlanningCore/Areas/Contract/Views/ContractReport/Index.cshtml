@@ -1,0 +1,215 @@
+﻿@inject IUtility _utility
+@model Con_ReportViewModel
+
+<style>
+    table {
+        border-collapse: collapse !important;
+        width: 80% !important;
+        border: 1px solid black !important;
+    }
+
+    .tbl {
+        font-weight: bold !important;
+    }
+
+    th, td {
+        border: 1px solid black !important;
+        padding: 8px !important;
+        text-align: center !important;
+    }
+
+    span {
+        font-weight: bold;
+    }
+
+    accordion-body1 {
+        padding: 0.5rem 1.25rem;
+    }
+
+    .printpage {
+        width: 21cm;
+        min-height: 29.7cm;
+        padding: 2cm;
+        margin: 1cm auto;
+        border: 1px #d3d3d3 solid;
+        border-radius: 5px;
+        background: #fff;
+        box-shadow: 0 0 5px rgb(0 0 0 / 10%);
+        font-family: 'kalimati regular' !important;
+    }
+
+    @@media print {
+        table {
+            border-collapse: collapse !important;
+            width: 80% !important;
+            border: 1px solid black !important;
+        }
+
+        .tbl {
+            font-weight: bold !important;
+        }
+
+        th, td {
+            border: 1px solid black !important;
+            padding: 8px !important;
+            text-align: center !important;
+        }
+
+        .printpage .pDate{
+            font-family: 'kalimati regular'!important;
+        }
+    }
+
+</style>
+<div class="container pt-4 mt-4">
+    <form asp-action="SearchResult" method="get">
+        <div class="pt-4 row">
+            <div class="col-2">
+                <label>ठेक्का योजना</label>
+                <select name="YojanaId" asp-for="YojanaId" asp-items="@await _utility.GetThekkaYojanaList()" class="form-control">
+                    <option value="">--छान्नुहोस--</option>
+                </select>
+            </div>
+            <div class="col-2">
+                <label>रिपोर्ट प्रकार</label>
+                <select name="ReportId" asp-for="ReportId" asp-items="@await _utility.GetContractReportType()" class="form-control">
+                    <option value="">--छान्नुहोस--</option>
+                </select>
+            </div>
+            <div class="col-2">
+                <label>पद</label>
+                <select name="PostId" asp-for="PostId" asp-items="@await _utility.GetPadaList()" class="form-control">
+                    <option value="">--पद छान्नुहोस--</option>
+                </select>
+            </div>
+            <div class="col-2">
+                <label>नाम</label>
+                <select name="EmpId" asp-for="EmpId" asp-items="@await _utility.GetEmpNameByPostId(ViewBag.PostId)" class="form-control">
+                    <option value="">--नाम छान्नुहोस--</option>
+                </select>
+            </div>
+            <div class="col-md-2 col-2">
+                <label>मिति : </label> <br />
+                <input type="text" name="PrintDate" asp-for="PrintDate" class="form-control PrintDate" />
+                <input type="text" name="PrintDateEng" asp-for="PrintDateEng" class="form-control PrintDateEng" hidden />
+            </div>
+            <div class="col-2">
+                <label> </label><br />
+                <button type="button" onclick="FindReport()" class="btn btn-primary"><i class="fa fa-search"></i>  Find</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<button style="float:right; display:none;" class="mt-2" id="printBtn" type="button" onClick="Print()"><i class="fa fa-print" aria-hidden="true"></i> Print</button>
+<div class="row" id="contentToPrint">
+    <div class="card-body printpage">
+
+        <div class="printcontent" id="BodharthaData">
+        </div>
+    </div>
+</div>
+<link href="~/lib/nepalidatepicker/css/nepali.datepicker.v3.7.min.css" rel="stylesheet" />
+@section Scripts {
+    <script>
+        function Print() {
+            var printdata = $('#contentToPrint').html();
+            var reportname = $('#reportname').html();
+            var yojanaId = $('#YojanaId').val();
+            var reportId = $('#ReportId').val();
+            var printDate = $('#PrintDate').val();
+            var printDateEng = $('#PrintDateEng').val();
+            var formData = {
+                PrintContent: printdata,
+                YojanaId: yojanaId,
+                ReportTypeId: reportId,
+                PrintDate: printDate,
+                PrintDateEng: printDateEng
+            };
+            $.ajax({
+                url: '@Url.Action("ContractPrintReportDetail", "Ajax", new { area = "" })',
+                type: 'post',
+                data: formData,
+                success: function (result) {
+                    if (result) {
+                        var elementHTML = document.getElementById('contentToPrint').innerHTML;
+                        var oldPage = document.body.innerHTML;
+                        document.body.innerHTML = elementHTML;
+                        window.print();
+                        // document.body.innerHTML = oldPage;
+                        window.location.reload();
+                    }
+                },
+                error: function () {
+                    alert('error in calling ajax !!')
+                }
+            });
+        }
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#EmpId').val('@ViewBag.EmpId').trigger('change');
+            $(function () { Message('@TempData["del"]') });
+        });
+    </script>
+    <script>
+        $('#PostId').change(function () {
+            $.ajax({
+                url: '@Url.Action("GetEmpNameByPostId", "Ajax", new { area = "" })',
+                type: 'GET',
+                data: { id: $(this).val() },
+                success: function (data) {
+                    $('#EmpId').empty().append("<option value=''>-नाम छान्नुहोस्-</option>");
+                    $.each(data, function (index, item) {
+                        $('#EmpId').append(`<option value="${item.Value}">${item.Text} </option>`);
+                    });
+                },
+                error: function () {
+                    alert('error in calling ajax !!');
+                }
+            });
+        });
+    </script>
+    <script>
+        function FindReport() {
+            $('#reportView').html('')
+            var reportId = $('#ReportId').val();
+            var yojanaId = $('#YojanaId').val();
+            var postId = $('#PostId').val();
+            var empId = $('#EmpId').val();
+            var printDate = $('#PrintDate').val();
+            var printDateEng = $('#PrintDateEng').val();
+            var formData = {
+                ReportId: reportId,
+                YojanaId: yojanaId,
+                PostId: postId,
+                EmpId: empId,
+                PrintDate: printDate,
+                PrintDateEng: printDateEng
+            };
+
+            if (reportId != '' && yojanaId != '') {
+                $.ajax({
+                    url: '@Url.Action("SearchResult", "ContractReport", new { area = "Contract" })',
+                    type: 'POST',
+                    data: formData,
+                    success: function (result) {
+                        $('#BodharthaData').html(result)
+                        $('.pDate').html(printDate)
+                        $('#printBtn').css("display", "block");
+                    },
+                    error: function () {
+                        alert("error Calling Function");
+                    }
+                });
+
+            } else {
+                alert('Please select required fields')
+            }
+        }
+    </script>
+    <script>
+        NepaliDatePickerCalWithAdDateConverter(document.getElementsByClassName('PrintDate'), document.getElementsByClassName('PrintDateEng'))
+    </script>
+}

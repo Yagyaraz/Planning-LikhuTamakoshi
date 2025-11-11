@@ -1,0 +1,40 @@
+﻿@model Con_KarKattiViewModel
+@inject IUtility _Utility
+@{
+	ViewData["Title"] = "सेटअप";
+}
+
+<div class="main-card card">
+	<div class="card-body  mt-5">
+		<h5><u> कर-कट्टी ( % मा) </u> </h5>
+		<form asp-action="CreateContractKarkatti" method="post">
+
+			<div class="row mt-4">
+				<div class="form-group mt-2 col-md-3 col-3 ">
+					@Html.HiddenFor(model => model.Con_katkattiId)
+					<label asp-for="Name" class="control-label"></label>
+					<input asp-for="Name" class="form-control" />
+					<span asp-validation-for="Name" class="text-danger"></span>
+				</div>
+				<div class="form-group mt-2 col-md-3 col-3">
+					<label asp-for="Value" class="control-label"></label>
+					<input asp-for="Value" class="form-control" />
+					<span asp-validation-for="Value" class="text-danger"></span>
+				</div>				
+
+				<div class="d-flex justify-content-end gap-2">
+					<button class="btn btn-success btn-sm text-white" type="submit">
+						<i class="fa fa-save"></i> सुरक्षित गर्नुहोस्
+					</button>
+
+					<a asp-action="ThekkaKarkattiIndex" asp-controller="ContractSamjhauta" asp-area="Contract" class="btn  btn-sm text-white"
+					   style=" background-color:#424f63;">
+						<i class="fa fa-arrow-left" aria-hidden="true"> पछाडि फर्कनुहोस्</i>
+					</a>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+

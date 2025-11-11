@@ -1,0 +1,54 @@
+﻿ @model ContractSamjhautaViewModel
+ @inject IUtility _utility
+@{
+    var header = await _utility.GetHeaderData();
+    var pada = await _utility.GetPostById(ViewBag.PostId);
+    int? post = ViewBag.PostId;
+    var employee = await _utility.GetEmpNameById(post);
+}
+
+@if (Model.PrintContent == null)
+{
+    <div class="row">
+        <div class="Header">
+            <partial name="_PrintHeader" />
+        </div>
+    </div>
+    <div class="container">
+        <div class="sign" style="font-weight:500; font-size:16px;">
+            <p>श्री, @Model.ConsultantName, </p>
+            <p>@Model.MainPersonAddress</p>
+        </div>
+        <br />
+        <p style="text-indent:320px; letter-spacing:1px; line-height:30px; font-weight:500; font-size:16px; padding-top:15px; text-align:justify !important; ">
+            <span id="reportname"> <u> बिषय- कार्यादेश दिइएको सम्बन्धमा । </u> </span>
+        </p>
+        <p style="text-indent:24px; letter-spacing:1px; line-height:30px; font-weight:500; font-size:16px; padding-top:15px; text-align:justify !important; ">
+            प्रस्तुत विषयमा यस कार्यालयको मिति <strong>@Model.BolPatraDate</strong> को प्रकाशित
+            सुचना अनुसार ठेक्का क्र.स. <strong>@Model.ThekkaNumber</strong>, <strong>@Model.YojanaName</strong> को लागि यस @header.PalikaName
+            कार्यालय तथा <strong>@Model.ConsultantName</strong>, @Model.ConsultantAddress वीच मिति <strong>@Model.ContractDate</strong>
+            मा भएको सम्झौता अनुसार काम सुरुवात गर्नको निम्ति यो कार्यादेश दिईएको छ। सम्झौता अनुसारको नर्मस,
+            डिजाईन, स्पेशिफिकेसन अनुसार तोकिएको समय भित्र कार्य सम्पन्न गर्न गराउन हुन अनुरोध छ।
+        </p>
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-md-3 col-3 offset-9">
+                <p>@employee</p>
+                <p>@pada</p>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    @Html.Raw(Model.PrintContent)
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(function () {
+            Message1('@TempData["Message"]')
+        });
+    });
+</script>

@@ -1,0 +1,150 @@
+﻿@model AnugamanSamitiSetupViewModel
+@inject IUtility _Utility
+@{
+	ViewData["Title"] = "Index";
+}
+<link href="~/lib/nepalidatepicker/css/nepali.datepicker.v3.7.min.css" rel="stylesheet" />
+<div class="page-breadcrumb colr1">
+	<div class="row">
+		<div class="col-12 d-flex no-block align-items-center">
+			<div style="display:flex;">
+				<h4 class="card1" style="background-color:#3c8dbc; color:#fff; height:40px; width:160px; padding-top:5px; text-align:center;">अनुगमन समिति लिस्ट</h4>
+				<span style="height:2rem; background-color:#3c8dbc; width:10px; height:40px;"></span>
+				<span style="height: 2rem; border-top: 17px solid transparent;border-left: 25px solid #3c8dbc;border-bottom: 22px solid transparent; height:40px;"> </span>
+			</div>
+			<div class="ms-auto text-end">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="#">गृह पृष्ट</a></li>
+						<li class="breadcrumb-item active" aria-current="page">
+							अनुगमन
+						</li>
+					</ol>
+				</nav>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container-fluid colr1">
+	<div class="row">
+		<form asp-action="CreateAnugamanSamiti" method="post">
+			@Html.HiddenFor(model => model.Id)
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title"> नया अनुगमन समिति सदस्य थप्नुहोस</h5>
+						<div class="card-body row">
+							<div class="form-group mt-3 col-12 col-md-12 row">
+								<div class="form-group mt-3 col-md-3 col-3 ">
+									<label style="font-size:14px;">अनुगमन समिति प्रकार</label>
+									<select asp-for="AnuhumanSamitiType" style=" border-color:black" class="form-control" id="TypeId">
+										<option value="">--Please select --</option>
+										<option value="1"> पालिका अनुगमन समिति</option>
+										<option value="2">वडा अनुगमन समिति </option>
+									</select>
+								</div>
+
+								<div class="form-group mt-3 ms-3 col-md-3 col-3" id="ward" sstyle="display:none;">
+									<label style="font-size:14px;"> वडा</label>
+									<select asp-for="WardId" asp-items="await _Utility.GetWardList()" style=" border-color:black" class="form-control">
+										<option value="">--Please select--</option>
+									</select>
+								</div>								
+							</div>
+
+						</div>
+					</div>
+					<div class="card-body">
+					<div class="card-body row">
+							<div class="col-sm-12 col-12">
+								<div class="btitle">
+								</div>
+								<button type="button" id="AnugamanAdd" class="btn btn-add btn-sm"
+										style="background-color:green; color: #fff; padding: 7px 12px;  margin-bottom: 5px; float:right;">
+									<i class="fa fa-plus-circle"> &nbsp;</i> अनुगमन समिति सदस्य थप्नुहोस
+								</button>
+							</div>
+							<div class="col-lg-12 col-sm-12 col-12" id="anugaman">
+								<div class="col-lg-12 col-sm-12 col-12">
+									@if (Model.AnugamanSamitiList.Count > 0)
+									{
+										foreach (var items in Model.AnugamanSamitiList)
+										{
+											<partial name="_AnugumanSamiti.cshtml" model="@items" />
+										}
+
+									}
+									@* else
+									{
+										<partial name="_AnugumanSamiti.cshtml" model="@new AnugamanSamitiMemberViewModel()" />
+									} *@
+								</div>
+							</div>
+
+					</div>
+
+					</div>
+					<div class="offset-9 mb-4" style="float:right;">
+						<button type="submit" class="btn btn-success text-white btn-sm">
+							<i class=" fas fa-save">  </i>
+							सुरक्षित गर्नुहोस
+						</button>
+
+						<a asp-action="AnugumanSamitiIndex" asp-controller="Common" asp-area="Admin" class="btn  btn-sm  text-white"
+						   style=" background-color:#424f63;">
+							<i class="fa fa-arrow-left" aria-hidden="true"> पछाडि फर्कनुहोस्</i>
+						</a>
+					</div>
+
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+	<script>
+		$("#AnugamanAdd").on('click', function () {
+			debugger;
+			$.ajax({
+				url: '@Url.Action("CreateAnugumanMemberList")',
+				success: function (result) {
+					if (result) {
+						$("#anugaman").append(result);
+					}
+				},
+				error: function () {
+					alert('error in calling ajax !!')
+				}
+			});
+		});
+	</script>
+	<script>
+		$(document).ready(function () {
+			$('#ward').hide();
+
+			$('#TypeId').change(function () {
+				var selectedType = $(this).val();
+
+				if (selectedType == "2") {  
+					$('#ward').show();
+				} else {
+					$('#ward').hide();
+				}
+			});
+		});
+	</script>
+	<script>
+		function DeleteRow(e) {
+			var confirmValue = confirm("Are you sure to delete ?");
+			if (confirmValue) {
+				$(e).closest('.new').remove();
+			}
+		}
+	</script>
+
+}

@@ -1,0 +1,161 @@
+﻿@inject IUtility _Utility
+@model FormatViewModel
+@{
+    var headerdata = await _Utility.GetHeaderData();
+}
+
+<style>
+
+    .printpage {
+        width: 21cm;
+        min-height: 29.7cm;
+        padding: 2cm;
+        margin: 1cm auto;
+        border: 1px #d3d3d3 solid;
+        border-radius: 5px;
+        background: #fff;
+        box-shadow: 0 0 5px rgb(0 0 0 / 10%);
+        font-family: 'kalimati regular' !important;
+    }
+
+    p {
+        font-size: 18px;
+    }
+
+    .table tbody tr td {
+        height: 3rem !important;
+    }
+
+</style>
+
+<div class="d-flex justify-content-end">
+    <button class="btn btn-primary mt-5" type="button" onClick="Print('contentToPrint')"><i class="fa fa-print" aria-hidden="true"></i> Print</button>
+</div>
+<div class="row" id="contentToPrint">
+    <style>
+        p {
+            font-size: 18px;
+        }
+
+        .table tbody tr td {
+            height: 3rem !important;
+        }
+    </style>
+    <section style="page-break-after:always; padding-top:2px;">
+        <div class="container">
+            <div class="row">
+
+                <div class="Header">
+                    <partial name="_PrintHeader" />
+                </div>
+
+            </div>
+            <h4>टोल विकास/उपभोक्ता समिति मार्फत सञ्चालन हुने आयोजनामा ठुला मेसिनरी उपकरण प्रयोगको अनुमती माग/सिफारिस/स्वीकृती फारम</h4>
+            <table class="table table-bordered w-100">
+                <thead>
+                    <tr>
+                        <th colspan="2" style="text-align:start;">अनुमती माग गर्ने समितिको नाम: &nbsp; @Model.UpavoktaSamiti.Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align:start;">ठेगानाः@Model.UpavoktaSamiti.Address</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:start;">टोल विकास/उपभोक्ता समितिको अध्यक्षको नामः@Model.UpavoktaSamiti.Adakshya</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:start;">प्रयोग गर्न चाहेको मेसिनरी उपकरण</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:start;">अवधीः</td>
+                        <td style="text-align:start;">...................................... घण्टा/दिनः</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:start;">मितिः</td>
+                        <td style="text-align:start;">@Model.UpavoktaSamiti.Samiti_Estd_Date</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:start; background-color: #ccc;">सिफारिस समिति</td>
+                        <td style="text-align:start; background-color: #ccc;">हस्ताक्षर</td>
+                    </tr>
+                    @foreach(var item in Model.PlanningSamjhauta.AnugamanSamitiSetup.AnugamanSamitiListPalika)
+                    {
+                        <tr>
+                            <td style="text-align:start;">@item.PostName: @item.Name</td>
+                            <td></td>
+                        </tr>
+                    }
+
+                    @* <tr>
+                        <td style="text-align:start;">सदस्यःवडा अध्यक्ष</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:start;">सदस्यःयोजना शाखा</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:start;">सदस्यःवडा प्राविधिक</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:start;">सदस्यः</td>
+                        <td></td>
+                    </tr> *@
+                    <tr>
+                        <td style="text-align:start;">ठुला उपकरण प्रयोग गर्नु पर्ने कारण</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:start;">सिफारिस गरिएको मेसिनरी उपकरण</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:start;">मितिः</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align:start; background-color: #ccc;">स्वीकृतिः</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:start;">स्वीकृत भएको उपकरणः</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align:start;">नामः</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align:start;">पदः प्रमुख प्रशासकीय अधिकृत</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:start; vertical-align:top;">मितिः</td>
+                        <td style="text-align:start;">हस्ताक्षरः <br /><br /> छापः <br /><br /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+
+<link href="~/lib/nepalidatepicker/css/nepali.datepicker.v3.7.min.css" rel="stylesheet" />
+
+@section Scripts
+{
+    <script type="text/javascript">
+        //$(function () {
+        //    $('.currentdate').html(GetNepaliCurrentDate());
+        //});
+        function Print() {
+            var elementHTML = document.getElementById('contentToPrint').innerHTML;
+            var oldPage = document.body.innerHTML;
+            document.body.innerHTML = elementHTML;
+            window.print();
+            //document.body.innerHTML = oldPage;
+            window.location.reload(true);
+        }
+    </script>
+}

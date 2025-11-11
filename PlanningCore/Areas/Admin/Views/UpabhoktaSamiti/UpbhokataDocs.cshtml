@@ -1,0 +1,76 @@
+﻿@model UpabhoktaSamitiDetailDocsViewModel
+@{
+    ViewData["Title"] = "UpbhokataDocs";
+}
+
+
+<style>
+    .form-control {
+        border-color: black;
+        /* 	border-radius: 12px; */
+    }
+
+</style>
+@* <link href="~/lib/nepalidatepicker/css/nepali.datepicker.v3.7.min.css" rel="stylesheet" /> *@
+<div class="page-breadcrumb colr1">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <div style="display:flex;">
+                <h4 class="card1" style="background-color:#3c8dbc; color:#fff; height:40px; width:250px; padding-top:10px; text-align:center;">उपभोक्ता समिति सम्बन्धि विवरण :</h4>
+                <span style="height:2rem; background-color:#3c8dbc; width:10px; height:40px;"></span>
+                <span style="height: 2rem; border-top: 17px solid transparent;border-left: 25px solid #3c8dbc;border-bottom: 22px solid transparent; height:40px;"> </span>
+            </div>
+            <div class="ms-auto text-end">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">गृह पृष्ट</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            उपभोक्ता समिति सम्बन्धि विवरण :
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid colr1">
+    <div class="row">
+        <form asp-action="UpbhokataDocs" enctype="multipart/form-data">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body row">
+                        <h5 class="card-title col-md-12 col-12"> नया उपभोक्ता समिति थप्नुहोस</h5>
+                        
+                        <input type="hidden" asp-for="UpabhoktaSamitiDetailId" />
+                       
+                        <div class="col-lg-12 col-sm-12 col-12" id="Samitidiv">
+                            <div class="col-lg-12 col-sm-12 col-12">
+                                @if (Model.DocsList.Count > 0)
+                                {
+                                    foreach (var items in Model.DocsList)
+                                    {
+                                        <partial name="_UpbhokataDocs.cshtml" model="@items" />
+                                    }
+                                }
+                            </div>
+                        </div>
+
+                        <hr />
+                        
+                    </div>
+                    <div class="border-top">
+                        <div class="card-body d-flex gap-2 justify-content-end">
+                            <button type="submit" class="btn btn-success btn-sm mt-3 mb-2 text-white">
+                                <i class="fa fa-check" aria-hidden="true"> सुरक्षित गर्नुहोस </i>
+                            </button>
+                            <a asp-action="SamitiIndex" asp-controller="UpabhoktaSamiti" asp-area="Admin" class="btn  btn-sm mt-3 mb-2 text-white"
+                               style=" background-color:#424f63;">
+                                <i class="fa fa-arrow-left" aria-hidden="true"> पछाडि फर्कनुहोस्</i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

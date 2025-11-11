@@ -1,0 +1,215 @@
+﻿@model BankGuaranteeViewModel
+@inject IUtility _Utility
+@using HtmlHelpers.BeginCollectionItemCore;
+<style>
+	.row123 {
+		display: none; /* Hide the div initially using CSS */
+	}
+</style>
+<div class="guarantee row new">
+    @using (Html.BeginCollectionItem("BankGuaranteeList"))
+    {
+		<div class="card mt-2">
+			<div class="col-lg-1 col-sm-4 col-6 pt-2 offset-11">
+				<div class="position-relative form-group">
+					<button type="button" onclick="DeleteRow(this)" class="row-button btn btn-sm btn-danger btn-delete"><i class="fa fa-minus"></i></button>
+				</div>
+			</div>
+			<div class="card-body row">
+				@Html.HiddenFor(x => x.YojanaId)
+				@Html.HiddenFor(x => x.ConsultantId)
+				<div class="form-group  mt-2 col-md-3 col-3">
+					<label asp-for="MyadThapTypeId"></label>
+					<select asp-for="MyadThapTypeId" asp-items="await _Utility.GetMyadThapTypeList()" class="form-control">
+						<option value="">--<label asp-for="MyadThapTypeId"></label> --</option>
+					</select>
+				</div>
+				<div class="form-group mt-2 col-md-3 col-3">
+					<label asp-for="MyadThapStartDate"></label>
+					<input type="text" asp-for="MyadThapStartDate" class="form-control FromDate" class="form-control" />
+					<input type="text" asp-for="MyadThapStartDateEng" class="form-control FromDate" class="form-control" hidden/>
+					<span asp-validation-for="MyadThapStartDate"></span>
+				</div>
+				<div class="form-group mt-2 col-md-3 col-3">
+					<label asp-for="MyadThapEndDate"></label>
+					<input type="text" asp-for="MyadThapEndDate" class="form-control ToDate" class="form-control" />
+					<input type="text" asp-for="MyadThapEndDateEng" class="form-control ToDate" class="form-control" hidden />
+					<span asp-validation-for="MyadThapEndDate"></span>
+				</div>
+				<div class="form-group  mt-2 col-md-3 col-3">
+					<label asp-for="BankId"></label>
+					<select asp-for="BankId" asp-items="await _Utility.GetBankList()" class="form-control">
+						<option value="">--<label asp-for="BankId"></label> --</option>
+					</select>
+				</div>
+				<div class="form-group mt-2 col-md-3 col-3">
+					<label asp-for="BankGuaranteeName"></label>
+					<input type="text" asp-for="BankGuaranteeName" class="form-control" class="form-control" />
+					<span asp-validation-for="BankGuaranteeName"></span>
+				</div>
+				<div class="form-group  mt-2 col-md-3 col-3">
+					<label asp-for="BGType"></label>
+					<select asp-for="BGType" asp-items="await _Utility.GetBankGuranteeTypeList()" class="form-control">
+						<option value="">--<label asp-for="BGType"></label> --</option>
+					</select>
+				</div>
+				
+				<div class="form-group mt-2 col-md-3 col-3">
+					<label asp-for="BGNumber"></label>
+					<input type="text" asp-for="BGNumber" class="form-control" class="form-control" />
+					<span asp-validation-for="BGNumber"></span>
+				</div>
+				<div class="form-group mt-2 col-md-3 col-3">
+					<label asp-for="Currency"></label>
+					<input type="text" asp-for="Currency" class="form-control" class="form-control" />
+					<span asp-validation-for="Currency"></span>
+				</div>
+				<div class="form-group mt-2 col-md-3 col-3">
+					<label asp-for="Amount"></label>
+					<input type="text" asp-for="Amount" class="form-control" class="form-control" />
+					<span asp-validation-for="Amount"></span>
+				</div>
+				
+				<div class="form-group mt-2 col-md-3 col-3">
+					<label asp-for="JariMiti"></label>
+					<input type="text" asp-for="JariMiti" class="form-control JariMiti " class="form-control" />
+					<input type="text" asp-for="JariMitiEng" class="form-control JariMiti " class="form-control" hidden/>
+					<span asp-validation-for="JariMiti"></span>
+				</div>
+				<div class="form-group mt-2 col-md-3 col-3">
+					<label asp-for="FromDate"></label>
+					<input type="text" asp-for="FromDate" class="form-control FromDate" class="form-control" />
+					<input type="text" asp-for="FromDateEng" class="form-control FromDateEng" class="form-control" hidden />
+					<span asp-validation-for="FromDate"></span>
+				</div>
+				<div class="form-group mt-2 col-md-3 col-3">
+					<label asp-for="ToDate"></label>
+					<input type="text" asp-for="ToDate" class="form-control ToDate" class="form-control" />
+					<input type="text" asp-for="ToDateEng" class="form-control ToDateEng" class="form-control" hidden />
+					<span asp-validation-for="ToDate"></span>
+				</div>
+				<div class="form-group mt-2 col-md-3 col-3">
+					<label asp-for="PaskiDate"></label>
+					<input type="text" asp-for="PaskiDate" class="form-control ToDate" class="form-control" />
+					<input type="text" asp-for="PaskiDateEng" class="form-control ToDateEng" class="form-control" hidden />
+					<span asp-validation-for="PaskiDate"></span>
+				</div>
+				<div class="form-group mt-2 col-md-3 col-3">
+					<label asp-for="PaskiAmount"></label>
+					<input type="text" asp-for="PaskiAmount" class="form-control" class="form-control" />
+					<span asp-validation-for="PaskiAmount"></span>
+				</div>
+				<div class="form-group mt-2 col-md-3 col-3">
+					<label asp-for="PaskiRemaining"></label>
+					<input type="text" asp-for="PaskiRemaining" class="form-control" class="form-control" />
+					<span asp-validation-for="PaskiRemaining"></span>
+				</div>
+				<div class="form-group mt-2 col-md-3 col-3">
+					<label asp-for="Remarks"></label>
+					<input type="text" asp-for="Remarks" class="form-control" placeholder="कृपया म्याद थप गरेको कारण लेख्नुहोस" class="form-control" />
+					<span asp-validation-for="Remarks"></span>
+				</div>
+			</div>
+			<hr />
+			<div class="card-body row">
+				<div class="form-group mt-2 col-md-3 col-3">
+					<label asp-for="FukuwaStatus"></label>
+					<input type="checkbox" asp-for="FukuwaStatus" class="form-check-input fukuwa-status-checkbox" onclick="CheckedUnchecked(this)" />
+					<span asp-validation-for="FukuwaStatus"></span>
+				</div>
+			</div>
+			<hr />
+			<div class="card-body row row123" style="margin-left: 17px;">
+				
+				<div class="form-group mt-2 col-md-3 col-3">
+					<label asp-for="NirnayDate"></label>
+					<input type="text" asp-for="NirnayDate" class="form-control NirnayDate" class="form-control" />
+					<input type="text" asp-for="NirnayDateEng" class="form-control NirnayDateEng" class="form-control" hidden />
+					<span asp-validation-for="NirnayDate"></span>
+				</div>
+				
+				<div class="form-group mt-2 col-md-3 col-3">
+					<label asp-for="NirnayAdikari"></label>
+					<input type="text" asp-for="NirnayAdikari" class="form-control" class="form-control" />
+					<span asp-validation-for="NirnayAdikari"></span>
+				</div>
+				<div class="form-group mt-2 col-md-3 col-3">
+					<label asp-for="FukwaDate"></label>
+					<input type="text" asp-for="FukwaDate" class="form-control FukwaDate" class="form-control" />
+					<input type="text" asp-for="FukwaDateEng" class="form-control FukwaDateEng" class="form-control" hidden />
+					<span asp-validation-for="FukwaDate"></span>
+				</div>
+				<div class="form-group mt-2 col-md-3 col-3">
+					<label asp-for="FukwaAmount"></label>
+					<input type="text" asp-for="FukwaAmount" class="form-control " class="form-control" />
+					<span asp-validation-for="FukwaAmount"></span>
+				</div>
+				<div class="form-group  mt-2 col-md-3 col-3">
+					<label asp-for="FukuwaTypeId"></label>
+					<select asp-for="FukuwaTypeId" asp-items="await _Utility.GetFukuwaTypeList()" class="form-control">
+						<option value="">--<label asp-for="FukuwaTypeId"></label> --</option>
+					</select>
+				</div>
+			</div>
+
+
+			<hr />
+		
+		</div>
+    }
+</div>
+<script>
+	NepaliDatePickerCalWithAdDateConverter(document.getElementsByClassName('FromDate'), document.getElementsByClassName('FromDateEng'))
+	NepaliDatePickerCalWithAdDateConverter(document.getElementsByClassName('ToDate'), document.getElementsByClassName('ToDateEng'))
+	NepaliDatePickerCalWithAdDateConverter(document.getElementsByClassName('JariMiti'), document.getElementsByClassName('JariMitiEng'))
+    NepaliDatePickerCalWithAdDateConverter(document.getElementsByClassName('FukwaDate'), document.getElementsByClassName('FukwaDateEng'))
+	NepaliDatePickerCalWithAdDateConverter(document.getElementsByClassName('NirnayDate'), document.getElementsByClassName('NirnayDateEng'))
+	NepaliDatePickerCalWithAdDateConverter(document.getElementsByClassName('PaskiDate'), document.getElementsByClassName('PaskiDateEng'))
+	NepaliDatePickerCalWithAdDateConverter(document.getElementsByClassName('MyadThapStartDate'), document.getElementsByClassName('MyadThapStartDateEng'))
+	NepaliDatePickerCalWithAdDateConverter(document.getElementsByClassName('MyadThapEndDate'), document.getElementsByClassName('MyadThapEndDateEng'))
+//	NepaliDatePickerCalForPartialViewWithADDate(document.getElementsByClassName('FromDate'))
+//	NepaliDatePickerCalForPartialViewWithADDate(document.getElementsByClassName('ToDate'))
+//	NepaliDatePickerCalForPartialViewWithADDate(document.getElementsByClassName('JariMiti'))
+//	NepaliDatePickerCalForPartialViewWithADDate(document.getElementsByClassName('FukwaDate'))
+//	NepaliDatePickerCalForPartialViewWithADDate(document.getElementsByClassName('NirnayDate'))
+
+
+	// $('.fukuwa-status-checkbox').change(function () {
+	// 	if (this.checked) {
+	// 		$('.row123').show();
+	// 	} else {
+	// 		$('.row123').hide();
+	// 		// Clear all input fields within the row123 div
+	// 		$('.row123 input[type="text"]').val('');
+	// 		// Reset all select fields within the row123 div
+	// 		$('.row123 select').val('');
+	// 	}
+	// });
+
+	function CheckedUnchecked(e) {
+		debugger;
+		NepaliDatePickerCalWithAdDateConverter(document.getElementsByClassName('FukwaDate'), document.getElementsByClassName('FukwaDateEng'))
+		NepaliDatePickerCalWithAdDateConverter(document.getElementsByClassName('NirnayDate'), document.getElementsByClassName('NirnayDateEng'))
+		// Find the closest .guarantee ancestor of the checkbox
+		var guaranteeDiv = $(e).closest('.guarantee');
+		// Find the .row123 element within the .guarantee div
+		var row123Div = guaranteeDiv.find('.row123');
+
+		var jariMitiElements = row123Div.find('.JariMiti');
+		var jariMitiEngElements = row123Div.find('.JariMitiEng');
+		// Check if the checkbox is checked
+		if ($(e).is(':checked')) {
+			// Show the .row123 element with display flex
+			row123Div.css('display', 'flex');
+			NepaliDatePickerCalWithAdDateConverter(jariMitiElements.get(), jariMitiEngElements.get());
+
+		} else {
+			// Hide the .row123 element
+			row123Div.hide();
+			// Clear all input fields within the .row123 div
+			row123Div.find('input[type="text"]').val('');
+			// Reset all select fields within the .row123 div
+			row123Div.find('select').val('');
+		}
+	}
+</script>

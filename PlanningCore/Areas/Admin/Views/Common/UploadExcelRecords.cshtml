@@ -1,0 +1,136 @@
+﻿@model YojanaSetupViewModel
+@inject IUtility _Utility
+@{
+    ViewData["Title"] = "Index";   
+    ViewData["IsExport"] = true;
+
+}
+
+<style>
+    .table thead {
+        background-color: #dee8fa;
+        font-size: 13px;
+        line-height: 35px !important;
+    }
+
+        .table thead th {
+            font-weight: 800;
+            border: 1px solid black !important;
+            padding: 0px !important;
+        }
+
+    .table tbody td {
+        padding: 0px !important;
+        border: 1px solid black !important;
+        vertical-align: middle;
+    }
+
+    .table tbody tr {
+        text-align: center;
+        font-size: 12px;
+        height: 27px !important;
+    }
+
+    table.table-bordered.dataTable td {
+        padding: 0px;
+    }
+
+    table.table-bordered.dataTable th {
+        padding: 0px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #e9ecef;
+    }
+
+    tr:hover {
+        background-color: #b3ffe6;
+    }
+
+    .oval-button {
+        border-radius: 25px;
+    }
+</style>
+
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <div class="ms-auto text-end">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="">गृह पृष्ट</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">योजना</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form method="post" enctype="multipart/form-data" asp-action="UploadExcelRecords">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="row no-gutters ps-5">
+                        <div class="col-md-6 card-form__body card-body">
+                            <div class="form-group col-md-2">
+                                <label> ऐक्सल फाइल</label>
+                                <input type="file" name="excel" class="form-control" accept=".xlsx, .xls, .csv"
+                                       style="padding: 10px; border: 1px solid #ccc;  background-color: #f9f9f9; height:35px;" />
+                            </div>
+                            <button type="submit" class="btn btn-sm btn-primary">Upload</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <span>
+                            एक्सेल फर्म्याट Download गर्नुहोस
+                        </span>
+                        <div class="panel-heading">
+                            @Html.ActionLink("Excel Format Download", "Download", "Common", new { @area = "Admin" }, new { @class = "btn btn-success btn_add", style = "font-size: 12px; padding: 10px 20px;" })
+
+                        </div>
+                        <div class="table-responsive">
+                            <table id="zero_config" class="table table-bordered" style="border-collapse: collapse!important; align-content:center;">
+                                <thead>
+                                    <tr style="text-align:center;">
+                                        <th>योजनाको नाम</th>
+                                        <th>वडा नं</th>
+                                        <th>उप-क्षेत्र</th>
+                                        <th>खर्च शीर्षक</th>
+                                        <th>स्रोत</th>
+                                        <th>रकम</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                   
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <a asp-action="MainSetting" class="btn btn-sm mt-3 mb-2 text-white" style="margin-left:1070px; background-color:#EDAE36;">
+                                <i class="fa fa-angle-left"></i>
+                                पछाडि फर्कनुहोस्
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $(function () { Message('@TempData["Msg"]') });
+    </script>
+}

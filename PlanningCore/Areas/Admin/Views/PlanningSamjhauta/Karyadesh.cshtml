@@ -1,0 +1,300 @@
+﻿@inject IUtility _utility
+@model PlanningSamjhautaViewModel
+@{
+	ViewData["Title"] = "Karyadesh";
+	var orgname = await _utility.GetMainSettingById(0);
+	var worktype = (Model.WorkTypeId == 1) ? "उपभोक्ता समिति" : (Model.WorkTypeId == 2) ? "टोल बिकास समिति" : "बिद्यालय ब्याबस्थापन समिति";
+	var Adakshya = Model.samitiView.samitiMemberDetaillist.Select(x => x.Adakshya).FirstOrDefault();
+	int? post = ViewBag.EmpId;
+	var pada = await _utility.GetPostById(ViewBag.PostId);
+	var employee = await _utility.GetEmpNameById(post);
+	bool isSavedData = Convert.ToBoolean(ViewBag.isSavedData);
+	
+}
+
+<style>
+	table {
+		border-collapse: collapse !important;
+		width: 80% !important;
+		border: 1px solid black !important;
+	}
+
+	.tbl {
+		font-weight: bold !important;
+	}
+
+	th, td {
+		border: 1px solid black !important;
+		padding: 8px !important;
+		text-align: center !important;
+	}
+
+	span {
+		font-weight: bold;
+	}
+
+	accordion-body1 {
+		padding: 0.5rem 1.25rem;
+	}
+
+	.printpage {
+		width: 21cm;
+		min-height: 29.7cm;
+		padding: 2cm;
+		margin: 1cm auto;
+		border: 1px #d3d3d3 solid;
+		border-radius: 5px;
+		background: #fff;
+		box-shadow: 0 0 5px rgb(0 0 0 / 10%);
+		font-family: 'kalimati regular' !important;
+	}
+
+	@@media print {
+		table {
+			border-collapse: collapse !important;
+			width: 80% !important;
+			border: 1px solid black !important;
+		}
+
+		.tbl {
+			font-weight: bold !important;
+		}
+
+		th, td {
+			border: 1px solid black !important;
+			padding: 8px !important;
+			text-align: center !important;
+		}
+	}
+
+</style>
+@if (!isSavedData)
+{
+	<div class="container pt-4 mt-4">
+		<form asp-action="@ViewData["Title"]" method="get">
+			<div class="pt-4 row">
+				<div class="col-2">
+					<label>पद</label>
+					<select name="PostId" id="PostId" asp-items="@await _utility.GetPadaList()" required class="form-control">
+						<option value="">--पद छान्नुहोस--</option>
+					</select>
+				</div>
+				<div class="col-2">
+					<label>नाम</label>
+					<select name="EmpId" id="EmpId" asp-items="@await _utility.GetEmpNameByPostId(ViewBag.PostId)" required class="form-control">
+						<option value="">--नाम छान्नुहोस--</option>
+					</select>
+				</div>
+				<div class="col-md-2 col-2">
+					<label>मिति : </label> <br />
+					<input type="text" name="PrintDate" required class="form-control PrintDate" value="@Model.PrintDate" />
+				</div>
+
+				<div class="col-2">
+					<label> </label><br />
+					<input type="submit" value="खोज्नुहोस्" class="btn btn-success" />
+				</div>
+			</div>
+		</form>
+	</div>
+}
+<div class="d-flex justify-content-end">
+	<button style="margin-top:3rem !important;" class="btn btn-primary mt-2" type="button" onClick="Print('contentToPrint')"><i class="fa fa-print" aria-hidden="true"></i> Print</button>
+</div>
+
+<div class="row" id="contentToPrint">
+	@if (!isSavedData)
+	{
+		<div class="card-body printpage">
+			<div class="printcontent">
+				<style>
+					.footerRepeat {
+						position: relative !important;
+						bottom: 0px !important
+					}
+
+					.Header {
+						position: relative !important;
+						top: 0px !important
+					}
+
+
+					@@media print {
+						.footerRepeat {
+							position: fixed !important;
+							bottom: 0px !important
+						}
+
+						.Header {
+							position: fixed !important;
+							top: 0px !important
+						}
+
+						.print-body {
+							overflow: visible; /* Ensure full content is visible during printing */
+							margin-top: 230px !important; /* Matches header height */
+							margin-bottom: 30px !important; /* Matches footer height */
+							page-break-inside: auto;
+						}
+
+						.print-body1 {
+							overflow: visible; /* Ensure full content is visible during printing */
+							margin-top: 250px !important; /* Matches header height */
+							margin-bottom: 30px !important; /* Matches footer height */
+							page-break-inside: auto;
+						}
+					}
+				</style>
+				<div class="row">
+					<div class="Header">
+						<partial name="_PrintHeader" />
+					</div>
+				</div>
+				<div class="container print-body" style="color:black;">
+					@* <div class="d-flex p-1 text-center justify-content-end align-items-center">
+						<span style="text-align:end">मिति:- @_utility.ConvertEnglishToNepali(Model.PrintDate) </span>
+					</div> *@
+					<div class="sign mt-2" style="font-weight:500; font-size:16px; line-height:12px;">
+						<p>अध्यक्ष श्री, @Model.samitiView.Adakshya </p>
+						<p>@Model.Samjhauta_Org_Name </p>
+						<p>@orgname.PalikaName @Model.YojanaWards,@orgname.DistrictName </p>
+					</div>
+					<p style="font-weight:500; font-size:16px; padding-top:15px; text-align:center !important; ">
+						<span id="reportname"> <u> बिषय- कार्यादेश दिइएको सम्बन्धमा । </u> </span>
+					</p>
+					<p style="text-indent:24px; letter-spacing:1px; line-height:25px; font-weight:500; font-size:16px; padding-top:10px; text-align:justify !important; ">
+						चालु आ ब <strong>
+							@Model.FiscalYearName
+						</strong> को लागि @orgname.PalikaTypeName
+						सभाबाट स्वीकृत बार्षिक योजना तथा कार्यक्रम अन्तर्गत <strong> @Model.WorkAreaId </strong>
+                        तर्फको  <strong>@Model.YojanaNames </strong>
+						लागि रु <strong>@_utility.ConvertEnglishToNepali(Model.Project_estimated_Amount) (@_utility.ConvertNumberToNepaliText(Model.Project_estimated_Amount.ToString())) </strong>
+						विनियोजन भएकोमा सो योजनको कार्यान्वयनका लागि उपभोक्ता
+						समितिको तर्फबाट रु <strong>@_utility.ConvertEnglishToNepali(Model.Loan_Grant) (@_utility.ConvertNumberToNepaliText(Model.Loan_Grant.ToString())) </strong>
+						लागत सहभागिता हुने गरि प्राबिधिक शाखाबाट रु <strong>@_utility.ConvertEnglishToNepali(Model.Total_Amount_Source) (@_utility.ConvertNumberToNepaliText(Model.Total_Amount_Source.ToString())) </strong>
+						को लागत अनुमान तयार भइ सो लागत अनुमान अनुसारको कार्य सम्पन्न गर्नको लागि यस कार्यालयको मिति
+						<strong>@_utility.ConvertEnglishToNepali(Model.Municipality_Manjuri_Date) </strong>को निर्णयानुसार त्यस उपभोक्ता
+						समिति र यस कार्यालय बीच सम्झौता भएकोले सम्झौताका शर्त बमोजिम कार्य संचालन गर्न सम्झौता
+						र लागत अनुमानको प्रतिलिपि यसै साथ संग्लग्न राखी यो कार्यादेश दिईएको छ। सम्झौता अनुसार मिति
+						<strong>@_utility.ConvertEnglishToNepali(Model.Project_End_Date)</strong>
+						भित्र लागत अनुमानमा उल्लेखित कार्य सम्पन्न गरि जाँचपास तथा फरफारक समेत लिनुहोला ।
+					</p>
+					<br />
+					<div class="row">
+						<div class="col-md-4 col-4 offset-8 text-center" style="line-height:10px;">
+							<p style="font-size:16px;" >.........................................</p>
+							<p style ="font-size:16px;">@employee</p>
+							<p style="font-size:16px;">@pada</p>
+						</div>
+					</div>
+					<div>
+						<p><u><b>बोधार्थ :</b></u></p>
+						<p>१. श्री आर्थिक प्रशासन शाखा, @orgname.PalikaName,@orgname.Address,@orgname.DistrictName। </p>
+						<p>२. श्री योजना तथा अनुगमन शाखा, @orgname.PalikaName,@orgname.Address,@orgname.DistrictName। </p>
+						<p> ३. श्री @Model.YojanaWards @orgname.PalikaName @orgname.Address, @orgname.DistrictName । </p>
+						@* <p>
+							@orgname.PalikaName @orgname.Address,@orgname.StateName,नेपाल ।
+						</p> *@					
+					</div>
+				</div>
+				<footer style=" width:100%; " class="footerRepeat" id="footer">
+					<partial name="_printfooter" />
+				</footer>
+			</div>
+		</div>
+	}
+</div>
+
+
+<link href="~/lib/nepalidatepicker/css/nepali.datepicker.v3.7.min.css" rel="stylesheet" />
+@section Scripts {
+	<script>
+		NepaliDatePickerCalWithClass(document.getElementsByClassName('PrintDate'))
+		</script>
+	<script>
+		
+	</script>
+
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('#PostId').val('@ViewBag.PostId');
+			$('#EmpId').val('@ViewBag.EmpId').trigger('change');
+			if ('@Model.PrintDate' != '') {
+				$('.pDate').html('@Model.PrintDate')
+			}
+		});
+	</script>
+	<script>
+		$('#PostId').change(function () {
+			$.ajax({
+				url: '@Url.Action("GetEmpNameByPostId", "Ajax", new { area = "" })',
+				type: 'GET',
+				data: { id: $(this).val() },
+				success: function (data) {
+					$('#EmpId').empty().append("<option value=''>-नाम छान्नुहोस्-</option>");
+					$.each(data, function (index, item) {
+						$('#EmpId').append(`<option value="${item.Value}">${item.Text} </option>`);
+					});
+				},
+				error: function () {
+					alert('error in calling ajax !!');
+				}
+			});
+		});
+	</script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('#fiscalId').val('@ViewBag.fiscalId').trigger('change');
+			$('#btnPrint').attr('style', "display: " + ('@ViewBag.fiscalId' != '' ? 'block' : 'none'));
+			if ('@isSavedData' === 'True') {
+				$.ajax({
+					url: '@Url.Action("GetPrintReportContent", "Ajax", new { area = "" })',
+					type: 'get',
+					data: { ReportName: '@ViewData["Title"]', PlanningSamjhautaId: '@Model.PlanningSamjhautaId' },
+					success: function (result) {
+						if (result) {
+							$('#contentToPrint').html(result);
+						}
+					},
+					error: function () {
+						alert('error in calling ajax !!')
+					}
+				});
+			}
+		});
+
+		function PrintContent(divele) {
+			var elementHTML = document.getElementById(divele).innerHTML;
+			var oldPage = document.body.innerHTML;
+			document.body.innerHTML = elementHTML;
+			window.print();
+			document.body.innerHTML = oldPage;
+			window.location.reload();
+		}
+
+		function Print() {
+			if ('@isSavedData' == 'True') {
+				PrintContent('contentToPrint')
+				return;
+			}
+			var printdata = $('#contentToPrint').html();			
+			var reportname = $('#reportname').html();
+			var planningsamjhautaid = "@Model.PlanningSamjhautaId";
+			$.ajax({
+				url: '@Url.Action("PrintReport", "Ajax", new { area = "" })',
+				type: 'post',
+				data: { PrintContent: printdata, ReportName: '@ViewData["Title"]', PlanningSamjhautaId: planningsamjhautaid },
+				success: function (result) {
+					if (result) {
+						PrintContent('contentToPrint')
+					}
+				},
+				error: function () {
+					alert('error in calling ajax !!')
+				}
+			});
+		}
+
+
+	</script>
+}

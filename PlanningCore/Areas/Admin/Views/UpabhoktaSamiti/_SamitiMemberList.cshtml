@@ -1,0 +1,129 @@
+﻿@model UpavoktaSamitiMemberDetailViewModel
+@inject IUtility _Utility
+@using HtmlHelpers.BeginCollectionItemCore;
+
+<div class="Samitidiv row new">
+    @using (Html.BeginCollectionItem("samitiMemberDetaillist"))
+    {
+        <div class="col-lg-12 col-sm-12 col-12">
+            <input asp-for="UpabhoktaSamitiMemberDetailId" class="form-control" type="hidden" />
+            <input asp-for="UpabhoktaSamitiDetailId" type="hidden" />
+        </div>
+
+        <div class="col-md-3 col-3 mt-3 ">
+
+            <label asp-for="SamitiPostId" class="control-label"></label>
+            <select asp-for="SamitiPostId" asp-items="@await _Utility.GetSamitiPadaList()" class="form-control form-control">
+                <option>--कृपया  पद छान्नुहोस--</option>
+            </select>
+            <span asp-validation-for="SamitiPostId" class="text-danger"></span>
+
+        </div>
+        <div class="col-md-3 col-3 mt-3   ">
+
+            <label asp-for="MemberName" class="control-label"></label>
+            <input asp-for="MemberName" class="form-control" />
+            <span asp-validation-for="MemberName" class="text-danger"></span>
+
+        </div>
+        <div class="col-md-3 col-3 mt-3 ">
+
+            <label asp-for="Address" class="control-label"></label>
+            <input asp-for="Address" class="form-control" />
+            <span asp-validation-for="Address" class="text-danger"></span>
+
+        </div>
+        <div class="col-md-3 col-3 mt-3 ">
+
+            <label asp-for="CitizenshipNumber" class="control-label"></label>
+            <input asp-for="CitizenshipNumber" class="form-control" required onchange="CheckSamitiPerson(this, '@Model.UpabhoktaSamitiDetailId')" />
+            <span asp-validation-for="CitizenshipNumber" class="text-danger"></span>
+        </div>
+        <div class="col-md-3 col-3 mt-3 ">
+            <label asp-for="PhoneNo" class="control-label"></label>
+            <input asp-for="PhoneNo" class="form-control" />
+            <span asp-validation-for="PhoneNo" class="text-danger"></span>
+        </div>
+        <div class="col-md-3 col-3 mt-3 ">
+            <label asp-for="DOB" class="control-label"></label>
+            <input asp-for="DOB" class="form-control NepaliDatep" />
+            <span asp-validation-for="DOB" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-3 col-3 col-2" hidden>
+            <div class="position-relative form-group">
+                <label asp-for="Age" class="control-label"></label>
+                <input asp-for="Age" class="form-control pAge" />
+                <span asp-validation-for="Age" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-3 mt-3 ">
+
+            <label asp-for="ImagePath" class="control-label fw-bold"></label>
+
+            <input type="file" asp-for="ImagePath" multiple="multiple" class="form-control"
+                   accept="image/png, image/gif, image/jpeg, application/pdf" />
+            <span asp-validation-for="ImagePath" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-3 col-3 mt-5">
+
+            <img src="@Model.PhotoPath" alt="Image Description" class="img-fluid" />
+
+        </div>
+        @* <div class="col-lg-2 col-sm-2 col-2  mt-3 ">
+
+    <label asp-for="FatherName" class="control-label"></label>
+    <input asp-for="FatherName" class="form-control" />
+    <span asp-validation-for="FatherName" class="text-danger"></span>
+
+    </div>
+    <div class="col-lg-2 col-sm-2 col-2  mt-3  ">
+
+    <label asp-for="GrandFatherName" class="control-label"></label>
+    <input asp-for="GrandFatherName" class="form-control" />
+    <span asp-validation-for="GrandFatherName" class="text-danger"></span>
+
+    </div> *@
+
+
+       
+
+        <div class="col-md-12 col-12 mt-3 ">
+
+            <button type="button" onclick="DeleteRow(this)" class="row-button btn btn-sm btn-danger btn-delete" style="float:right;"><i class="fa fa-minus"></i></button>
+
+        </div>
+    }
+</div>
+<script src="~/js/nepali-date-custom.js"></script>
+
+<script type="text/javascript">
+    NepaliDatePickerCalWithClass(document.getElementsByClassName('NepaliDatep'));
+    AgeConverterInPartialview(document.getElementsByClassName("NepaliDatep"));
+</script>
+<script>
+    $(document).ready(function () {
+        $('#checkCitizenshipButton').click(function () {
+            var citizenshipNumber = $('#citizenshipNumber').val();
+
+            $.ajax({
+                url: '/checkCitizenship',  
+                type: 'GET',
+                data: { citizenshipNumber: citizenshipNumber },
+                success: function (response) {
+                    if (response.exists) {
+                        alert("Citizenship number exists.");
+                    } else {
+                        alert("Citizenship number does not exist.");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error checking citizenship number:", error);
+                }
+            });
+        });
+    });
+
+</script>

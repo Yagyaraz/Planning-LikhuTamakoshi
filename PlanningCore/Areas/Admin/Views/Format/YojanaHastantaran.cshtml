@@ -1,0 +1,105 @@
+﻿@inject IUtility _Utility
+@model FormatViewModel
+@{
+	var headerdata = await _Utility.GetHeaderData();
+}
+
+<style>
+
+	.printpage {
+		width: 21cm;
+		min-height: 29.7cm;
+		padding: 2cm;
+		margin: 1cm auto;
+		border: 1px #d3d3d3 solid;
+		border-radius: 5px;
+		background: #fff;
+		box-shadow: 0 0 5px rgb(0 0 0 / 10%);
+		font-family: 'kalimati regular' !important;
+	}
+
+	p{
+		font-size: 18px;
+	}
+
+	.table tbody tr td{
+		height: 3rem!important;
+	}
+
+</style>
+
+<div class="d-flex justify-content-end">
+	<button class="btn btn-primary mt-5" type="button" onClick="Print('contentToPrint')"><i class="fa fa-print" aria-hidden="true"></i> Print</button>
+</div>
+<div class="row" id="contentToPrint">
+	<style>
+		p {
+			font-size: 18px;
+		}
+
+		.table tbody tr td {
+			height: 3rem !important;
+		}
+	</style>
+	<section style="page-break-after:always; padding-top:4px;">
+		<div class="container">
+			<h3 class="text-center">योजना हस्तान्त्रण फारम</h3>
+			<h5>माथि उल्लेखित सम्पन्न @Model.PlanningSamjhauta.YojanaNames योजना पछिसम्म राम्रो सँग सञ्चालन एवं मर्मत संभारको लागि निम्न अनुसारको कोष तथा योजना बनाई अगाडि बढाइनेछ ।</h5>
+			<p>१)	मर्मत संभार कोष सम्बन्धी व्यवस्था।यस योजनाको दिगो उपयोगका लागि योजनासँग सम्बद्ध संरचनाहरुको समायोजित मर्मत संभारको व्यवस्था यस उ.स. @Model.UpavoktaSamiti.Name ले गर्नेछ ।</p>
+			<p>२)	जि.स.स./न.पा. तथा अन्य निकायबाट प्राप्त रकम योजनाबाट उपलब्ध सेवा उपयोग गरेवापत उपभोक्ताहरुबाट उठाईएको रकम  जुन सुकै योजनाको हकमा तपसिल बमोजिम हुनेछ ।</p>
+			<div style="text-indent:20px;">
+				<p>क)	योजनाको उपयोग हरे वापत प्रति व्यक्ति/घरधुरीले रु............................... प्रति महिना/प्रति वर्ष समितिलाई बुझाउने रकम रुः................................................. </p>
+				<p>ख)	सिंचाई योजनाको हकमाः सिंचित क्षेत्रफल प्रति रोपनी/कठ्ठा/हेक्टर प्रति महिना/बर्ष रुः............................. का दरले उठाउने रकम रुः............................................</p>
+				<p>ग)	खानेपानी योजनाको हकमाः प्रति घरधुरी प्रति महिना रुः......................... का दरले उठाइने रकम रु..........................................</p>
+				<p>घ)	सामुदायिक भवनः</p>
+				<p>ङ)	रोड/कल्भर्ट.....................</p>
+				<p>च)	अन्य उत्पादनमूलक वा आर्थिक क्रियाकलापसँग सम्बन्धित योजना.............................</p>
+			</div>
+			<h5 class="text-center"><u>मर्मत संभार योजना</u></h5>
+			<p>१)	यो योजना बुझिलिई सकेपछि उ.स./गै.स.स./संस्था/टोल विकास संस्था.................................................... ले गाउँपालिकाको प्राविधिकको सहयोगमा एक मर्मत संभार योजना तयार गर्नेछ।सोही योजना अनुरुप नियमित मर्मत संभार कार्य जारी राख्नेछ ।</p>
+			<p>२)	नियमित मर्मत संभार गर्नका लागि यस  उ.स./गै.स.स./संस्था ले एक जना व्याक्तिलाई(ज्यालादारी वा स्वयंसेवक) लाई तोक्नेछ ।ज्यालादारीको पारिश्रमिक मासिक/वार्षिक रुः.................................................. हुनेछ ।</p>
+			<p>३)	पूर्वाधारहरुको संञ्चालन एवं समायोचित मर्मत संभारको जिम्मेवारी उपभोक्ता समितिले सेवा प्राप्त गर्ने हरुबाट  सेवा शुल्क संकलन गरि कोष खडा गर्न सक्नेछन । यसको लागि उपभोक्ता समितिले सेवा प्राप्त गर्नेबाट सेवा शुल्क संकलन गरी मर्मत संभार कोषको खाता नं............................. मा रकम जम्मा गर्नु पर्नेछ ।सो रकम मरेमतका लागि सोही आयोजनामा खर्च गर्न भुक्तानी दिनुपर्नेछ ।</p>
+			<p>४)	योजना मर्मत संभार सम्बन्धी आवश्यक परिक्षण गाउँपालिका वा अन्य निकायले उपलब्ध गराउनेछ ।</p>
+			<div class="col-md-12 col-12 d-flex" style="justify-content:space-between;">
+				<div>
+					<p>
+						.......................... <br />
+						उपभोक्ता समितिको तर्फबाट <br />
+						नामः <br />
+						पदः <br />
+						दस्तखतः
+					</p>
+				</div>
+				<div>
+					<p>
+						.......................... <br />
+						कार्यालयको तर्फबाट <br />
+						नामः <br />
+						पदः <br />
+						दस्तखतः
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+</div>
+
+<link href="~/lib/nepalidatepicker/css/nepali.datepicker.v3.7.min.css" rel="stylesheet" />
+
+@section Scripts
+{
+	<script type="text/javascript">
+		//$(function () {
+		//    $('.currentdate').html(GetNepaliCurrentDate());
+		//});
+		function Print() {
+			var elementHTML = document.getElementById('contentToPrint').innerHTML;
+			var oldPage = document.body.innerHTML;
+			document.body.innerHTML = elementHTML;
+			window.print();
+			//document.body.innerHTML = oldPage;
+			window.location.reload(true);
+		}
+	</script>
+}

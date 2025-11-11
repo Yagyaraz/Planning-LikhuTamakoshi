@@ -1,0 +1,213 @@
+﻿@model IEnumerable<YojanaSetupViewModel>
+@inject IUtility _Utility
+@inject PlanningCore.Utilities.IUtility _utility
+@{
+	ViewData["Title"] = "Index";
+	var i = 1;
+	var data = await _Utility.GetHeaderData();
+}
+<style>
+	.table thead {
+		background-color: #ccd1d9;
+		font-size: 13px;
+		line-height: 35px !important;
+	}
+
+		.table thead th {
+			font-weight: 800;
+			border: 1px solid black !important;
+			padding: 0px !important;
+		}
+
+
+	.table tbody td {
+		padding: 0px !important;
+		border: 1px solid black !important;
+		vertical-align: middle;
+	}
+
+	.table tbody tr {
+		text-align: center;
+		font-size: 12px;
+		height: 27px !important;
+	}
+
+
+
+	table.table-bordered.dataTable td {
+		padding: 0px;
+	}
+
+	table.table-bordered.dataTable th {
+		padding: 0px;
+	}
+
+	tr:nth-child(even) {
+		background-color: #e9ecef;
+	}
+
+
+	tr:hover {
+		background-color: #b3ffe6;
+	}
+
+	.oval-button {
+		border-radius: 25px;
+	}
+
+</style>
+
+<div class="page-breadcrumb colr1">
+	<div class="row">
+		<div class="col-12 d-flex no-block align-items-center">
+
+			<div class="ms-auto text-end">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="">गृह पृष्ट</a></li>
+						<li class="breadcrumb-item active" aria-current="page">
+							योजना
+						</li>
+					</ol>
+				</nav>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container-fluid colr1">
+	<div class="row">
+		<div class="col-md-12">
+			<div style=" display:flex; justify-content:space-between;">
+				<div style="display:flex;">
+					<h4 class="card1" style="background-color:#3c8dbc; color:#fff; height:40px; width:100px; padding-top:5px; text-align:center;">योजना</h4>
+					<span style="height:2rem; background-color:#3c8dbc; width:10px; height:40px;"></span>
+					<span style="height: 2rem; border-top: 17px solid transparent;border-left: 25px solid #3c8dbc;border-bottom: 22px solid transparent; height:40px;"> </span>
+				</div>
+				<div style="display:flex; gap:10px;">
+
+					<a asp-controller="Common" asp-action="InsertUpdateYojanaSetup" asp-area="Admin" class="btn btn-primary btn-sm
+                        d-flex justify-content-center align-items-center"
+					   style="height:2rem; background-color:#33b35a; border:1px solid #3ec291;">
+						<i class="fas fa-plus-circle">
+							नयाँ थप्नुहोस
+						</i>
+					</a>
+					<a asp-controller="Common" asp-action="UploadExcelRecords" asp-area="Admin" class="btn btn-primary btn-sm
+                        d-flex justify-content-center align-items-center"
+					   style="height:2rem; ">
+						<i class="fas fa-file-excel">
+							ऐेक्सल अप्लोड
+						</i>
+					</a>
+
+				</div>
+
+			</div>
+
+
+			<div class="card">
+				<div class="card-body">
+					@*   <h5 class="card-title">Basic Datatable</h5> *@
+
+					<div class="table-responsive">
+						<table id="zero_config"
+							   class="table  table-bordered" style="border-collapse: collapse!important;">
+							<thead>
+								<tr>
+									<th style="text-align:center; width:8%;"> क्र.स.</th>
+									<th style="text-align:center; width:45%;"> @Html.DisplayNameFor(model => model.YojanaName) </th>
+									<th style="text-align:center; width:15%;">  @Html.DisplayNameFor(model => model.EstimatedAmount) </th>
+									<th style="text-align:center; width:15%;"> @Html.DisplayNameFor(model => model.WardName) </th>
+									<th style="text-align:center; width:15%;">कार्य  </th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach (var item in Model)
+								{
+									<tr>
+										<td>@_utility.ConvertEnglishToNepali(i)</td>
+										<td style="text-align:start;">@Html.DisplayFor(modelItem => item.YojanaName)</td>
+										<td style="text-align:start;">@Html.DisplayFor(modelItem => item.EstimatedAmount)</td>
+										<td>
+											@if (item.WardId == 0)
+											{
+												<span> @data.PalikaTypeName-पालिका  </span>
+											}
+											@Html.DisplayFor(modelItem => item.WardName)
+										</td>
+
+										<td>
+											<a type="button" id="सच्याउनुहोस" title="Edit" class="btn btn-sm " asp-action="InsertUpdateYojanaSetup" asp-route-id="@item.YojanaSetupId">
+												<i class="fa fa-edit" style=" font-weight:1; font-size:14px;">
+												</i>
+											</a>
+											<a asp-action="DeleteYojanaSetup" title="Remove" asp-route-id="@item.YojanaSetupId" class="text-danger" onclick="return confirm('Are you sure?')"> <i class="fa fa-trash"></i> </a>
+										</td>
+
+									</tr>
+									i++;
+								}
+							</tbody>
+
+						</table>
+
+						<div class="d-flex justify-content-end">
+							<a asp-action="Setup" asp-controller="Setup" asp-area="Admin" class="btn  btn-sm mt-3 mb-2 text-white"
+							   style=" background-color:#424f63;">
+								<i class="fa fa-arrow-left" aria-hidden="true"> पछाडि फर्कनुहोस्</i>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+	<link href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css" rel="stylesheet" />
+	<link href="https://cdn.datatables.net/buttons/3.0.2/css/buttons.bootstrap5.css" rel="stylesheet" />
+	<link href="https://cdn.datatables.net/colreorder/2.0.3/css/colReorder.bootstrap5.css" rel="stylesheet" />
+	<script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+	<script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
+	<script src="https://cdn.datatables.net/buttons/3.0.2/js/dataTables.buttons.js"></script>
+	<script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.bootstrap5.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+	<script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.html5.min.js"></script>
+	<script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.print.min.js"></script>
+	<script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.colVis.min.js"></script>
+	<script src="https://cdn.datatables.net/colreorder/2.0.3/js/dataTables.colReorder.js"></script>
+@* 	<script>
+		$("#zero_config").DataTable();
+	</script> *@
+	<script>
+		$('#zero_config').DataTable({
+			//colReorder: true,
+			//lengthMenu: [5, 10, 50, 100, 500],
+			layout: {
+				topStart: {
+					buttons: [
+						
+						{
+							extend: 'excelHtml5',
+							exportOptions: {
+								columns: ':visible'
+							}
+						},
+						
+						'colvis',
+						"pageLength"
+					]
+				}
+			}
+		});
+	</script>
+	<script>
+		$(function () { Message('@TempData["Msg"]') });
+	</script>
+}

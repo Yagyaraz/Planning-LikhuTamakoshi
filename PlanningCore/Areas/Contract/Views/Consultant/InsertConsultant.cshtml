@@ -1,0 +1,361 @@
+﻿@model ConsultantViewModel
+@inject IUtility _Utility
+@{
+	ViewData["Title"] = "Index";
+}
+<style>
+	.page-title {
+		color: red;
+	}
+
+	.card-title {
+		color: red;
+	}
+
+	.oval-button {
+		border-radius: 25px;
+	}
+
+	.jvdivadd {
+		display: none;
+	}
+</style>
+
+
+
+<link href="~/lib/nepalidatepicker/css/nepali.datepicker.v3.7.min.css" rel="stylesheet" />
+
+<div class="page-breadcrumb colr1">
+	<div class="row">
+		<div class="col-12 d-flex no-block align-items-center">
+			<div style="display:flex;">
+				<h4 class="card1" style="background-color:#3c8dbc; color:#fff; height:40px; width:220px; padding-top:5px; text-align:center;">निर्माण व्यवसायी सम्बन्धि विवरण :</h4>
+				<span style="height:2rem; background-color:#3c8dbc; width:10px; height:40px;"></span>
+				<span style="height: 2rem; border-top: 17px solid transparent;border-left: 25px solid #3c8dbc;border-bottom: 22px solid transparent; height:40px;"> </span>
+			</div>
+			<div class="ms-auto text-end">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="#">गृह पृष्ट</a></li>
+						<li class="breadcrumb-item active" aria-current="page">
+							निर्माण व्यवसायी सम्बन्धि विवरण :
+						</li>
+					</ol>
+				</nav>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container-fluid colr1">
+	<div class="row">
+		<form asp-action="InsertConsultant" method="post">
+			@Html.HiddenFor(model => model.Id)
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-body row">
+						<div class="form-group mt-2 col-md-3 col-3 ">
+							<label asp-for="Name"></label>
+							<input type="text" asp-for="Name" class="form-control  border-dark">
+							<span asp-validation-for="Name" class="text-danger"></span>
+						</div>
+						<div class="form-group mt-2 col-md-3 col-3 ">
+							<label asp-for="NameEng" class="fw-bold"></label>
+							<input type="text" asp-for="NameEng" class="form-control  border-dark">
+							<span asp-validation-for="NameEng" class="text-danger"></span>
+						</div>
+						<div class="form-group mt-2 col-md-3 col-3 ">
+							<label asp-for="MobileNumber" class="fw-bold"></label>
+							<input type="text" asp-for="MobileNumber" class="form-control  border-dark">
+							<span asp-validation-for="MobileNumber" class="text-danger"></span>
+						</div>
+
+						<div class="form-group mt-2 col-md-3 col-3 ">
+							<label asp-for="EMail" class="fw-bold"></label>
+							<input type="text" asp-for="EMail" class="form-control  border-dark">
+							<span asp-validation-for="EMail" class="text-danger"></span>
+						</div>
+						<div class="form-group mt-2 col-md-3 col-3 ">
+							<label asp-for="MainPersonName"></label>
+							<input type="text" asp-for="MainPersonName" class="form-control  border-dark">
+							<span asp-validation-for="MainPersonName" class="text-danger"></span>
+						</div>
+						<div class="form-group mt-2 col-md-3 col-3 ">
+							<label asp-for="MainPersonPhoneNumber"></label>
+							<input type="text" asp-for="MainPersonPhoneNumber" class="form-control  border-dark">
+							<span asp-validation-for="MainPersonPhoneNumber" class="text-danger"></span>
+						</div>
+						<div class="form-group mt-2 col-md-3 col-3 ">
+							<label asp-for="MainPersonAddress"></label>
+							<input type="text" asp-for="MainPersonAddress" class="form-control  border-dark">
+							<span asp-validation-for="MainPersonAddress" class="text-danger"></span>
+						</div>
+						<div class="form-group mt-2 col-md-3 col-3 ">
+							<label asp-for="Registration_Number"></label>
+							<input type="text" asp-for="Registration_Number" class="form-control  border-dark">
+							<span asp-validation-for="Registration_Number" class="text-danger"></span>
+						</div>
+						<div class="form-group mt-2 col-md-3 col-3 ">
+							<label asp-for="Registration_Date"></label>
+							<input type="text" asp-for="Registration_Date" class="form-control  border-dark">
+							<span asp-validation-for="Registration_Date" class="text-danger"></span>
+						</div>
+						<div class="form-group mt-2 col-md-3 col-3 ">
+							<label asp-for="VatEndDate" class="fw-bold"></label>
+							<input type="text" asp-for="VatEndDate" class="form-control  border-dark">
+							<span asp-validation-for="VatEndDate" class="text-danger"></span>
+						</div>
+						<div class="form-group mt-2 col-md-3 col-3 ">
+							<label asp-for="EjajatNumber"></label>
+							<input type="text" asp-for="EjajatNumber" class="form-control  border-dark">
+							<span asp-validation-for="EjajatNumber" class="text-danger"></span>
+						</div>
+						<div class="form-group mt-2 col-md-3 col-3 ">
+							<label asp-for="EjajatType"></label>
+							<input type="text" asp-for="EjajatType" class="form-control  border-dark">
+							<span asp-validation-for="EjajatType" class="text-danger"></span>
+						</div>
+						<div class="form-group mt-2 col-md-3 col-3 ">
+							<label asp-for="MainPersonAddress"></label>
+							<input type="text" asp-for="MainPersonAddress" class="form-control  border-dark">
+							<span asp-validation-for="MainPersonAddress" class="text-danger"></span>
+						</div>
+
+						<div class="form-group mt-2 col-md-3 col-3 ">
+							<label asp-for="PanNumber"></label>
+							<input type="text" asp-for="PanNumber" class="form-control  border-dark">
+							<span asp-validation-for="PanNumber" class="text-danger"></span>
+						</div>
+						<div class="form-group mt-2 col-md-3 col-3 ">
+							<label asp-for="StateId" class="fw-bold"></label>
+							<select asp-for="StateId" asp-items="await _Utility.GetStateSelectListItems()" style="border-color:black" class="form-control WardId">
+								<option value="">--Please select--</option>
+							</select>
+						</div>
+						<div class="form-group mt-2 col-md-3 col-3 ">
+							<label asp-for="DistrictId" class="fw-bold"></label>
+							<select asp-for="DistrictId" asp-items="await _Utility.GetDistrictByStateId(Model.StateId)" style=" border-color:black" class="form-control WardId">
+								<option value="">--Please select--</option>
+							</select>
+						</div>
+						<div class="form-group mt-2 col-md-3 col-3 ">
+							<label asp-for="PalikaId" class="fw-bold"></label>
+							<select asp-for="PalikaId" asp-items="await _Utility.GetPalikaByDistrictId(Model.DistrictId)" style=" border-color:black" class="form-control WardId">
+								<option value="">--Please select--</option>
+							</select>
+						</div>
+						<div class="form-group  col-md-3 col-3 " style="margin-top:35px!important;">
+
+							<label asp-for="IsJV"></label>
+							<input type="checkbox" asp-for="IsJV" class="form-check-input statuscheck" />
+							<span asp-validation-for="IsJV"></span>
+						</div>
+
+						<div class="card-body row jvdivadd">
+							<button type="button" id="jvadd" class="btn  btn-sm"
+									style="background-color:green; color: #fff; width:100px!important; float: right!important;">
+								<i class="fa fa-plus-circle"> &nbsp;</i>
+								JV थप्नुहोस
+							</button>
+
+							<div class="col-lg-12 col-sm-12 col-12" id="jvdiv">
+								<div class="col-lg-12 col-sm-12 col-12">
+									@if (Model.JointVentureList.Count > 0)
+									{
+										foreach (var items in Model.JointVentureList)
+										{
+											<partial name="_CreateJointVenture.cshtml" model="@items" />
+										}
+
+									}
+								</div>
+							</div>
+
+						</div>
+						<div class="d-flex justify-content-end gap-2">
+							<button type="submit" class="btn btn-sm btn-success text-white ">
+								<i class=" fas fa-save">  </i>
+								सुरक्षित गर्नुहोस
+							</button>
+
+							<a asp-action="ConsultantIndex" asp-controller="Consultant" asp-area="Contract" class="btn  btn-sm text-white"
+							   style=" background-color:#424f63;">
+								<i class="fa fa-arrow-left" aria-hidden="true"> पछाडि फर्कनुहोस्</i>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</form>
+
+	</div>
+</div>
+
+
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+	@if (Model.IsJV == true)
+	{
+		<script>
+			$('.jvdivadd').css('display', 'flex');
+		</script>
+
+	}
+    <script>
+        NepaliDatePickerCal(document.getElementById('Registration_Date'))
+        NepaliDatePickerCal(document.getElementById('VatEndDate'))
+		NepaliDatePickerCalWithClass(document.getElementsByClassName('npDatePartial'))
+    </script>
+	<script>
+		$('#StateId').change(function () {
+			$.ajax({
+				url: '@Url.Action("GetDistrictByStateId", "Ajax", new { area = "" })',
+				type: 'GET',
+				data: { id: $(this).val() },
+				success: function (data) {
+					$('#PalikaId').empty().append("<option value=''>-न.पा/ग.पा छान्नुहोस्-</option>");
+					$('#DistrictId').empty().append("<option value=''>-जिल्ला छान्नुहोस्-</option>");
+					$.each(data, function (index, item) {
+						$('#DistrictId').append(`<option value="${item.Value}">${item.Text} </option>`);
+					});
+				},
+				error: function () {
+					alert('error in calling ajax !!');
+				}
+			});
+		});
+
+		$('#DistrictId').change(function () {
+			$.ajax({
+				url: '@Url.Action("GetPalikaByDistId", "Ajax", new { area = "" })',
+				type: 'GET',
+				data: { id: $(this).val() },
+				success: function (data) {
+					$('#PalikaId').empty().append("<option value=''>-न.पा/ग.पा छान्नुहोस्-</option>");
+					$.each(data, function (index, item) {
+						$('#PalikaId').append(`<option value="${item.Value}">${item.Text}</option>`);
+					});
+				},
+				error: function () {
+					alert('error in calling ajax !!');
+				}
+			});
+		});
+	</script>
+	<script>
+		$('#jvadd').on('click', function () {
+
+			$.ajax({
+				url: '@Url.Action("CreateJV")',
+				success: function (result) {
+					if (result) {
+						$('#jvdiv').append(result);
+					}
+				},
+				error: function () {
+					alert('error in calling ajax !!')
+				}
+			});
+		});
+	</script>
+	<script>
+		$('.statuscheck').change(function () {
+			if (this.checked) {
+				$('.jvdivadd').css('display', 'flex');
+			} else {
+				$('.jvdivadd').hide();
+
+				$('.jvdivadd input[type="text"]').val('');
+
+				$('.jvdivadd select').val('');
+			}
+		});
+	</script>
+	<script>
+		function DeleteRow(e) {
+			var confirmValue = confirm("Are you sure to delete ?");
+			if (confirmValue) {
+				$(e).closest('.new').remove();
+				$(e).closest('.jvdiv').remove();
+			}
+		}
+	</script>
+	<script>
+		$('#StateId').change(function () {
+			$.ajax({
+				url: '@Url.Action("GetDistrictByStateId", "Ajax", new { area = "" })',
+				type: 'GET',
+				data: { id: $(this).val() },
+				success: function (data) {
+					$('#PalikaId').empty().append("<option value=''>-न.पा/ग.पा छान्नुहोस्-</option>");
+					$('#DistrictId').empty().append("<option value=''>-जिल्ला छान्नुहोस्-</option>");
+					$.each(data, function (index, item) {
+
+						$('#DistrictId').append(`<option value="${item.Value}">${item.Text} </option>`);
+					});
+				},
+				error: function () {
+					alert('error in calling ajax !!');
+				}
+			});
+		});
+
+		$('#DistrictId').change(function () {
+			$.ajax({
+				url: '@Url.Action("GetPalikaByDistId", "Ajax", new { area = "" })',
+				type: 'GET',
+				data: { id: $(this).val() },
+				success: function (data) {
+					$('#PalikaId').empty().append("<option value=''>-न.पा/ग.पा छान्नुहोस्-</option>");
+					$.each(data, function (index, item) {
+						$('#PalikaId').append(`<option value="${item.Value}">${item.Text}</option>`);
+					});
+				},
+				error: function () {
+					alert('error in calling ajax !!');
+				}
+			});
+		});
+	</script>
+	<script>
+		function GetDistrict(a) {
+			$.ajax({
+				url: '@Url.Action("GetDistrictByStateId", "Ajax", new { area = "" })',
+				type: 'GET',
+				data: { id: $(a).val() },
+				success: function (data) {
+					$(a).closest('.address').find('.partialdistrict').empty().append("<option value=''>--जिल्ला छान्नुहोस्--</option>");
+					$.each(data, function (index, item) {
+						$(a).closest('.address').find('.partialdistrict').append(`<option value="${item.Value}">${item.Text}</option>`);
+					});
+					$(a).closest('.address').find('.partialpalika').empty().append("<option value=''>--न.पा/ग.पा छान्नुहोस्--</option>");
+				},
+				error: function () {
+					alert('error in calling ajax !!');
+				}
+			});
+		}
+	</script>
+	<script>
+		function GetPalika(a) {
+			
+			$.ajax({
+				url: '@Url.Action("GetPalikaByDistId", "Ajax", new { area = "" })',
+				type: 'GET',
+				data: { id: $(a).val() },
+				success: function (data) {
+					$.each(data, function (index, item) {
+						$(a).closest('.address').find('.partialpalika').append(`<option value="${item.Value}">${item.Text}</option>`);
+					});
+				},
+				error: function () {
+					alert('error in calling ajax !!');
+				}
+			});
+		}
+	</script>
+}

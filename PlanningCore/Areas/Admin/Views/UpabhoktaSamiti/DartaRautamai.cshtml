@@ -1,0 +1,201 @@
+﻿@model UpavoktaSamitiDetailViewModel
+@inject IUtility _utility
+@{
+    ViewData["Title"] = "DartaRautamai";
+    var headerData = await _utility.GetHeaderData();
+    bool isSavedData = Convert.ToBoolean(ViewBag.isSavedData);
+    int? post = ViewBag.EmpId;
+    var pada = await _utility.GetPostById(ViewBag.PostId);
+    var employee = await _utility.GetEmpNameById(post);
+}
+<link href="https://fonts.googleapis.com/css?family=Laila&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="KrishiPrintFull.css" media="print">
+@* <style>
+    #contentToPrint {
+        border-image: url('/Images/pramanpatra-border.png') 30 / 32px round !important;
+        box-sizing: border-box;
+    }
+
+    @@media print {
+        #contentToPrint {
+            border-image: url('/Images/pramanpatra-border.png') 30 / 32px round !important;
+            box-sizing: border-box;
+        }
+    }
+</style> *@
+
+@if (!isSavedData)
+{
+    <div class="container pt-4 mt-4">
+        <form asp-action="@ViewData["Title"]" method="get">
+            <div class="pt-4 row">
+                <div class="col-2">
+                    <label>पद</label>
+                    <select name="PostId" id="PostId" asp-items="@await _utility.GetPadaList()" required class="form-control">
+                        <option value="">--पद छान्नुहोस--</option>
+                    </select>
+                </div>
+                <div class="col-2">
+                    <label>नाम</label>
+                    <select name="EmpId" id="EmpId" asp-items="@await _utility.GetEmpNameByPostId(ViewBag.PostId)" required class="form-control">
+                        <option value="">--नाम छान्नुहोस--</option>
+                    </select>
+                </div>
+                <div class="col-md-2 col-2">
+                    <label>मिति : </label> <br />
+                    @*                     <input type="text" name="PrintDate" required class="form-control PrintDate" value="@Model.PrintDate" />
+ *@                     <input type="text" name="PrintDate" required class="form-control PrintDate" id="PrintDate" />
+                </div>
+
+                <div class="col-2">
+                    <label> </label><br />
+                    <input type="submit" value="खोज्नुहोस्" class="btn btn-success" />
+                </div>
+            </div>
+        </form>
+    </div>
+}
+
+<div class="random" style="margin-top:100px; margin-left:45px;">
+    <button style="float:right" class="mt-2" type="button" onClick="Print('contentToPrint')"><i class="fa fa-print" aria-hidden="true"></i> Print</button>
+    <div class="row" id="contentToPrint">
+        <div class="col-md-12" style="border-image: url('/Images/pramanpatra-border.png') 30 / 32px round !important; /*padding: 4rem 6rem;*/ box-sizing: border-box;">
+
+        @if (!isSavedData)
+        {
+            <div class="card-body printpage">
+                <div class="printcontent">
+               @*      <div class="col-md-12 col-12 mt-5 pt-4">
+                        <partial name="_PrintHeaderPramanPatra" />
+                    </div> *@
+                    <div class="container">
+                        <div style="padding-top:15px; display:flex; justify-content: space-between;">
+                            <div><img src="~/Images/NepalLogo.png" width="140" height="120" alt="invalid"></div>
+                            <div style="text-align: center; color:red">
+                                <h5>@headerData.PalikaName</h5>
+                                <h1>@headerData.Name</h1>
+                                <h3>@headerData.Address</h3>
+                                <h5>स्थाः-२०७३</h5>
+                            </div>
+                            <div></div>
+                        </div>
+                        <div style="display: flex; justify-content: center;">
+                            <p style="border: 2px solid red; font-size: 30px; text-align: center; padding: 10px; color:red;    box-shadow: -13px 9px #8b8282;"><b>गैर सरकारी संस्था/उपभोक्ता समिति दर्ता प्रमाण-पत्र</b></p>
+                        </div><br />
+                        <div style="display: flex; justify-content: space-between;">
+                            <p>दर्ता नं. <b>@Model.DartaNo</b></p>
+                            <p>मितिः-<b>@Model.PrintDate</b></p>
+                        </div>
+                        <div>
+                            <p>श्री <b>@Model.Name</b></p>
+                            <p><b>@Model.Address</b></p>
+                            <p style="text-indent: 25px;"> <b> श्री @Model.Name</b>  यस <b>@headerData.PalikaName</b> को संस्था दर्ता ऐन २०७५ को दफा ४ को उपदफा १ बमोजिम २०८० साल ११ महिना ३० गते यस कार्यालयमा दर्ता गरी यो दर्ता प्रमाण-पत्र प्रदान गरिएको छ। संस्था दर्ता ऐन २०७५ बमोजिम आफ्नो कार्य सञ्चालन गर्नुहोला।</p>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 col-4 offset-8" style="line-height:10px; text-align:center;">
+                                <p>..............................</p>
+                                <p><b>@employee</b></p>
+                                <p><b>@pada</b></p>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div style="display: flex; justify-content: space-between;">
+                            <p>Website:www.rautamaimun.gov.np</p>
+                            <p>Email:rautamairm@gmail.com,info@rautamaimun.gov.np</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        
+        </div>
+    </div>
+</div>
+
+<link href="~/lib/nepalidatepicker/css/nepali.datepicker.v3.7.min.css" rel="stylesheet" />
+
+@section Scripts {
+    <script>
+        NepaliDatePickerCalWithClass(document.getElementsByClassName('PrintDate'));
+    </script>
+    <script>
+        $(document).ready(function () {
+        if ('@Model.PrintDate' != '') {
+            $('.pDate').html('@Model.PrintDate')
+        }            if ('@isSavedData' === 'True') {
+                $.ajax({
+                    url: '@Url.Action("GetPrintReportContentUpabhokta", "Ajax", new { area = "" })',
+                    type: 'get',
+                    data: { ReportName: '@ViewData["Title"]', UpabhoktaSamitiDetailId: '@Model.UpabhoktaSamitiDetailId' },
+                    success: function (result) {
+                        if (result) {
+                            $('#contentToPrint').html(result);
+                        }
+                    },
+                    error: function () {
+                        alert('error in calling ajax !!')
+                    }
+                });
+            }
+        });
+    </script>
+    <script>
+        // function PrintDateSet() {
+        //     var value = $('#PrintDate').val();
+        //     if (value) {
+        //         $('#dateView').html(`मिति:- ${englishToNepali(value)}`)
+        //     }
+        // }
+        function PrintContent(divele) {
+            var elementHTML = document.getElementById(divele).innerHTML;
+            var oldPage = document.body.innerHTML;
+            document.body.innerHTML = elementHTML;
+            window.print();
+            document.body.innerHTML = oldPage;
+            window.location.reload();
+        }
+
+        function Print() {
+            if ('@isSavedData' == 'True') {
+                PrintContent('contentToPrint')
+                return;
+            }
+            var printdata = $('#contentToPrint').html();
+            var reportname = $('#reportname').html();
+            var upabhoktaSamitiDetailId = "@Model.UpabhoktaSamitiDetailId";
+            $.ajax({
+                url: '@Url.Action("PrintReportUpabhokta", "Ajax", new { area = "" })',
+                type: 'post',
+                data: { PrintContent: printdata, ReportName: '@ViewData["Title"]', UpabhoktaSamitiDetailId: upabhoktaSamitiDetailId },
+                success: function (result) {
+                    if (result) {
+                        PrintContent('contentToPrint')
+                    }
+                },
+                error: function () {
+                    alert('error in calling ajax !!')
+                }
+            });
+        }
+
+    </script>
+    <script>
+        $('#PostId').change(function () {
+            $.ajax({
+                url: '@Url.Action("GetEmpNameByPostId", "Ajax", new { area = "" })',
+                type: 'GET',
+                data: { id: $(this).val() },
+                success: function (data) {
+                    $('#EmpId').empty().append("<option value=''>-नाम छान्नुहोस्-</option>");
+                    $.each(data, function (index, item) {
+                        $('#EmpId').append(`<option value="${item.Value}">${item.Text} </option>`);
+                    });
+                },
+                error: function () {
+                    alert('error in calling ajax !!');
+                }
+            });
+        });
+    </script>
+}

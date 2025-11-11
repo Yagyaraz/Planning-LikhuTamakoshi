@@ -1,0 +1,140 @@
+﻿
+<style>
+
+	.col-md-2 {
+		margin-bottom: 20px;
+		text-align: center;
+	}
+
+
+	.member {
+		text-align: center;
+	}
+
+
+	.pic img {
+		border-radius: 50%;
+		border: 2px solid #ccc;
+	}
+
+
+	.member-info h4 {
+		margin-top: 10px;
+	}
+
+
+	.button {
+		width: 100%;
+		text-align: center;
+		border: 2px solid #007bff;
+		padding: 10px;
+		box-sizing: border-box;
+		cursor: pointer;
+	}
+
+
+		.button img {
+			max-width: 100%;
+			height: auto;
+		}
+
+
+			.button img[src^="https://via.placeholder.com/"] {
+			}
+
+
+		.button:hover {
+			background-color: #007bff;
+			color: #fff;
+		}
+
+			.button:hover a {
+				color: #fff;
+			}
+
+	.button {
+		height: 10rem;
+	}
+
+		.button > a {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+			align-items: center
+		}
+</style>
+
+<div container" class="m-2 pt-5 mt-5 pb-4">
+	<div container" class="m-2 pt-3 pb-4" style=" border:1px solid black;">
+		<div class="row container">
+
+			
+			<div class="col-md-2">
+				<button class="btn button">
+					<a href="@Url.Action("ThekkaKarkattiIndex", "ContractSamjhauta", new { area = "Contract" })" class="sidebar-link">
+						<img src="/Icon/tax-report.png" alt="FY">
+						<span class="hide-menu">कर-कट्टी </span>
+					</a>
+				</button>
+			</div>	
+			<div class="col-md-2">
+				<button class="btn button">
+					<a href="@Url.Action("ContractYojanaIndex", "ContractYojana", new { area = "Contract" })" class="sidebar-link">
+						<img src="/Icon/project.gif" alt="FY">
+						<span class="hide-menu">ठेक्का-योजना </span>
+					</a>
+				</button>
+			</div>
+			<div class="col-md-2">
+				<button class="btn button">
+					<a href="@Url.Action("ConsultantIndex", "Consultant", new { area = "Contract" })" class="sidebar-link">
+						<img class="p-4 pb-1" src="/Icon/Consultant.png" alt="FY">
+						<span class="hide-menu "> निर्माण व्यवसायी</span>
+					</a>
+				</button>
+			</div>
+			<div class="col-md-2">
+				<button class="btn   button">
+					<a href="@Url.Action("BidSecurityIndex", "BidSecurity", new { area = "Contract" })" class="sidebar-link">
+						<img class="pb-2" src="/Icon/Bid_Security.png" alt="FY">
+						<span class="hide-menu "> Bid Security</span>
+					</a>
+				</button>
+			</div>
+			<div class="col-md-2">
+				<button class="btn   button">
+					<a href="@Url.Action("BankGuaranteeIndex", "BankGuarantee", new { area = "Contract" })" class="sidebar-link">
+						<img class="p-4 pb-1" src="/Icon/BankGuarantee.png" alt="FY">
+						<span class="hide-menu ">BankGuarantee</span>
+					</a>
+				</button>
+			</div>
+			<div class="col-md-2">
+				<button class="btn   button">
+					<a href="@Url.Action("Index", "ContractSamjhauta", new { area = "Contract" })" class="sidebar-link">
+						<img class="pb-2" src="/Icon/bankmilankhata.jpg" alt="FY">
+						<span class="hide-menu ">ठेक्का सम्झौता</span>
+					</a>
+				</button>
+			</div>
+			<div class="col-md-2">
+				<button class="btn   button">
+					<a href="@Url.Action("Index", "ContractReport", new { area = "Contract" })" class="sidebar-link">
+						<img class="pb-2" src="/Icon/Report.png" alt="FY">
+						<span class="hide-menu ">रीपोर्ट</span>
+					</a>
+				</button>
+			</div>
+			<div class="col-md-2">
+				<button class="btn   button">
+					<a href="@Url.Action("GetAllContractReports", "ContractReport", new { area = "Contract" })" class="sidebar-link">
+						<img class="pb-2" src="/Icon/print.png" alt="FY">
+						<span class="hide-menu ">प्रिन्ट भएका रीपोर्ट </span>
+					</a>
+				</button>
+			</div>
+
+
+		</div>
+	</div>
+</div>

@@ -1,0 +1,917 @@
+﻿@model PlanningSamjhautaViewModel
+@inject IUtility _Utility
+@{
+    ViewData["Title"] = "Index";
+    var orgname = await _Utility.GetMainSettingById(0);
+    decimal marmat = 0;
+    decimal contenjency = 0;
+    int swikrit = Model.SwikritGarnePadId ?? 0;
+    int sifaris = Model.SifarisGarnePadId ?? 0;
+    int wardsifaris = Model.WardSifarishPadId ?? 0;
+    int wardswikrit = Model.WardSwikritPadId ?? 0;
+    @if (Model.TaxList.Count > 0)
+    {
+        foreach (var item in Model.TaxList)
+        {
+            Model.Contegency_Percentage = item.Kantigenci;
+            Model.MarmatSambhar_Amount = item.MarmatSambar;
+            marmat = item.MarmatSambar;
+            contenjency = item.Kantigenci;
+        }
+    }
+
+}
+
+<style>
+   .form-control {
+        height: 30px;
+        padding: 4px 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .Sign {
+        border: 1px solid #000;
+        padding: 20px;
+        margin-left: 5px;
+    }
+</style>
+<div class="page-breadcrumb colr1">
+    <div class="row">
+        <partial name="_PrintHeader" />
+        <div class="col-12 d-flex no-block align-items-center">
+            <div style="display:flex;">
+                <h4 class="card1" style="background-color:#3c8dbc; color:#fff; height:40px; width:150px; padding-top:5px; text-align:center;">योजना सम्झौता फारम</h4>
+                <span style="height:2rem; background-color:#3c8dbc; width:10px; height:40px;"></span>
+                <span style="height: 2rem; border-top: 17px solid transparent;border-left: 25px solid #3c8dbc;border-bottom: 22px solid transparent; height:40px;"> </span>
+            </div>
+            <div class="ms-auto text-end">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">गृह पृष्ट</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            योजना सम्झौता फारम
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid colr1">
+    <div class="row">
+        <form asp-action="Insertplanningsamjhauta" method="post">
+            @Html.HiddenFor(model => model.PlanningSamjhautaId)
+            @Html.HiddenFor(model => model.FiscalYearId)
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body row">
+                        <div class="form-group mt-2 col-md-3 col-3">
+                            <label asp-for="WorkTypeId"></label>
+                            <select asp-for="WorkTypeId" asp-items="@await _Utility.GetWorkType()" class="form-control select2-dropdown" required="true">
+                                <option value="">--<label asp-for="WorkTypeId"></label> --</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group  mt-2 col-md-3 col-3" style="display:none;" id="upavokta">
+                            <label asp-for="SamitiDetailId"></label>
+                            <select asp-for="SamitiDetailId" asp-items="await _Utility.GetUpaBhoktaSamitiList()" class="form-control select2-dropdown">
+                                <option value="">--<label asp-for="SamitiDetailId"></label> --</option>
+                            </select>
+                        </div>
+                        <div col-8" id="yojanaView">
+                        </div> 
+                        <div class="form-group  mt-2 col-md-8 col-8" style="display:none;" id="newtolbikash">
+                            <label asp-for="NewTolBikashSansthaId"></label><br />
+                            <select asp-for="NewTolBikashSansthaId" asp-items="await _Utility.GetNewTolBikashList()" class="form-control select2-dropdown">
+                                <option value="">--<label asp-for="NewTolBikashSansthaId"></label> --</option>
+                            </select>
+                        </div>
+                        <div class="form-group mt-2 col-md-3 col-3" id="NewTolbikashView">
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="form-group  mt-2 col-md-3 col-3" style="display:none;" id="tolBikash">
+                                <label asp-for="TolBikashSansthaId"></label>
+                                <select asp-for="TolBikashSansthaId" asp-items="await _Utility.GetTolBikashList()" class="form-control select2-dropdown" onchange="Tolbikash">
+                                    <option value="">--<label asp-for="TolBikashSansthaId"></label> --</option>
+                                </select>
+                            </div>
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="SerialNo"></label>
+                                <input type="text" asp-for="SerialNo" class="form-control" readonly >
+                                <span asp-validation-for="SerialNo" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="KharchaSirshakNo"></label>
+                                <input type="text" asp-for="KharchaSirshakNo" class="form-control">
+                                <span asp-validation-for="KharchaSirshakNo" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="BudgetSourceId"></label>
+                                <select asp-for="BudgetSourceId" asp-items="await _Utility.GetBudgetSourceList()" class="form-control select2-dropdown">
+                                    <option value="">--<label asp-for="BudgetSourceId"></label> --</option>
+                                </select>
+                                <span asp-validation-for="BudgetSourceId" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="PlanningTypeId"></label>
+                                <select asp-for="PlanningTypeId" asp-items="await _Utility.GetPlanningTypeList()" class="form-control select2-dropdown">
+                                    <option value="">--<label asp-for="BudgetSourceId"></label> --</option>
+                                </select>
+                                <span asp-validation-for="PlanningTypeId" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="Project_Objective"></label>
+                                <input type="text" asp-for="Project_Objective" class="form-control" class="form-control" />
+                                <span asp-validation-for="Project_Objective"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+
+                    <div class="card-body row">
+
+                        <strong>१. सम्झौता गर्ने पक्ष र आयोजनाः </strong>
+                        <div>
+                            <strong>(क) उपभोक्ता समिति /समुदायमा आधारीत संस्था /गैर सरकारी संस्थाको विवरण : सम्झौता गर्ने संस्थाको प्रतिनिधीको,</strong> <br />
+                        </div>
+                        <div class="row samitirepdiv">
+
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="RepresentativePostId"></label>
+                                <select id="reppost" asp-for="RepresentativePostId" class="form-control select2-dropdown">
+                                    <option>-छान्नुहोस्-</option>
+                                </select>
+                                <span asp-validation-for="Project_Objective"></span>
+                            </div>
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="RepresentativeNameId"></label>
+                                <select id="repname" asp-for="RepresentativeNameId" asp-items="await _Utility.GetUpabhoktaMemberName()" class="form-control select2-dropdown">
+                                    <option>-छान्नुहोस्-</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr />
+                    <div class="row prabidhik" style="margin-left: 17px;">
+                        <div class="form-group mt-12 col-md-12 col-3">
+                            <strong>(ग) आयोजनाको लागत अनुमानबाट भर्ने आयोजनाको प्राबिधिक विवरण:</strong>
+                        </div>
+                        <div class="row prabidhik">
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="ChettraId"></label>
+                                <select asp-for="ChettraId" asp-items="await _Utility.GetChhetraList()" class="form-control select2-dropdown">
+                                    <option value="">--<label asp-for="ChettraId"></label> --</option>
+                                </select>
+                            </div>
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="UpaChetraId"></label>
+                                <select asp-for="UpaChetraId" asp-items="await _Utility.GetUpaChhetraList()" class="form-control select2-dropdown">
+                                    <option value="">--<label asp-for="UpaChetraId"></label> --</option>
+                                </select>
+                            </div>
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="UpaChetraDetailId"></label>
+                                <select asp-for="UpaChetraDetailId" asp-items="await _Utility.GetUpaChhetraDetailsList(Model.UpaChetraDetailId)" class="form-control select2-dropdown">
+                                    <option value="">--<label asp-for="UpaChetraDetailId"></label> --</option>
+                                </select>
+                            </div>
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="UnitId"></label>
+                                <select asp-for="UnitId" asp-items="await _Utility.GeUnitList()" class="form-control select2-dropdown">
+                                    <option value="">--<label asp-for="UnitId"></label> --</option>
+                                </select>
+                            </div>
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="EsDetail"></label>
+                                <input type="text" asp-for="EsDetail" class="form-control">
+                                <span asp-validation-for="EsDetail" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+
+                    <div class="row aayojana" style="margin-left: 17px" ;>
+                        <div class="row">
+                            <div class="form-group mt-2 col-md-3 col-3 ">
+                                <label asp-for="Project_Start_Date" :-></label>
+                                <input type"text" asp-for="Project_Start_Date" class="form-control">
+                                <span asp-validation-for="Project_Start_Date"></span>
+                            </div>
+                            <div class="form-group mt-2 col-md-3 col-3 ">
+                                <label asp-for="Project_End_Date" :-></label>
+                                <input type"text" asp-for="Project_End_Date" class="form-control">
+                                <span asp-validation-for="Project_End_Date"></span>
+                            </div>
+                            <div class="form-group mt-2 col-md-3 col-3  ">
+                                <label asp-for="Municipality_Manjuri_Date" :-></label>
+                                <input type"text" asp-for="Municipality_Manjuri_Date" class="form-control" required>
+                                <span asp-validation-for="Municipality_Manjuri_Date"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row Lagat" style="margin-left: 10px;">
+                        <div class="card-body">
+                            <div><strong>(ख) लागत व्यहोर्ने श्रोतहरुः</strong> </div>
+                            <div class="form-group mt-2 col-md-3 col-3">
+
+                                <label asp-for="Project_estimated_Amount"></label>
+                                <input type="text" asp-for="Project_estimated_Amount" class="form-control" class="form-control Project_estimated_Amount" onchange="tax()" readonly />
+                                <span asp-validation-for="Project_estimated_Amount"></span>
+                            </div>
+                            <div class="row">
+                                <div class="form-group mt-2 col-md-3 col-3">
+                                    <label asp-for="Municipality"></label>
+                                    <input type="text" asp-for="Municipality" class="form-control" onchange="Sum()" />
+                                    <span asp-validation-for="Municipality"></span>
+                                </div>
+                                <div class="form-group mt-2 col-md-3 col-3">
+                                    <label asp-for="Nepal_Government"></label>
+                                    <input type="text" asp-for="Nepal_Government" class="form-control" onchange="Sum()" />
+                                    <span asp-validation-for="Nepal_Government"></span>
+                                </div>
+                                <div class="form-group mt-2 col-md-3 col-3">
+                                    <label asp-for="State"></label>
+                                    <input type="text" asp-for="State" class="form-control" onchange="Sum()" />
+                                    <span asp-validation-for="State"></span>
+                                </div>
+
+                                <div class="form-group mt-2 col-md-3 col-3">
+                                    <label asp-for="Foreign_Org"></label>
+                                    <input type="text" asp-for="Foreign_Org" class="form-control" onchange="Sum()" />
+                                    <span asp-validation-for="Foreign_Org"></span>
+                                </div>
+                                <div class="form-group mt-2 col-md-3 col-3">
+                                    <label asp-for="Loan_Grant"></label>
+                                    <input type="text" asp-for="Loan_Grant" class="form-control" onchange="Sum()" />
+                                    <span asp-validation-for="Loan_Grant"></span>
+                                </div>
+                                <div class="form-group mt-2 col-md-3 col-3">
+                                    <label asp-for="Other_Source"></label>
+                                    <input type="text" asp-for="Other_Source" class="form-control" onchange="Sum()" />
+                                    <span asp-validation-for="Other_Source"></span>
+                                </div>
+                                <div class="form-group mt-2 col-md-3 col-3">
+                                    <label asp-for="Community_Org"></label>
+                                    <input type="text" asp-for="Community_Org" class="form-control" onchange="Sum()" />
+                                    <span asp-validation-for="Community_Org"></span>
+                                </div>
+                                <div class="form-group mt-2 col-md-3 col-3">
+                                    <label asp-for="Total_Amount_Source"></label>
+                                    <input type="text" asp-for="Total_Amount_Source" class="form-control" />
+                                    <span asp-validation-for="Total_Amount_Source"></span>
+                                </div>
+
+                                @*   <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="Contegency_Amount"> कन्टेन्जेन्सि (@_Utility.ConvertEnglishToNepali(Model.Contegency_Percentage))% </label>
+                                <input type="text" asp-for="Contegency_Amount" class="form-control"  onchange="tax()" />
+                                <span asp-validation-for="Contegency_Amount"></span>
+                                </div> *@
+                                @*   <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="MarmatSambhar_Amount">मर्मत सम्भार(@_Utility.ConvertEnglishToNepali(marmat))%</label>
+                                <input type="text" asp-for="MarmatSambhar_Amount" class="form-control" onchange="tax()"/>
+                                <span asp-validation-for="MarmatSambhar_Amount"></span>
+                                </div> *@
+
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    @* 	<div class="tax">
+                    <div class="card-body row">
+
+                    <div class="form-group mt-2 col-md-3 col-3">
+                    <label asp-for="Peski_Katti"></label>
+                    <input type="text" asp-for="Peski_Katti" class="form-control" onchange="tax()" />
+                    <span asp-validation-for="Peski_Katti"></span>
+                    </div>
+
+                    </div>
+                    </div>
+                    <hr /> *@
+                    <div class="lababit">
+                        <div class="card-body">
+                            <div><strong>२. आयोजनावाट लाभान्वित हुने (प्रतिशतमा):</strong></div>
+                            <div class="row">
+                                <div class="form-group mt-2 col-md-3 col-3">
+                                    <label asp-for="Total_House"></label>
+                                    <input type="text" asp-for="Total_House" class="form-control" />
+                                    <span asp-validation-for="Total_House"></span>
+                                </div>
+                                <div class="form-group mt-2 col-md-3 col-3">
+                                    <label asp-for="Total_Male"></label>
+                                    <input type="text" asp-for="Total_Male" class="form-control" />
+                                    <span asp-validation-for="Total_Male"></span>
+                                </div>
+                                <div class="form-group mt-2 col-md-3 col-3">
+                                    <label asp-for="Total_Female"></label>
+                                    <input type="text" asp-for="Total_Female" class="form-control" />
+                                    <span asp-validation-for="Total_Female"></span>
+                                </div>
+                                <div class="form-group mt-2 col-md-3 col-3">
+                                    <label asp-for="Community"></label>
+                                    <input type="text" asp-for="Community" class="form-control" />
+                                </div>
+                                <div class="form-group mt-2 col-md-3 col-3">
+                                    <label asp-for="Other"></label>
+                                    <input type="text" asp-for="Other" class="form-control" />
+                                    <span asp-validation-for="Other"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <hr />
+                    <div class="card-body sarta">
+                        <div class="form-group mt-2 col-md-3 col-3">
+                            <label asp-for="SartaSetupId"></label>
+                            <select asp-for="SartaSetupId" asp-items="await _Utility.GetSartaList()" class="form-control select2-dropdown">
+                            </select>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="Sign row container">
+                        <div class="col-md-3 col-3 ">
+                            <p> समितिको को तर्फवाटः </p>
+                            <p>
+                                <label asp-for="RepresentativePostId"></label>
+                                <select id="signpost" asp-for="RepresentativePostId" asp-items="await _Utility.GetSamitiPadaList()" class="form-control">
+                                    <option value="">--<label asp-for="RepresentativePostId"></label> --</option>
+                                </select>
+                                <span asp-validation-for="RepresentativePostId"></span>
+                            </p>
+                            <p>
+                                <label asp-for="RepresentativeNameId"></label>
+                                <select id="signname" asp-for="RepresentativeNameId" asp-items="await _Utility.GetUpabhoktaMemberName()" class="form-control">
+                                    <option value="">--<label asp-for="RepresentativeNameId"></label> --</option>
+                                </select>
+                                <span asp-validation-for="RepresentativeNameId"></span>
+                            </p>
+                        </div>
+
+                        <div id="palika" class="col-md-9 row">
+                            <div class="col-md-6 col-6">
+                                <p>
+                                    @orgname.PalikaName को तर्फवाटः <br />
+                                    स्वीकृत गर्ने <br />
+                                </p>
+                                <p>
+                                    पदः-
+                                    <select asp-for="SwikritGarnePadId" asp-items="await _Utility.GetPadaList()" class="form-control">
+                                        <option value="">पद</option>
+                                    </select>
+                                    <span asp-validation-for="SwikritGarnePadId"></span>
+                                </p>
+                                <p>
+                                    नामः-
+                                    <select asp-for="SwikritGarneId" asp-items="await _Utility.GetEmpList()" class="form-control">
+                                        <option value="">नाम</option>
+                                    </select>
+                                    <span asp-validation-for="SwikritGarneId"></span>
+                                </p>
+                                <p>हस्ताक्षरः-</p>
+                            </div>
+                            <div class="col-md-6 col-6">
+                                <p> योजना साखाको तर्फवाटः </p>
+                                <p> सिफारीस गर्ने </p>
+                                <p>
+                                    पदः-
+                                    <select asp-for="SifarisGarnePadId" asp-items="await _Utility.GetPadaList()" class="form-control">
+                                        <option value="">पद</option>
+                                    </select>
+                                    <span asp-validation-for="SifarisGarnePadId"></span>
+
+                                </p>
+                                <p>
+                                    नामः-
+                                    <select asp-for="SifarisGarneId" asp-items="await _Utility.GetEmpList()" class="form-control">
+                                        <option value="">नाम</option>
+                                    </select>
+                                    <span asp-validation-for="SifarisGarneId"></span>
+                                </p>
+
+                                <p>हस्ताक्षरः-</p>
+                            </div>
+                        </div>
+@*                         <div id="ward" class="col-md-9 row">
+                            <div class="col-md-6 col-6">
+                                <p> वडा कार्यलयको तर्फवाटः </p>
+                                <p>
+                                    पदः-
+                                    <select asp-for="WardSifarishPadId" asp-items="await _Utility.GetPadaList()" class="form-control">
+                                        <option value="">पद</option>
+                                    </select>
+                                    <span asp-validation-for="WardSifarishPadId"></span>
+                                </p>
+                                <p>
+                                    नामः-
+                                    <select asp-for="WardSifarishId" asp-items="await _Utility.GetEmpList()" class="form-control">
+                                        <option value="">नाम</option>
+                                    </select>
+                                    <span asp-validation-for="WardSifarishId"></span>
+                                </p>
+
+                                <p>हस्ताक्षरः-</p>
+                            </div>
+                            <div class="col-md-6 col-6">
+                                <p> वडा कार्यलयको तर्फवाटः </p>
+                                <p>
+                                    पदः-
+                                    <select asp-for="WardSwikritPadId" asp-items="await _Utility.GetPadaList()" class="form-control">
+                                        <option value="">पद</option>
+                                    </select>
+                                    <span asp-validation-for="WardSwikritPadId"></span>
+
+                                </p>
+                                <p>
+                                    नामः-
+                                    <select asp-for="WardSwikritId" asp-items="await _Utility.GetEmpList()" class="form-control">
+                                        <option value="">नाम</option>
+                                    </select>
+                                    <span asp-validation-for="SifarisGarneId"></span>
+                                </p>
+
+                                <p>हस्ताक्षरः-</p>
+                            </div>
+                        </div> *@
+                        @if (User.IsInRole("Administrator") || User.IsInRole("SuperAdmin"))
+                        {
+                            <div class="form-group  col-md-3 col-3 " style="margin-top:35px!important;">
+
+                                <label asp-for="Status"></label>
+                                <input type="checkbox" asp-for="Status" class="form-check-input statuscheck" />
+                                <span asp-validation-for="Status"></span>
+                            </div>
+                        }
+
+                    </div>
+                    <div class="card-body d-flex gap-3 offset-9">
+                        <button type="submit" class="btn btn-success btn-sm text-white ">
+                            <i class="fas fa-save">  </i>
+                            सुरक्षित गर्नुहोस
+                        </button>
+                        <a asp-action="PlanningsamjhautaIndex" asp-controller="Planningsamjhauta" asp-area="Admin" class="btn  btn-sm text-white"
+                           style="background-color:#424f63;">
+                            <i class="fa fa-arrow-left" aria-hidden="true"> पछाडि फर्कनुहोस्</i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </form>
+        
+    </div>
+</div>
+
+<link href="~/lib/nepalidatepicker/css/nepali.datepicker.v3.7.min.css" rel="stylesheet" />
+
+@section Scripts {
+    <script src="~/template/assets/libs/select2/dist/css/select2.min.css" rel="stylesheet"> </script>
+    <script src="~/template/assets/libs/select2/dist/js/select2.min.js"></script>
+
+
+    <script>
+        $("#WorkTypeId").change(function () {
+            WorkTypFun();
+        });
+        function WorkTypFun() {
+            var data = $("#WorkTypeId").val();
+
+            if (parseInt(data) == 1) {
+                $("#tolBikash").hide();
+                $("#newtolbikash").hide();
+                $("#upavokta").show();
+
+                $.ajax({
+                    url: '@Url.Action("GetSamitiPost", "Ajax", new { area = "" })',
+                    type: 'GET',
+                    success: function (data) {
+                        $('#reppost').empty().append("<option value=''>-छान्नुहोस्-</option>");
+                        $.each(data, function (index, item) {
+                            $('#reppost').append(`<option value="${item.Value}">${item.Text} </option>`);
+                        });
+                        $('#signpost').empty().append("<option value=''>-छान्नुहोस्-</option>");
+                        $.each(data, function (index, item) {
+                            $('#signpost').append(`<option value="${item.Value}">${item.Text} </option>`);
+                        });
+                        $('#reppost').val('@Model.RepresentativePostId')
+                        $('#signpost').val('@Model.RepresentativePostId')
+                    },
+                    error: function () {
+                        alert('error in calling ajax !!');
+                    }
+                });
+            }
+            else if (parseInt(data) == 2) {
+
+                $("#upavokta").hide();
+                $("#newtolbikash").hide();
+                $("#tolBikash").show();
+
+                $.ajax({
+                    url: '@Url.Action("GetSchoolPost", "Ajax", new { area = "" })',
+                    type: 'GET',
+                    success: function (data) {
+                        $('#reppost').empty().append("<option value=''>-छान्नुहोस्-</option>");
+                        $.each(data, function (index, item) {
+                            $('#reppost').append(`<option value="${item.Value}">${item.Text} </option>`);
+                        });
+                        $('#signpost').empty().append("<option value=''>-छान्नुहोस्-</option>");
+                        $.each(data, function (index, item) {
+                            $('#signpost').append(`<option value="${item.Value}">${item.Text} </option>`);
+                        });
+                        $('#reppost').val('@Model.RepresentativePostId')
+                        $('#signpost').val('@Model.RepresentativePostId')
+                    },
+                    error: function () {
+                        alert('error in calling ajax !!');
+                    }
+                });
+            }
+             else if (parseInt(data) == 3) {
+
+                $("#tolBikash").hide();
+                $("#upavokta").hide();
+                $("#newtolbikash").show();
+
+                $.ajax({
+                    url: '@Url.Action("GetSamitiPost", "Ajax", new { area = "" })',
+                    type: 'GET',
+                    success: function (data) {
+                        $('#reppost').empty().append("<option value=''>-छान्नुहोस्-</option>");
+                        $.each(data, function (index, item) {
+                            $('#reppost').append(`<option value="${item.Value}">${item.Text} </option>`);
+                        });
+                        $('#signpost').empty().append("<option value=''>-छान्नुहोस्-</option>");
+                        $.each(data, function (index, item) {
+                            $('#signpost').append(`<option value="${item.Value}">${item.Text} </option>`);
+                        });
+                        $('#reppost').val('@Model.RepresentativePostId')
+                        $('#signpost').val('@Model.RepresentativePostId')
+                    },
+                    error: function () {
+                        alert('error in calling ajax !!');
+                    }
+                });
+            }
+        }
+    </script>
+    <script>
+        $('#SamitiDetailId').change(function () {
+            FunSamitiDetailId();
+        });
+        $('#TolBikashSansthaId').change(function () {
+            FunSchoolDetailId();
+
+        });
+        $('#NewTolBikashSansthaId').change(function () {
+            FunTolBikashSansthaDetailId();
+
+        });
+        function FunTolBikashSansthaDetailId(){
+            debugger;
+            $('#yojanaView').html(``)
+            $.ajax({
+                url: '@Url.Action("GetYojanaNameByNewTolBikasSansthaId", "Ajax", new { area = "" })',
+                type: 'GET',
+                data: { id: $('#NewTolBikashSansthaId').val() },
+                success: function (data) {
+                    if (data.data.length > 0) {
+                        var totalAmount = 0;
+                        $.each(data.data, function (index, item) {
+                            totalAmount += parseFloat(item.EstimatedAmount);
+                            $('#yojanaView').append(`<p class="m-0">${index + 1}. ${item.YojanaDetails}, रकम : ${item.EstimatedAmount} </p>`)
+                        });
+                        $('#Project_estimated_Amount').val(totalAmount);
+                         var est = parseFloat($('#Project_estimated_Amount').val());
+
+                        var isSuperAdmin = data.IsSuperAdmin;
+                        var isAdmin = data.IsAdmin;
+                        var isUser = data.IsUser;
+
+                        if (est > 500000 && isUser || est > 500000 && isAdmin) {
+                            $("#ward").hide();
+                            $("#palika").show();
+                        } else if (isUser && est < 500000 || isAdmin && est < 500000) {
+                            $("#ward").show();
+                            $("#palika").hide();
+                        } else if (est < 500000 && isSuperAdmin) {
+                            $("#ward").hide();
+                            $("#palika").show();
+                        } else {
+                            $("#ward").hide();
+                            $("#palika").show();
+                        }
+                    }
+
+                    // //$('#Project_estimated_Amount').val(data.EstimatedAmount);
+                    // //$('#UpaChetraId').val(data.UpaChhetraId);
+
+                    // var est = parseFloat($('#Project_estimated_Amount').val());
+                    // var cont = parseFloat($('#Contegency_Percentage').val());
+                    // var kantenjencyamount = est * (@contenjency / 100);
+                    // var marmatamt = est * (@marmat / 100);
+                    // $('#MarmatSambhar_Amount').val(marmatamt);
+                },
+                error: function () {
+                    alert('error in calling ajax !!');
+                }
+            });
+        }
+        function FunSchoolDetailId(){
+            debugger;
+            $('#yojanaView').html(``)
+            $.ajax({
+                url: '@Url.Action("GetYojanaNameByTolBikasSansthaId", "Ajax", new { area = "" })',
+                type: 'GET',
+                data: { id: $('#TolBikashSansthaId').val() },
+                success: function (data) {
+                    if (data.data.length > 0) {
+                        var totalAmount = 0;
+                        $.each(data.data, function (index, item) {
+                            totalAmount += parseFloat(item.EstimatedAmount);
+                            $('#yojanaView').append(`<p class="m-0">${index + 1}. ${item.YojanaDetails}, रकम : ${item.EstimatedAmount} </p>`)
+                        });
+                        $('#Project_estimated_Amount').val(totalAmount);
+                         var est = parseFloat($('#Project_estimated_Amount').val());
+
+                        var isSuperAdmin = data.IsSuperAdmin;
+                        var isAdmin = data.IsAdmin;
+                        var isUser = data.IsUser;
+
+                        if (est > 500000 && isUser || est > 500000 && isAdmin) {
+                            $("#ward").hide();
+                            $("#palika").show();
+                        } else if (isUser && est < 500000 || isAdmin && est < 500000) {
+                            $("#ward").show();
+                            $("#palika").hide();
+                        } else if (est < 500000 && isSuperAdmin) {
+                            $("#ward").hide();
+                            $("#palika").show();
+                        } else {
+                            $("#ward").hide();
+                            $("#palika").show();
+                        }
+                    }
+
+                    // //$('#Project_estimated_Amount').val(data.EstimatedAmount);
+                    // //$('#UpaChetraId').val(data.UpaChhetraId);
+
+                    // var est = parseFloat($('#Project_estimated_Amount').val());
+                    // var cont = parseFloat($('#Contegency_Percentage').val());
+                    // var kantenjencyamount = est * (@contenjency / 100);
+                    // var marmatamt = est * (@marmat / 100);
+                    // $('#MarmatSambhar_Amount').val(marmatamt);
+                },
+                error: function () {
+                    alert('error in calling ajax !!');
+                }
+            });
+        }
+        function FunSamitiDetailId(){
+            $('#yojanaView').html(``)
+            $.ajax({
+                url: '@Url.Action("GetYojanaNameBySamitiId", "Ajax", new { area = "" })',
+                type: 'GET',
+                data: { id: $('#SamitiDetailId').val() },
+                success: function (data) {
+                    if (data.data.length > 0) {
+                        var totalAmount = 0;
+                        $.each(data.data, function (index, item) {
+                            totalAmount += parseFloat(item.EstimatedAmount);
+                            $('#yojanaView').append(`<p class="m-0">${index + 1}. ${item.YojanaDetails}, रकम : ${item.EstimatedAmount} </p>`)
+                        });
+                        $('#Project_estimated_Amount').val(totalAmount);
+                         var est = parseFloat($('#Project_estimated_Amount').val());
+
+                        var isSuperAdmin = data.IsSuperAdmin;
+                        var isAdmin = data.IsAdmin;
+                        var isUser = data.IsUser;
+
+                        if (est > 500000 && isUser || est > 500000 && isAdmin) {
+                            $("#ward").hide();
+                            $("#palika").show();
+                        } else if (isUser && est < 500000 || isAdmin && est < 500000) {
+                            $("#ward").show();
+                            $("#palika").hide();
+                        } else if (est < 500000 && isSuperAdmin) {
+                            $("#ward").hide();
+                            $("#palika").show();
+                        } else {
+                            $("#ward").hide();
+                            $("#palika").show();
+                        }
+                    }
+
+                    // //$('#Project_estimated_Amount').val(data.EstimatedAmount);
+                    // //$('#UpaChetraId').val(data.UpaChhetraId);
+
+                    // var est = parseFloat($('#Project_estimated_Amount').val());
+                    // var cont = parseFloat($('#Contegency_Percentage').val());
+                    // var kantenjencyamount = est * (@contenjency / 100);
+                    // var marmatamt = est * (@marmat / 100);
+                    // $('#MarmatSambhar_Amount').val(marmatamt);
+                },
+                error: function () {
+                    alert('error in calling ajax !!');
+                }
+            });
+        }
+
+    </script>
+    <script>
+        NepaliDatePickerCal(document.getElementById('Project_Start_Date'))
+        NepaliDatePickerCal(document.getElementById('Project_End_Date'))
+        NepaliDatePickerCal(document.getElementById('Municipality_Manjuri_Date'))
+    </script>
+    <script>
+        $('#SifarisGarnePadId').change(function () {
+            $.ajax({
+                url: '@Url.Action("GetEmpNameByPostId", "Ajax", new { area = "" })',
+                type: 'GET',
+                data: { id: $(this).val() },
+                success: function (data) {
+                    $('#SifarisGarneId').empty().append("<option value=''>-नाम छान्नुहोस्-</option>");
+                    $.each(data, function (index, item) {
+                        $('#SifarisGarneId').append(`<option value="${item.Value}">${item.Text} </option>`);
+                    });
+                },
+                error: function () {
+                    alert('error in calling ajax !!');
+                }
+            });
+        });
+    </script>
+    <script>
+        $('#SwikritGarnePadId').change(function () {
+            $.ajax({
+                url: '@Url.Action("GetEmpNameByPostId", "Ajax", new { area = "" })',
+                type: 'GET',
+                data: { id: $(this).val() },
+                success: function (data) {
+                    $('#SwikritGarneId').empty().append("<option value=''>-नाम छान्नुहोस्-</option>");
+                    $.each(data, function (index, item) {
+                        $('#SwikritGarneId').append(`<option value="${item.Value}">${item.Text} </option>`);
+                    });
+                },
+                error: function () {
+                    alert('error in calling ajax !!');
+                }
+            });
+        });
+    </script>
+    <script>
+        function Sum() {
+            var Mun = parseFloat($('#Municipality').val());
+            var Nep = parseFloat($('#Nepal_Government').val());
+            var Pradesh = parseFloat($('#State').val());
+            var Forgain = parseFloat($('#Foreign_Org').val());
+            var Other = parseFloat($('#Other_Source').val());
+            var Com = parseFloat($('#Community_Org').val());
+            var loan = parseFloat($('#Loan_Grant').val());
+            var totalamt = Mun + Nep + Pradesh + Forgain + Other + Com + loan;
+            $('#Total_Amount_Source').val(totalamt);
+
+        }
+    </script>
+    <script>
+        $('#reppost').change(function () {
+            debugger;
+            var workId = $("#WorkTypeId").val();
+            if(workId == 1){
+                var samitiId = $("#SamitiDetailId").val();
+                $.ajax({
+                    // url: '@Url.Action("Getdata", "Ajax", new { area = "" })',
+                    url: '@Url.Action("GetEmpNameBySamitiPostId", "Ajax", new { area = "" })',
+                    type: 'GET',
+                    data: { id: $(this).val(), samitiId: samitiId },
+                    success: function (data) {
+                        $('#repname').empty().append("<option value=''>-नाम छान्नुहोस्-</option>");
+                        $.each(data, function (index, item) {
+                            $('#repname').append(`<option value="${item.Value}">${item.Text} </option>`);
+                        });
+                    },
+                    error: function () {
+                        alert('error in calling ajax !!');
+                    }
+                });
+            }
+            else if(workId == 2){
+                var schoolId = $("#TolBikashSansthaId").val();
+                $.ajax({
+                    // url: '@Url.Action("Getdata", "Ajax", new { area = "" })',
+                    url: '@Url.Action("GetEmpNameBySchoolPostId", "Ajax", new { area = "" })',
+                    type: 'GET',
+                    data: { id: $(this).val(), samitiId: schoolId },
+                    success: function (data) {
+                        $('#repname').empty().append("<option value=''>-नाम छान्नुहोस्-</option>");
+                        $.each(data, function (index, item) {
+                            $('#repname').append(`<option value="${item.Value}">${item.Text} </option>`);
+                        });
+                    },
+                    error: function () {
+                        alert('error in calling ajax !!');
+                    }
+                });
+            }
+            else if(workId == 3){
+                var tolBikashId = $("#NewTolBikashSansthaId").val();
+                $.ajax({
+                    // url: '@Url.Action("Getdata", "Ajax", new { area = "" })',
+                    url: '@Url.Action("GetEmpNameByTolBikashPostId", "Ajax", new { area = "" })',
+                    type: 'GET',
+                    data: { id: $(this).val(), samitiId: tolBikashId },
+                    success: function (data) {
+                        $('#repname').empty().append("<option value=''>-नाम छान्नुहोस्-</option>");
+                        $.each(data, function (index, item) {
+                            $('#repname').append(`<option value="${item.Value}">${item.Text} </option>`);
+                        });
+                    },
+                    error: function () {
+                        alert('error in calling ajax !!');
+                    }
+                });
+            }
+        });
+    </script>
+    <script>
+        document.getElementById('reppost').onchange = function () {
+            const c = document.getElementById('signpost');
+            const selectedOption = this.options[this.selectedIndex];
+            signpost.add(new Option(selectedOption.text, selectedOption.value));
+            signpost.value = selectedOption.value;
+        };
+    </script>
+    <script>
+        document.getElementById('repname').onchange = function () {
+            const d = document.getElementById('signname');
+            const selectedOption = this.options[this.selectedIndex];
+            signname.add(new Option(selectedOption.text, selectedOption.value));
+            signname.value = selectedOption.value;
+        };
+    </script>
+    <script>
+        $('#ChettraId').change(function () {
+            $.ajax({
+                url: '@Url.Action("GetUpachhetraByCheetraId", "Ajax", new { area = "" })',
+                type: 'GET',
+                data: { id: $(this).val() },
+                success: function (data) {
+                    $('#UpaChetraId').empty().append("<option value=''>-नाम छान्नुहोस्-</option>");
+                    $.each(data, function (index, item) {
+                        $('#UpaChetraId').append(`<option value="${item.Value}">${item.Text} </option>`);
+                    });
+                },
+                error: function () {
+                    alert('error in calling ajax !!');
+                }
+            });
+        });
+        $('#UpaChetraId').change(function () {
+            $.ajax({
+                url: '@Url.Action("GetUpachhetraDetailsByUpachhetraId", "Ajax", new { area = "" })',
+                type: 'GET',
+                data: { id: $(this).val() },
+                success: function (data) {
+                    $('#UpaChetraDetailId').empty().append("<option value=''>-नाम छान्नुहोस्-</option>");
+                    $.each(data, function (index, item) {
+                        $('#UpaChetraDetailId').append(`<option value="${item.Value}">${item.Text} </option>`);
+                    });
+                },
+                error: function () {
+                    alert('error in calling ajax !!');
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            WorkTypFun();
+            FunSamitiDetailId();
+            $('.select2-dropdown').select2();
+            var SwikritId = @swikrit;
+            var SifarisId = @sifaris;
+            var WardSifarishPadId = @wardsifaris;
+            var WardSwikritPadId = @wardswikrit;
+            if (SwikritId > 0 || SifarisId > 0) {
+                $("#ward").hide();
+                $("#palika").show();
+            }
+            else if (WardSifarishPadId > 0 || WardSwikritPadId > 0) {
+                $("#ward").show();
+                $("#palika").hide();
+            }
+            else {
+                $("#ward").show();
+                $("#palika").show();
+            }
+
+        });
+    </script>
+
+}       

@@ -1,0 +1,140 @@
+﻿@model PlanningAnusuchi3ViewModel
+@inject IUtility _Utility
+@{
+	ViewData["Title"] = "Index";
+	<style>
+		.page-title {
+			color: red;
+		}
+
+		.card-title {
+			color: red;
+		}
+
+		.oval-button {
+			border-radius: 25px;
+		}
+	</style>
+
+}
+
+<link href="~/lib/nepalidatepicker/css/nepali.datepicker.v3.7.min.css" rel="stylesheet" />
+
+<div class="page-breadcrumb">
+	<div class="row">
+		<div class="col-12 d-flex no-block align-items-center">
+			<h4 class="page-title"><u> क्षेत्र सम्बन्धि विवरण : </u> </h4>
+			<div class="ms-auto text-end">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="#">गृह पृष्ट</a></li>
+						<li class="breadcrumb-item active" aria-current="page">
+							क्षेत्र सम्बन्धि विवरण :
+						</li>
+					</ol>
+				</nav>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container-fluid">
+	<div class="row">
+		<form asp-action="InsertUpdateAnusuchi3" method="post">
+			@Html.HiddenFor(model => model.Anusuchi3Id)
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-body row">
+						<div class="form-group mt-3 col-md-4 col-4 ">
+							<label asp-for="ProjectName" style=" font-size:14px;"></label>
+							<input type="text" asp-for="ProjectName" class="form-control  border-dark" style="width:250px;">
+							<span asp-validation-for="ProjectName" class="text-danger"></span>
+						</div>
+						<div class="form-group mt-3 col-md-4 col-4 ">
+							<label asp-for="ProjectPlace" style=" font-size:14px;"></label>
+							<input type="text" asp-for="ProjectPlace" class="form-control  border-dark" style="width:250px;">
+							<span asp-validation-for="ProjectPlace" class="text-danger"></span>
+						</div>
+						<div class="form-group mt-3 col-md-4 col-4 ">
+							<label asp-for="EstimatedAmount" style=" font-size:14px;"></label>
+							<input type="text" asp-for="EstimatedAmount" class="form-control  border-dark" style="width:250px;">
+							<span asp-validation-for="EstimatedAmount" class="text-danger"></span>
+						</div>
+						<div class="form-group mt-3 col-md-4 col-4 ">
+							<label asp-for="ProjectStartDate_Nep" style=" font-size:14px;"></label>
+							<input type="text" asp-for="ProjectStartDate_Nep" class="form-control  border-dark" style="width:250px;">
+							<span asp-validation-for="ProjectStartDate_Nep" class="text-danger"></span>
+						</div>
+						<div class="form-group mt-3 col-md-4 col-4 ">
+							<label asp-for="ProjectEndDate_Nep" style=" font-size:14px;"></label>
+							<input type="text" asp-for="ProjectEndDate_Nep" class="form-control  border-dark" style="width:250px;">
+							<span asp-validation-for="ProjectEndDate_Nep" class="text-danger"></span>
+						</div>
+						<div class="form-group mt-3 col-md-4 col-4 ">
+							<label asp-for="UpabhoktaSamitiName" style=" font-size:14px;"></label>
+							<input type="text" asp-for="UpabhoktaSamitiName" class="form-control  border-dark" style="width:250px;">
+							<span asp-validation-for="UpabhoktaSamitiName" class="text-danger"></span>
+						</div>
+						<div class="form-group mt-3 col-md-4 col-4 ">
+							<label asp-for="AdakshyaName" style=" font-size:14px;"></label>
+							<input type="text" asp-for="AdakshyaName" class="form-control  border-dark" style="width:250px;">
+							<span asp-validation-for="AdakshyaName" class="text-danger"></span>
+						</div>
+						<div class="form-group mt-3 col-md-4 col-4 ">
+							<label asp-for="TotalBenificialNo" style=" font-size:14px;"></label>
+							<input type="text" asp-for="TotalBenificialNo" class="form-control  border-dark" style="width:250px;">
+							<span asp-validation-for="TotalBenificialNo" class="text-danger"></span>
+						</div>
+						<div class="form-group mt-3 col-md-4 col-4 ">
+							<label asp-for="TotalMember" style=" font-size:14px;"></label>
+							<input type="text" asp-for="TotalMember" class="form-control  border-dark" style="width:250px;">
+							<span asp-validation-for="TotalMember" class="text-danger"></span>
+						</div>
+						<div class="form-group mt-3 col-md-4 col-4 ">
+							<label asp-for="TotalMaleNo" style=" font-size:14px;"></label>
+							<input type="text" asp-for="TotalMaleNo" class="form-control  border-dark" style="width:250px;">
+							<span asp-validation-for="TotalMaleNo" class="text-danger"></span>
+						</div>
+						<div class="form-group mt-3 col-md-4 col-4 ">
+							<label asp-for="TotalFemaleNo" style=" font-size:14px;"></label>
+							<input type="text" asp-for="TotalFemaleNo" class="form-control  border-dark" style="width:250px;">
+							<span asp-validation-for="TotalFemaleNo" class="text-danger"></span>
+						</div>
+						<div class="form-group mt-3 col-md-4 col-4 ">
+							<label asp-for="RohabarDate" style=" font-size:14px;"></label>
+							<input type="text" asp-for="RohabarDate" class="form-control  border-dark" style="width:250px;">
+							<span asp-validation-for="RohabarDate" class="text-danger"></span>
+						</div>
+						<div class="form-group mt-3 col-md-4 col-4 ">
+							<label asp-for="RohabarPostion" style=" font-size:14px;"></label>
+							<input type="text" asp-for="RohabarPostion" class="form-control  border-dark" style="width:250px;">
+							<span asp-validation-for="RohabarPostion" class="text-danger"></span>
+						</div>
+						<div class="form-group mt-3 col-md-4 col-4 ">
+							<label asp-for="RohabarName" style=" font-size:14px;"></label>
+							<input type="text" asp-for="RohabarName" class="form-control  border-dark" style="width:250px;">
+							<span asp-validation-for="RohabarName" class="text-danger"></span>
+						</div>
+						<div>
+							<button type="submit" class="btn btn-sm btn-success text-white ">
+								<i class=" fas fa-save">  </i>
+								सुरक्षित गर्नुहोस
+							</button>
+
+
+
+							<a asp-action="MainSetting" class="btn  btn-sm  text-white"
+							   style="background-color:#EDAE36;">
+								<i class="fa fa-angle-left"></i>
+								पछाडि फर्कनुहोस्
+							</a>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+		</form>
+
+	</div>
+</div>

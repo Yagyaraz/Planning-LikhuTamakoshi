@@ -1,0 +1,389 @@
+﻿@inject IUtility _Utility
+@model PlanningSamjhautaViewModel
+@{
+    var orgname = await _Utility.GetMainSettingById(0);
+    var worktype = (Model.WorkTypeId == 1) ? "उपभोक्ता समिति" : (Model.WorkTypeId == 2) ? "टोल बिकास समिति" : "विद्यालय व्यवस्थापन समिति";
+    var polulation = Model.Total_Female + Model.Total_Male;
+}
+<style>
+    table {
+        border-collapse: collapse !important;
+        width: 80% !important;
+        border: 1px solid black !important;
+    }
+
+    .tbl {
+        font-weight: bold !important;
+    }
+
+    th, td {
+        border: 1px solid black !important;
+        padding: 8px !important;
+        text-align: center !important;
+    }
+
+    span {
+        font-weight: bold;
+    }
+
+    accordion-body1 {
+        padding: 0.5rem 1.25rem;
+    }
+
+    .printpage {
+        width: 21cm;
+        min-height: 29.7cm;
+        padding: 2cm;
+        margin: 1cm auto;
+        border: 1px #d3d3d3 solid;
+        border-radius: 5px;
+        background: #fff;
+        box-shadow: 0 0 5px rgb(0 0 0 / 10%);
+        font-family: 'kalimati regular' !important;
+    }
+
+    @@media print {
+        table {
+            border-collapse: collapse !important;
+            width: 80% !important;
+            border: 1px solid black !important;
+        }
+
+        .tbl {
+            font-weight: bold !important;
+        }
+
+        th, td {
+            border: 1px solid black !important;
+            padding: 8px !important;
+            text-align: center !important;
+        }
+   
+    }
+
+</style>
+
+<div class="container mt-3">
+    <div class="text-end pt-3">
+        <button class="btn btn-primary mt-3 " type="button" onClick="Print('contentToPrint')">
+            <i class="fa fa-print" aria-hidden="true"></i> Print
+        </button>
+    </div>
+    <div class="row" id="contentToPrint">
+        <div class="card-body printpage">
+            <div class="printcontent">
+                <style>
+                    .footerRepeat {
+                        position: relative!important;
+                        bottom: 0px!important
+                    }
+
+                    .Header {
+                        position: relative !important;
+                        top: 0px !important
+                    }
+
+
+                    @@media print{
+                        .footerRepeat {
+                            position: fixed !important;
+                            bottom: 0px !important
+                        }
+
+                        .Header {
+                            position: fixed !important;
+                            top: 0px !important
+                        }
+
+                        .print-body {
+                            overflow: visible; /* Ensure full content is visible during printing */
+                            margin-top: 230px !important; /* Matches header height */
+                            margin-bottom: 30px !important; /* Matches footer height */
+                            page-break-inside: auto;
+                        }
+
+                        .print-body1 {
+                            overflow: visible; /* Ensure full content is visible during printing */
+                            margin-top: 250px !important; /* Matches header height */
+                            margin-bottom: 30px !important; /* Matches footer height */
+                            page-break-inside: auto;
+                        }
+                    }      
+                </style>
+                <div class="row">
+                    <div class="Header mt-1">
+                        <partial name="_PrintHeaderTippaniAndSamjhautapatrta" />
+                    </div>
+
+                </div>
+
+                <div class="row print-body">
+                    <div class="container" style="color:black;">
+                        <div class="point-zero">
+                            <div class="d-flex justify-content-center" style="margin-top:10px;">
+                                <span style="text-decoration:underline"> विषय: <span id="reportname"> @orgname.PalikaName र  @worktype बीचको सम्झौता ।</span></span>
+                            </div>
+@*                             <div class="d-flex justify-content-end">
+                                <span style="font-size:13px;">सम्झौता मितिः- @_Utility.ConvertEnglishToNepali(Model.Municipality_Manjuri_Date)</span>
+                            </div> *@
+                            <div class="d-flex justify-content-center">
+                                <span> <label asp-for="FiscalYearName"></label>: @Model.FiscalYearName</span>
+                            </div>
+                            <div class="d-flex justify-content-start">
+                                <span><label asp-for="Samjhauta_Org_Name"></label>:  @Model.Samjhauta_Org_Name</span>
+                            </div>
+                        </div>
+                        <div class"point1">
+                            <div class="d-flex justify-content-start">
+                                <span>१. सम्झौता गर्ने पक्ष र आयोजनाः</span>
+                            </div>
+                            <div class="accordion-body1" style="margin-left: 22px;">
+                                <span>(क) उपभोक्ता समिति /समुदायमा आधारीत संस्था /गैर सरकारी संस्थाको विवरण : सम्झौता गर्ने संस्थाको प्रतिनिधीको, </span>
+                                <div class="accordion-body1" style="margin-left:24px;">
+                                    <div class="d-flex justify-content-start">
+                                        <span>१. नामः- @Model.RepresentativeName </span>
+                                    </div>
+                                    <div class="d-flex justify-content-start">
+                                        <span>२. पदः- @Model.RepresentativeDesignition </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-body1" style="margin-left: 22px;">
+                                <span>   (ख) आयोजनाको विवरणः </span>
+                                <div class="accordion-body1" style="margin-left:24px;">
+                                    <div class="d-flex justify-content-start">
+                                        <span>१. नामः- @Model.YojanaNames </span>
+                                    </div>
+                                    <div class="d-flex justify-content-start">
+                                        <span>२.ठेगाना- @Model.YojanaAddress </span>
+                                    </div>
+                                    <div class="d-flex justify-content-start">
+                                        <span>३.वडा नं.:- @Model.YojanaWards </span>
+                                    </div>
+                                    <div class="d-flex justify-content-start">
+                                        <span>४. उदेश्य:- @Model.Project_Objective </span>
+                                    </div>
+                                    <div class="d-flex justify-content-start">
+                                        <span> ५. बजेट स्रोत:  @Model.BudgetSourceName</span>
+                                    </div>
+                                    <div class="d-flex justify-content-start">
+                                        <span>६.आयोजना स्वीकृत गर्ने निकायः @orgname.PalikaName </span>
+                                    </div>
+                                    <div class="d-flex justify-content-start">
+                                        <span>७.आयोजना शुरु हुने मितिः- @_Utility.ConvertEnglishToNepali(Model.Project_Start_Date) </span>
+                                    </div>
+                                    <div class="d-flex justify-content-start">
+                                        <span>८.आयोजना सम्पन्न हुने मितिः- @_Utility.ConvertEnglishToNepali(Model.Project_End_Date) </span>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="accordion-body1" style="margin-left: 23px;">
+                                <div class="d-flex justify-content-start">
+                                    <span> (ग)लागत व्यहोर्ने श्रोतहरुः </span>
+                                </div>
+                                <div class="accordion-body1" style="margin-left:24px;">
+                                    <div class="d-flex justify-content-start">
+                                        <span> विनियोजित रकम रुः @_Utility.ConvertEnglishToNepali(Model.Project_estimated_Amount) </span>
+                                    </div>
+                                    <div class="d-flex justify-content-start">
+                                        <span> १.संघ बाट रु. - @_Utility.ConvertEnglishToNepali(Model.Nepal_Government) </span>
+                                    </div>
+                                    <div class="d-flex justify-content-start">
+                                        <span> २.प्रदेश बाट रु.  - @_Utility.ConvertEnglishToNepali(Model.State) </span>
+                                    </div>
+                                    <div class="d-flex justify-content-start">
+                                        <span> ३.कार्यालय बाट  रु. - @_Utility.ConvertEnglishToNepali(Model.Municipality) </span>
+                                    </div>
+                                    <div class="d-flex justify-content-start">
+                                        <span> ४.उपभोक्ता समितिबाट नगद रु. - @_Utility.ConvertEnglishToNepali(Model.Public_Community) </span>
+                                    </div>
+                                    <div class="d-flex justify-content-start">
+                                        <span>  ५.गैर सरकारी संघ संस्थाबाट  रु. - @_Utility.ConvertEnglishToNepali(Model.NGO_INGO) </span>
+                                    </div>
+                                    <div class="d-flex justify-content-start">
+                                        <span> ६.विदेशी दातृ संघ संस्थाबाट रु. - @_Utility.ConvertEnglishToNepali(Model.Foreign_Org) </span>
+                                    </div>
+                                    <div class="d-flex justify-content-start">
+                                        <span> ७.समुदायमा आधारित संस्थाबाट रु. - @_Utility.ConvertEnglishToNepali(Model.Community_Org) </span>
+                                    </div>
+                                    <div class="d-flex justify-content-start">
+                                        <span> ८.श्रमदान बाट रु. - @_Utility.ConvertEnglishToNepali(Model.Loan_Grant) </span>
+                                    </div>
+                                    <div class="d-flex justify-content-start">
+                                        <span> ९. अन्यबाट रु. - @_Utility.ConvertEnglishToNepali(Model.Other_Source) </span>
+                                    </div>
+                                    <div class="d-flex justify-content-start">
+                                        <span> &nbsp; &nbsp; &nbsp; &nbsp; जम्मा लागत अनुमान .  @_Utility.ConvertEnglishToNepali(Model.Total_Amount_Source)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="point2">
+                            <div class="d-flex justify-content-start">
+                                <span>२. आयोजनावाट लाभान्वित हुने :</span>
+                            </div>
+                            <div class="accordion-body1" style="margin-left: 22px;">
+                                <div class="accordion-body1" style="margin-left: 24px;">
+                                    <div class="d-flex justify-content-start">
+                                        <span> १. घरपरिवार संख्याः @_Utility.ConvertEnglishToNepali(Model.Total_House) </span>
+                                    </div>
+                                    <div class="d-flex justify-content-start">
+                                        <span> २. जनसंख्याः- @_Utility.ConvertEnglishToNepali(polulation)  </span>
+                                    </div>
+                                    <div class="d-flex justify-content-start">
+                                        <span> ३. संगठित संस्था:- @Model.Community </span>
+                                    </div>
+                                    <div class="d-flex justify-content-start">
+                                        <span> ४. अन्यः- @Model.Other </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="point3 print-body1">
+                            <div class="d-flex justify-content-start">
+                                <span style="page-break-before:always">३. उपभोक्ता समिति /गैर सरकारी संस्था /समुदायमा आधारीत संस्था सम्बन्धी विवरण :</span>
+                            </div><br />
+                            <div class="accordion-body1" style="margin-left: 22px;">
+                                <div class="accordion-body1" style="margin-left: 24px;">
+                                    @{
+                                        var i = 1;
+                                    }
+                                    <table class="table table-bordered border-dark" style="color:black;">
+                                        <tr class="tbl">
+                                            <td>क्र.सं.</td>
+                                            <td>नाम</td>
+                                            <td>पद</td>
+                                            <td>ठेगाना</td>
+                                            <td>नागरिकता नं</td>
+                                            <td>सम्पर्क नं.</td>
+                                        </tr>
+                                        @foreach (var item in Model.samitiView.samitiMemberDetaillist)
+                                        {
+                                            <tr>
+                                                <td>@_Utility.ConvertEnglishToNepali(i)</td>
+                                                <td>@item.MemberName</td>
+                                                <td>@item.PadaName</td>
+                                                <td>@item.Address</td>
+                                                <td>
+                                                    @_Utility.ConvertEnglishToNepali(item.CitizenshipNumber)
+                                                </td>
+                                                <td>@item.PhoneNo</td>
+                                            </tr>
+                                            i++;
+                                        }
+                                    </table>
+                                    &nbsp; <br />
+                                    (ग) समिति गठन गर्दा उपस्थित लाभान्वितको संख्या : @_Utility.ConvertEnglishToNepali(Model.samitiView.Beneficiaries_Attendance) <br />
+                                    (घ) समिति गठन गर्दा अनुपस्थित लाभान्वितको संख्या :@_Utility.ConvertEnglishToNepali(Model.samitiView.Beneficiaries_Absent)   <br />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="point5 print-body1" style="page-break-before:always">
+                            <div class="d-flex justify-content-center mt-4"> <u><span>सम्झौताका शर्तहरुः</span> </u> </div>
+                            <div class="d-flex justify-content-start">
+                                <span>उपभोक्ता समितिको जिम्मेवारी तथा पालना गरिने शर्तहरु:-</span>
+                            </div>
+                            <div class="accordion-body1" style="margin-left: 24px;">
+                                @Html.Raw(Model.SartaDiscription
+                                         .Replace("startdate", Model.Project_Start_Date)
+                                         .Replace("enddate", Model.Project_End_Date))
+                            </div>
+
+                        </div>
+                        <div class="d-flex justify-content-center"> <u><span>उपयुक्त बमोजिम सम्झौता गर्न हामी मञ्जुर छौ ।</span> </u> </div><br />
+
+                        <div class="Sign  container d-flex"  style="line-height:15px;justify-content:space-around;">
+                            <div >
+                                <p><b>@worktype को तर्फवाटः</b> </p>
+                                <p>नामः-@Model.RepresentativeName </p>
+                                <p>पदः-@Model.RepresentativeDesignition </p>
+                                <p>हस्ताक्षरः-</p>
+                            </div>
+                            @if(Model.SifarisGarneId !=null)
+                            {
+                                <div >
+                                    <p> <b>योजना शाखाको तर्फवाटः</b> </p>
+                                    <p>नामः-@Model.SifarishGarneName </p>
+                                    <p>पदः-@Model.SifarishGarnePost</p>
+                                    <p>हस्ताक्षरः-</p>
+                                </div>
+                                <div >
+                                        <p><b>@orgname.PalikaName को तर्फवाटः</b></p>
+                                        <p>नामः-@Model.SwikritGarneName </p>
+                                        <p>पदः-@Model.SwikritGarnePost</p>
+                                        <p>हस्ताक्षरः-</p>
+                                 
+                                </div>
+                            }
+                            
+                           @*  @if(Model.WardSifarishId != null)
+                            {
+                                <div class="col-md-3 col-3 offset-1 mt-1">
+                                    <p><b>वडा कार्यलयको तर्फवाटः</b>  </p>
+                                    <p>नामः-@Model.WardSwikitPost </p>
+                                    <p>पदः-@Model.WardSwikritName</p>
+                                    <p>हस्ताक्षरः-</p>
+                                </div>
+                                <div class="col-md-4 col-4 mt-1">
+                                    <p><b>वडा कार्यलयको तर्फवाटः</b>  </p>
+                                    <p>नामः-@Model.WardSifarishPost </p>
+                                    <p>पदः-@Model.WardSifarishName</p>
+                                    <p>हस्ताक्षरः-</p>
+                                </div>
+                            } *@
+                       
+                        </div>
+                    </div>
+                    
+                </div>
+                <footer style=" width:100%; " class="footerRepeat" id="footer">
+                    <partial name="_printfooter" />
+                </footer>
+            </div>
+        </div>
+        @* <footer style="position:relative; bottom:0;">
+            <partial name="_printfooter" />
+        </footer> *@
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function Print(divele) {
+            var elementHTML = document.getElementById(divele).innerHTML;
+            var oldPage = document.body.innerHTML;
+            document.body.innerHTML = elementHTML;
+            window.print();
+            document.body.innerHTML = oldPage;
+        }
+    </script>
+    <script>
+        function Print() {
+            debugger;
+            var printdata = $('#contentToPrint').html();
+            var reportname = $('#reportname').html();
+            var planningsamjhautaid = "@Model.PlanningSamjhautaId";
+            $.ajax({
+                url: '@Url.Action("PrintReport", "Ajax", new { area = "" })',
+                type: 'post',
+                data: { PrintContent: printdata, ReportName: reportname, PlanningSamjhautaId: planningsamjhautaid },
+                success: function (result) {
+                    if (result) {
+                        var elementHTML = document.getElementById('contentToPrint').innerHTML;
+                        var oldPage = document.body.innerHTML;
+                        document.body.innerHTML = elementHTML;
+                        window.print();
+                        document.body.innerHTML = oldPage;
+                    }
+                },
+                error: function () {
+                    alert('error in calling ajax !!')
+                }
+            });
+        }
+
+
+    </script>
+
+}

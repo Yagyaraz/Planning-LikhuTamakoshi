@@ -1,0 +1,172 @@
+﻿@model IEnumerable<UpaChetraDetailViewModel>
+@inject IUtility _Utility
+@{
+    ViewData["Title"] = "UpaChhetraDetailsIndex";
+    <style>
+        .oval-button {
+            border-radius: 25px;
+        }
+    </style>
+}
+@{
+    var i = 1;
+}
+
+<style>
+    .table thead {
+        background-color: #ccd1d9;
+        font-size: 13px;
+        line-height: 35px !important;
+    }
+
+        .table thead th {
+            font-weight: 800;
+            border: 1px solid black !important;
+            padding: 0px !important;
+        }
+
+
+    .table tbody td {
+        padding: 0px !important;
+        border: 1px solid black !important;
+        vertical-align: middle;
+    }
+
+    .table tbody tr {
+        text-align: center;
+        font-size: 12px;
+        height: 27px !important;
+    }
+
+
+
+    table.table-bordered.dataTable td {
+        padding: 0px;
+    }
+
+    table.table-bordered.dataTable th {
+        padding: 0px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #e9ecef;
+    }
+
+
+    tr:hover {
+        background-color: #b3ffe6;
+    }
+
+</style>
+
+
+<div class="page-breadcrumb colr1">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+
+            <div class="ms-auto text-end">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="">गृह पृष्ट</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            खण्डीकृत क्षेत्र
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid colr1">
+    <div class="row">
+        <div class="col-md-12">
+            <div style="display:flex; justify-content:space-between ">
+                <div style="display:flex;">
+                    <h4 class="card1" style="background-color:#3c8dbc; color:#fff; height:40px; width:100px; padding-top:5px; text-align:center;">खण्डीकृत क्षेत्र</h4>
+                    <span style="height:2rem; background-color:#3c8dbc; width:10px; height:40px;"></span>
+                    <span style="height: 2rem; border-top: 17px solid transparent;border-left: 25px solid #3c8dbc;border-bottom: 22px solid transparent; height:40px;"> </span>
+                </div>
+
+                <div style="display:flex; gap:20px;">
+                    <a asp-controller="Common" asp-action="CreateChhetra" asp-area="Admin" class="btn btn-sm text-white fw-bold "
+                       style="display: flex; align-items:center; justify-content:center; height:2rem;  background-color:#33b35a; border:1px solid #3ec291;">
+                        <i class="fas fa-plus-circle">  नयाँ क्षेत्र थप्नुहोस </i>
+                    </a>
+                    <a asp-controller="Common" asp-action="CreateUpaChhetra" asp-area="Admin" class="btn btn-success btn-sm text-white"
+                       style="display: flex; align-items:center; justify-content:center; height:2rem;  background-color:#33b35a; border:1px solid #3ec291;">
+                        <i class="fas fa-plus-circle">  नयाँ उप-क्षेत्र थप्नुहोस </i>
+                    </a>
+                    <a asp-controller="Common" asp-action="CreateUpaChhetraDetails" asp-area="Admin" class="btn btn-success btn-sm text-white"
+                       style="display: flex; align-items:center; justify-content:center; height:2rem;  background-color:#33b35a; border:1px solid #3ec291;">
+                        <i class="fas fa-plus-circle">  नयाँ उप-खण्डीकृत क्षेत्र थप्नुहोस </i>
+                    </a>
+                </div>
+
+            </div>
+            <br />
+            <div class="card">
+                <div class="card-body">
+                    @*   <h5 class="card-title">Basic Datatable</h5> *@
+
+                    <div class="table-responsive">
+                        <table id="zero_config" class="table  table-bordered" style="border-collapse: collapse!important;">
+                            <thead>
+                                <tr style="color:#00234D;">
+                                    <th style="text-align:center; width:7%;">क्र.स. </th>
+                                    <th style="text-align:center;"> @Html.DisplayNameFor(model => model.UpaChetraId) </th>
+                                    <th style="text-align:center;"> @Html.DisplayNameFor(model => model.Name) </th>
+                                    <th style="text-align:center;">  कार्य </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@_Utility.ConvertEnglishToNepali(i)</td>
+                                        <td style="text-align:start;">@Html.DisplayFor(modelItem => item.UpaChetraName)</td>
+                                        <td style="text-align:start;">@Html.DisplayFor(modelItem => item.Name)</td>
+                                        <td>
+                                            <a type="button" id="सच्याउनुहोस" class="btn btn-sm " title="Edit" asp-action="CreateUpaChhetraDetails" asp-route-id="@item.UpaChetraDetailId">
+                                                <i class="fa fa-edit  " style=" font-weight:1; font-size:12px;">
+                                                    <span style="color:blue; padding-left:3px;"> </span>
+                                                </i>
+                                            </a>
+                                                <a asp-action="DeleteUpaChetraDetailById" title="Remove" asp-route-id="@item.UpaChetraDetailId" onclick="return confirm('Are you sure?')">
+                                                <i class="fa fa-trash" style="color:red; padding-left:3px;">
+                                                </i>
+                                            </a>
+                                        </td>
+
+                                    </tr>
+                                    i++;
+                                }
+                            </tbody>
+
+                        </table>
+
+                        <div class="d-flex justify-content-end">
+                            <a asp-action="Setup" asp-controller="Setup" asp-area="Admin" class="btn  btn-sm mt-3 mb-2 text-white"
+                               style=" background-color:#424f63;">
+                                <i class="fa fa-arrow-left" aria-hidden="true"> पछाडि फर्कनुहोस्</i>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $("#zero_config").DataTable();
+    </script>
+
+    <script>
+        $(function () { Message('@TempData["Msg"]') });
+    </script>
+}

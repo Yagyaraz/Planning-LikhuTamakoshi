@@ -1,0 +1,127 @@
+﻿@model Con_BhuktaniViewModel
+@inject IUtility _Utility
+@{
+	ViewData["Title"] = "Index";
+	<style>
+		.oval-button {
+		border-radius: 25px;
+		}
+
+		#zero_config > thead > tr > th {
+		font-weight:bold;
+		}
+
+		table.table-bordered.dataTable th, table.table-bordered.dataTable td{
+		border-left-width: thin;
+		}
+
+		table.table-bordered.dataTable th:last-child, table.table-bordered.dataTable th:last-child, table.table-bordered.dataTable td:last-child, table.table-bordered.dataTable td:last-child{
+		border-right-width:thin;
+		}
+	</style>
+
+}
+
+<div class="page-breadcrumb colr1">
+	<div class="row">
+		<div class="col-12 d-flex no-block align-items-center">
+			
+			<div class="ms-auto text-end">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="">गृह पृष्ट</a></li>
+						<li class="breadcrumb-item active" aria-current="page">
+							
+								<span>भुक्तानि</span>
+							
+							
+						</li>
+					</ol>
+				</nav>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container-fluid colr1">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="d-flex justify-content-between">
+				<div style="display:flex;">
+					<h4 class="card1" style="background-color:#3c8dbc; color:#fff; height:40px; width:150px; padding-top:5px; text-align:center;">भुक्तानि</h4>
+					<span style="height:2rem; background-color:#3c8dbc; width:10px; height:40px;"></span>
+					<span style="height: 2rem; border-top: 17px solid transparent;border-left: 25px solid #3c8dbc;border-bottom: 22px solid transparent; height:40px;"> </span>
+				</div>
+				<a asp-controller="ContractSamjhauta" asp-action="CreateContractBhuktani" asp-area="Contract" class="btn btn-success btn-sm " asp-route-ContractSamjhautaid="@Model.ContractSamjhautaId" style="height:2rem; background-color:#33b35a; border:1px solid #3ec291;">
+					<i class="fas fa-plus-circle"></i> नयाँ राख्नुहोस
+				</a>
+			</div>
+			<br />
+			<div class="card">
+				<div class="card-body">
+					<div class="table-responsive">
+						<table  id="zero_config" class="table table-striped table-bordered border-primary" style="border-collapse:collapse!important">
+							<thead style="background-color: #ccd1d9;">
+								@{
+									int i = 1;
+								}
+								<tr>
+									<th style="text-align:center; width:5%; height:30px!important;">क्र.स.</th>
+									<th style="text-align:center;"> @Html.DisplayNameFor(model => model.ContractAmt)</th>
+									<th style="text-align:center;"> @Html.DisplayNameFor(model => model.PaskiAmount)</th>									
+									<th style="text-align:center;"> @Html.DisplayNameFor(model => model.BhuktaniAmount)</th>
+									<th style="text-align:center;"> @Html.DisplayNameFor(model => model.BhuktaniDate)</th>
+									<th style="text-align:center;"> @Html.DisplayNameFor(model => model.DharutiAmount)</th>
+									<th style="text-align:center;">कार्य</th>
+
+								</tr>
+							</thead>
+							<tbody style="background-color: #fff;">
+								@foreach (var item in Model.ContractBhuktaniList)
+								{
+									<tr>
+										<td style="text-align:center;">@_Utility.ConvertEnglishToNepali(i)</td>
+										<td style="text-align:center;">@Html.DisplayFor(modelItem => item.ContractAmt)</td>
+										<td style="text-align:center;">@Html.DisplayFor(modelItem => item.PaskiAmount)</td>									
+										<td style="text-align:center;">@Html.DisplayFor(modelItem => item.BhuktaniAmount)</td>
+										<td style="text-align:center;">@Html.DisplayFor(modelItem => item.BhuktaniDate)</td>
+										<td style="text-align:center;">@Html.DisplayFor(modelItem => item.DharutiAmount)</td>
+										<td	class="d-flex">
+											<a type="button" id="सच्याउनुहोस" class="btn btn-sm" title="Edit" asp-action="CreateContractBhuktani" asp-route-pid="@item.ContractSamjhautaId" asp-route-id="@item.ConBhuktaniId">
+												<i class="fa fa-edit d-flex" style="font-size:10px"> </i>
+											</a>
+											<a type="button" id="विवरण" class="btn btn-sm" title="विवरण" asp-action="Details" asp-route-pid="@item.ContractSamjhautaId" asp-route-id="@item.ConBhuktaniId">
+												<i class="fa fa-list d-flex" style="font-size:10px"> </i>
+											</a>
+										</td>
+
+									</tr>
+									i++;
+
+								}
+							</tbody>
+
+						</table>
+						<div class="d-flex justify-content-end">
+							<a asp-action="Index" asp-controller="ContractSamjhauta" asp-area="Contract" class="btn  btn-sm mt-3 mb-2 text-white"
+							   style=" background-color:#424f63;">
+								<i class="fa fa-arrow-left" aria-hidden="true"> पछाडि फर्कनुहोस्</i>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+	<script>
+		$("#zero_config").DataTable();
+	</script>
+	<script>
+		$(function () { Message('@TempData["Msg"]') });
+	</script>
+}

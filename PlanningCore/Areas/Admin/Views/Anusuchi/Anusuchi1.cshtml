@@ -1,0 +1,57 @@
+﻿@model PlanningAnusuchi3ViewModel
+@inject IUtility _Utility
+@{
+
+    var headerData = await _Utility.GetHeaderData();
+
+}
+<div class="col-md-12 col-12 mt-5 pt-4">
+
+    <div class="d-flex p-1 text-center justify-content-start align-items-center">
+        <img width="120" src="~/Images/NepalLogo.png" />
+
+        <div class="row" style="align-content:center;">
+            <h4>अनुसूची १</h4>
+            <h4> (कार्यविधिको दफा ४(१) सँग सम्बन्धित)</h4>
+            <h4> उपभोक्ता समितिको विवरण</h4>
+            <h3>@headerData.PalikaName</h3>
+            <h4>@headerData.Name</h4>
+            <h5>@headerData.Address </h5>
+            <h5>@headerData.StateName, नेपाल </h5>
+            <br />
+        </div>
+    </div>
+</div>
+<hr style="color:#8B0000; height:2px;" ; />
+
+<div class="container mt-4 custom-container ">   
+    <div class="accordion-body1" style="margin-left: 24px;">
+        @{
+            var i = 1;
+        }
+        <table class="table table-bordered border-dark">
+            <thead>
+                <tr>
+                    <th scope="col" rowspan="2" colspan="1"  style="text-align:center;font-weight:bold;">उपभोक्ता समितिको नाम र ठेगाना</th>
+                    <th scope="col" colspan="4" rowspan="1" style="text-align:center;font-weight:bold;">पदाधिकारीको नाम र सम्पर्क नं.</th>
+                    <th scope="col" rowspan="2" colspan="1" style="text-align:center;font-weight:bold;">गठन मिति</th>
+                    <th scope="col" rowspan="2" colspan="1" style="text-align:center;font-weight:bold;">बैंकको नाम</th>
+                    <th scope="col" rowspan="2" colspan="1" style="text-align:center;font-weight:bold;">खाता नं.</th>
+                </tr>
+                <tr>
+                    <th style="text-align:center;font-weight:bold;">अध्यक्ष</th>
+                    <th style="text-align:center;font-weight:bold;">उपाध्यक्ष</th>
+                    <th style="text-align:center;font-weight:bold;">सचिव</th>
+                    <th style="text-align:center;font-weight:bold;">कोषाध्यक्ष</th>
+                </tr>
+            </thead>
+            <td>
+                <a type="button" class="btn btn-lg" asp-controller="Anusuchi" asp-action="Anusuchi1" asp-route-id="@Model.PlanningSamjhautaId"> अनूसुचि १  </a>
+            </td>
+        </table>
+       
+    </div>
+
+</div>
+
+

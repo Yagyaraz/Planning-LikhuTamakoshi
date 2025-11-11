@@ -1,0 +1,73 @@
+﻿@model NewToleBikashAnugamanMemberViewModel
+@inject IUtility _Utility
+@using HtmlHelpers.BeginCollectionItemCore;
+
+<div class="anugaman row new">
+    @using (Html.BeginCollectionItem("AnugamanMemberList"))
+    {
+        <div class="col-lg-12 col-sm-12 col-12">
+            <input asp-for="Id" class="form-control" type="hidden" />
+            <input asp-for="NewToleBikashId" type="hidden" />
+        </div>
+
+        <div class="col-md-3 col-3 mt-3 ">
+
+            <label asp-for="PostId" class="control-label fw-bold"></label>
+            <select asp-for="PostId" asp-items="await _Utility.GetAnugamanSamitiPostList()" class="form-control form-control">
+                <option>--कृपया  पद छान्नुहोस--</option>
+            </select>
+            <span asp-validation-for="PostId" class="text-danger"></span>
+
+        </div>
+        <div class="col-md-3 col-3 mt-3   ">
+
+            <label asp-for="Name" class="control-label fw-bold"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+
+        </div>
+        <div class="col-md-3 col-3 mt-3 ">
+
+            <label asp-for="Address" class="control-label fw-bold"></label>
+            <input asp-for="Address" class="form-control" />
+            <span asp-validation-for="Address" class="text-danger"></span>
+
+        </div>
+        <div class="col-md-3 col-3 mt-3 ">
+
+            <label asp-for="Contact" class="control-label fw-bold"></label>
+            <input asp-for="Contact" class="form-control" />
+            <span asp-validation-for="Contact" class="text-danger"></span>
+
+        </div>
+      @*   <div class="col-lg-2 col-sm-2 col-2  mt-3 ">
+
+            <label asp-for="FatherName" class="control-label"></label>
+            <input asp-for="FatherName" class="form-control" />
+            <span asp-validation-for="FatherName" class="text-danger"></span>
+
+        </div> *@
+      @*   <div class="col-lg-2 col-sm-2 col-2  mt-3  ">
+
+            <label asp-for="GrandFatherName" class="control-label"></label>
+            <input asp-for="GrandFatherName" class="form-control" />
+            <span asp-validation-for="GrandFatherName" class="text-danger"></span>
+
+        </div> *@
+
+       @*  <div class="col-lg-2 col-sm-2 col-2 mt-3 ">
+
+            <label asp-for="DOB" class="control-label"></label>
+            <input asp-for="DOB" class="form-control NepaliDatep" />
+            <span asp-validation-for="DOB" class="text-danger"></span>
+
+        </div *@
+        <div class="col-md-12 col-12 mt-3">
+
+            <button type="button" onclick="DeleteRow(this)" class="row-button btn btn-sm btn-danger btn-delete" style="float:right;"><i class="fa fa-minus"></i></button>
+
+        </div>
+    }
+</div>
+<script src="~/js/nepali-date-custom.js"></script>
+

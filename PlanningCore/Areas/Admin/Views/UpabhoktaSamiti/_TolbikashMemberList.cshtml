@@ -1,0 +1,81 @@
+﻿@model TolBikashSansthaMemberViewModel
+@inject IUtility _Utility
+@using HtmlHelpers.BeginCollectionItemCore;
+
+<div class="tolbikashdiv new row">
+    @using (Html.BeginCollectionItem("tolBikashSansthaMemberList"))
+    {
+        <div class="col-lg-12 col-sm-12 col-12">
+            <input asp-for="TolBikashSansthaMemberId" class="form-control" type="hidden" />
+            <input asp-for="TolBikashSansthaId" type="hidden" />
+        </div>
+
+        <div class="col-lg-3 col-sm-3 col-3 ">
+
+            <label asp-for="SchoolPostId" class="control-label"></label>
+            <select asp-for="SchoolPostId" asp-items="@await _Utility.GetSchoolPostList()" class="form-control form-control">
+                <option>--कृपया  पद छान्नुहोस--</option>
+            </select>
+            <span asp-validation-for="SchoolPostId" class="text-danger"></span>
+
+        </div>
+
+        <div class="col-lg-3 col-sm-3 col-3">
+
+            <label asp-for="Name" class="control-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+
+        </div>
+        <div class="col-lg-3 col-sm-3 col-3">
+
+            <label asp-for="Address" class="control-label"></label>
+            <input asp-for="Address" class="form-control" />
+            <span asp-validation-for="Address" class="text-danger"></span>
+
+        </div>
+        <div class="col-lg-3 col-sm-3 col-3">
+
+            <label asp-for="PhoneNumber" class="control-label"></label>
+            <input asp-for="PhoneNumber" class="form-control" />
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+
+        </div>
+        <div class="col-lg-3 col-sm-3 col-3 mt-3">
+
+            <label asp-for="NagariktaNumber" class="control-label"></label>
+            <input asp-for="NagariktaNumber" class="form-control" />
+            <span asp-validation-for="NagariktaNumber" class="text-danger"></span>
+
+        </div>
+        <div class="col-lg-3 col-sm-3 col-3 mt-3">
+
+            <label asp-for="FatherName" class="control-label"></label>
+            <input asp-for="FatherName" class="form-control" />
+            <span asp-validation-for="FatherName" class="text-danger"></span>
+
+        </div>
+        <div class="col-lg-3 col-sm-3 col-3 mt-3">
+
+            <label asp-for="GrandFatherName" class="control-label"></label>
+            <input asp-for="GrandFatherName" class="form-control" />
+            <span asp-validation-for="GrandFatherName" class="text-danger"></span>
+
+        </div>
+        <div class="col-lg-3 col-sm-3 col-3 mt-3">
+
+            <label asp-for="ImagePath" class="control-label"></label>
+            <input type="file" asp-for="ImagePath" multiple="multiple" class="form-control" style="width:202px;"
+                   accept="image/png, image/gif, image/jpeg, application/pdf" />
+            <span asp-validation-for="ImagePath" class="text-danger"></span>
+
+        </div>
+        <div class="col-lg-12 col-sm-12 col-12 mt-3">
+
+            <button type="button" onclick="DeleteRow(this)" class="row-button btn btn-sm btn-danger btn-delete" style="float:right;">
+                <i class="fa fa-minus"></i>
+            </button>
+        </div>
+    }
+</div>
+

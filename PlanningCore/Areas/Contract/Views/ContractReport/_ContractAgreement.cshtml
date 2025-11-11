@@ -1,0 +1,20 @@
+﻿ @model ContractSamjhautaViewModel
+ @inject IUtility _utility
+@{
+    <link href="~/css/agreementstyle.css" rel="stylesheet" />
+    var orgname = await _utility.GetMainSettingById(0);
+    var pada = await _utility.GetPostById(ViewBag.PostId);
+    int? post = ViewBag.PostId;
+    var employee = await _utility.GetEmpNameById(post);
+}
+@if (Model.PrintContent == null)
+{
+    <div class="row">
+        <div class="Header">
+            <partial name="_PrintHeader" />
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+}

@@ -1,0 +1,96 @@
+﻿@model KarKattiViewModel
+@inject IUtility _Utility
+@{
+    ViewData["Title"] = "कार्यालय सेटअप";
+}
+
+
+<div class="page-breadcrumb colr1">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <div style="display:flex;">
+                <h4 class="card1" style="background-color:#3c8dbc; color:#fff; height:40px; width:100px; padding-top:5px; text-align:center;">कर-कट्टी</h4>
+                <span style="height:2rem; background-color:#3c8dbc; width:10px; height:40px;"></span>
+                <span style="height: 2rem; border-top: 17px solid transparent;border-left: 25px solid #3c8dbc;border-bottom: 22px solid transparent; height:40px;"> </span>
+            </div>
+            <div class="ms-auto text-end">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">गृह पृष्ट</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            कर-कट्टी
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+         
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid colr1">
+<div class="main-card mb-3 card">
+    <div class="card-body">
+        <h5 class="card-title"><u> कर-कट्टी ( % मा) </u> </h5>
+        <form asp-action="InsertUpdateKarkatti" method="post">
+
+            <div class="row mt-4">
+                <div class="form-group mt-2 col-md-3 col-3 ">
+                    @Html.HiddenFor(model => model.KarKattiId)
+                    <label asp-for="Contigency" class="control-label"></label>
+                    <input type="text" asp-for="Contigency" class="form-control" />
+                    <span asp-validation-for="Contigency" class="text-danger"></span>
+                </div>
+                <div class="form-group mt-2 col-md-3 col-3 ">
+                    <label asp-for="MarmatSambhar" class="control-label"></label>
+                    <input type="text" asp-for="MarmatSambhar" class="form-control" />
+                    <span asp-validation-for="MarmatSambhar" class="text-danger"></span>
+                </div>
+                <div class="form-group mt-2 col-md-3 col-3 ">
+                    <label asp-for="SamajikSurekchya" class="control-label"></label>
+                    <input type="text" asp-for="SamajikSurekchya" class="form-control" />
+                    <span asp-validation-for="SamajikSurekchya" class="text-danger"></span>
+                </div>
+                <div class="form-group mt-2 col-md-3 col-3 ">
+                    <label asp-for="BahalKar" class="control-label"></label>
+                    <input type="text" asp-for="BahalKar" class="form-control" />
+                    <span asp-validation-for="BahalKar" class="text-danger"></span>
+                </div>
+                <div class="form-group mt-2 col-md-3 col-3 ">
+                    <label asp-for="AgrimShulka" class="control-label"></label>
+                    <input type="text" asp-for="AgrimShulka" class="form-control" />
+                    <span asp-validation-for="AgrimShulka" class="text-danger"></span>
+                </div>
+                <div class="form-group mt-2 col-md-3 col-3 ">
+                    <label asp-for="Parishramik" class="control-label"></label>
+                    <input type="text" asp-for="Parishramik" class="form-control" />
+                    <span asp-validation-for="Parishramik" class="text-danger"></span>
+                </div>
+                <div class="form-group mt-2 col-md-3 col-3 ">
+                    <label asp-for="Royality" class="control-label"></label>
+                    <input type="text" asp-for="Royality" class="form-control" />
+                    <span asp-validation-for="Royality" class="text-danger"></span>
+                </div>
+                <div class="form-group mt-2 col-md-3 col-3">
+                    <label asp-for="Dhuwani" class="control-label"></label>
+                    <input type="text" asp-for="Dhuwani" class="form-control" />
+                    <span asp-validation-for="Dhuwani" class="text-danger"></span>
+                </div>
+
+
+                <div class="d-flex justify-content-end gap-2">
+                    <button class="btn btn-success btn-sm text-white" type="submit">
+                        <i class="fa fa-save"></i> सुरक्षित गर्नुहोस्
+                    </button>
+                        <a asp-action="karkattiindex" asp-controller="Common" asp-area="Admin" class="btn  btn-sm text-white"
+                           style=" background-color:#424f63;">
+                            <i class="fa fa-arrow-left" aria-hidden="true"> पछाडि फर्कनुहोस्</i>
+                        </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+
+

@@ -1,0 +1,399 @@
+﻿@model PlanningBhuktaniViewModel
+
+@inject IUtility _Utility
+@{
+    ViewData["Title"] = "Index";   
+    decimal kantenjency = 0;
+    decimal Samajik_Surekchya = 0;
+    decimal Agrim_Shulka = 0;
+    decimal Parishramik = 0;
+    decimal Bahal_Kar = 0;
+    decimal MarmatShmar = 0;
+    decimal Royality = 0;
+    decimal Dhuwani = 0;
+
+} 
+ @if (Model.PlanningBhuktaniKarKattiViewModelList.Count > 0)
+{
+    foreach (var item in Model.PlanningBhuktaniKarKattiViewModelList)
+    {
+
+        kantenjency =  item.Kantigenci;
+        Samajik_Surekchya =  item.Samajik_Surekchya;
+        Agrim_Shulka =  item.Agrim_Shulka;
+        Parishramik =  item.Parishramik;
+        Bahal_Kar =  item.Bahal_Kar;
+        MarmatShmar =  item.MarmatShmar;
+        Royality =  item.Royality;
+        Dhuwani =  item.Dhuwani;
+
+    }
+}
+
+@* @{
+    var kant = (kantenjency * (Model.NaPa_Binayajit) / 100);
+} *@
+
+<link href="~/lib/nepalidatepicker/css/nepali.datepicker.v3.7.min.css" rel="stylesheet" />
+
+<div class="page-breadcrumb colr1">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <div class="d-flex">
+                <span class="page-title page-samiti" style="background-color:#3c8dbc; color:#fff; padding-top:10px; height:40px; text-align:center;"> भुक्तानि</span>
+                <span style="height:2rem; background-color:#3c8dbc; width:10px; height:40px;"></span>
+                <span style="height: 2rem;border-top: 17px solid transparent;border-left: 25px solid #3c8dbc;border-bottom: 22px solid transparent; height:40px;"> </span>
+            </div>
+            <div class="ms-auto text-end">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">गृह पृष्ट</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            भुक्तानि:
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid colr1">
+    <div class="row">
+        <form asp-action="CreateBhuktani" method="post">
+            @Html.HiddenFor(model => model.PlanningBhuktaniId)
+            @Html.HiddenFor(model => model.FiscalYearId)
+            @Html.HiddenFor(model => model.PlanningSamjhautaId)
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body row">
+                        <div class="aayojana row">
+
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="BhuktaniTypeId"></label>
+                                <select asp-for="BhuktaniTypeId" asp-items="@await _Utility.GetBhuktaniType()" class="form-control" required="true">
+                                    <option value="">--<label asp-for="BhuktaniTypeId"></label> --</option>
+                                </select>
+                            </div>
+
+
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="Aayojana_Karyakram"></label> 
+                                <input type="text" asp-for="Aayojana_Karyakram" class="form-control">
+                                <span asp-validation-for="Aayojana_Karyakram" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="Nirman_Upabhokta"></label>
+                                <input type="text" asp-for="Nirman_Upabhokta" class="form-control">
+                                <span asp-validation-for="Nirman_Upabhokta" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="UpaBhoktaSamitiAccNumber"></label>
+                                <input type="text" asp-for="UpaBhoktaSamitiAccNumber" class="form-control">
+                                <span asp-validation-for="UpaBhoktaSamitiAccNumber" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="AdakshyaName"></label>
+                                <input type="text" asp-for="AdakshyaName" class="form-control">
+                                <span asp-validation-for="AdakshyaName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="SamjhautaDate"></label>
+                                <input type="text" asp-for="SamjhautaDate" class="form-control">
+                                <span asp-validation-for="SamjhautaDate" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <hr style="color:red";>
+
+
+                        <div class="budget row">
+                            <div class="form-group mt-2 col-md-3 col-3">
+
+                                <label asp-for="Kul_La_Ie"></label>
+                                <input type="number" asp-for="Kul_La_Ie" class="form-control" step="0.001" onchange="sum()">
+                                <span asp-validation-for="Kul_La_Ie" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="NaPa_Binayajit"></label>
+                                <input type="number" asp-for="NaPa_Binayajit" class="form-control" step="0.001" onchange="sum()">
+                                <span asp-validation-for="NaPa_Binayajit" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="Peski"></label>
+                                <input type="number" asp-for="Peski" class="form-control" step="0.001" onchange="sum()">
+                                <span asp-validation-for="Peski" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="Technical_Amount"></label>
+                                <input type="number" asp-for="Technical_Amount" class="form-control" step="0.001" onchange="sum()">
+                                <span asp-validation-for="Technical_Amount" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="Jana_Sahabagita"></label>
+                                <input type="number" asp-for="Jana_Sahabagita" class="form-control" step="0.001" onchange="sum()">
+                                <span asp-validation-for="Jana_Sahabagita" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="Others"></label>
+                                <input type="number" asp-for="Others" class="form-control" step="0.001" onchange="sum()">
+                                <span asp-validation-for="Others" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="Running_Bhuktani"></label>
+                                <input type="number" asp-for="Running_Bhuktani" class="form-control" step="0.001" onchange="sum()">
+                                <span asp-validation-for="Running_Bhuktani" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="KaryasampannaAnushar"></label>
+                                <input type="number" asp-for="KaryasampannaAnushar" class="form-control" step="0.001" onchange="sum()">
+                                <span asp-validation-for="KaryasampannaAnushar" class="text-danger"></span>
+                            </div>
+
+                        </div>
+                        <hr style="color:red" ;>
+                        <div class="tax row">
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                @* 		<label asp-for="Kantigenci"></label> *@
+                                @{
+                                    var kullagat = Model.NaPa_Binayajit;
+                                    var karkattiamnt = (kullagat * kantenjency)/100;
+                                }
+                                <label>कन्टेन्जेन्सी </label> <span> (@_Utility.ConvertEnglishToNepali(kantenjency))%)</span>
+                                <input type="number" asp-for="Kantigenci" value="@karkattiamnt" class="form-control" step="0.001" onchange="sum()">
+                                <span asp-validation-for="Kantigenci" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="MarmatShmar"> </label> <span> (@_Utility.ConvertEnglishToNepali(MarmatShmar)%)</span>
+                                <input type="number" asp-for="MarmatShmar" class="form-control" step="0.001" onchange="sum()">
+                                <span asp-validation-for="MarmatShmar" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="Bahal_Kar"> </label> <span> (@_Utility.ConvertEnglishToNepali((Bahal_Kar))%)</span>
+                                <input type="number" asp-for="Bahal_Kar" class="form-control" step="0.001" onchange="sum()">
+                                <span asp-validation-for="Bahal_Kar" class="text-danger"></span>
+                            </div>
+
+                            @*     <div class="form-group mt-2 col-md-3 col-3">
+                            <label asp-for="Aanya_Raaya"></label>
+                            <input type="text" asp-for="Aanya_Raaya" class="form-control" >
+                            <span asp-validation-for="Aanya_Raaya" class="text-danger"></span>
+                            </div> *@
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="Agrim_Shulka"></label><span> (@_Utility.ConvertEnglishToNepali((Agrim_Shulka))%)</span>
+                                <input type="number" asp-for="Agrim_Shulka" class="form-control" step="0.001" onchange="sum()">
+                                <span asp-validation-for="Agrim_Shulka" class="text-danger"></span>
+                            </div>
+                            @* <div class="form-group mt-2 col-md-3 col-3">
+                            <label asp-for="Farchot_Amount"></label>
+                            <input type="number" asp-for="Farchot_Amount" class="form-control" onchange="sum()">
+                            <span asp-validation-for="Farchot_Amount" class="text-danger"></span>
+                            </div> *@
+
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label>सामाजिक सुरक्षा </label> <span> (@_Utility.ConvertEnglishToNepali((Samajik_Surekchya))%)</span>
+                                <input type="number" asp-for="Samajik_Surekchya" class="form-control" step="0.001" onchange="sum()">
+                                <span asp-validation-for="Samajik_Surekchya" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="Parishramik"></label><span> (@_Utility.ConvertEnglishToNepali((Parishramik))%)</span>
+                                <input type="number" asp-for="Parishramik" class="form-control" step="0.001" onchange="sum()">
+                                <span asp-validation-for="Parishramik" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="Dhuwani"></label> <span> (@_Utility.ConvertEnglishToNepali((Dhuwani))%)</span>
+                                <input type="number" asp-for="Dhuwani" class="form-control" step="0.001" onchange="sum()">
+                                <span asp-validation-for="Dhuwani" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="Royality"></label> <span> (@_Utility.ConvertEnglishToNepali((Royality))%)</span>
+                                <input type="number" asp-for="Royality" class="form-control" step="0.001" onchange="sum()">
+                                <span asp-validation-for="Royality" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <hr style="color:red" ;>
+                        <div class="calc row">
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="Katti_Rakam"></label>
+                                <input type="number" asp-for="Katti_Rakam" step="0.001" class="form-control" step="0.01">
+                                <span asp-validation-for="Katti_Rakam" class="text-danger"></span>
+                            </div>
+                @*             <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="Remaining_Bhuktani_Amount"></label>
+                                <input type="number" asp-for="Remaining_Bhuktani_Amount" class="form-control" onchange="sum()">
+                                <span asp-validation-for="Remaining_Bhuktani_Amount" class="text-danger"></span>
+                            </div> *@
+                            <div class="form-group mt-2 col-md-3 col-3">
+                                <label asp-for="FarfarakDate"></label>
+                                <input type="text" class="Date form-control" id="FarfarakDate" asp-for="FarfarakDate">
+                                <span asp-validation-for="FarfarakDate" class="text-danger"></span>
+                            </div>
+                        </div>
+                        
+
+                    </div>
+                    <div class="border-top">
+                        <div class="card-body d-flex gap-2 justify-content-end">
+                            <button type="submit" class="btn btn-success btn-sm mt-3 mb-2 text-white">
+                                <i class="fa fa-check" aria-hidden="true"> सुरक्षित गर्नुहोस </i>
+                            </button>
+                            <a asp-action="BhuktaniIndex" asp-controller="PlanningSamjhauta" asp-area="Admin" class="btn  btn-sm mt-3 mb-2 text-white"
+                               style=" background-color:#424f63;">
+                                <i class="fa fa-arrow-left" aria-hidden="true"> पछाडि फर्कनुहोस्</i>
+                            </a>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+ @section Scripts {
+    @{
+        <script>
+            NepaliDatePickerCal(document.getElementById('SamjhautaDate'), document.getElementById('Project_Start_Date'))
+            </script>
+            }
+            @*
+                    <script>
+                        function sum() {
+
+                            var mun = $('#NaPa_Binayajit').val();
+                            var peski = $('#Peski').val();
+                            var tech = $('#Technical_Amount').val();
+                            var jana = $('#Jana_Sahabagita').val();
+                            var other = $('#Others').val();
+                            var run = $('#Running_Bhuktani').val();
+                            // var kanti = $('kant').val();
+                            var marmat = $('#MarmatShmar').val();
+                            var bahal = $('#Bahal_Kar').val();
+                            var agrim = $('#Agrim_Shulka').val();
+                            var pari = $('#Parishramik').val();
+                            var dhuwani = $('#Dhuwani').val();
+                            var royal = $('#Royality').val();
+                            var sasu = $('#Samajik_Surekchya').val();
+                            var totalKar = (+marmat) + (+bahal) + (+agrim) + (+pari) + (+dhuwani) + (+royal) + (+sasu);
+                            $('#Katti_Rakam').val(totalKar);
+                            var remaining = (+tech) - totalKar;
+                            $('#Remaining_Bhuktani_Amount').val(remaining);
+                            $('#Kantigenci').val(kant);
+                        }
+                    </script>
+
+
+            <script>
+              
+                function calculateExclVAT(amount) {
+                    return amount - (amount * 0.13);
+                }
+
+                var totalSum = 0;
+                var vatsum=0;
+
+             
+                function updateTotal(exclvat) {
+                    totalSum += exclvat;
+                    $('#total').text(totalSum.toFixed(2));  /
+                }
+                function Updatevat(vat) {
+                    
+                }
+                
+                function pan() {
+                    var p = parseFloat($('#pan').val());
+                    var exclvat = calculateExclVAT(p);
+                    $('#apan').val(exclvat.toFixed(2));
+                    updateTotal(exclvat);
+                }
+
+                function bill() {
+                    var billamt = parseFloat($('#billbhar').val());
+                    var billexclvat = calculateExclVAT(billamt);
+                    $('#billbharexcl').val(billexclvat.toFixed(2));
+                    updateTotal(billexclvat);
+                }
+
+                function dorhajiri() {
+                    var doramt = parseFloat($('#vatdor').val());
+                    var dorexclvat = calculateExclVAT(doramt);
+                    $('#dorexcl').val(dorexclvat.toFixed(2));
+                    updateTotal(dorexclvat);
+                }
+
+                function royalty() {
+                    var royalamt = parseFloat($('#vatroyal').val());
+                    var royelexclvat = calculateExclVAT(royalamt);
+                    $('#exclroyal').val(royelexclvat.toFixed(2));
+                    updateTotal(royelexclvat);
+                }
+
+                function dhuwani() {
+                    var dhuwaniamt = parseFloat($('#vatdhuwani').val());
+                    var dhuwaniexclvat = calculateExclVAT(dhuwaniamt);
+                    $('#excldhuwani').val(dhuwaniexclvat.toFixed(2));
+                    updateTotal(dhuwaniexclvat);
+                }
+            </script>
+ *@
+
+
+@*         // <script>
+        //     function pan() {
+        //         var p = $('#pan').val();
+        //         var exclvat = (p - (p * 0.13))
+        //         $('#apan').val(exclvat);
+
+        //     }
+        // </script> *@
+@*         // <script>
+        //     function bill() {
+        //         var billamt = $('#billbhar').val();
+        //         var billexclvat = (billamt - (billamt * 0.13))
+        //         $('#billbharexcl').val(billexclvat);
+
+        //     }
+        // </script> *@
+   @*      // <script>
+        //     function dorhajiri() {
+            
+        //         var doramt = $('#vatdor').val();
+        //         var dorexclvat = (doramt - (doramt * 0.13))
+        //         $('#dorexcl').val(dorexclvat);
+
+        //     }
+        // </script>  *@
+   @*      // <script>
+        //     function royalty() {
+
+        //         var royalamt = $('#vatroyal').val();
+        //         var royelexclvat = (royalamt - (royalamt * 0.13))
+        //         $('#exclroyal').val(royelexclvat);
+
+        //     }
+        // </script> *@
+@*         // <script>
+        //     function dhuwani() {
+        //         var dhuwaniamt = $('#vatdhuwani').val();
+        //         var dhuwaniexclvat = (royalamt - (royalamt * 0.13))
+        //         $('#excldhuwani').val(dhuwaniexclvat);
+
+        //     }
+        // </script> *@
+
+@*     }
+} *@
+    <script>
+               document.addEventListener('DOMContentLoaded', function () {
+            const dateFields = document.getElementsByClassName('Date');
+            Array.from(dateFields).forEach(function (field) {
+                NepaliDatePickerCal(field);
+            });
+        });
+
+    </script>
+}

@@ -1,0 +1,280 @@
+﻿@inject IUtility _utility
+@model PlanningSamjhautaViewModel
+@{
+	var orgname = await _utility.GetMainSettingById(0);
+	var employee = await _utility.GetEmpNameById(ViewBag.EmpId);
+	var pada = await _utility.GetPostById(ViewBag.PostId);
+	// var mydata = await _utility.GetEmployeeNamePost(ViewBag.PostId);
+	bool isSavedData = Convert.ToBoolean(ViewBag.isSavedData);
+
+}
+
+<style>
+	table {
+	border-collapse: collapse !important;
+	width: 80% !important;
+	border: 1px solid black !important;
+	}
+
+	.tbl {
+	font-weight: bold !important;
+	}
+
+	th, td {
+	border: 1px solid black !important;
+	padding: 8px !important;
+	text-align: center !important;
+	}
+
+	span {
+	font-weight: bold;
+	}
+
+	accordion-body1 {
+	padding: 0.5rem 1.25rem;
+	}
+
+	.printpage {
+	width: 21cm;
+	min-height: 29.7cm;
+	padding: 2cm;
+	/* 		margin: 1cm auto; */
+	border: 1px #d3d3d3 solid;
+	border-radius: 5px;
+	background: #fff;
+	box-shadow: 0 0 5px rgb(0 0 0 / 10%);
+	font-family: 'kalimati regular' !important;
+	}
+
+
+	@@media print {
+	table {
+	border-collapse: collapse !important;
+	width: 80% !important;
+	border: 1px solid black !important;
+	}
+
+	.tbl {
+	font-weight: bold !important;
+	}
+
+	th, td {
+	border: 1px solid black !important;
+	padding: 8px !important;
+	text-align: center !important;
+	}
+
+	p{
+	font-size: 10px;
+	}
+
+	.content {
+	min-height: 90vh; /* Pushes footer near the bottom in non-print views */
+	}
+
+	.footer {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	page-break-after: always; /* Ensures footer prints on every page */
+	background-color: white;
+	color: black;
+	}
+
+	}
+
+
+</style>
+@if (!isSavedData)
+{
+	<div class="container pt-4 mt-4">
+		<form asp-action="SamjhautaReport" method="get">
+			<div class="pt-4 row">
+				<div class="col-2">
+					<label>सिफारीस गर्ने पद</label>
+					<select name="PostId" id="PostId" asp-items="@await _utility.GetPadaList()" class="form-control">
+						<option value="">--पद छान्नुहोस--</option>
+					</select>
+				</div>
+				<div class="col-2">
+					<label>सिफारीस गर्ने नाम</label>
+					<select name="EmpId" id="EmpId" asp-items="@await _utility.GetEmpNameByPostId(ViewBag.PostId)" class="form-control">
+						<option value="">--नाम छान्नुहोस--</option>
+					</select>
+				</div>
+				<div class="col-md-2 col-2">
+					<label>मिति : </label> <br />
+					<input type="text" name="PrintDate" class="form-control PrintDate" />
+
+				</div>
+
+				<div class="col-2">
+					<label> </label><br />
+					<input type="submit" value="खोज्नुहोस्" class="btn btn-success" />
+				</div>
+			</div>
+		</form>
+	</div>
+}
+<div class="mt-5 text-end">
+	<button class="btn btn-primary mt-3 " type="button" onClick="Print('contentToPrint')">
+		<i class="fa fa-print" aria-hidden="true"></i> Print
+	</button>
+</div>
+<div class="row" id="contentToPrint">
+	<div class="card-body printpage">
+		<div class="printcontent content" >
+			<style>
+				.footerRepeat {
+					position: relative !important;
+					bottom: 0px !important
+				}
+
+				.Header {
+					position: relative !important;
+					top: 0px !important
+				}
+
+
+				@@media print {
+					.footerRepeat {
+						position: fixed !important;
+						bottom: 0px !important
+					}
+
+					.Header {
+						position: fixed !important;
+						top: 0px !important
+					}
+
+					.print-body {
+						overflow: visible; /* Ensure full content is visible during printing */
+						margin-top: 230px !important; /* Matches header height */
+						margin-bottom: 30px !important; /* Matches footer height */
+						page-break-inside: auto;
+					}
+
+					.print-body1 {
+						overflow: visible; /* Ensure full content is visible during printing */
+						margin-top: 250px !important; /* Matches header height */
+						margin-bottom: 30px !important; /* Matches footer height */
+						page-break-inside: auto;
+					}
+				}
+			</style>
+			<div class="row">
+
+				<div class="Header">
+					<partial name="_PrintHeader" />
+				</div>
+
+			</div>
+			<div class="container print-body" style="color:black;">
+				@* <div class="d-flex p-1 text-center justify-content-end align-items-center">
+					<span style="text-align:end">मिति:- @_utility.ConvertEnglishToNepali(Model.PrintDate)  </span>
+				</div> *@
+				<div class="sign mt-2" style="font-weight:500; font-size:15px; line-height:13px;">
+					<p>श्रीमान्,प्रमुख प्रशासकीय अधिकृत ज्यु,</p>
+					
+				</div>
+				<p style="text-align:center; font-weight:500; font-size:16px; padding-top:5px;">
+					<strong id="reportname"> <u> विषय: टिप्पणी आदेश ।</u> </strong>
+				</p>
+				<p style="text-indent:24px; letter-spacing:1px; line-height:30px; font-weight:500; font-size:15px; padding-top:10px; text-align:justify !important; ">
+					यसमा चालु आ.व.  <strong> @Model.FiscalYearName </strong>
+					को लागि @orgname.PalikaTypeName सभाबाट स्वीकृत बार्षिक योजना तथा कार्यक्रम अन्तर्गत
+					<strong> @Model.WorkAreaId </strong> तर्फको सी. न मा रहेको
+					<strong>@Model.Project_Name </strong> लागि रु
+					<strong>@_utility.ConvertEnglishToNepali(Model.Municipality) </strong>
+					विनियोजन भएको छ। <br />
+				</p>
+				<p style="text-indent:24px; letter-spacing:1px; line-height:30px; font-weight:500; font-size:15px; padding-top:5px; text-align:justify !important; ">
+					उक्त योजना कार्यन्वयनका लागि योजनाबाट प्रत्यक्ष लाभ पाउने उपभोक्ता भेला योजना स्थलमा जनप्रतिनिधि/कर्मचारीको उपस्थितिमा
+					मिति <strong> @Model.samitiView.NepaliSamitiEstdDate मा @_utility.ConvertEnglishToNepali(Model.samitiView.Beneficiaries_Attendance)</strong> जना उपस्थितिमा अध्यक्ष/सचिब/कोषाध्यक्षको
+					पदमा सहित 33 प्रतिशत 
+				 महिला समाबेस भएको र सोहि भेलाबाट योजनागत अनुगमन समिति समेत गठन भएको देखिन्छ।
+				</p>
+				<p style="letter-spacing:1px; line-height:30px; font-weight:500; font-size:14px; padding-top:5px; text-align:justify !important;">
+					हाल सम्झौताको लागि <strong> @Model.WardName </strong>
+					प्रतिबेदन सिफारिस पत्र उपभोक्ताभेलाको उपस्थिति र उपभोक्ता समितिको बैठकको
+					निर्णयको प्रतिलिपिहरु संलग्न राखी सम्झौताका लागि उपभोक्ता समुहबाट मिति 
+					<strong> @_utility.ConvertEnglishToNepali(Model.samitiView.NibedanMiti) </strong> गते निबेदन प्राप्त भएको छ।
+				</p>
+				
+				<p style="letter-spacing:1px; line-height:30px; font-weight:500; font-size:14px; padding-top:5px; text-align:justify !important;">
+					सो योजनाको लागि प्राबिधिक शाखाबाट रु <strong>@_utility.ConvertEnglishToNepali(Model.Total_Amount_Source)</strong> को लागत अनुमान स्वीकृत भइ पेस हुन् आएकाले लागत अनुमान अनुसारको
+					कार्य सो योजनामा स्वीकृत बजेटबाट सम्पन्न गर्ने गरी उक्त योजना कार्यान्वयनको लागि गठित उपभोक्ता समितिसंग सम्झौता गरि
+					निर्णयार्थ पेश गरेको छु।
+				</p>
+				<div class="row text-center">
+					<div class="col-md-4 col-4" >
+						<p>..........................</p>
+						<p>पेस गर्ने</p>
+						<p>@Model.SifarishGarneName</p>
+						<p>@Model.SifarishGarnePost</p>
+					</div>
+					<div class="col-md-4 col-4" >
+						<p>..........................</p>
+						<p>सिफारीस गर्ने</p>
+						<p>@employee</p>
+						<p>@pada</p>
+					</div>
+					<div class="col-md-4 col-4" >
+						<p>..........................</p>
+						<p>स्वीकृत गर्ने</p>
+						<p>@Model.SwikritGarneName</p>
+						<p>@Model.SwikritGarnePost</p>
+					</div>
+				</div>
+				<br />
+				@* <div >
+					<p><u><b>बोधार्थ :</b></u></p>
+					<p>@Model.YojanaWards </p>
+					<p style="line-height:17px;"> एक प्रति सम्झौता र कार्यादेश यसै साथ संलग्न छ साइट इन्चार्ज/ प्राविधिक खटाइ यसै बमोजिम सम्पुर्ण कार्य गराउनु हुन । </p>
+					<p>
+						@orgname.PalikaName @orgname.Address,@orgname.StateName,नेपाल ।
+					</p>
+				</div> *@
+			</div>
+			<footer style=" width:100%; " class="footerRepeat" id="footer">
+				<partial name="_printfooter" />
+			</footer>
+		</div>
+	</div>
+</div>
+<link href="~/lib/nepalidatepicker/css/nepali.datepicker.v3.7.min.css" rel="stylesheet" />
+@section Scripts
+{
+	<script>
+		NepaliDatePickerCalWithAdDateConverter(document.getElementsByClassName('PrintDate'), document.getElementsByClassName('PrintDateEng'))
+	</script>
+	<script>
+		function Print(divele) {
+			var elementHTML = document.getElementById(divele).innerHTML;
+			var oldPage = document.body.innerHTML;
+			document.body.innerHTML = elementHTML;
+			window.print();
+			document.body.innerHTML = oldPage;
+		}
+	</script>
+	
+		<script>
+			$('#PostId').change(function () {
+				$.ajax({
+					url: '@Url.Action("GetEmpNameByPostId", "Ajax", new { area = "" })',
+					type: 'GET',
+					data: { id: $(this).val() },
+					success: function (data) {
+						$('#EmpId').empty().append("<option value=''>-नाम छान्नुहोस्-</option>");
+						$.each(data, function (index, item) {
+							$('#EmpId').append(`<option value="${item.Value}">${item.Text} </option>`);
+						});
+					},
+					error: function () {
+						alert('error in calling ajax !!');
+					}
+				});
+			});
+	</script>
+}
+

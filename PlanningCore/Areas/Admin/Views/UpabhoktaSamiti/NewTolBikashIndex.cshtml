@@ -1,0 +1,172 @@
+﻿@model IEnumerable<NewToleBikashViewModel>
+@inject IUtility _Utility
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="page-breadcrumb page-top colr1">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+
+            <div class="ms-auto text-end">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="">गृह पृष्ट</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            टोल बिकास समिति
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid colr1">
+    <div class="row">
+        <div class="col-md-12">
+            <div style="display:flex; justify-content:space-between;">
+                <div style="display:flex;">
+                    <h4 class="card1" style="background-color:#3c8dbc; color:#fff; height:40px; width:150px; padding-top:5px; text-align:center;">टोल बिकास समिति</h4>
+                    <span style="height:2rem; background-color:#3c8dbc; width:10px; height:40px;"></span>
+                    <span style="height: 2rem; border-top: 17px solid transparent;border-left: 25px solid #3c8dbc;border-bottom: 22px solid transparent; height:40px;"> </span>
+                </div>
+                <a asp-controller="UpabhoktaSamiti" asp-action="CreateNewTolbikashSamiti" asp-area="Admin" class="btn btn-sm
+                  d-flex justify-content-center align-items-center text-white"
+                   style="height:2rem; background-color:#33b35a; border:1px solid #3ec291;">
+                    <i class="fas fa-plus-circle">
+                        नयाँ थप्नुहोस
+                    </i>
+                </a>
+            </div>
+
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="zero_config" class="table  table-bordered" style="border-collapse: collapse!important;">
+                            <thead>
+                                @{
+                                    var i = 1;
+                                }
+                                <tr style="text-align:center;">
+                                    <th style="text-align:center; width:5%!important;">क्र.स.</th>
+                                    <th style="text-align:center;">टोल बिकास समितिको नाम</th>
+                                    <th style="text-align:center;">टोल बिकास समिति दर्ता मिति</th>
+                                    <th style="text-align:center;"> कार्य </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td style="text-align:center;">@_Utility.ConvertEnglishToNepali(i)</td>
+                                        <td style="text-align:start;">@Html.DisplayFor(modelItem => item.Name)</td>
+                                        <td style="text-align:start;">@_Utility.ConvertEnglishToNepali(item.NepaliSamitiEstdDate)</td>
+                                        <td style="text-align:center!important; border-top:none!important; border-left:none!important;" class="d-flex  flex-wrap">
+                                            <a type="button" id="सच्याउनुहोस" class="btn btn-sm " title="Edit" asp-action="CreateNewTolbikashSamiti" asp-route-id="@item.Id" asp-area="Admin" style="border-right:1px solid #ccc; height:25px;">
+                                                <i class="fa fa-edit" style=" font-weight:1; font-size:12px;">
+                                                    <span style="color:blue; padding-left:3px;"> </span>
+                                                </i>
+                                            </a>
+
+                                            <a onclick="return confirm('के तपाइँ निश्चित रद्द गर्न चाहानुहुन्छ??')" title="Delete" asp-controller="UpabhoktaSamiti" asp-action="DeleteNewTolBikas" asp-area="Admin"
+                                               class="btn btn-sm action-btn" asp-route-id="@item.Id" style="border-right:1px solid #ccc; height:25px;">
+                                                <i class="fas fa-trash" style="color:red;">
+                                                    <span class="delete-text"></span>
+                                                </i>
+                                            </a>
+
+                                            <a type="button" id="Details" class="btn btn-sm action-btn" title="विवरण" asp-action="Details" asp-route-id="@item.Id" style="border-right:1px solid #ccc; height:25px;">
+                                                <i class="fa fa-list" style="color:#9834eb;">
+                                                    <span class="bibran-text"></span>
+                                                </i>
+                                            </a>
+
+                                            <a type="button" class="btn btn-sm action-btn" title="दर्ता प्रमाणपत्र" asp-action="NewTolBikashDarta" asp-route-id="@item.Id" style="border-right:1px solid #ccc; height:25px;">
+                                                <i class="fa fa-print" style="color:#eb34db;">
+                                                    <span class="darta-text"></span>
+                                                </i>
+                                            </a>
+
+                                            <a type="button" id="" class="btn btn-sm action-btn" title="Docs" asp-action="UpbhokataDocs" asp-route-id="@item.Id" style="border-right:1px solid #ccc; height:25px;">
+                                                <i class="fa fa-file">
+                                                    <span class="doc-text"></span>
+                                                </i>
+                                            </a>
+
+                                            @* //<a onclick="delFunction()" asp-controller="UpabhoktaSamiti" asp-action="Delete" asp-area="Admin" class="btn btn-danger btn-sm oval-button" asp-route-id="@item.UpabhoktaSamitiDetailId"><i class="fas fa-trash"> Delete </i></a> *@
+
+
+                                        </td>
+
+                                    </tr>
+                                    i++;
+                                }
+                            </tbody>
+
+                        </table>
+                        <div class=" d-flex justify-content-end">
+                            <a asp-action="Index" asp-controller="Setup" asp-area="Admin" class="btn  btn-sm mt-3 mb-2 me-2 text-white"
+                               style=" background-color:#424f63;">
+                                <i class="fa fa-arrow-left" aria-hidden="true"> पछाडि फर्कनुहोस्</i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <link href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/buttons/3.0.2/css/buttons.bootstrap5.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/colreorder/2.0.3/css/colReorder.bootstrap5.css" rel="stylesheet" />
+    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.2/js/dataTables.buttons.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.bootstrap5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.colVis.min.js"></script>
+    <script src="https://cdn.datatables.net/colreorder/2.0.3/js/dataTables.colReorder.js"></script>
+    @* 	<script>
+        $("#zero_config").DataTable();
+    </script> *@
+    <script>
+        $('#zero_config').DataTable({
+            //colReorder: true,
+            //lengthMenu: [5, 10, 50, 100, 500],
+            layout: {
+                topStart: {
+                    buttons: [
+
+                        {
+                            extend: 'excelHtml5',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        },
+
+                        'colvis',
+                        "pageLength"
+                    ]
+                }
+            }
+        });
+    </script>
+
+    <script>
+        $(function () { Message('@TempData["Msg"]') });
+    </script>
+    <script>
+        $(function () { Message('@TempData["del"]') });
+    </script>
+
+}

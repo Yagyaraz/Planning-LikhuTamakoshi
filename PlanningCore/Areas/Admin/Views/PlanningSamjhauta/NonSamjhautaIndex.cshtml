@@ -1,0 +1,138 @@
+﻿@model  PlanningSamjhautaViewModel
+@inject IUtility _Utility
+@{
+    ViewData["Title"] = "Index";
+}
+
+@{
+    var i = 1;
+}
+
+
+<style>
+
+
+
+    .table thead {
+        background-color: #dee8fa;
+        font-size: 13px;
+        line-height: 35px !important;
+    }
+
+
+
+
+        .table thead th {
+            font-weight: 800;
+            border: 1px solid black !important;
+            padding: 0px !important;
+        }
+
+
+    .table tbody td {
+        padding: 0px !important;
+        border: 1px solid black !important;
+        vertical-align: middle;
+    }
+
+    .table tbody tr {
+        text-align: center;
+        font-size: 12px;
+        height: 27px !important;
+    }
+
+
+
+    table.table-bordered.dataTable td {
+        padding: 0px;
+    }
+
+    table.table-bordered.dataTable th {
+        padding: 0px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #e9ecef;
+    }
+
+
+    tr:hover {
+        background-color: #b3ffe6;
+    }
+
+</style>
+
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+
+            <div class="ms-auto text-end">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="">गृह पृष्ट</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            टोल बिकास समिति
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+           
+            <div class="card">
+                <div class="card-body">
+                    @*   <h5 class="card-title">Basic Datatable</h5> *@
+
+                    <div class="table-responsive">
+                        <table id="zero_config"
+                               class="table  table-bordered" style="border-collapse: collapse!important;">
+                            <thead>
+                                <tr style="text-align:center;">
+
+                                    <th>क्र.स.</th>
+                                    <th>योजनाको नाम</th>
+                                    <th>रकम</th>
+                                    <th>वडा नम्बर </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.yojanalist)
+                                {
+                                    <tr class="text-align:center;">
+                                        <td>@_Utility.ConvertEnglishToNepali(i)</td>
+                                        <td>@item.YojanaName</td>
+                                        <td>@_Utility.ConvertEnglishToNepali(item.EstimatedAmount)</td>
+                                        <td>@_Utility.ConvertEnglishToNepali(item.WardName)</td>
+                                    </tr>
+                                    i++;
+                                }
+                            </tbody>
+                        </table>
+                        <a asp-action="MainSetting" class="btn  btn-sm  text-white mt-3 mb-2 "
+                           style="background-color:#EDAE36; margin-left:1070px;">
+                            <i class="fa fa-angle-left"></i>
+                            पछाडि फर्कनुहोस्
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $("#zero_config").DataTable();
+    </script>
+
+
+}

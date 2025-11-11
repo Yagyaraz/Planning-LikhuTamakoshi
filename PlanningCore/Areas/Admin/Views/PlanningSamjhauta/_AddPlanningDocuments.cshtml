@@ -1,0 +1,37 @@
+﻿@model PlanningDocumentUploadedViewModel
+@inject IUtility _Utility
+@using HtmlHelpers.BeginCollectionItemCore;
+
+<div class="docsdiv mt-4 row new">
+    @using (Html.BeginCollectionItem("DocumentsList"))
+    {
+        <div hidden>
+        <input asp-for="Id" type="hidden" />
+        <input asp-for="PlanningSamjhuataId" type="hidden" />
+        </div>
+        <div class="col-lg-3 col-sm-2 col-2 d-flex justify-content-center align-items-center flex-column">
+            <label asp-for="DocumentTypeId"></label>
+            <select asp-for="DocumentTypeId" asp-items="await _Utility.GetDocumentType()" class="form-control" required="true">
+                <option value="">--<label asp-for="DocumentTypeId"></label> --</option>
+            </select>
+        </div>
+
+
+
+        <div class="col-lg-3 col-sm-2 col-2  d-flex justify-content-center align-items-center flex-column">
+            <label>कागजात छान्नुहोस</label>
+            <input type="file" asp-for="Image" multiple="multiple" class="form-control" style="width:202px;"
+            accept="image/png, image/gif, image/jpeg, application/pdf" />
+        </div>
+
+
+
+        <div class="col-lg-2 col-sm-2 col-2">
+            @if (Model.Id == 0)
+            {
+                <button type="button" onclick="DeleteRow(this)" class="row-button btn btn-sm btn-danger btn-delete" style="margin-top:25px;">
+                    <i class="fa fa-minus"></i></button>
+            }
+        </div>
+    }
+</div>

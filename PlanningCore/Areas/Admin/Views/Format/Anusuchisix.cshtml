@@ -1,0 +1,157 @@
+﻿@inject IUtility _Utility
+@model FormatViewModel
+@{
+	var headerdata = await _Utility.GetHeaderData();
+}
+
+<style>
+
+	.printpage {
+		width: 21cm;
+		min-height: 29.7cm;
+		padding: 2cm;
+		margin: 1cm auto;
+		border: 1px #d3d3d3 solid;
+		border-radius: 5px;
+		background: #fff;
+		box-shadow: 0 0 5px rgb(0 0 0 / 10%);
+		font-family: 'kalimati regular' !important;
+	}
+
+	p {
+		font-size: 18px;
+	}
+
+	.table tbody tr td {
+		height: 3rem !important;
+	}
+
+</style>
+
+<div class="d-flex justify-content-end">
+	<button class="btn btn-primary mt-5" type="button" onClick="Print('contentToPrint')"><i class="fa fa-print" aria-hidden="true"></i> Print</button>
+</div>
+<div class="row" id="contentToPrint">
+	<style>
+		p {
+			font-size: 18px;
+		}
+
+		.table tbody tr td {
+			height: 3rem !important;
+		}
+	</style>
+	<section style="page-break-after:always; padding-top:2px;">
+		<div class="container">
+			<div>
+				<h3 class="text-center">अनुसूची ६</h3>
+				<h5 class="text-center">(कार्यविधिको दफा १६(ङ) सँग सम्वन्धित)</h5>
+				<h5 class="text-center pt-3">उपभोक्ता समितिको भौतिक तथा वित्तीय प्रगति प्रतिवेदन</h5>
+				<h5 class="text-center">विवरण पेश गरेको कार्यालय</h5>
+			</div>
+			<p>१. आयोजनाको विवरण </p>
+			<div style="text-indent: 20px;">
+				<p>नाम. @Model.PlanningSamjhauta.YojanaNames @Model.PlanningSamjhauta.YojanaWards टोल/बस्तीः &nbsp;&nbsp; @Model.PlanningSamjhauta.YojanaAddress</p>
+				<p>उपभोक्ता समितिका</p>
+				<p>अध्यक्षः @Model.UpavoktaSamiti.Adakshya </p>
+				<p>सचिवः @Model.UpavoktaSamiti.Sachib </p>
+				<p>कोषाध्यक्षः @Model.UpavoktaSamiti.Kosadakshya </p>
+			</div>
+			<p>२. आयोजनाको लागतः प्राप्त अनुदान रकम रू. @Model.PlanningSamjhauta.Amount_Estimate </p>
+			<div style="text-indent:20px;">
+				<p>जनसहभागिता रकम रू. @Model.PlanningSamjhauta.Loan_Grant </p>
+				<p>जम्मा रकम रू. @Model.PlanningSamjhauta.Municipality </p>
+			</div>
+			<p>३. हालसम्मको खर्च रू. ............................................... </p>
+			<p>क. कार्यालयबाट प्राप्त रकम रू. @Model.PlanningSamjhauta.Municipality </p>
+			<div style="text-indent:20px;">
+				<p>१. निर्माण सामग्रीमा (सिमेन्ट, छड, काठ, ढुंगा वा फुवा, गिट्टी, उपकरण आदि) रू. ...............</p>
+				<div class="row">
+					<div class="col-md-5 col-5">
+						<p>२. ज्यालाः–  दक्ष रूः............	</p>
+					</div>
+					<div class="col-md-4 col-4">
+						<p>अदक्ष रू. </p>
+					</div>
+					<div class="col-md-3 col-3">
+						<p>जम्मा रू.</p>
+					</div>
+				</div>
+				<p>३. मसलन्द सामान (कपि, कलम, मसी, कागज आदि) रू.....................................</p>
+				<p>४. दैनिक भ्रमण भत्ता (सम्झौतामा स्वीकृत भए) रू............................................</p>
+				<p>५. प्राविधिक निरीक्षण बापत खर्च (सम्झौतामा स्वीकृत भए) रु..............................</p>
+				<p>६. अन्य.............................................</p>
+			</div>
+			<p>ख. जनसहभागिताबाट व्यहोरिएको खर्च रूः ...................</p>
+			<div style="text-indent: 20px;">
+				<p>श्रमको मूल्य बराबर रकम रू. ....................... </p>
+				<p>जिन्सी सामान मूल्य बराबर रकम रू. .............</p>
+				<p>कूल जम्मा रू. ............................................</p>
+			</div>
+			<p>४. प्राविधिक प्रतिवेदन बमोजिम मूल्यांकन रकम रू. ..................................</p>
+			<p>५. उपभोक्ता समूहको निर्णय बमोजिम÷समीक्षाबाट खर्च देखिएको रू. .............</p>
+			<p class="pt-3">६. कार्यान्वयनमा देखिएका मुख्य समस्याहरूः</p>
+			<div style="text-indent:10px;">
+				<p>क.</p>
+				<p>ख.</p>
+				<p>ग. </p>
+			</div>
+			<p class="pt-3">७. समाधानका उपायहरू </p>
+			<div style="text-indent:10px;">
+				<p>क.</p>
+				<p>ख.</p>
+			</div>
+			<p class="pt-3">८. कार्यालयबाट र अन्य निकायबाट अनुगमन भए अनुगमनको सुझावः</p>
+			<div style="text-indent:10px;">
+				<p>क.</p>
+				<p>ख.</p>
+				<p>ग. </p>
+			</div>
+			<p class="pt-3">९. हाल माग गरेको किस्ता रकम रू.......................................</p>
+			<p>१०. मुख्य खर्च प्रयोजनः</p>
+			<p>११. प्राप्त रकम आयोजना बाहेक अन्य कार्यमा खर्च गर्ने गराउने छैनौ ।</p>
+
+			<div class="row" style="padding-top: 150px;">
+				<div class="col-md-2 col-2 text-center">
+					<p>............. </p>
+					<p>तयार गर्ने</p>
+				</div>
+				<div class="col-md-1 col-1"></div>
+				<div class="col-md-2 col-2 text-center">
+					<p>@Model.UpavoktaSamiti.Sachib  </p>
+					<p>सचिव</p>
+				</div>
+				<div class="col-md-1 col-1"></div>
+				<div class="col-md-2 col-2 text-center">
+					<p> @Model.UpavoktaSamiti.Kosadakshya </p>
+					<p>कोषाध्यक्ष</p>
+				</div>
+				<div class="col-md-1 col-1"></div>
+				<div class="col-md-2 col-2 text-center">
+					<p> @Model.UpavoktaSamiti.Adakshya </p>
+					<p>अध्यक्ष</p>
+				</div>
+				<div class="col-md-1 col-1"></div>
+			</div>
+		</div>
+	</section>
+</div>
+
+<link href="~/lib/nepalidatepicker/css/nepali.datepicker.v3.7.min.css" rel="stylesheet" />
+
+@section Scripts
+{
+	<script type="text/javascript">
+		//$(function () {
+		//    $('.currentdate').html(GetNepaliCurrentDate());
+		//});
+		function Print() {
+			var elementHTML = document.getElementById('contentToPrint').innerHTML;
+			var oldPage = document.body.innerHTML;
+			document.body.innerHTML = elementHTML;
+			window.print();
+			//document.body.innerHTML = oldPage;
+			window.location.reload(true);
+		}
+	</script>
+}

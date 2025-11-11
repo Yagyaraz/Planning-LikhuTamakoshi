@@ -1,0 +1,70 @@
+﻿ @model ContractSamjhautaViewModel
+ @inject IUtility _utility
+@{
+    var orgname = await _utility.GetMainSettingById(0);
+    var pada = await _utility.GetPostById(ViewBag.PostId);
+    int? post = ViewBag.PostId;
+    var employee = await _utility.GetEmpNameById(post);
+}
+
+@if (Model.PrintContent == null)
+{
+    <div class="row">
+        <div class="Header">
+            <partial name="_PrintHeader" />
+        </div>
+    </div>
+    <div class="container">
+        <div class="sign" style="font-weight:500; font-size:16px;">
+            <p>अध्यक्ष श्री, @Model.ConsultantName, </p>
+            <p>@Model.MainPersonAddress</p>
+        </div>
+        <br />
+        <p style="text-indent:320px; letter-spacing:1px; line-height:30px; font-weight:500; font-size:16px; padding-top:15px; text-align:justify !important; ">
+            <span id="reportname"> <u> विषयः- प्रथम रनिङ्ग बिल भुक्तानी सम्बन्धमा । </u> </span>
+        </p>
+        <p style="text-indent:24px; letter-spacing:1px; line-height:30px; font-weight:500; font-size:16px; padding-top:15px; text-align:justify !important; ">
+            प्रस्तुत विषयमा यस @orgname.PalikaName को  ठेक्का नं. @Model.ThekkaNumber, @Model.YojanaName,@Model.Ward , @orgname.DistrictName  को मिति @Model.ContractDate मा यस कार्यालय र
+            ठेकेदार @Model.ConsultantName बीच मु.अ.क. सहित रु.@Model.ContractAmt
+            (अक्षरुपी चौवालीस लाख उननसाठी हजार आठ सय चौबिस रुपैया बाउन्न पैसा) मा सम्झौता भई निर्माण कार्य
+            भइरहेको र प्राविधिकबाट प्रथम रनिङ्ग बिल मु.अ.क. र PS आइटम सहित --------------(अक्षरुपी सोह लाख
+            त्रियानब्बे हजार चार सय एकतिस पैसा अडतिस मात्र हुन आएको बाट मु.अ.क.को @Model.VAT वापत रु. ------
+            (अक्षरुपी अनठाउन्न हजार एक सय सन्ताउन्न पैसा बिस), @Model.DharutiAmount धरौटी वापत रु.७४,९७८। ७० (अक्षरुपी चौहत्तर हजार
+            नौ सय अठहत्तर), ------- अग्रीम आयकर वापत रु.--------- (अक्षरुपी बाइस हजार चार सय त्रियानव्वे पैसा
+            एकसठी) र प्राकृतीक श्रोत उपयोग कर वापत रु.------------- (अक्षरुपी पचहत्तर हजार सात सय चौवन्न) कट्टा गरी खुद
+            भुक्तानी हुने रकम रु.@Model.BhuktaniAmount (अक्षरुपी चौध लाख बैसठी हजार सडचालिस रुपैया सतासी पैसा मात्र
+            प्राविधिकबाट पेश भएको हुदा भुक्तानी प्रक्रिया अगाडी बढाउन आवश्यक निर्णयार्थ पेश गरेको छु ।
+         
+        </p>
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-md-3 col-3 offset-9">
+                <p>@employee</p>
+                <p>@pada</p>
+            </div>
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        @* <p><u><b>बोधार्थ :</b></u></p> *@
+        @* 	<p>श्री  @Model.WardName</p> *@
+        @* 	<p>एक प्रति सम्झौता र कार्यादेश यसै साथ संलग्न छ साइट इन्चार्ज/ प्राविधिक खटाइ यसै बमोजिम सम्पुर्ण कार्य गराउनु हुन ।</p> *@
+        @* 	<p>
+    @orgname.PalikaName @orgname.Address,@orgname.StateName,नेपाल ।
+    </p> *@
+    </div>
+}
+else
+{
+    @Html.Raw(Model.PrintContent)
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(function () {
+            Message1('@TempData["Message"]')
+        });
+    });
+</script>

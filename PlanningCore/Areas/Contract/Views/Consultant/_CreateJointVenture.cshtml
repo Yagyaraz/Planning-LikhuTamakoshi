@@ -1,0 +1,120 @@
+﻿@model JointVentureViewModel
+@inject IUtility _Utility
+@using HtmlHelpers.BeginCollectionItemCore;
+
+<div class="jvdiv row new">
+	<div class="address">
+		@using (Html.BeginCollectionItem("JointVentureList"))
+		{
+			<div class="col-md-12">
+				<div class="card">
+					<div class="accordion-flush mt-2"> <h5>Joint Venture</h5> </div>
+					<div class="card-body row">
+						<div class="form-group mt-3 col-md-3 col-3">
+							<label asp-for="Name"></label>
+							<input type="text" asp-for="Name" class="form-control  border-dark">
+							<span asp-validation-for="Name" class="text-danger"></span>
+						</div>
+						<div class="form-group mt-3 col-md-3 col-3">
+							<label asp-for="NameEng"></label>
+							<input type="text" asp-for="NameEng" class="form-control  border-dark">
+							<span asp-validation-for="NameEng" class="text-danger"></span>
+						</div>
+						<div class="form-group mt-3 col-md-3 col-3">
+							<label asp-for="MobileNumber"></label>
+							<input type="text" asp-for="MobileNumber" class="form-control  border-dark">
+							<span asp-validation-for="MobileNumber" class="text-danger"></span>
+						</div>
+						<div class="form-group mt-3 col-md-3 col-3">
+							<label asp-for="EMail"></label>
+							<input type="text" asp-for="EMail" class="form-control  border-dark">
+							<span asp-validation-for="EMail" class="text-danger"></span>
+						</div>
+						<div class="form-group mt-3 col-md-3 col-3">
+							<label asp-for="MainPersonName"></label>
+							<input type="text" asp-for="MainPersonName" class="form-control  border-dark">
+							<span asp-validation-for="MainPersonName" class="text-danger"></span>
+						</div>
+						<div class="form-group mt-3 col-md-3 col-3">
+							<label asp-for="MainPersonPhoneNumber"></label>
+							<input type="text" asp-for="MainPersonPhoneNumber" class="form-control  border-dark">
+							<span asp-validation-for="MainPersonPhoneNumber" class="text-danger"></span>
+						</div>
+						<div class="form-group mt-3 col-md-3 col-3">
+							<label asp-for="MainPersonAddress"></label>
+							<input type="text" asp-for="MainPersonAddress" class="form-control  border-dark">
+							<span asp-validation-for="MainPersonAddress" class="text-danger"></span>
+						</div>
+						<div class="form-group mt-3 col-md-3 col-3">
+							<label asp-for="Registration_Number"></label>
+							<input type="text" asp-for="Registration_Number" class="form-control  border-dark">
+							<span asp-validation-for="Registration_Number" class="text-danger"></span>
+						</div>
+						<div class="form-group mt-3 col-md-3 col-3">
+							<label asp-for="Registration_Date"></label>
+							<input type="text" asp-for="Registration_Date" class="form-control npDatePartial border-dark">
+							<span asp-validation-for="Registration_Date" class="text-danger"></span>
+						</div>
+						<div class="form-group mt-3 col-md-3 col-3">
+							<label asp-for="VatEndDate"></label>
+							<input type="text" asp-for="VatEndDate" class="form-control npDatePartial border-dark">
+							<span asp-validation-for="VatEndDate" class="text-danger"></span>
+						</div>
+						<div class="form-group mt-3 col-md-3 col-3">
+							<label asp-for="EjajatNumber"></label>
+							<input type="text" asp-for="EjajatNumber" class="form-control  border-dark">
+							<span asp-validation-for="EjajatNumber" class="text-danger"></span>
+						</div>
+						<div class="form-group mt-3 col-md-3 col-3">
+							<label asp-for="EjajatType"></label>
+							<input type="text" asp-for="EjajatType" class="form-control  border-dark">
+							<span asp-validation-for="EjajatType" class="text-danger"></span>
+						</div>
+						<div class="form-group mt-3 col-md-3 col-3">
+							<label asp-for="PanNumber"></label>
+							<input type="text" asp-for="PanNumber" class="form-control  border-dark">
+							<span asp-validation-for="PanNumber" class="text-danger"></span>
+						</div>
+
+						<div class="form-group mt-3 col-md-3 col-3">
+							<label asp-for="StateId"></label>
+							<select asp-for="StateId" asp-items="await _Utility.GetStateSelectListItems()" onchange="GetDistrict(this)" style="border-radius:12px; border-color:black" class="form-control partialstate">
+								<option value="">--Please select--</option>
+							</select>
+						</div>
+						<div class="form-group mt-3 col-md-3 col-3">
+							<label asp-for="DistrictId"></label>
+							<select asp-for="DistrictId" asp-items="await _Utility.GetDistrictByStateId(Model.StateId)" onchange="GetPalika(this)" style="border-radius:12px; border-color:black" class="form-control partialdistrict">
+								<option value="">--Please select--</option>
+							</select>
+						</div>
+						<div class="form-group mt-3 col-md-3 col-3">
+							<label asp-for="PalikaId"></label>
+							<select asp-for="PalikaId" asp-items="await _Utility.GetPalikaByDistrictId(Model.DistrictId)" style="border-radius:12px; border-color:black" class="form-control partialpalika">
+								<option value="">--Please select--</option>
+							</select>
+						</div>
+						<div class="form-group mt-3 col-md-3 col-3">
+							<label asp-for="PanNumber"></label>
+							<input type="text" asp-for="PanNumber" class="form-control  border-dark">
+							<span asp-validation-for="PanNumber" class="text-danger"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-1 col-sm-4 col-6">
+				<div class="position-relative form-group">
+					<button type="button" onclick="DeleteRow(this)" class="row-button btn btn-sm btn-danger btn-delete">
+						<i class="fa fa-minus">
+
+						</i>
+					</button>
+				</div>
+			</div>
+		}
+	</div>
+	<script>
+		NepaliDatePickerCalWithClass(document.getElementsByClassName('npDatePartial'))
+	</script>
+</div>
+

@@ -1,0 +1,288 @@
+﻿@model IEnumerable<TolBikashSansthaViewModel>
+@inject IUtility _Utility
+@{
+    ViewData["Title"] = "Index";
+}
+
+<style>
+
+
+
+    .table thead {
+        background-color: #ccd1d9;
+        font-size: 13px;
+        line-height: 35px !important;
+    }
+
+
+
+
+        .table thead th {
+            font-weight: 800;
+            border: 1px solid black !important;
+            padding: 0px !important;
+        }
+
+
+    .table tbody td {
+        padding: 0px !important;
+        border: 1px solid black !important;
+        vertical-align: middle;
+    }
+
+    .table tbody tr {
+        text-align: center;
+        font-size: 12px;
+        height: 27px !important;
+    }
+
+
+
+    table.table-bordered.dataTable td {
+        padding: 0px;
+    }
+
+    table.table-bordered.dataTable th {
+        padding: 0px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #e9ecef;
+    }
+
+
+    tr:hover {
+        background-color: #b3ffe6;
+    }
+
+</style>
+
+<div class="page-breadcrumb colr1">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+
+            <div class="ms-auto text-end">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="">गृह पृष्ट</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            बिद्यालय व्यवस्थापन समिति
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid colr1">
+    <div class="row">
+        <div class="col-md-12">
+            <div style="display:flex;  justify-content:space-between;">
+                <div style="display:flex;">
+                    <h4 class="card1" style="background-color:#3c8dbc; color:#fff; height:40px; width:181px; padding-top:5px; text-align:center;">बिद्यालय व्यवस्थापन समिति</h4>
+                    <span style="height:2rem; background-color:#3c8dbc; width:10px; height:40px;"></span>
+                    <span style="height: 2rem; border-top: 17px solid transparent;border-left: 25px solid #3c8dbc;border-bottom: 22px solid transparent; height:40px;"> </span>
+                </div>
+                <a asp-controller="UpabhoktaSamiti" asp-action="CreateTolbikashSamiti" asp-area="Admin"
+                   class="btn  btn-sm d-flex justify-content-center align-items-center text-white"
+                   style="height:2rem; background-color:#33b35a; border:1px solid #3ec291;">
+                    <i class="fas fa-plus-circle">
+                        नयाँ थप्नुहोस
+                    </i>
+                </a>
+            </div>
+
+
+
+            <div class="card">
+                <div class="card-body">
+                    @*   <h5 class="card-title">Basic Datatable</h5> *@
+
+                    <div class="table-responsive">
+                        <table id="zero_config"
+                               class="table  table-bordered" style="border-collapse: collapse!important;">
+                            <thead>
+                                <tr>
+                                    <th style="text-align:center; width:5%!important;">क्र.स.</th>
+                                    <th style="text-align:center;">समितिको नाम</th>
+                                    <th style="text-align:center;">योजनाको नाम</th>
+                                    <th style="text-align:center;">समिति दर्ता नं</th>
+@*                                     <th>बिउ पुर्जी</th>
+ *@                                    <th style="text-align:center;">कार्य</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td style="text-align:center;">@_Utility.ConvertEnglishToNepali(Model.ToList().IndexOf(item) + 1)</td>
+                                        <td style="text-align:start;">@Html.DisplayFor(modelItem => item.TolBikashSansthaName)</td>
+                                        <td style="text-align:start;">@Html.DisplayFor(modelItem => item.YojanaName)</td>
+                                        <td style="text-align:center;">@Html.DisplayFor(modelItem => item.DartaNo)</td>
+                                   @*      <td>
+                                            @if (item.BiupurjiAmount > 0)
+                                            {
+                                                <span style="color:forestgreen"> भएको </span>
+                                            }
+                                            else
+                                            {
+                                             <span style="color:red"> नभएको</span>   
+                                            }
+                                        </td> *@
+                                        <td style="display:flex; justify-content:center; border-top:none!important; border-left:none!important;height:52px;">
+                                            <a class="btn  btn-sm "
+                                               asp-action="CreateTolbikashSamiti" asp-route-id="@item.TolBikashSansthaId" title="Edit">
+                                                <i class="fa fa-edit" style=" font-weight:1; font-size:14px;">
+                                                </i>
+                                            </a>
+                                           @*  @if (item.BiupurjiAmount == 0)
+                                            { 
+                                            <a class="btn  btn-sm d-flex" data-bs-toggle="modal" data-bs-target="#workcompletemodal" onclick="SubmitForm(this)" data-id="@item.TolBikashSansthaId">
+                                                <img src="~/Icon/complete.png" width="16" height="16" style=" font-weight:1; font-size:12px;">  <span> बिउ पुर्जी </span>
+                                            </a>
+                                            } *@
+                                            <a onclick="return confirm('के तपाइँ निश्चित रद्द गर्न चाहानुहुन्छ??')" asp-controller="UpabhoktaSamiti" asp-action="DeleteTolBikas" asp-area="Admin"
+                                               class="btn btn-sm action-btn" title="Delete" asp-route-id="@item.TolBikashSansthaId">
+                                                <i class="fas fa-trash" style="color:red;">
+                                                    <span class="delete-text"></span>
+                                                </i>
+                                            </a>
+                                            <a type="button" class="btn btn-sm action-btn" title="दर्ता प्रमाणपत्र" asp-action="TolBikashDarta" asp-route-id="@item.TolBikashSansthaId" style="border-right:1px solid #ccc; height:25px;">
+                                                <i class="fa fa-print" style="color:#eb34db;">
+                                                    <span class="darta-text"></span>
+                                                </i>
+                                            </a>
+                                  
+                                            <a type="button" id="Details" class="btn btn-sm action-btn" title="विवरण" asp-action="TolBikashDetails" asp-route-id="@item.TolBikashSansthaId" style="border-right:1px solid #ccc; height:25px;">
+                                                <i class="fa fa-list" style="color:#9834eb;">
+                                                    <span class="bibran-text"></span>
+                                                </i>
+                                            </a>
+                                       
+                                        </td>
+                                    
+
+                                    </tr>
+                                }
+                            </tbody>
+
+                        </table>
+
+
+                       
+                    </div>
+                </div>
+            </div>
+            @* <a asp-action="Index" asp-controller="Setup" asp-area="Admin" class="btn  btn-sm  text-white mt-3 mb-2 "
+               style="background-color:#EDAE36; margin-left:1070px;">
+                <i class="fa fa-angle-left"></i>
+                पछाडि फर्कनुहोस्
+            </a> *@
+            <div class=" d-flex justify-content-end">
+                <a asp-action="Index" asp-controller="Setup" asp-area="Admin" class="btn  btn-sm mt-3 mb-2 me-2 text-white"
+                   style=" background-color:#424f63;">
+                    <i class="fa fa-arrow-left" aria-hidden="true"> पछाडि फर्कनुहोस्</i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="workcompletemodal" tabindex="-1" role="dialog" aria-labelledby="workcompletemodalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 style="color:blue;text-align:center;">आयोजना सम्पन्न फारम</h6>
+            </div>
+            <div class="modal-body" style="padding:20px 50px;">
+                <form role="form" action="@Url.Action("Updatebiupurji", "UpabhoktaSamiti")" method="get">
+                    <input type="hidden" id="pId" name="id" />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="Amount"><span class="glyphicon glyphicon-user"></span> Amount </label>
+                                <input type="text" class="form-control" id="Amount" name="Amount" value="15000" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success btn-compose"><span class="glyphicon glyphicon-plus"></span> सुरक्षित गर्नुहोस </button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="workcompletemodal">Close</button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <link href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/buttons/3.0.2/css/buttons.bootstrap5.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/colreorder/2.0.3/css/colReorder.bootstrap5.css" rel="stylesheet" />
+    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.2/js/dataTables.buttons.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.bootstrap5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.colVis.min.js"></script>
+    <script src="https://cdn.datatables.net/colreorder/2.0.3/js/dataTables.colReorder.js"></script>
+    @* 	<script>
+		$("#zero_config").DataTable();
+	</script> *@
+    <script>
+        $('#zero_config').DataTable({
+            //colReorder: true,
+            //lengthMenu: [5, 10, 50, 100, 500],
+            layout: {
+                topStart: {
+                    buttons: [
+
+                        {
+                            extend: 'excelHtml5',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        },
+
+                        'colvis',
+                        "pageLength"
+                    ]
+                }
+            }
+        });
+    </script>
+
+    <script>
+        $(function () { Message('@TempData["Msg"]') });
+    </script>
+    <script>
+        function SubmitForm(e) {
+            var pid = $(e).attr("data-id");
+            $('#pId').val(pid);
+            $("#workcompletemodal").modal();
+        }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var closeButtons = document.querySelectorAll('[data-dismiss="workcompletemodal"]');
+            closeButtons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    var modal = this.closest('#workcompletemodal');
+                    var bootstrapModal = bootstrap.Modal.getInstance(modal);
+                    bootstrapModal.hide();
+                });
+            });
+        });
+    </script>
+    <script>
+        $(function () { Message('@TempData["delete"]') });
+    </script>
+}

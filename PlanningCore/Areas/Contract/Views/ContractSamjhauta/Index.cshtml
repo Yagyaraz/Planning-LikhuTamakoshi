@@ -1,0 +1,222 @@
+﻿@model IEnumerable<ContractSamjhautaViewModel>
+@inject IUtility _Utility
+@{
+    ViewData["Title"] = "Index";
+    <style>
+        .oval-button {
+            border-radius: 25px;
+        }
+
+        #zero_config > thead > tr > th {
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        #zero_config > tbody > tr > td {
+            font-size: 13px;
+        }
+
+        table.table-bordered.dataTable th, table.table-bordered.dataTable td {
+            border-left-width: thin;
+        }
+
+            table.table-bordered.dataTable th:last-child, table.table-bordered.dataTable th:last-child, table.table-bordered.dataTable td:last-child, table.table-bordered.dataTable td:last-child {
+                border-right-width: thin;
+            }
+    </style>
+}
+
+
+
+
+
+<style>
+
+
+
+    .table thead {
+        background-color: #ccd1d9;
+        font-size: 13px;
+        line-height: 35px !important;
+    }
+
+
+
+
+        .table thead th {
+            font-size:13px !important;
+            font-weight: 800;
+            border: 1px solid black !important;
+            padding: 0px !important;
+        }
+
+
+    .table tbody td {
+        padding: 0px !important;
+        border: 1px solid black !important;
+        vertical-align: middle;
+    }
+
+    .table tbody tr {
+        text-align: center;
+        font-size: 12px;
+        height: 27px !important;
+    }
+
+
+
+    table.table-bordered.dataTable td {
+        padding: 0px;
+    }
+
+    table.table-bordered.dataTable th {
+        padding: 0px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #e9ecef;
+    }
+
+
+    tr:hover {
+        background-color: #b3ffe6;
+    }
+
+</style>
+
+<div class="page-breadcrumb colr1">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            
+            <div class="ms-auto text-end">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="">गृह पृष्ट</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            ठेक्का सम्झौता
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid colr1">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="d-flex justify-content-between">
+                 <div style="display:flex;">
+                    <h4 class="card1" style="background-color:#3c8dbc; color:#fff; height:40px; width:120px; padding-top:3px; text-align:center;">ठेक्का सम्झौता</h4>
+                    <span style="height:2rem; background-color:#3c8dbc; width:10px; height:40px;"></span>
+                    <span style="height: 2rem; border-top: 17px solid transparent;border-left: 25px solid #3c8dbc;border-bottom: 22px solid transparent; height:40px;"> </span>
+                </div>
+                <a asp-controller="ContractSamjhauta" asp-action="InsertContractSamjhauta" asp-area="Contract" 
+                class="btn btn-sm  d-flex justify-content-center align-items-center text-white"
+                   style="height:2rem; background-color:#33b35a; border:1px solid #3ec291;">
+                    <i class="fas fa-plus-circle">
+                        नयाँ थप्नुहोस
+                    </i>
+                </a>
+            </div>
+          
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="zero_config" class="table table-bordered" style="border-collapse: collapse!important;">
+                            <thead>
+                                @{
+                                    int i = 1;
+                                }
+                                <tr>
+                                    <th style="width:70px; text-align:center;">क्र.स.</th>
+                                    <th style="width:140px; text-align:center;">@Html.DisplayNameFor(model => model.YojanaName)</th>
+                                    <th style="width:140px; text-align:center;">@Html.DisplayNameFor(model => model.ContractTypeName)</th>
+                                    <th style="width:175px; text-align:center;">@Html.DisplayNameFor(model => model.ConsultantName)</th>
+                                    <th style="text-align:center;">@Html.DisplayNameFor(model => model.EstimatedAmount)</th>
+                                    <th style="text-align:center;">@Html.DisplayNameFor(model => model.BolPatraDate)</th>
+                                    <th style="text-align:center;">@Html.DisplayNameFor(model => model.ProjectStartDate)</th>
+                                    <th style="text-align:center;">@Html.DisplayNameFor(model => model.ProjectEndDate)</th>
+                                    <th style="text-align:center;"> कार्य</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+
+                                    <tr>
+                                        <td style="text-align:center;">@_Utility.ConvertEnglishToNepali(i)</td>
+                                        <td style="text-align:center;">@Html.DisplayFor(modelItem => item.YojanaName)</td>
+                                        <td style="text-align:center;">@Html.DisplayFor(modelItem => item.ContractTypeName)</td>
+                                        <td style="text-align:center;">@Html.DisplayFor(modelItem => item.ConsultantName)</td>
+                                        <td style="text-align:center;">@Html.DisplayFor(modelItem => item.EstimatedAmount)</td>
+                                        <td style="text-align:center;">@Html.DisplayFor(modelItem => item.BolPatraDate)</td>
+                                        <td style="text-align:center;">@Html.DisplayFor(modelItem => item.ProjectStartDate)</td>
+                                        <td style="text-align:center;">@Html.DisplayFor(modelItem => item.ProjectEndDate)</td>
+                                     
+                                        
+                                        <td style="display:flex; flex-direction:row; height:54px; border-top:none!important; border-left:none!important;">
+                                            <a type="button" id="सच्याउनुहोस" class="btn btn-sm" title="Edit" asp-action="InsertContractSamjhauta" asp-route-id="@item.Id">
+                                                <i class="fa fa-edit" style=" font-weight:1; font-size:12px;">
+                                                    <span style="color:blue;">  </span>
+                                                </i>
+                                            </a>
+                                            <a onclick="return confirm(' के तपाइँ निश्चित रद्द गर्न चाहानुहुन्छ??')" title="Delete" asp-controller="Planningsamjhauta" asp-action="Delete" asp-area="Admin" 
+                                                class="btn  btn-sm " asp-route-id="@item.Id"><i class="fas fa-trash" style="color:red;">  </i>
+                                            </a>
+                                            <a type="button" id="विवरण" class="btn  btn-sm" title="विवरण" asp-action="contractagreement" asp-route-id="@item.Id">
+                                                <i class="fa fa-list " style="margin-left:12px;">
+                                                    <span class="fw-normal " style="font-size:12px;">  </span>
+                                                    
+                                              </i>
+                                              </a>
+                                            <a type="button" id="विवरण" class="btn  btn-sm" title="भुक्तानि" asp-action="ContractBhuktaniIndex" asp-route-id="@item.Id">
+                                                <img src="\Images\Icon\salary.png" width="16" height="16"> 
+                                                <span class="fw-normal" style="font-size:12px;" >  </span>
+                                            </a>
+                        @*                     <a asp-controller="Planningsamjhauta" asp-action="CreatePlanningDocument" asp-area="Admin" class="btn  btn-sm " asp-route-PlanningSamjhautaid="@item.Id">
+                                                <i class=" fas fa-file-image">
+
+                                                    <span class="fw-normal" style="font-size:12px;">  कागजात </span>
+
+
+
+                                                </i>
+                                                </a> *@
+
+
+
+
+                                            
+
+                                        </td>
+
+                                    </tr>
+                                    i++;
+                                }
+                            </tbody>
+                        </table>
+                        <div class="d-flex justify-content-end">
+                        <a asp-action="Index" asp-controller="Setup" asp-area="Contract" class="btn  btn-sm mt-3 mb-2 text-white"
+                           style=" background-color:#424f63;">
+                            <i class="fa fa-arrow-left" aria-hidden="true"> पछाडि फर्कनुहोस्</i>
+                        </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $("#zero_config").DataTable();
+    </script>
+    <script>
+        $(function () { Message('@TempData["del"]') });
+    </script>
+}

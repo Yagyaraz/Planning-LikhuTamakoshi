@@ -1,0 +1,55 @@
+﻿@model BudgetTypeViewModel
+@inject IUtility _Utility
+@{
+	ViewData["Title"] = "Index";
+
+
+}
+
+<link href="~/lib/nepalidatepicker/css/nepali.datepicker.v3.7.min.css" rel="stylesheet" />
+
+<div class="page-breadcrumb">
+	<div class="row">
+		<div class="col-12 d-flex no-block align-items-center">
+			<h4 class="page-title"><u> <label asp-for="BudgetTypeName"></label> सम्बन्धि विवरण : </u> </h4>
+			<div class="ms-auto text-end">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="#">गृह पृष्ट</a></li>
+						<li class="breadcrumb-item active" aria-current="page">
+							<label asp-for="BudgetTypeName"></label> सम्बन्धि विवरण :
+						</li>
+					</ol>
+				</nav>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container-fluid">
+	<div class="row">
+		<form asp-action="CreateBudgetType" method="post">
+			@Html.HiddenFor(model => model.BudgetTypeId)
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-body row">
+
+						<div class="form-group mt-3 col-md-2 col-2">
+							<label asp-for="BudgetTypeName"></label>
+							<input type="text" asp-for="BudgetTypeName" class="form-control" style="border-radius:12px;">
+							<span asp-validation-for="BudgetTypeName" class="text-danger"></span>
+						</div>
+						<div class="card-body">
+							<button type="submit" class="btn btn-success text-white oval-button">सुरक्षित गर्नुहोस</button>
+							<a asp-controller="Budget" asp-action="BudgetTypeIndex" asp-area="Admin" class="btn btn-sm btn-success oval-button"><i class="mdi mdi-arrow-left-box"></i>Back to List </a>
+
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+		</form>
+
+	</div>
+</div>

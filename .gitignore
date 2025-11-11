@@ -1,0 +1,12 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/PlanningCore
+/PlanningCore/Migrations
+/PlanningCore/bin
+/PlanningCore/obj
+
+/.vs/ProjectEvaluation/planningcore.metadata.v8.bin
+/.vs/ProjectEvaluation/planningcore.projects.v8.bin
+/.vs/ProjectEvaluation/planningcore.strings.v8.bin

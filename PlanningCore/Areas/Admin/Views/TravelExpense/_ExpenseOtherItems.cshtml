@@ -1,0 +1,26 @@
+﻿@model TravelRequiredItemsViewModel
+@inject IUtility _Utility
+@using HtmlHelpers.BeginCollectionItemCore;
+
+<div class="traveldiv row new ms-3">
+    @using (Html.BeginCollectionItem("TravelExpenseList"))
+    {
+        <div class="col-lg-12 col-sm-12 col-12">
+            <input asp-for="TravelRequiredItemId" class="form-control" type="hidden" />
+            <input asp-for="TeavelExpenseId" type="hidden" />
+        </div>
+        <div class="col-lg-2 col-sm-3 col-3 mt-3">
+
+            <label asp-for="ItemNames" class="control-label"></label>
+            <input asp-for="ItemNames" class="form-control" />
+            <span asp-validation-for="ItemNames" class="text-danger"></span>
+
+        </div>        
+        <div class="col-lg-1 col-sm-4 col-6 d-flex justify-content-center align-items-center flex-column">
+            <button type="button" onclick="DeleteRow(this)" class="row-button btn btn-sm btn-danger btn-delete mt-4"><i class="fa fa-minus"></i></button>
+        </div>
+    }
+</div>
+
+
+

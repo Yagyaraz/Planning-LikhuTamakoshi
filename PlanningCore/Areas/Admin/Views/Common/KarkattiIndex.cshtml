@@ -1,0 +1,205 @@
+﻿@model IEnumerable<KarKattiViewModel>
+
+@{
+    ViewData["Title"] = "MainSetting";
+    int i = 1;
+}
+<style>
+
+
+
+    .table thead {
+        background-color: #ccd1d9;
+        font-size: 13px;
+        line-height: 35px !important;
+    }
+
+
+
+
+        .table thead th {
+            font-weight: 800;
+            border: 1px solid black !important;
+            padding: 0px !important;
+        }
+
+
+    .table tbody td {
+        padding: 0px !important;
+        border: 1px solid black !important;
+        vertical-align: middle;
+    }
+
+    .table tbody tr {
+        text-align: center;
+        font-size: 12px;
+        height: 27px !important;
+    }
+
+
+
+    table.table-bordered.dataTable td {
+        padding: 0px;
+    }
+
+    table.table-bordered.dataTable th {
+        padding: 0px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #e9ecef;
+    }
+
+
+    tr:hover {
+        background-color: #b3ffe6;
+    }
+
+</style>
+
+<div class="page-breadcrumb colr1">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+
+            <div class="ms-auto text-end ">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="">गृह पृष्ट</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            कर-कट्टी
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="conatiner-fluid colr1">
+    <div class=" row ">
+        <div class=" col-md-12">
+            <div class="mt-2 d-flex " style="margin-left:20px; gap:900px;">
+               <div style="display:flex;">
+                    <h4 class="card1" style="background-color:#3c8dbc; color:#fff; height:40px; width:100px; padding-top:5px; text-align:center;">कर-कट्टी</h4>
+                    <span style="height:2rem; background-color:#3c8dbc; width:10px; height:40px;"></span>
+                    <span style="height: 2rem; border-top: 17px solid transparent;border-left: 25px solid #3c8dbc;border-bottom: 22px solid transparent; height:40px;"> </span>
+                </div>
+                <a asp-controller="Common" asp-action="InsertUpdateKarkatti" asp-area="Admin" class="btn  btn-sm fw-bold text-white "
+                   style="display: flex; align-items:center; justify-content:center; height:2rem; background-color:#33b35a; border:1px solid #3ec291; ">
+                    <i class="fas fa-plus-circle">
+                        नँया थप्नुहोस
+                    </i>
+                </a>
+                @if (!Model.Any() && Model.Count() == 0)
+                {
+                    <a asp-controller="Common" asp-action="InsertUpdateKarkatti" asp-area="Admin"
+                       class="btn btn-sm fw-bold text-white d-flex justify-content-center align-items-center gap-1"
+                       style="height:2rem; background-color:#33b35a; border:1px solid #3ec291;">
+                        <i class="fas fa-plus-circle"> </i>   नँया थप्नुहोस
+                    </a>
+                }
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="zero_config" class="table  table-bordered" style="border-collapse: collapse!important;">
+                            <thead>
+                                <tr style="color:#00234D;">
+                                    <th style="text-align:center!important;">
+                                        @Html.DisplayNameFor(model => model.Contigency)
+                                    </th>
+                                    <th style="text-align:center!important;">
+                                        @Html.DisplayNameFor(model => model.AgrimShulka)
+                                    </th>
+                                    <th style="text-align:center!important;">
+                                        @Html.DisplayNameFor(model => model.BahalKar)
+                                    </th>
+                                    <th style="text-align:center!important;">
+                                        @Html.DisplayNameFor(model => model.Dhuwani)
+                                    </th>
+                                    <th style="text-align:center!important;">
+                                        @Html.DisplayNameFor(model => model.MarmatSambhar)
+                                    </th>
+                                    <th style="text-align:center!important;">
+                                        @Html.DisplayNameFor(model => model.Parishramik)
+                                    </th>
+                                    <th style="text-align:center!important;">
+                                        @Html.DisplayNameFor(model => model.Royality)
+                                    </th>
+                                    <th style="text-align:center!important;">
+                                        @Html.DisplayNameFor(model => model.SamajikSurekchya)
+                                    </th>
+                                    <th style="text-align:center!important;">कार्य</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td style="text-align:center!important;">
+                                            @Html.DisplayFor(modelItem => item.Contigency)
+                                        </td>
+                                        <td style="text-align:center!important;">
+                                            @Html.DisplayFor(modelItem => item.AgrimShulka)
+                                        </td>
+                                        <td style="text-align:center!important;">
+                                            @Html.DisplayFor(modelItem => item.BahalKar)
+                                        </td>
+                                        <td style="text-align:center!important;">
+                                            @Html.DisplayFor(modelItem => item.Dhuwani)
+                                        </td>
+                                        <td style="text-align:center!important;">
+                                            @Html.DisplayFor(modelItem => item.MarmatSambhar)
+                                        </td>
+                                        <td style="text-align:center!important;">
+                                            @Html.DisplayFor(modelItem => item.Parishramik)
+                                        </td>
+                                        <td style="text-align:center!important;">
+                                            @Html.DisplayFor(modelItem => item.Royality)
+                                        </td>
+                                        <td style="text-align:center!important;">
+                                            @Html.DisplayFor(modelItem => item.SamajikSurekchya)
+                                        </td>
+                                        <td style="text-align:center!important;">
+                                            <a asp-action="InsertUpdateKarkatti" asp-route-id="@item.KarKattiId" title="Edit" class="btn  btn-sm">
+                                                <i class="fa fa-edit" style="font-weight:1; color:#00234D; display:flex; justify-content:center; align-items:center; font-size:12px;">
+                                                    <span style="color:blue; padding-left:3px;"> </span>
+                                                </i>
+                                            </a>
+                                            <a asp-action="DeleteWard" asp-route-id="@item.KarKattiId" title="Delete" onclick="return confirm('Are you sure?')">
+                                                <i class="fa fa-trash" style="color:red; padding-left:3px;"></i>
+                                            </a>
+
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                        <div class="d-flex justify-content-end">
+                            <a asp-action="Setup" asp-controller="Setup" asp-area="Admin" class="btn  btn-sm mt-3 mb-2 text-white"
+                               style=" background-color:#424f63;">
+                                <i class="fa fa-arrow-left" aria-hidden="true"> पछाडि फर्कनुहोस्</i>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $("#zero_config").DataTable();
+    </script>
+
+    <script>
+        $(function () { Message('@TempData["Msg"]') });
+    </script>
+}

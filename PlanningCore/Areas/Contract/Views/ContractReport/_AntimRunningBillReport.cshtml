@@ -1,0 +1,72 @@
+﻿ @model ContractSamjhautaViewModel
+ @inject IUtility _utility
+@{
+    var orgname = await _utility.GetMainSettingById(0);
+    var pada = await _utility.GetPostById(ViewBag.PostId);
+    int? post = ViewBag.PostId;
+    var employee = await _utility.GetEmpNameById(post);
+}
+
+@if (Model.PrintContent == null)
+{
+    <div class="row">
+        <div class="Header">
+            <partial name="_PrintHeader" />
+        </div>
+    </div>
+    <div class="container">
+        <div class="sign" style="font-weight:500; font-size:16px;">
+            <p>अध्यक्ष श्री, @Model.ConsultantName, </p>
+            <p>@Model.MainPersonAddress</p>
+        </div>
+        <br />
+        <p style="text-indent:320px; letter-spacing:1px; line-height:30px; font-weight:500; font-size:16px; padding-top:15px; text-align:justify !important; ">
+            <span id="reportname"> <u> विषयः- अन्तिम बिल भुक्तानी सम्बन्धमा ।</u> </span>
+        </p>
+        <p style="text-indent:24px; letter-spacing:1px; line-height:30px; font-weight:500; font-size:16px; padding-top:15px; text-align:justify !important; ">
+            प्रस्तुत विषयमा यस @orgname.PalikaName ठेक्का नं. @Model.ThekkaNumber, @Model.YojanaName @Model.YojanaAddress को @_utility.ConvertNepaliToEnglish(Model.ContractDate) गते यस कार्यालय र
+            ठेकेदार @Model.ConsultantName,@Model.MainPersonAddress बीच मु.अ.क. सहित रु . @_utility.ConvertEnglishToNepali(Model.ContractAmt)
+            (@_utility.ConvertNumberToNepaliText(Model.ContractAmt.ToString()))। मा सम्झौता भएके र निज निर्माण
+            सेवाले सम्पुर्ण कार्य सम्पन्न गरी भुक्तानी पाउँ भनि माग गरेको हुँदा उक्त कार्यको प्राविधिकबाट अन्तिम
+            मुल्याङ्कन बिल र कार्य सम्पन्न प्रतिबेदन मु.अ.क. र PS आइटम सहित रु.२२,४८,१११/२१ (अक्षरुपी बाइस लाख
+            अडचालिस एक सय एघार रुपैया एकाइस पैसा मात्र) हुन आएको बाट ५% धरौटी वापत रु.९९,७१८।६८ (अक्षरुपी
+            उनानसय हजार सात सय अठार रुपैया अडसठी पैसा), १.५% अग्रीम आयकर वापत रु. २९,९१५।६० (अक्षरुपी
+            उननतिस हजार नौ सय पन्ह रुपैया साठी पैसा) मु.अ.क.को ३०% वापत रु.७६१२१।२९ (अक्षरुपी छिहत्तर हजार एक
+            सय एक्काइस रुपैया उननतिस पैसा। र प्राकृतीक श्रोत उपयोग कर वापत रू.९८.५३०। (अक्षरुपी अन्ठानब्बे हजार
+            पाच सय तिस रुपैया) कट्टा गरी खुद भुक्तानी हुने रकम रु.१९,४३,८२५। (अक्षरुपी उन्नाइस लाख त्रिचालिस हजार
+            आठ सय पचिस रुपैया ) मात्र प्राविधिकबाट पेश भएको अन्तिम मुल्याङ्कन बिल कार्य सम्पन्न प्रतिवेदन पेश भए
+            बमोजिम श्रीमान अध्यक्ष ज्युबाट सदर गराई भुक्तानीको लागी पेश गरेको छु ।
+         
+        </p>
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-md-3 col-3 offset-9">
+                <p>@employee</p>
+                <p>@pada</p>
+            </div>
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        @* <p><u><b>बोधार्थ :</b></u></p> *@
+        @* 	<p>श्री  @Model.WardName</p> *@
+        @* 	<p>एक प्रति सम्झौता र कार्यादेश यसै साथ संलग्न छ साइट इन्चार्ज/ प्राविधिक खटाइ यसै बमोजिम सम्पुर्ण कार्य गराउनु हुन ।</p> *@
+        @* 	<p>
+    @orgname.PalikaName @orgname.Address,@orgname.StateName,नेपाल ।
+    </p> *@
+    </div>
+}
+else
+{
+    @Html.Raw(Model.PrintContent)
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(function () {
+            Message1('@TempData["Message"]')
+        });
+    });
+</script>

@@ -1,0 +1,131 @@
+﻿@inject IUtility _Utility
+@model FormatViewModel
+@{
+	var headerdata = await _Utility.GetHeaderData();
+	int i = 1;
+}
+
+<style>
+
+	.printpage {
+	width: 21cm;
+	min-height: 29.7cm;
+	padding: 2cm;
+	margin: 1cm auto;
+	border: 1px #d3d3d3 solid;
+	border-radius: 5px;
+	background: #fff;
+	box-shadow: 0 0 5px rgb(0 0 0 / 10%);
+	font-family: 'kalimati regular' !important;
+	}
+
+	p {
+	font-size: 18px;
+	}
+
+	.table tbody tr td {
+	height: 3rem !important;
+	}
+
+</style>
+
+<div class="d-flex justify-content-end">
+	<button class="btn btn-primary mt-5" type="button" onClick="Print('contentToPrint')"><i class="fa fa-print" aria-hidden="true"></i> Print</button>
+</div>
+<div class="row" id="contentToPrint">
+	<style>
+		p {
+		font-size: 18px;
+		}
+
+		.table tbody tr td {
+		height: 3rem !important;
+		}
+	</style>
+	<section style="page-break-after:always; padding-top:2px;">
+		<div class="container">
+			<div>
+				<h4 class="text-center">योजनाको कार्य निर्माणाधीन अवस्थामा गरिने अनुगमन प्रतिवेदन: </h4>
+				<p>१.योजनाको नाम:@Model.PlanningSamjhauta.YojanaNames</p>
+				<p>२.योजना निर्माण सुरु मिति:@Model.PlanningSamjhauta.Project_Start_Date</p>
+				<p>३.योजना सम्पन्न हुनुपर्ने मिति:@Model.PlanningSamjhauta.Project_End_Date</p>
+				<div class="row">
+					<div class="col-md-6 col-6">
+						<p>४.भौतिक प्रगति:....................%</p>
+					</div>
+					<div class="col-md-6 col-6">
+						<p>५. वित्तिय प्रगति:...................%</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6 col-6"><p>६.सम्झौता रकम रु.@Model.PlanningSamjhauta.Municipality </p></div>
+					<div class="col-md-6 col-6"><p>७ भुक्तानी बाकी रकम रु:@Model.PlanningSamjhauta.Project_estimated_Amount</p></div>
+				</div>
+				<p>८. योजना कार्यान्वयन तोकिएको गुणस्तर, लागत र समय अनुरुप: भएको/नभएको</p>
+				<p>१०. निर्माण कार्यको अवस्था:</p>
+			</div>
+			<div style="text-indent:20px;">
+				<p> क) निर्माणस्थलमा आवश्यक निर्माण सामग्रीको उपलब्धता भएको/नभएको</p>
+				<p>ख) उपलब्ध निर्माण सामग्री तोकिएको गुणस्तर बमोजिम भएको/नभएको:</p>
+				<p>ग) गुणस्तर परीक्षण भए नभएको र भएको भए सोको नतिजा: परिक्षण भएको/भएको</p>
+				<p>घ) आवश्यक जनशक्तिको पर्याप्तता भएको/नभएको:</p>
+				<p>ङ) मेशिनरी औजार र उपकरण व्यवस्थापनको अवस्था: प्रयोग भएको/नभएको</p>
+			</div>
+			<div>
+				<p>११. योजना कार्यान्वयनमा देखिएका बाधा अवरोध: भएको/नभएको</p>
+				<p>१२. योजना कार्यान्वयनमा सम्जौताका शर्तको पालना: भएको/नभएको, नभएको भए पालना नभएको विषय र सोको कारण:.................................................................................................</p>
+				<p>१३. स्थानीय उपभोक्ता/ नागरिकहरुको धारणा वा प्रतिकृया:..............................</p>
+				<p>१४. अघिल्लो अनुगमनको क्रममा दिइएका सुझाव कार्यान्वयनको अवस्था:</p>
+				<p>१५.समिति/ अनुगमनकर्ताको टिप्पणी, सुझाव र निर्देशन:</p>
+				<p>अनुगमन गर्ने पदाधिकारीहरु:</p>
+			</div>
+			<div class="row">
+				<div class="col-md-4 col-4">
+					<p>नाम/थर:</p>
+				
+				</div>
+				<div class="col-md-4 col-4">
+					<p>पद:</p>				
+				</div>
+				<div class="col-md-4 col-4">
+					<p>दस्तखत:</p>
+				</div>
+			</div>
+			<div class="row">
+				@foreach(var item in Model.PlanningSamjhauta.AnugamanSamitiSetup.AnugamanSamitiListPalika)
+				{
+                    <div class="col-md-4 col-4">
+                        <p>@_Utility.ConvertEnglishToNepali(i)) @item.Name </p>
+                    </div>
+                    <div class="col-md-4 col-4">
+                        <p>@item.PostName</p>
+                    </div>
+                    <div class="col-md-4 col-4">
+                        <p></p>
+                    </div>
+				i++;
+				}
+				
+			</div>
+		</div>
+	</section>
+</div>
+
+<link href="~/lib/nepalidatepicker/css/nepali.datepicker.v3.7.min.css" rel="stylesheet" />
+
+@section Scripts
+{
+	<script type="text/javascript">
+		//$(function () {
+		//    $('.currentdate').html(GetNepaliCurrentDate());
+		//});
+		function Print() {
+			var elementHTML = document.getElementById('contentToPrint').innerHTML;
+			var oldPage = document.body.innerHTML;
+			document.body.innerHTML = elementHTML;
+			window.print();
+			//document.body.innerHTML = oldPage;
+			window.location.reload(true);
+		}
+	</script>
+}

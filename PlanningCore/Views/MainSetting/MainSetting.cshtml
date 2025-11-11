@@ -1,0 +1,209 @@
+﻿@model IEnumerable<MainSettingViewModel>
+@inject PlanningCore.Utilities.IUtility _Utility
+@{
+    ViewData["Title"] = "MainSetting";
+    int i = 1;
+}
+
+
+<style>
+/*     .card1 {
+        background-color: #63B94C;
+        width: 8rem;
+        height: 2rem;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 15px;
+    }
+ */
+
+
+    /* .table thead {
+        background-color: #ccd1d9;
+        font-size: 13px;
+        line-height: 35px !important;
+    } */
+
+
+
+
+        .table thead th {
+            font-weight: 800;
+            border: 1px solid black !important;
+            padding: 0px !important;
+        }
+
+
+    .table tbody td {
+        padding: 0px !important;
+        border: 1px solid black !important;
+        vertical-align: middle;
+    }
+
+    .table tbody tr {
+        text-align: center;
+        font-size: 12px;
+        height: 27px !important;
+    }
+
+
+
+    table.table-bordered.dataTable td {
+        padding: 0px;
+    }
+
+    table.table-bordered.dataTable th {
+        padding: 0px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #e9ecef;
+    }
+
+
+    tr:hover {
+        background-color: #b3ffe6;
+    }
+
+</style>
+
+
+
+
+
+
+<div class="page-breadcrumb colr1">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+
+            <div class="ms-auto text-end">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">गृह पृष्ट</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            कार्यालय सेटअप
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid colr1">
+    <div class="row">
+        <div class="col-md-12">
+            <div style="display:flex; justify-content:space-between;">
+                <div style="display:flex;">
+                    <h4 class="card1" style="background-color:#3c8dbc; color:#fff; height:40px; width:150px; padding-top:5px; text-align:center;">कार्यालय सेटअप</h4>
+                    <span style="height:2rem; background-color:#3c8dbc; width:10px; height:40px;"></span>
+                    <span style="height: 2rem; border-top: 17px solid transparent;border-left: 25px solid #3c8dbc;border-bottom: 22px solid transparent; height:40px;"> </span>
+                </div>
+                <a asp-controller="MainSetting" asp-action="CreateMainSetting" asp-area="Index" class="btn btn-sm
+                  d-flex justify-content-center align-items-center text-white"
+                   style="height:2rem; background-color:#33b35a; border:1px solid #3ec291">
+                    <i class="fas fa-plus-circle">
+                        नयाँ थप्नुहोस
+                    </i>
+                </a>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+        <div class="table-responsive">
+                        <table id="zero_config" class="table table-bordered" style="border-collapse: collapse!important;">
+                <thead>
+                                <tr style="color:#00234D;">
+                        <th style="text-align:center; border:1px solid black;">क्र. स.</th>
+                        <th style="text-align:center; border:1px solid black;">
+                            @Html.DisplayNameFor(model => model.StateName)
+                        </th> 
+                        <th style="text-align:center; border:1px solid black;">
+                            @Html.DisplayNameFor(model => model.DistrictName)
+                        </th>
+                                    <th style="text-align:center; border:1px solid black;">
+                            @Html.DisplayNameFor(model => model.PalikaName)
+                        </th>
+                                    <th style="text-align:center; border:1px solid black;">
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+                                    <th style="text-align:center; border:1px solid black;">
+                            @Html.DisplayNameFor(model => model.Address)
+                        </th>
+                                    <th style="text-align:center; border:1px solid black;">
+                            @Html.DisplayNameFor(model => model.Address2)
+                        </th>
+                       <th style="text-align:center; border:1px solid black; width:10%;"> कार्य </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr style="font-size:12px; line-height:25px !important; ">
+                            <td style="text-align:center; border:1px solid black;">@_Utility.ConvertEnglishToNepali(i)</td>
+                            <td style="text-align:center; border:1px solid black;">
+                                @Html.DisplayFor(modelItem => item.StateName)
+                            </td>
+                            <td style="text-align:center; border:1px solid black;">
+                                @Html.DisplayFor(modelItem => item.DistrictName)
+                            </td>
+                            <td style="text-align:center; border:1px solid black;">
+                                @Html.DisplayFor(modelItem => item.PalikaName)
+                            </td>
+                            <td style="text-align:center; border:1px solid black;">
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td style="text-align:center; border:1px solid black;">
+                                @Html.DisplayFor(modelItem => item.Address)
+                            </td>
+                            <td style="text-align:center; border:1px solid black;">
+                                @Html.DisplayFor(modelItem => item.Address2)
+                            </td>
+                             <td style="border:1px solid black; display:flex; justify-content:center; gap:5px;">
+                                <a asp-action="CreateMainSetting" asp-route-id="@item.Id" title="Edit">
+                                    <i class="fa fa-edit" style="font-weight:1; color:#00234D; display:flex;
+                                      font-size:12px; padding-top:5px; padding-left:5px;">
+                                        <span style="color:blue; padding-left:3px;">  </span>
+                                    </i>
+                                </a>
+                                            <a asp-action="DeleteUnit" asp-route-id="@item.Id" title="Delete" onclick="return confirm('Are you sure?')">
+                                                <i class="fa fa-trash" style="color:red; padding-left:3px;">                                                </i>
+                                            </a>
+                            </td>
+                        </tr>
+                        i++;
+                    }
+                </tbody>
+
+            </table>
+
+
+                        <div class="d-flex justify-content-end">
+                            <a asp-action="Setup" asp-controller="Setup" asp-area="Admin" class="btn  btn-sm mt-3 mb-2 text-white"
+                               style=" background-color:#424f63;">
+                                <i class="fa fa-arrow-left" aria-hidden="true"> पछाडि फर्कनुहोस्</i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $("#zero_config").DataTable();
+    </script>
+
+    <script>
+        $(function () { Message('@TempData["Msg"]') });
+    </script>
+}
+
+

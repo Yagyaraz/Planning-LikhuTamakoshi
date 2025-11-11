@@ -1,0 +1,29 @@
+﻿@model UpabhoktaSamitiDetailDocsDetailsViewModel
+@inject IUtility _Utility
+@using HtmlHelpers.BeginCollectionItemCore;
+
+<div class="Samitidiv row new">
+    @using (Html.BeginCollectionItem("DocsList"))
+    {
+        <div class="col-lg-2 col-sm-3 col-3 mt-3 ">
+            <label asp-for="UpabhoktaSamitiDetailDocTypeId" class="control-label"></label>
+            <select asp-for="UpabhoktaSamitiDetailDocTypeId" asp-items="await _Utility.GetUpabhoktaSamitiDocsType()" class="form-control form-control" style="pointer-events:none;">
+                <option>--कृपया  छान्नुहोस--</option>
+            </select>
+            <span asp-validation-for="UpabhoktaSamitiDetailDocTypeId" class="text-danger"></span>
+
+        </div>
+        <div class="col-lg-3 col-sm-3 col-3 mt-3 ms-2 ">
+            <label asp-for="DocPath" class="control-label fw-bold"></label>
+            <input type="file" asp-for="DocsFile" multiple="multiple" class="form-control" style="width:200px;" accept="image/png, image/gif, image/jpeg, application/pdf" />
+            <span asp-validation-for="DocsFile" class="text-danger"></span>
+        </div>
+
+        <div class="col-lg-3 col-sm-3 col-2  mt-3  d-flex justify-content-center align-items-center flex-column">
+            @if (Model.DocPath != null)
+            {
+                <img src="@Model.DocPath" alt="Image Description" class="img-fluid" />
+            }
+        </div>
+    }
+</div>

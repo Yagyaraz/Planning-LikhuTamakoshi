@@ -1,0 +1,33 @@
+﻿@model AnugamanSamitiMemberViewModel
+@inject IUtility _utility
+@using HtmlHelpers.BeginCollectionItemCore;
+<div class="anugumansamiti row new">
+    @using (Html.BeginCollectionItem("AnugamanSamitiList"))
+    {
+    <div class="col-md-12 col-sm-12 col-12">
+        <input asp-for="AnugamanMemberId" hidden />
+        <input asp-for="AnugumanSamitiId" hidden />
+    </div>
+    <div class="col-md-3 col-3 mt-3 ">
+
+        <label asp-for="PostId" class="control-label fw-bold"></label>
+        <select asp-for="PostId" asp-items="await _utility.GetPadaList()" class="form-control form-control">
+            <option>--कृपया  पद छान्नुहोस--</option>
+        </select>
+        <span asp-validation-for="PostId" class="text-danger"></span>
+
+    </div>
+    <div class="col-md-3 col-3 mt-3   ">
+
+        <label asp-for="Name" class="control-label fw-bold"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+
+    </div>
+        <div class="col-md-12 col-12 mt-3">
+
+            <button type="button" onclick="DeleteRow(this)" class="row-button btn btn-sm btn-danger btn-delete" style="float:right;"><i class="fa fa-minus"></i></button>
+
+        </div>
+    }
+</div>
