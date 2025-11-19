@@ -2,8 +2,12 @@
 @model PlanningSamjhautaViewModel
 @{
 	var orgname = await _utility.GetMainSettingById(0);
-	var employee = await _utility.GetEmpNameById(ViewBag.EmpId);
-	var pada = await _utility.GetPostById(ViewBag.PostId);
+	var pesgarnepost = await _utility.GetPostById(ViewBag.PesgarneId);
+	var pesgarneName = await _utility.GetEmpNameById(ViewBag.Pesgarne);
+	var sifarishgarnepost = await _utility.GetPostById(ViewBag.SifarishGarneId);
+	var sifarishgarneName = await _utility.GetEmpNameById(ViewBag.SifarishGarne);
+	var swkritgarnepost = await _utility.GetPostById(ViewBag.SwkritGarneId);
+	var swkritgargneName = await _utility.GetEmpNameById(ViewBag.SwkritGarne);
 	// var mydata = await _utility.GetEmployeeNamePost(ViewBag.PostId);
 	bool isSavedData = Convert.ToBoolean(ViewBag.isSavedData);
 
@@ -90,22 +94,48 @@
 	<div class="container pt-4 mt-4">
 		<form asp-action="SamjhautaReport" method="get">
 			<div class="pt-4 row">
-				<div class="col-2">
-					<label>सिफारीस गर्ने पद</label>
-					<select name="PostId" id="PostId" asp-items="@await _utility.GetPadaList()" class="form-control">
-						<option value="">--पद छान्नुहोस--</option>
-					</select>
+				<div class="col-md-12 col-12 row pl-5" style="padding-left:10px;">
+					<div class="col-2">
+						<label>पद</label>
+						<select name="pesgarneId" id="PostId1" asp-items="@await _utility.GetPadaList()" class="form-control post-dropdown">
+							<option value="">--पद छान्नुहोस--</option>
+						</select>
+					</div>
+					<div class="col-2">
+						<label>नाम</label>
+						<select name="pesgarne" id="EmpId1" asp-items="@await _utility.GetEmpNameByPostId(ViewBag.PostId)" class="form-control emp-dropdown">
+							<option value="">--नाम छान्नुहोस--</option>
+						</select>
+					</div>
+					<div class="col-2">
+						<label>पद</label>
+						<select name="sifarishgarneId" id="PostId2" asp-items="@await _utility.GetPadaList()" class="form-control post-dropdown">
+							<option value="">--पद छान्नुहोस--</option>
+						</select>
+					</div>
+					<div class="col-2">
+						<label>नाम</label>
+						<select name="sifarishgarne" id="EmpId2" asp-items="@await _utility.GetEmpNameByPostId(ViewBag.PostId)" class="form-control emp-dropdown">
+							<option value="">--नाम छान्नुहोस--</option>
+						</select>
+					</div>
+					<div class="col-2">
+						<label>पद</label>
+						<select name="swkritgarneId" id="PostId3" asp-items="@await _utility.GetPadaList()" class="form-control post-dropdown">
+							<option value="">--पद छान्नुहोस--</option>
+						</select>
+					</div>
+					<div class="col-2">
+						<label>नाम</label>
+						<select name="swkritgarne" id="EmpId3" asp-items="@await _utility.GetEmpNameByPostId(ViewBag.PostId)" class="form-control emp-dropdown">
+							<option value="">--नाम छान्नुहोस--</option>
+						</select>
+					</div>
 				</div>
-				<div class="col-2">
-					<label>सिफारीस गर्ने नाम</label>
-					<select name="EmpId" id="EmpId" asp-items="@await _utility.GetEmpNameByPostId(ViewBag.PostId)" class="form-control">
-						<option value="">--नाम छान्नुहोस--</option>
-					</select>
-				</div>
+
 				<div class="col-md-2 col-2">
 					<label>मिति : </label> <br />
 					<input type="text" name="PrintDate" class="form-control PrintDate" />
-
 				</div>
 
 				<div class="col-2">
@@ -210,20 +240,20 @@
 					<div class="col-md-4 col-4" >
 						<p>..........................</p>
 						<p>पेस गर्ने</p>
-						<p>@Model.SifarishGarneName</p>
-						<p>@Model.SifarishGarnePost</p>
+						<p>@pesgarneName</p>
+						<p>@pesgarnepost</p>
 					</div>
 					<div class="col-md-4 col-4" >
 						<p>..........................</p>
 						<p>सिफारीस गर्ने</p>
-						<p>@employee</p>
-						<p>@pada</p>
+						<p>@sifarishgarneName</p>
+						<p>@sifarishgarnepost</p>
 					</div>
 					<div class="col-md-4 col-4" >
 						<p>..........................</p>
 						<p>स्वीकृत गर्ने</p>
-						<p>@Model.SwikritGarneName</p>
-						<p>@Model.SwikritGarnePost</p>
+						<p>@swkritgargneName</p>
+						<p>@swkritgarnepost</p>
 					</div>
 				</div>
 				<br />
@@ -257,24 +287,33 @@
 			document.body.innerHTML = oldPage;
 		}
 	</script>
-	
-		<script>
-			$('#PostId').change(function () {
+	<script>
+		if ('@Model.PrintDate' != '') {
+				$('.pDate').html('@Model.PrintDate')
+			}
+		</script>
+	<script>
+		$(document).ready(function () {
+			$('.post-dropdown').change(function () {
+				const postDropdown = $(this); // Current Post dropdown
+				const empDropdown = postDropdown.closest('.col-2').next('.col-2').find('.emp-dropdown'); // Find corresponding Emp dropdown
+
 				$.ajax({
 					url: '@Url.Action("GetEmpNameByPostId", "Ajax", new { area = "" })',
 					type: 'GET',
-					data: { id: $(this).val() },
+					data: { id: postDropdown.val() },
 					success: function (data) {
-						$('#EmpId').empty().append("<option value=''>-नाम छान्नुहोस्-</option>");
+						empDropdown.empty().append("<option value=''>--नाम छान्नुहोस--</option>");
 						$.each(data, function (index, item) {
-							$('#EmpId').append(`<option value="${item.Value}">${item.Text} </option>`);
+							empDropdown.append(`<option value="${item.Value}">${item.Text}</option>`);
 						});
 					},
 					error: function () {
-						alert('error in calling ajax !!');
+						alert('Error in calling Ajax!');
 					}
 				});
 			});
+		});
 	</script>
 }
 

@@ -75,7 +75,7 @@
     <div class="container pt-4 mt-4">
         <form asp-action="@ViewData["Title"]" method="get">
             <div class="pt-4 row">
-                <div class="col-2">
+@*                 <div class="col-2">
                     <label>पद</label>
                     <select name="PostId" id="PostId" asp-items="@await _utility.GetPadaList()" required class="form-control">
                         <option value="">--पद छान्नुहोस--</option>
@@ -86,7 +86,7 @@
                     <select name="EmpId" id="EmpId" asp-items="@await _utility.GetEmpNameByPostId(ViewBag.PostId)" required class="form-control">
                         <option value="">--नाम छान्नुहोस--</option>
                     </select>
-                </div>
+                </div> *@
                 <div class="col-md-2 col-2">
                     <label>मिति : </label> <br />
                     <input type="text" name="PrintDate" required class="form-control PrintDate" value="@Model.PrintDate" />

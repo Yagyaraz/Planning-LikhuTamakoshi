@@ -322,12 +322,16 @@ namespace PlanningCore.Areas.Admin.Controllers
         }
         #endregion
         #region SamjhautaReport
-        public async Task<ActionResult> SamjhautaReport(int id, int? EmpId, int? PostId, string printdate)
+        public async Task<ActionResult> SamjhautaReport(int id, int pesgarneId, int swkritgarneId, int sifarishgarneId, int pesgarne, int sifarishgarne, int swkritgarne, string printdate)
         {
             var model = await _planningSamjhauta.GetPlanningSamjhautaById(id);
-            ViewBag.EmpId = EmpId;
-            ViewBag.PostId = PostId;
-			model.PrintDate = printdate;
+            ViewBag.PesgarneId = pesgarneId;
+            ViewBag.SwkritGarneId = swkritgarneId;
+            ViewBag.SifarishGarneId = sifarishgarneId;
+            ViewBag.Pesgarne = pesgarne;
+            ViewBag.SwkritGarne = swkritgarne;
+            ViewBag.SifarishGarne = sifarishgarne;
+            model.PrintDate = printdate;
             return View(model);
         }
         #endregion
