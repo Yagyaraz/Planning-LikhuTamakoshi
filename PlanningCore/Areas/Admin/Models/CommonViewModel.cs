@@ -110,6 +110,9 @@ namespace PlanningCore.Areas.Admin.Models
         public int UpaChetraId { get; set; }
 		[Display(Name = "नाम")]
         public string Name { get; set; }
+        [Display(Name = "वाड न.")]
+
+        public int? WardNumber { get; set; }
         public Nullable<bool> IsDeleted { get; set; }
 
         public string UpaChetraName { get; set; }
@@ -219,6 +222,7 @@ namespace PlanningCore.Areas.Admin.Models
         public Nullable<int> BudgetTypeId { get; set; }
 		[Display(Name = "वडा कार्यलयको नाम")]
 		public string WardName { get; set; }
+        public string Status {  get; set; }
 
 	}
 	#endregion

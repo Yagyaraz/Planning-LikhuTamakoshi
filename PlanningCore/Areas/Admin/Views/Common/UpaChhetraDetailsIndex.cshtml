@@ -116,6 +116,7 @@
                                     <th style="text-align:center; width:7%;">क्र.स. </th>
                                     <th style="text-align:center;"> @Html.DisplayNameFor(model => model.UpaChetraId) </th>
                                     <th style="text-align:center;"> @Html.DisplayNameFor(model => model.Name) </th>
+                                    <th style="text-align:center;"> @Html.DisplayNameFor(model => model.WardNumber) </th>
                                     <th style="text-align:center;">  कार्य </th>
                                 </tr>
                             </thead>
@@ -126,6 +127,7 @@
                                         <td>@_Utility.ConvertEnglishToNepali(i)</td>
                                         <td style="text-align:start;">@Html.DisplayFor(modelItem => item.UpaChetraName)</td>
                                         <td style="text-align:start;">@Html.DisplayFor(modelItem => item.Name)</td>
+                                        <td style="text-align:start;">@Html.DisplayFor(modelItem => item.WardNumber)</td>
                                         <td>
                                             <a type="button" id="सच्याउनुहोस" class="btn btn-sm " title="Edit" asp-action="CreateUpaChhetraDetails" asp-route-id="@item.UpaChetraDetailId">
                                                 <i class="fa fa-edit  " style=" font-weight:1; font-size:12px;">

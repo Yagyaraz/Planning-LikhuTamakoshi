@@ -185,6 +185,13 @@ namespace PlanningCore.Areas.Admin.Controllers
             var data = await _format.GetAllDataForFormat(id);
             return View(data);
         }
+        public async Task<ActionResult> AayojanaAnugamanNibedan(int? id, string printdate)
+        {
+
+            var data = await _format.GetAllDataForFormat(id);
+            data.PlanningSamjhauta.PrintDate = printdate;
+            return View(data);
+        }
         public async Task<ActionResult> TippaniAadesh(int? id, int pesgarneId, int swkritgarneId, int sifarishgarneId, int pesgarne, int sifarishgarne, int swkritgarne)
         {
             ViewBag.PesgarneId = pesgarneId;

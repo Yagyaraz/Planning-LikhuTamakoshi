@@ -199,7 +199,7 @@
                                                    class="btn  btn-sm d-flex " title="कागजात" asp-route-PlanningSamjhautaid="@item.PlanningSamjhautaId" style="border-right:1px solid #ccc; height:25px;">
                                                     <i class=" fas fa-file-image" style=" font-weight:1; font-size:12px;"> </i>
                                                 </a>
-@*                                                @if (item.Project_Complete_Date == null && User.IsInRole("SuperAdmin") || User.IsInRole("Administrator") && (item.Status==true))
+                                                @*                                                @if (item.Project_Complete_Date == null && User.IsInRole("SuperAdmin") || User.IsInRole("Administrator") && (item.Status==true))
  *@                                               @if(item.Status==true && item.Project_Complete_Date==null)
                                                 {
                                                     <a class="btn  btn-sm d-flex" title="सम्पन्न" data-bs-toggle="modal" data-bs-target="#workcompletemodal" onclick="SubmitForm(this)" data-id="@item.PlanningSamjhautaId">
@@ -207,12 +207,28 @@
                                                     </a>
                                                 }
                                             </div>
-                                            @if (User.IsInRole("SuperAdmin") || User.IsInRole("Administrator"))
-                                            {
-                                                <a id="भौतिक प्रगति" class="btn  btn-sm d-flex" title="भौतिक प्रगति" data-bs-toggle="modal" data-bs-target="#pragatimodal" onclick="SubmitFormb(this)" data-id="@item.PlanningSamjhautaId">
-                                                    <img src="~/Icon/bhutikpragati.jpg" width="16" height="16" style=" font-weight:1; font-size:12px;">  <span>  </span>
-                                                </a>
-                                            }
+                                            <div style="display:flex;">
+
+                                              @*   @if (User.IsInRole("SuperAdmin") || User.IsInRole("Administrator"))
+                                                {
+                                                    <a id="भौतिक प्रगति" class="btn  btn-sm d-flex" title="भौतिक प्रगति" data-bs-toggle="modal" data-bs-target="#pragatimodal" onclick="SubmitFormb(this)" data-id="@item.PlanningSamjhautaId" style="border-right:1px solid #ccc; height:25px;">
+                                                        <img src="~/Icon/bhutikpragati.jpg" width="16" height="16" style=" font-weight:1; font-size:12px;">  <span>  </span>
+                                                    </a>
+                                                } *@
+                                                @if (User.IsInRole("SuperAdmin") || User.IsInRole("Administrator"))
+                                                {
+                                                    <a asp-area="Admin"
+                                                       asp-controller="AnugamanPartiBedan"
+                                                       asp-action="CreateAnugamanPartibedan"
+                                                       asp-route-planningSamjhautaId="@item.PlanningSamjhautaId"
+                                                       class="btn btn-sm d-flex"
+                                                       title="अनुगमन प्रतिबेदन"
+                                                       style="border-right:1px solid #ccc; height:25px;">
+
+                                                        <i class="fas fa-file-alt" style="font-weight:1; font-size:12px;"></i>
+                                                    </a>
+                                                }
+                                            </div>
                                         </td>
                                     </tr>
                                 }
@@ -320,45 +336,45 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 
-<link href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css" rel="stylesheet" />
-	<link href="https://cdn.datatables.net/buttons/3.0.2/css/buttons.bootstrap5.css" rel="stylesheet" />
-	<link href="https://cdn.datatables.net/colreorder/2.0.3/css/colReorder.bootstrap5.css" rel="stylesheet" />
-	<script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
-	<script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
-	<script src="https://cdn.datatables.net/buttons/3.0.2/js/dataTables.buttons.js"></script>
-	<script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.bootstrap5.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
-	<script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.html5.min.js"></script>
-	<script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.print.min.js"></script>
-	<script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.colVis.min.js"></script>
-	<script src="https://cdn.datatables.net/colreorder/2.0.3/js/dataTables.colReorder.js"></script>
-@* 	<script>
+    <link href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/buttons/3.0.2/css/buttons.bootstrap5.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/colreorder/2.0.3/css/colReorder.bootstrap5.css" rel="stylesheet" />
+    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.2/js/dataTables.buttons.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.bootstrap5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.colVis.min.js"></script>
+    <script src="https://cdn.datatables.net/colreorder/2.0.3/js/dataTables.colReorder.js"></script>
+    @* 	<script>
 		$("#zero_config").DataTable();
 	</script> *@
-	<script>
-		$('#zero_config').DataTable({
-			//colReorder: true,
-			//lengthMenu: [5, 10, 50, 100, 500],
-			layout: {
-				topStart: {
-					buttons: [
-						
-						{
-							extend: 'excelHtml5',
-							exportOptions: {
-								columns: ':visible'
-							}
-						},
-						
-						'colvis',
-						"pageLength"
-					]
-				}
-			}
-		});
-	</script>
+    <script>
+        $('#zero_config').DataTable({
+            //colReorder: true,
+            //lengthMenu: [5, 10, 50, 100, 500],
+            layout: {
+                topStart: {
+                    buttons: [
+
+                        {
+                            extend: 'excelHtml5',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        },
+
+                        'colvis',
+                        "pageLength"
+                    ]
+                }
+            }
+        });
+    </script>
     <script>
         $(function () { Message('@TempData["del"]') });
     </script>

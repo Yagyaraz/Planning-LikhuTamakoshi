@@ -57,6 +57,7 @@ builder.Services.AddScoped<IReport, ReportRepositories>();
 builder.Services.AddScoped<IAnusuchi, AnusuchiRepositories>();
 builder.Services.AddScoped<ITravelExpense, TravelExpenseRepository>();
 builder.Services.AddScoped<IFormat, FormatRepository>();
+builder.Services.AddScoped<IAnugamanPartibedan,AnugamanPartibedanRepositories>();
 #endregion
 builder.Services.AddAuthorization();
 // Add services to the container.

@@ -752,6 +752,7 @@ namespace PlanningCore.Areas.Admin.Repositories
 				 UpaChetraId = x.UpaChetraId,
 				 Name = x.Name,
 				 IsDeleted = x.IsDeleted,
+				 WardNumber=x.WardNumber
 			 }).Where(x => x.IsDeleted == false).ToListAsync();
 		}
 		public async Task<UpaChetraDetailViewModel> GetUpaChetraDetailById(int id)
@@ -763,6 +764,7 @@ namespace PlanningCore.Areas.Admin.Repositories
 						 UpaChetraId = x.UpaChetraId,
 						 Name = x.Name,
 						 IsDeleted = x.IsDeleted,
+						 WardNumber=x.WardNumber
 					 }).FirstOrDefaultAsync() ?? new UpaChetraDetailViewModel();
 		}
 		public async Task<bool> InsertUpdateUpaChetraDetail(UpaChetraDetailViewModel model)
@@ -776,6 +778,7 @@ namespace PlanningCore.Areas.Admin.Repositories
                     {
                         upaChetraDetail.UpaChetraId = model.UpaChetraId;
                         upaChetraDetail.Name = model.Name;
+						upaChetraDetail.WardNumber = model.WardNumber;
 
                         _context.Entry(upaChetraDetail).State = EntityState.Modified;
                     }
@@ -794,6 +797,7 @@ namespace PlanningCore.Areas.Admin.Repositories
                                 UpaChetraId = model.UpaChetraId,
                                 Name = model.Name,
                                 IsDeleted = false,
+								WardNumber=model.WardNumber
                             };
                             await _context.UpaChetraDetail.AddAsync(upaChetraDetail);
                         }
@@ -836,7 +840,7 @@ namespace PlanningCore.Areas.Admin.Repositories
 				EstimatedAmount = x.EstimatedAmount,
 				IsDeleted = x.IsDeleted,
 				WardId = x.WardId,
-
+				Status=x.Status,
 				FiscalYearId = x.FiscalYearId,
 				SarkarBudget = x.SarkarBudget,
 				UpabhoktaBudget = x.UpabhoktaBudget,
@@ -905,6 +909,7 @@ namespace PlanningCore.Areas.Admin.Repositories
 							//update.Amount = model.Amount;
 							//update.RemainingBudget = model.RemainingBudget;
 							//update.FiscalYearId = model.FiscalYearId();
+							update.Status = "Created";
 							_context.Entry(update).State = EntityState.Modified;
 						}
 						else { return false; }
@@ -923,6 +928,7 @@ namespace PlanningCore.Areas.Admin.Repositories
 							SarkarBudget = model.SarkarBudget,
 							UpabhoktaBudget = model.UpabhoktaBudget,
 							OtherBudget = model.OtherBudget,
+							Status="Created"
 							//BudgetTypeId = model.BudgetTypeId,
 							//BudgetSubTypeId = model.BudgetSubTypeId,
 							//Amount = model.Amount,
@@ -1082,6 +1088,7 @@ namespace PlanningCore.Areas.Admin.Repositories
 							UpaChhetraId = upaChhetraId,
 							CreatedBy = _userId,
 							CreatedDate = DateTime.Now,
+							Status="Created"
 						};
 						await _context.YojanaSetup.AddAsync(data);
 						await _context.SaveChangesAsync();

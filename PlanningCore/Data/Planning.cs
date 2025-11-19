@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Policy;
 
 namespace PlanningCore.Data
 {
@@ -9,12 +10,12 @@ namespace PlanningCore.Data
     {
         [Key]
         public int BudgetSourceId { get; set; }
-        public string BudgetSourceName { get; set; } 
+        public string BudgetSourceName { get; set; }
 
         public Nullable<bool> IsDeleted { get; set; }
         public int? FiscalYearId { get; set; }
-		[Column(TypeName = "decimal(18, 2)")]
-		public Nullable<decimal> Amount { get; set; }
+        [Column(TypeName = "decimal(18, 2)")]
+        public Nullable<decimal> Amount { get; set; }
 
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
@@ -44,7 +45,7 @@ namespace PlanningCore.Data
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
-       
+
     }
     public class BudgetSubType
     {
@@ -170,6 +171,7 @@ namespace PlanningCore.Data
         [Key]
         public int UpaChetraDetailId { get; set; }
         public int UpaChetraId { get; set; }
+        public int? WardNumber { get; set; }
         public string Name { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
@@ -189,14 +191,14 @@ namespace PlanningCore.Data
         public string NepaliSamitiEstdDate { get; set; }
         public string DartaNo { get; set; }
         public string Name { get; set; }
-		[Column(TypeName = "decimal(18, 2)")]
-		public decimal Beneficiaries_Attendance { get; set; }
-		[Column(TypeName = "decimal(18, 2)")]
-		public decimal Beneficiaries_Absent { get; set; }
+        [Column(TypeName = "decimal(18, 2)")]
+        public decimal Beneficiaries_Attendance { get; set; }
+        [Column(TypeName = "decimal(18, 2)")]
+        public decimal Beneficiaries_Absent { get; set; }
         public string AnugamanMember { get; set; }
-        public string NibedanMiti { get; set; }      
+        public string NibedanMiti { get; set; }
         public string Female_Present { get; set; }
-        public string Male_Present { get; set; }       
+        public string Male_Present { get; set; }
         public int? BankId { get; set; }
         public string BankName { get; set; }
         public string AccountNumber { get; set; }
@@ -224,14 +226,14 @@ namespace PlanningCore.Data
 
     public class UpabhoktaSamitiDetailDocType
     {
-        [Key]   
+        [Key]
         public int Id { get; set; }
         public string Name { get; set; }
     }
 
     public class UpabhoktaSamitiDetailDocs
     {
-        [Key]   
+        [Key]
         public int Id { get; set; }
         public int UpabhoktaSamitiDetailId { get; set; }
         public int UpabhoktaSamitiDetailDocTypeId { get; set; }
@@ -251,8 +253,8 @@ namespace PlanningCore.Data
         public Nullable<int> UpabhoktaSamitiDetailId { get; set; }
         //public int? PadaId { get; set; }
         public string MemberName { get; set; }
-		public int? SamitiPostId { get; set; }
-		public string Address { get; set; }
+        public int? SamitiPostId { get; set; }
+        public string Address { get; set; }
         public string FatherName { get; set; }
         public string GrandFatherName { get; set; }
         public string PhoneNo { get; set; }
@@ -293,12 +295,12 @@ namespace PlanningCore.Data
         public bool Status { get; set; }
         public string Address { get; set; }
         public int? WardNo { get; set; }
-		public string BankName { get; set; }
-		public string AccountNumber { get; set; }
-		[Column(TypeName = "decimal(18, 2)")]
-		public decimal BiupurjiAmount { get; set; }
+        public string BankName { get; set; }
+        public string AccountNumber { get; set; }
+        [Column(TypeName = "decimal(18, 2)")]
+        public decimal BiupurjiAmount { get; set; }
 
-		public int? FiscalYearId { get; set; }
+        public int? FiscalYearId { get; set; }
         [ForeignKey("YojanaId")]
         public YojanaSetup yojanaSetup { get; set; }
     }
@@ -318,9 +320,9 @@ namespace PlanningCore.Data
         public string ImagePath { get; set; }
         [ForeignKey("TolBikashSansthaId")]
         public virtual TolBikashSanstha TolBikashSanstha { get; set; }
-		[ForeignKey("SamitiPostId")]
-		public virtual SamitiPost SamitiPost { get; set; }
-	}
+        [ForeignKey("SamitiPostId")]
+        public virtual SamitiPost SamitiPost { get; set; }
+    }
     public class SartaSetup
     {
         [Key]
@@ -345,12 +347,12 @@ namespace PlanningCore.Data
         public Nullable<int> BudgetTypeId { get; set; }
         public Nullable<int> FiscalYearId { get; set; }
         public Nullable<int> UpaChhetraId { get; set; }
-		public Nullable<int> ShrotId { get; set; }
-		[Column(TypeName = "decimal(18, 2)")]
+        public Nullable<int> ShrotId { get; set; }
+        [Column(TypeName = "decimal(18, 2)")]
         public decimal Amount { get; set; }
         [Column(TypeName = "decimal(18, 2)")]
         public decimal RemainingBudget { get; set; }
-       
+
         [Column(TypeName = "decimal(18, 2)")]
         public decimal SarkarBudget { get; set; }
         [Column(TypeName = "decimal(18, 2)")]
@@ -360,6 +362,7 @@ namespace PlanningCore.Data
         public string KharchaShirsak { get; set; }
         public bool IsDeleted { get; set; }
         public string CreatedBy { get; set; }
+        public string Status { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
@@ -464,17 +467,17 @@ namespace PlanningCore.Data
         [Key]
         public int PlanningEntryId { get; set; }
         public Nullable<int> PlanningSamjhautaId { get; set; }
-        public int FiscalYearId { get; set; }       
+        public int FiscalYearId { get; set; }
         public string Work_Details { get; set; }
         [Column(TypeName = "decimal(18, 2)")]
         public decimal Amount_Estimate { get; set; }
         public Nullable<int> WorkTypeId { get; set; }
-       
+
         public Nullable<int> WorkAreaId { get; set; }
         public string SerialNo { get; set; }
         public Nullable<int> BudgetSourceId { get; set; }
         public Nullable<int> PlanningTypeId { get; set; }
-        public string Planning_Type { get; set; }     
+        public string Planning_Type { get; set; }
         public string BudgetSirshakNo { get; set; }
         public string BudgetSirshak { get; set; }
         public string KharchaSirshakNo { get; set; }
@@ -491,11 +494,11 @@ namespace PlanningCore.Data
         public string Kaifiyat { get; set; }
         public int? PravidhikEmployeePadId { get; set; }
         public int? PravidhikEmployeeId { get; set; }
-		public int? WardSifarishPadId { get; set; }
-		public int? WardSifarishId { get; set; }
-		public int? WardSwikritPadId { get; set; }
-		public int? WardSwikritId { get; set; }
-		public string PlanningSanketNo { get; set; }
+        public int? WardSifarishPadId { get; set; }
+        public int? WardSifarishId { get; set; }
+        public int? WardSwikritPadId { get; set; }
+        public int? WardSwikritId { get; set; }
+        public string PlanningSanketNo { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public string UpdatedBy { get; set; }
@@ -744,7 +747,7 @@ namespace PlanningCore.Data
         [Column(TypeName = "decimal(18, 2)")]
         public decimal Dhuwani { get; set; }
         [Column(TypeName = "decimal(18, 2)")]
-        public decimal Royality { get; set; }   
+        public decimal Royality { get; set; }
         [Column(TypeName = "decimal(18, 2)")]
         public decimal KaryasampannaAnushar { get; set; }
         public Nullable<int> PlanningSamjhautaId { get; set; }
@@ -799,8 +802,8 @@ namespace PlanningCore.Data
     {
         [Key]
         public int MunicipalitySamitiManjuriPatraId { get; set; }
-        public int? PlanningSamjhautaId { get; set; }    
-        public string Municipality_Manjuri_Date { get; set; }        
+        public int? PlanningSamjhautaId { get; set; }
+        public string Municipality_Manjuri_Date { get; set; }
         public Nullable<bool> Status { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
@@ -838,7 +841,7 @@ namespace PlanningCore.Data
         public int PlanningSamjhautaId { get; set; }
         public int RepresentativePostId { get; set; }
         public int RepresentativeNameId { get; set; }
-        
+
         public string RepresentativeAddress { get; set; }
         public Nullable<bool> Status { get; set; }
         [ForeignKey("PlanningSamjhautaId")]
@@ -847,7 +850,7 @@ namespace PlanningCore.Data
         public virtual UpabhoktaSamitiMemberDetail MemberDetail { get; set; }
         [ForeignKey("RepresentativeNameId")]
         public virtual UpabhoktaSamitiMemberDetail UpabhoktaSamitiMemberDetail { get; set; }
-		
+
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public string UpdatedBy { get; set; }
@@ -905,16 +908,16 @@ namespace PlanningCore.Data
         public string GrandFatherName { get; set; }
         public string DOB { get; set; }
         public string CitizenshipNo { get; set; }
-        public bool? Status { get; set; }
+        public bool Status { get; set; }
         public string CreatedBy { get; set; }
         public DateTime? CreatedDate { get; set; }
         public string UpdatedBy { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public string DeletedBy { get; set; }
         public DateTime? DeletedDate { get; set; }
-       
+
         [ForeignKey("UpabhoktaSamitiDetailId")]
-        public  UpabhoktaSamitiDetail UpabhoktaSamitiDetail { get; set; }
+        public UpabhoktaSamitiDetail UpabhoktaSamitiDetail { get; set; }
     }
 
     public class SamitiPost
@@ -942,36 +945,111 @@ namespace PlanningCore.Data
         [Key]
         public int Id { get; set; }
         public int PlanningSamjhautaId { get; set; }
-		[Column(TypeName = "decimal(18, 2)")]
-		public decimal BittiyaPragati { get; set; }
-		[Column(TypeName = "decimal(18, 2)")]
-		public decimal BhautikPragati { get; set; }
+        [Column(TypeName = "decimal(18, 2)")]
+        public decimal BittiyaPragati { get; set; }
+        [Column(TypeName = "decimal(18, 2)")]
+        public decimal BhautikPragati { get; set; }
         public string Remarks { get; set; }
 
-		[ForeignKey("PlanningSamjhautaId")]
-		public PlanningSamjhauta PlanningSamjhauta { get; set; }
-	}
+        [ForeignKey("PlanningSamjhautaId")]
+        public PlanningSamjhauta PlanningSamjhauta { get; set; }
+    }
     public class YojanaKaryakramChecklist()
     {
         [Key]
         public int Id { get; set; }
         public int PlanningSamjhuataId { get; set; }
-        public  bool Bhelabata { get; set; }
-        public  bool MahilaPratinidhi { get; set; }
-        public  bool FemalePercentage { get; set; }
-        public  bool Rahobhar { get; set; }
-        public  bool KanunBamojim { get; set; }
-        public  bool AtleastTwoFemale { get; set; }
-        public  bool GathanNirnaya { get; set; }
-        public  bool Citizenship { get; set; }
+        public bool Bhelabata { get; set; }
+        public bool MahilaPratinidhi { get; set; }
+        public bool FemalePercentage { get; set; }
+        public bool Rahobhar { get; set; }
+        public bool KanunBamojim { get; set; }
+        public bool AtleastTwoFemale { get; set; }
+        public bool GathanNirnaya { get; set; }
+        public bool Citizenship { get; set; }
         public bool LagatAnuman { get; set; }
-        public  bool PhotoOfworkingArea { get; set; }
-        public  bool FarfarakBaki { get; set; }
-        public  bool EkpariwarKobadiSadshya { get; set; }
-        public  bool WardSifarish { get; set; }
+        public bool PhotoOfworkingArea { get; set; }
+        public bool FarfarakBaki { get; set; }
+        public bool EkpariwarKobadiSadshya { get; set; }
+        public bool WardSifarish { get; set; }
         public bool AnugamanSamiti { get; set; }
 
     }
-     
- 
+    public class AnugamanPartibdean()
+    {
+        [Key]
+        public int Id { get; set; }
+        public int PlanningSamjhautaId { get; set; }
+        public string ParikxanDate {  get; set; }
+        public string SampannaType {  get; set; }
+        public string BillRakam { get; set; }
+        public bool? IsNirnayaBhayako { get; set; }
+        public bool? IsBibad { get; set; }
+        public bool? IsGambirBibad { get; set; }
+        public string BibadDetails { get; set; }
+        public string BahiyaJokhim { get; set; }
+        public bool? IsJimmewari { get; set; }
+        public string JimmwariDetails { get; set; }
+        public bool? IsBankAccountOppen { get; set; }
+        public string BankAcocuntDetail { get; set; }
+        public string BankName { get; set; }
+        public string BankAddress { get; set; }
+        public string AccountNumber { get; set; }
+        public string AccountType { get; set; }
+        public string AccountRemarks { get; set; }
+        public bool PratakshyaFaida { get; set; }
+        public string GharDhuri {  get; set; }
+        public string PratakshyaFaidaDetails { get; set; }
+        public bool? IsSuchanaPati {  get; set; }
+        public bool? IsAambhela { get; set; }
+        public string EngineerName { get; set; }
+        public decimal? BhuktaniSifarishRakam { get; set; }
+        public string KaryanayanDetails {  get; set; }
+        public string SamasyaSamadhanUpaya { get; set; }
+        public string AnugamanBibaran {  get; set; }
+        public string BeforePhotos { get; set; }
+        public string AfterPhotos { get;set; }
+        public string BetweenPhotos { get; set; }
+        public string KhataSanchalak1Name { get; set; }
+        public string KhataSanchalak1Post { get; set; }
+        public string KhataSanchalak2Post { get; set; }
+        public string KhataSanchalak3Post { get; set; }
+        public string KhataSanchalak1Gender { get; set; }
+        public string KhataSanchalak1Remarks { get; set; }
+        public string KhataSanchalak2Name { get; set; }
+        public string KhataSanchalak2Gender { get; set; }
+        public string KhataSanchalak2Remarks { get; set; }
+        public string KhataSanchalak3Name { get; set; }
+        public string KhataSanchalak3Gender { get; set; }
+        public string KhataSanchalak3Remarks { get; set; }
+        public string AnugamanKarta1Name { get; set; }
+        public string AnugamanKarta1Post { get; set; }
+        public string AnugamanKarta1Remarks { get; set; }
+
+        public string AnugamanKarta2Name { get; set; }
+        public string AnugamanKarta2Post { get; set; }
+        public string AnugamanKarta2Remarks { get; set; }
+
+        public string AnugamanKarta3Name { get; set; }
+        public string AnugamanKarta3Post { get; set; }
+        public string AnugamanKarta3Remarks { get; set; }
+
+        public string AnugamanKarta4Name { get; set; }
+        public string AnugamanKarta4Post { get; set; }
+        public string AnugamanKarta4Remarks { get; set; }
+
+        public string AnugamanKarta5Name { get; set; }
+        public string AnugamanKarta5Post { get; set; }
+        public string AnugamanKarta5Remarks { get; set; }
+    }
+    public class KhataSanchalakDetails()
+    {
+        [Key]
+        public int Id { get; set; }
+        public int AnugamanPartibedanId { get; set; }
+        public string Name { get; set; }
+        public int? Gender { get; set; }
+        public string Post { get; set; }
+        public string Remarks { get; set; }
+    }
 }

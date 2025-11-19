@@ -116,6 +116,9 @@ namespace PlanningCore.Data
         public DbSet<NewToleBikashMemberDetail> NewToleBikashMemberDetail { get; set; }
         public DbSet<NewToleBikashAnugamanMember> NewToleBikashAnugamanMember { get; set; }
         public DbSet<YojanaKaryakramChecklist> YojanaKaryakramChecklist { get; set; }
+        //new 
+        public DbSet<AnugamanPartibdean>AnugamanPartibdeans { get; set; }
+        public DbSet<KhataSanchalakDetails> KhataSanchalakDetails { get; set; }
 
         #endregion
 

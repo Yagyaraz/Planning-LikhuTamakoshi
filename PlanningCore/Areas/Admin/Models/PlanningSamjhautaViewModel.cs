@@ -305,6 +305,7 @@ namespace PlanningCore.Areas.Admin.Models
         public string UpaChetraName { get; set; }
          
         public string UpaChetraDetailName { get; set; }
+        public List<UpavoktaSamitiDetailViewModel> samitiList { get; set; } = new List<UpavoktaSamitiDetailViewModel>();
         public UpavoktaSamitiDetailViewModel samitiView { get; set; } = new UpavoktaSamitiDetailViewModel();
 		public List<PlanningDocumentUploadedViewModel> DocumentsList { get; set; } = new List<PlanningDocumentUploadedViewModel>();
 

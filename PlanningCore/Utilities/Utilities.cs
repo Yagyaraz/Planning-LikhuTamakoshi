@@ -163,8 +163,19 @@ namespace PlanningCore.Utilities
 
         public async Task<SelectList> GetSelectListRoles()
         {
-            return new SelectList(await _context.Roles.Where(x => x.Name != UserRoles.Administrator && x.Name != UserRoles.SuperAdmin).ToListAsync(), "Name", "Name");
+            return new SelectList(
+                await _context.Roles
+                    .Where(x =>
+                        x.Name != UserRoles.Administrator &&
+                        x.Name != UserRoles.SuperAdmin &&
+                        x.Name != UserRoles.Contract_Admin   
+                    )
+                    .ToListAsync(),
+                "Name",
+                "Name"
+            );
         }
+
         public async Task<List<UserViewModel>> GetUserList()
         {
             var data = await _context.Users.Where(x => !x.UserName.Equals("softech@gmail.com") && !x.UserName.Equals("superadmin@gmail.com"))
@@ -1248,7 +1259,7 @@ namespace PlanningCore.Utilities
 
         public async Task<SelectList> GetSartaList()
         {
-            return new SelectList(await _context.SartaSetup.ToListAsync(), "SartaSetupId", "Name");
+            return new SelectList(await _context.SartaSetup.Where(x=>x.Status==false).ToListAsync(), "SartaSetupId", "Name");
         }
         //public async Task<SelectList> GetUpabhoktaMemberPost()
         //{

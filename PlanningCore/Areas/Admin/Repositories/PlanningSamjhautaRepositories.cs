@@ -570,10 +570,7 @@ namespace PlanningCore.Areas.Admin.Repositories
             {
                 var pId = 0;
                 var fiscalYearId = await _context.FiscalYear.Where(x => x.IsActive == true).Select(x => x.Id).FirstOrDefaultAsync();
-                //if (model.YojanaId > 0)
-                //{
-                //	model.Project_Name = await _context.YojanaSetup.Where(x => x.YojanaSetupId == model.YojanaId).Select(x => x.YojanaName).FirstOrDefaultAsync();
-                //}
+                var yojanaId = await _context.UpabhoktaSamitiDetailYojanas.Where(x => x.UpabhoktaSamitiDetailId == model.SamitiDetailId).Select(x => x.YojanaId).FirstOrDefaultAsync();
                 try
                 {
                     if (model.PlanningSamjhautaId > 0)
@@ -1114,6 +1111,12 @@ namespace PlanningCore.Areas.Admin.Repositories
                             await _context.PaymentRecord.AddAsync(paymentRecordsEntity);
 
                         }
+                        if (yojanaId>0)
+                        {
+                            var yojanaSetup = await _context.YojanaSetup.FirstOrDefaultAsync(x => x.YojanaSetupId==yojanaId);
+                            yojanaSetup.Status = "Samjhauta";
+                            _context.Entry(yojanaSetup).State = EntityState.Modified;
+                        }
 
                     }
                     await _context.SaveChangesAsync();
@@ -1138,6 +1141,7 @@ namespace PlanningCore.Areas.Admin.Repositories
             {
                 DateTime edate = DateTime.Now;
                 var data = await _context.ProjectEntryDetail.FirstOrDefaultAsync(x => x.PlanningSamjhautaId == id);
+                //var yojanaId= await _context.
                 if (data != null)
                 {
                     data.Project_Complete_Date = date;
@@ -1151,6 +1155,14 @@ namespace PlanningCore.Areas.Admin.Repositories
                     chhetradata.Kaifiyat = kaifiyat;
                     _context.Entry(data).State = EntityState.Modified;
                 }
+                var samitiId = await _context.PlanningSamjhauta.Where(x => x.PlanningSamjhautaId == id).Select(x => x.SamitiDetailId).FirstOrDefaultAsync();
+                var yojanaId = await _context.UpabhoktaSamitiDetailYojanas.Where(x => x.UpabhoktaSamitiDetailId == samitiId).Select(x => x.YojanaId).FirstOrDefaultAsync();
+                if (yojanaId > 0)
+                {
+                    var yojanaSetup = await _context.YojanaSetup.FirstOrDefaultAsync(x => x.YojanaSetupId == yojanaId);
+                    yojanaSetup.Status = "Completed";
+                    _context.Entry(yojanaSetup).State = EntityState.Modified;
+                };
                 await _context.SaveChangesAsync();
                 return true;
 

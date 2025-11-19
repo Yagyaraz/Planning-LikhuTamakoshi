@@ -1,0 +1,509 @@
+﻿@model AnugamanPartibedanViewModel
+@inject IUtility _Utility
+@{
+    ViewData["Title"] = "AnugamanPartibedan";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int i = 1;
+}
+<style>
+    .page {
+        background: white;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        margin: auto;
+    }
+
+    .header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+        .header p {
+            margin: 3px;
+            font-size: 16px;
+        }
+
+    .title {
+        text-align: center;
+        margin-top: 15px;
+    }
+
+        .title u {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+    .content {
+        margin-top: 20px;
+        line-height: 1.7;
+        font-size: 16px;
+        text-align: justify;
+    }
+
+    .big-box {
+        height: 150px;
+        width: 100%
+    }
+</style>
+<form asp-action="CreateAnugamanPartibedan" method="post" enctype="multipart/form-data">
+    @* Hidden Id for update *@
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="PlanningSamjhautaId" />
+    <div class="col-md-12 col-12 page">
+        <div class="col-md-12 col-12 header">
+            <p>अनुसूची १</p>
+            <p>(कार्यविधिको परिच्छेद ४ को दफा ६ संग संबन्धित)</p>
+            <p>नगरपालिका स्तरीय योजना अनुगमन तथा सुपरिवेक्षण प्रतिबेदन</p>
+        </div>
+        <div class="col-md-12 col-12 title ">
+            <p><b><u>बिषय:- योजना अनुगमन सम्बन्धमा |</u></b></p>
+        </div>
+        <div class="col-md-12 col-12 content">
+            <p>
+                प्रस्तुत विषयमा यस  नगरपालिकाको स्वीकृत
+                वार्षिक नीति तथा कार्यक्रम र बजेट अन्तर्गत आ.व. @Model.PlanningSamjhauta.FiscalYearName मा
+                संचालित तपशिल बमोजिमका योजनाहरुको कार्य सम्पन्न गरी भुक्तानीको लागि अनुरोध
+                भई आएकोमा सो योजना  नगरपालिका स्तरीय योजना अनुगमन तथा सुपरिवेक्षण समितिवाट
+                मिति  <input type="text" asp-for="ParikxanDate" class="Date" /> गते स्थलगत अनुगमन गर्दा उक्त योजनाको कार्य <input type="text" asp-for="SampannaType" />
+                तरिकाले सम्पन्न/आंशिक सम्पन्न भएको देखिएकोले विनियोजित
+                रकम सबै रनिङ विल वमोजिमको रकम रु.<input type="text" asp-for="BillRakam" /> भुक्तानी गर्नु होला ।
+            </p>
+        </div>
+        <div class="content">
+            <h3><u>योजना सम्बन्धि विवरण</u></h3>
+
+
+            <p>१. योजनाको नाम: @Model.PlanningSamjhauta.YojanaNames </p>
+            <p>२. योजना कार्यान्वयन स्थल: @Model.PlanningSamjhauta.YojanaAddress    </p>
+
+
+            <p><b>३. उपभोक्ता समितिको पदाधिकारीहरुको विवरण:</b></p>
+            @foreach (var item in Model.PlanningSamjhauta.samitiView.samitiMemberDetaillist
+                        .Where(x => x.SamitiPostId ==1))
+            {
+                <p>क) अध्यक्ष: @item.MemberName   सम्पर्क नं:@item.PhoneNo     </p>
+            }
+            @foreach (var item in Model.PlanningSamjhauta.samitiView.samitiMemberDetaillist
+                        .Where(x => x.SamitiPostId == 3))
+            {
+                <p>ख) सचिव: @item.MemberName   सम्पर्क नं:@item.PhoneNo     </p>
+            }
+            @foreach (var item in Model.PlanningSamjhauta.samitiView.samitiMemberDetaillist
+                        .Where(x => x.SamitiPostId == 2))
+            {
+                <p>ग) कोषाध्यक्ष: @item.MemberName   सम्पर्क नं:@item.PhoneNo     </p>
+            }
+            <p><b>४. योजनाको लागत सम्बन्धि विवरण:</b></p>
+            <p>क) लागत अनुमान रु:@Model.PlanningSamjhauta.Amount_Estimate     ..</p>
+            <p>ख) लागत व्योरेका स्रोतहरु:</p>
+            <ul style="list-style:none">
+                <li>I) गाउँपालिकाबाट रु: @Model.PlanningSamjhauta.Municipality</li>
+                <li>II) अन्य   @Model.PlanningSamjhauta.Other </li>
+                <li>III) गैरसरकारी संघ संस्थाबाट रु:   @Model.PlanningSamjhauta.NGO_INGO </li>
+                <li>IV) समुदायमा आधारित संस्थाबाट रु: @Model.PlanningSamjhauta.Community </li>
+                <li>V) उपभोक्ता समिति / टोल विकास संस्थाबाट रु: @Model.PlanningSamjhauta.Loan_Grant </li>
+                <li>VI) अन्यबाट रु: @Model.PlanningSamjhauta.Other</li>
+                <li>VII) जम्मा रु: @Model.PlanningSamjhauta.Total_Amount</li>
+            </ul>
+
+
+            <p><b>५. योजना सम्पन्न मिति:</b>   @Model.PlanningSamjhauta.Project_End_Date</p>
+            <p><b>६. योजना सम्पन्न गर्ने मिति:</b>   @Model.PlanningSamjhauta.Project_End_Date</p>
+
+
+            <p><b>७. योजना छनौट बारेमा आम भेलामा छरपस्ट भई निर्णय भएको हो?</b></p>
+            <div>
+                <label>
+                    <input type="radio" name="IsNirnayaBhayako" value="true"
+                           @(Model.IsNirnayaBhayako == true ? "checked" : "") /> हो
+                </label>
+                <label class="ms-3">
+                    <input type="radio" name="IsNirnayaBhayako" value="false"
+                           @(Model.IsNirnayaBhayako == false ? "checked" : "") /> होइन
+                </label>
+            </div>
+
+
+            <p><b>८. उपभोक्ताहरुमा योजनाबाट छरिएको सन्दर्भमा कुनै विवाद छ?</b></p>
+            <div>
+                <label>
+                    <input type="radio" name="IsBibad" value="true"
+                           @(Model.IsBibad == true ? "checked" : "") /> छ
+                </label>
+                <label class="ms-3">
+                    <input type="radio" name="IsBibad" value="false"
+                           @(Model.IsBibad == false ? "checked" : "") /> छैन
+                </label>
+            </div>
+
+
+            <p><b>९. योजनामा अन्य कुनै विवाद रहेको वा गम्भीर विवादका सम्भावनाहरु छन्?</b></p>
+            <div>
+                <label>
+                    <input type="radio" name="IsGambirBibad" value="true"
+                           @(Model.IsGambirBibad == true ? "checked" : "") /> छ
+                </label>
+                <label class="ms-3">
+                    <input type="radio" name="IsGambirBibad" value="false"
+                           @(Model.IsGambirBibad == false ? "checked" : "") /> छैन
+                </label>
+            </div>
+            <div>
+                <p>यदि छ भने विवादको किसिम, विवाद हुनाको कारणहरु तथा समाधानका उपायहरुः-</p>
+                <textarea asp-for="BibadDetails" class="big-box"></textarea>
+            </div>
+            <div>
+                <p>१०. कुनै विवाद, बाह्य जोखिमहरु जस्तै भूक्षय तथा अन्य तत्वहरुको कारणले रेखाइन उपयुक्त हुन नसकेको भए सुधारका विकल्पहरु तथा उपायहरु उल्लेख गर्नुहोस । साथै सडकको दायाँ बायाँ भू-भाग संरक्षण गर्न के तरिका अपनाईएको छ ?</p>
+                <textarea asp-for="BahiyaJokhim" class="big-box"></textarea>
+            </div>
+            <div>
+                <p>११. उपभोक्ता समितिका पदाधिकारीहरु योजनाको सन्दर्भमा आफ्नो भुमिका र जिम्मेवारीको बारेमा जानकार छन् ?</p>
+                <div>
+                    <label>
+                        <input type="radio" name="IsJimmewari" value="true"
+                               @(Model.IsJimmewari == true ? "checked" : "") /> छन्
+                    </label>
+                    <label class="ms-3">
+                        <input type="radio" name="IsJimmewari" value="false"
+                               @(Model.IsJimmewari == false ? "checked" : "") /> छैनन्
+                    </label>
+                </div>
+                <div>
+                    <p>यदि छैनन् भने किन छैनन्, पदाधिकारी कुन विषयमा जानकार छैनन् ? जानकार नहुनका कारणहरु तथा समाधानका उपायहरुः-</p>
+                    <textarea asp-for="JimmwariDetails" class="big-box"></textarea>
+                </div>
+            </div>
+            <div>
+                <p>१२. बैंक खाता खोलिएको छ, छैन ?</p>
+                <div>
+                    <label>
+                        <input type="radio" name="IsBankAccountOppen" value="true"
+                               @(Model.IsBankAccountOppen == true ? "checked" : "") /> छ
+                    </label>
+                    <label class="ms-3">
+                        <input type="radio" name="IsBankAccountOppen" value="false"
+                               @(Model.IsBankAccountOppen == false ? "checked" : "") /> छैन
+                    </label>
+                </div>
+                <P>यदि छैन भने खाता नखोलिनुको कारणहरु उल्लेख गर्नुहोस् र खात खोल्ने सम्भावित समय समेत उल्लेख गर्नुहोस् ।</P>
+                <textarea asp-for="BankAcocuntDetail" class="big-box"></textarea>
+                <p>यदि खोलिएको छ भने खाताको विवरण उल्लेख गर्नुहोस् ।</p>
+                <table class="border" style="text-align:center; width:100% !important;">
+                    <tr>
+                        <th style="border: 1px solid black !important; width:6rem;">क्र.स.</th>
+                        <th style="border: 1px solid black !important; width:10rem;">बैंकको नाम </th>
+                        <th style="border: 1px solid black !important; width:10rem;">बैंक रहेको स्थान</th>
+                        <th style="border: 1px solid black !important; width:10rem;">खाता  नं.</th>
+                        <th style="border: 1px solid black !important; width:10rem;">खाताको किसिम</th>
+                        <th style="border: 1px solid black !important; width:10rem;">कैफियत</th>
+                    </tr>
+
+                    <tr>
+                        <td style="border: 1px solid black !important; width:10rem;"> १</td>
+                        <td style="border: 1px solid black !important; width:10rem;"> <input asp-for="BankName" /></td>
+                        <td style="border: 1px solid black !important; width:10rem;"><input asp-for="BankAddress" /></td>
+                        <td style="border: 1px solid black !important; width:10rem;"> <input asp-for="AccountNumber" /> </td>
+                        <td style="border: 1px solid black !important; width:10rem;"> <input asp-for="AccountType" /> </td>
+                        <td style="border: 1px solid black !important; width:10rem;"> <input asp-for="AccountRemarks" /> </td>
+                    </tr>
+                   
+
+                </table><br /><br />
+                <p><b>खाता संचालकहरुको नाम तथा पद </b></p>
+                <table class="border" style="text-align:center; width:100% !important;">
+                    <tr>
+                        <th style="border: 1px solid black !important; width:6rem;">क्र.स.</th>
+                        <th style="border: 1px solid black !important; width:10rem;">नाम थर </th>
+                        <th style="border: 1px solid black !important; width:10rem;">लिङ्ग </th>
+                        <th style="border: 1px solid black !important; width:10rem;">पद</th>
+                        <th style="border: 1px solid black !important; width:10rem;">कैफियत</th>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black !important; width:6rem;">१</td>
+
+                        <!-- Name -->
+                        <td style="border: 1px solid black !important; width:10rem;">
+                            <input asp-for="KhataSanchalak1Name"  />
+                        </td>
+
+                        <!-- Gender -->
+                        <td style="border: 1px solid black !important; width:10rem;">
+                            <select asp-for="KhataSanchalak1Gender" >
+                                <option value="">छान्नुहोस्</option>
+                                <option value="पुरुष">पुरुष</option>
+                                <option value="महिला">महिला</option>
+                                <option value="अन्य">अन्य</option>
+                            </select>
+                        </td>
+
+                        <!-- Post -->
+                        <td style="border: 1px solid black !important; width:10rem;">
+                            <input asp-for="KhataSanchalak1Post"  />
+                        </td>
+
+                        <!-- Remarks -->
+                        <td style="border: 1px solid black !important; width:10rem;">
+                            <input asp-for="KhataSanchalak1Remarks"  />
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="border: 1px solid black !important; width:6rem;">२</td>
+
+                        <!-- Name -->
+                        <td style="border: 1px solid black !important; width:10rem;">
+                            <input asp-for="KhataSanchalak2Name"  />
+                        </td>
+
+                        <!-- Gender -->
+                        <td style="border: 1px solid black !important; width:10rem;">
+                            <select asp-for="KhataSanchalak2Gender" >
+                                <option value="">छान्नुहोस्</option>
+                                <option value="पुरुष">पुरुष</option>
+                                <option value="महिला">महिला</option>
+                                <option value="अन्य">अन्य</option>
+                            </select>
+                        </td>
+
+                        <!-- Post -->
+                        <td style="border: 1px solid black !important; width:6rem;">
+                            <input asp-for="KhataSanchalak2Post"  />
+                        </td>
+
+                        <!-- Remarks -->
+                        <td style="border: 1px solid black !important; width:10rem;">
+                            <input asp-for="KhataSanchalak2Remarks"  />
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="border: 1px solid black !important; width:10rem;">३</td>
+
+                        <!-- Name -->
+                        <td style="border: 1px solid black !important; width:10rem;">
+                            <input asp-for="KhataSanchalak3Name"  />
+                        </td>
+
+                        <!-- Gender -->
+                        <td style="border: 1px solid black !important; width:10rem;">
+                            <select asp-for="KhataSanchalak3Gender" >
+                                <option value="">छान्नुहोस्</option>
+                                <option value="पुरुष">पुरुष</option>
+                                <option value="महिला">महिला</option>
+                                <option value="अन्य">अन्य</option>
+                            </select>
+                        </td>
+
+                        <!-- Post -->
+                        <td style="border: 1px solid black !important; width:10rem;">
+                            <input asp-for="KhataSanchalak3Post"  />
+                        </td>
+
+                        <!-- Remarks -->
+                        <td style="border: 1px solid black !important; width:10rem;">
+                            <input asp-for="KhataSanchalak3Remarks"  />
+                        </td>
+                    </tr>
+
+                   
+
+                </table><br /><br />
+
+            </div>
+            <div>
+                <p>१३. यस योजनाबाट प्रत्यक्ष रुपमा महिला तथा वज्चितिकरणमा परेका समुहको घरधुरीहरुले प्रत्यक्ष फाइदा पाएका छन् ?</p>
+                <div>
+                    <label>
+                        <input type="radio" name="PratakshyaFaida" value="true"
+                               @(Model.PratakshyaFaida == true ? "checked" : "") /> छन्
+                    </label>
+                    <label class="ms-3">
+                        <input type="radio" name="PratakshyaFaida" value="false"
+                               @(Model.PratakshyaFaida == false ? "checked" : "") /> छैनन्
+                    </label>
+                </div>
+                <p>यदि पाएका छन् भने कति घरधुरीले पाएका छन् उल्लेख गर्नुहोस् ।</p>
+                <input type="text" asp-for="GharDhuri" />
+                <p>यदि छैनन् भने किन नपाएका हुन् कारण उल्लेख गर्नुहोस् ।</p>
+                <textarea asp-for="PratakshyaFaidaDetails" class="big-box"></textarea>
+            </div>
+            <div>
+                <p>१४. योजनाको सूचना पाटी उपयुक्त स्थानमा राखिएको छ ?</p>
+                <div>
+                    <label>
+                        <input type="radio" name="IsSuchanaPati" value="true"
+                               @(Model.IsSuchanaPati == true ? "checked" : "") /> छ
+                    </label>
+                    <label class="ms-3">
+                        <input type="radio" name="IsSuchanaPati" value="false"
+                               @(Model.IsSuchanaPati == false ? "checked" : "") /> छैन
+                    </label>
+                </div>
+            </div>
+            <div>
+                <p>१५. आमभेला मार्फत सार्वजनिक परीक्षण गरिएको छ ?</p>
+                <div>
+                    <label>
+                        <input type="radio" name="IsAambhela" value="true"
+                               @(Model.IsAambhela == true ? "checked" : "") /> छ
+                    </label>
+                    <label class="ms-3">
+                        <input type="radio" name="IsAambhela" value="false"
+                               @(Model.IsAambhela == false ? "checked" : "") /> छैन
+                    </label>
+                </div>
+            </div>
+            <div>
+                <p>
+                    १६. प्राविधिक साइट इन्चार्जको नामः-<input asp-for="EngineerName" /><br />
+                    १७. भुक्तानीको लागि सिफारिस रकम रु. <input asp-for="BhuktaniSifarishRakam" />
+                </p>
+            </div>
+            <div>
+                <p>
+                    १८. कार्यान्वयनमा देखिएका समस्याहरुः-
+                </p>
+                <textarea asp-for="KaryanayanDetails" class="big-box"></textarea>
+            </div>
+            <div>
+                <p>१९. समस्या समाधान गर्न अपनाइएका उपायहरुः-</p>
+                <textarea asp-for="SamasyaSamadhanUpaya" class="big-box"></textarea>
+            </div>
+            <div>
+                <p>१९. अनुगमन विवरणः-</p>
+                <textarea asp-for="AnugamanBibaran" class="big-box"></textarea>
+            </div>
+            <div>
+                <p>योजना अनुगमन तथा सुपरिवेक्षण समितिका पदाधिकारीहरुः-</p>
+                <table style="width:100% !important" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>क्र.स.</th>
+                            <th style="width:35%;">अनुगमन कर्ताको पद </th>
+                            <th>नाम थर </th>
+                            <th>दस्तखत</th>
+                            <th>कैफियत</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="border:1px solid black !important; width:10rem;">3</td>
+
+                           
+
+                            <td style="border:1px solid black !important; width:10rem;">
+                                <input asp-for="AnugamanKarta1Post" class="form-control" />
+                            </td>
+                            <td style="border:1px solid black !important; width:10rem;">
+                                <input asp-for="AnugamanKarta1Name" class="form-control" />
+                            </td>
+                            <td style="border:1px solid black !important; width:10rem;">
+                            </td>
+                            <td style="border:1px solid black !important; width:10rem;">
+                                <input asp-for="AnugamanKarta1Remarks" class="form-control" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border:1px solid black !important; width:10rem;">2</td>
+
+                           
+
+                            <td style="border:1px solid black !important; width:10rem;">
+                                <input asp-for="AnugamanKarta2Post" class="form-control" />
+                            </td>
+                            <td style="border:1px solid black !important; width:10rem;">
+                                <input asp-for="AnugamanKarta2Name" class="form-control" />
+                            </td>
+                            <td style="border:1px solid black !important; width:10rem;">
+                            </td>
+                            <td style="border:1px solid black !important; width:10rem;">
+                                <input asp-for="AnugamanKarta2Remarks" class="form-control" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border:1px solid black !important; width:10rem;">3</td>
+
+                           
+
+                            <td style="border:1px solid black !important; width:10rem;">
+                                <input asp-for="AnugamanKarta3Post" class="form-control" />
+                            </td>
+                            <td style="border:1px solid black !important; width:10rem;">
+                                <input asp-for="AnugamanKarta3Name" class="form-control" />
+                            </td>
+                            <td style="border:1px solid black !important; width:10rem;">
+                            </td>
+                            <td style="border:1px solid black !important; width:10rem;">
+                                <input asp-for="AnugamanKarta3Remarks" class="form-control" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border:1px solid black !important; width:10rem;">4</td>
+
+                           
+
+                            <td style="border:1px solid black !important; width:10rem;">
+                                <input asp-for="AnugamanKarta4Post" class="form-control" />
+                            </td>
+                            <td style="border:1px solid black !important; width:10rem;">
+                                <input asp-for="AnugamanKarta4Name" class="form-control" />
+                            </td>
+                            <td style="border:1px solid black !important; width:10rem;">
+                            </td>
+                            <td style="border:1px solid black !important; width:10rem;">
+                                <input asp-for="AnugamanKarta4Remarks" class="form-control" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border:1px solid black !important; width:10rem;">5</td>
+
+                            
+
+                            <td style="border:1px solid black !important; width:10rem;">
+                                <input asp-for="AnugamanKarta5Post" class="form-control" />
+                            </td>
+                            <td style="border:1px solid black !important; width:10rem;">
+                                <input asp-for="AnugamanKarta5Name" class="form-control" />
+                            </td>
+                            <td style="border:1px solid black !important; width:10rem;">
+                            </td>
+                            <td style="border:1px solid black !important; width:10rem;">
+                                <input asp-for="AnugamanKarta5Remarks" class="form-control" />
+                            </td>
+                        </tr>
+
+                        </tbody>
+                  </table>
+            </div>
+        </div>
+        <div>
+            <p>योजना संचालन पूर्व अनुगमन गरिएको फोटोहरु</p>
+            <input type="file" style="width:210px;" asp-for="BeforePhotosImg" multiple="multiple" class="form-control" accept="image/png, image/gif, image/jpeg, application/pdf" />
+        </div>
+        <div>
+            <p>योजना संचालन भईरहदाँ अनुगमन गरिएको फोटोहरु</p>
+            <input type="file" style="width:210px;" asp-for="AfterPhotosImg" multiple="multiple" class="form-control" accept="image/png, image/gif, image/jpeg, application/pdf" />
+
+        </div>
+        <div>
+            <p>योजना सम्पन्न पश्स्चात अनुगमन गरिएको फोटोहरु</p>
+            <input type="file" style="width:210px;" asp-for="BetweenPhotosImg" multiple="multiple" class="form-control" accept="image/png, image/gif, image/jpeg, application/pdf" />
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="mt-4">
+        <button type="submit" class="btn btn-success">Save</button>
+        <a asp-action="PlanningsamjhautaIndex" asp-area="Admin" asp-controller="Planningsamjhauta" class="btn btn-secondary">Back</a>
+    </div>
+
+</form>
+
+@section Scripts {
+    <script>
+        NepaliDatePickerCalWithAdDateConverter(document.getElementsByClassName('Date'), document.getElementsByClassName('PrintDateEng'))
+    </script>
+}
+

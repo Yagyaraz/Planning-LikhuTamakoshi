@@ -120,6 +120,26 @@
 											</a>
 										</td>
 									</tr>
+									<tr style="text-align:center">
+										<td>
+											<a class="btn btn-lg" asp-controller="Format" asp-action="AayojanaAnugamanNibedan" asp-route-id="@Model.PlanningSamjhautaId"> योजना अनुगमन निवेदनको ढाँचा  </a>
+										</td>
+										<td>
+											<a class="btn btn-secondary btn-sm" asp-controller="Format" asp-action="AayojanaAnugamanNibedan" asp-route-id="@Model.PlanningSamjhautaId">
+												<i class="fa fa-print"></i>
+											</a>
+										</td>
+									</tr>
+									<tr style="text-align:center">
+										<td>
+											<a class="btn btn-lg" asp-area="Admin" asp-controller="AnugamanPartiBedan" asp-action="AnugamanPartiBedan" asp-route-id="@Model.PlanningSamjhautaId"> योजना अनुगमन   </a>
+										</td>
+										<td>
+											<a class="btn btn-secondary btn-sm" asp-area="Admin" asp-controller="AnugamanPartiBedan" asp-action="AnugamanPartiBedan" asp-route-id="@Model.PlanningSamjhautaId">
+												<i class="fa fa-print"></i>
+											</a>
+										</td>
+									</tr>
 									@* <tr style="text-align:center">
 										<td>
 											<a class="btn btn-lg" asp-action="SifarishGariyeko" asp-route-id="@Model.PlanningSamjhautaId">अनुगमन सिफारिस गरिएको </a>
