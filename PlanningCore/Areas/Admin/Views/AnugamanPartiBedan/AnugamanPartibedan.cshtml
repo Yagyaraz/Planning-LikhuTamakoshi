@@ -95,6 +95,29 @@
             padding: 5px;
             border-radius: 5px;
         }
+
+        .image {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+
+            @@media print {
+            
+            .big-box{
+                border: none;
+            }
+
+            .page {
+                box-shadow: none;
+            }
+
+            .image{
+                border: none
+            }
+        }
     </style>
 
     <div class="col-md-12 col-12 page">
@@ -166,7 +189,7 @@
             <div class="big-box">@Model.BankAcocuntDetail</div>
 
             <p>यदि खोलिएको छ भने खाताको विवरण उल्लेख गर्नुहोस् ।</p>
-            <table class="border" style="text-align:center; width:100% !important;">
+            <table class="border table table-bordered" style="text-align:center; width:100% !important;">
                 <tr>
                     <th>क्र.स.</th>
                     <th>बैंकको नाम</th>
@@ -186,7 +209,7 @@
             </table>
 
             <p><b>खाता संचालकहरुको नाम तथा पद </b></p>
-            <table class="border" style="text-align:center; width:100% !important;">
+            <table class="border table table-bordered" style="text-align:center; width:100% !important;">
                 <tr>
                     <th>क्र.स.</th>
                     <th>नाम थर</th>
@@ -284,13 +307,13 @@
 
            
             <p>योजना संचालन पूर्व अनुगमन गरिएको फोटोहरु:</p>
-            <img src="@Model.BeforePhotos" alt="पूर्व अनुगमन फोटो" style="max-width:100%; height:auto; border:1px solid #ccc; border-radius:5px;" />
+            <img src="@Model.BeforePhotos" alt="पूर्व अनुगमन फोटो" class="image" />
 
             <p>योजना संचालन भईरहदाँ अनुगमन गरिएको फोटोहरु:</p>
-            <img src="@Model.AfterPhotos" alt="अनुगमन फोटो" style="max-width:100%; height:auto; border:1px solid #ccc; border-radius:5px;" />
+            <img src="@Model.AfterPhotos" alt="अनुगमन फोटो" class="image" />
 
             <p>योजना सम्पन्न पश्चात अनुगमन गरिएको फोटोहरु:</p>
-            <img src="@Model.BetweenPhotos" alt="सम्पन्न पश्चात फोटो" style="max-width:100%; height:auto; border:1px solid #ccc; border-radius:5px;" />
+            <img src="@Model.BetweenPhotos" alt="सम्पन्न पश्चात फोटो" class="image"  />
 
         </div>
     </div>

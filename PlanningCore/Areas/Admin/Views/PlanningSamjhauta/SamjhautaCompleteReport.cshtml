@@ -5,7 +5,7 @@
     var worktype = (Model.WorkTypeId == 1) ? "उपभोक्ता समिति" : (Model.WorkTypeId == 2) ? "टोल बिकास समिति" : "विद्यालय व्यवस्थापन समिति";
     var polulation = Model.Total_Female + Model.Total_Male;
 }
-<style>
+@* <style>
     table {
         border-collapse: collapse !important;
         width: 80% !important;
@@ -61,6 +61,91 @@
    
     }
 
+</style> *@
+
+<style>
+    body {
+        font-family: 'kalimati regular', sans-serif !important;
+    }
+
+    table {
+        border-collapse: collapse !important;
+        width: 100% !important;
+        border: 1px solid black !important;
+    }
+
+    th, td {
+        border: 1px solid black !important;
+        padding: 8px !important;
+        text-align: center !important;
+    }
+
+    .tbl {
+        font-weight: bold !important;
+    }
+
+    span {
+        font-weight: bold;
+    }
+
+    span {
+        font-weight: bold;
+    }
+
+    accordion-body1 {
+        padding: 0.5rem 1.25rem;
+    }
+
+    .printpage {
+        width: 21cm;
+        min-height: 29.7cm;
+        padding: 1cm;
+        margin: 1cm auto;
+        border: 1px #d3d3d3 solid;
+        border-radius: 5px;
+        background: #fff;
+        box-shadow: 0 0 5px rgb(0 0 0 / 10%);
+    }
+
+    @@media print {
+        @@page {
+            size: A4;
+            margin: 2.5cm 2cm;
+        }
+
+        body {
+            margin: 0;
+        }
+
+        .Header, .footerRepeat {
+            position: fixed;
+            width: 100%;
+            z-index: 9999;
+        }
+
+        .Header {
+            top: 0;
+        }
+
+        .footerRepeat {
+            bottom: 0;
+        }
+
+        .print-body, .print-body1, .Terms_Consumer_Committee {
+            margin-top: 120px; /* adjust according to header height */
+            margin-bottom: 120px; /* adjust according to footer height */
+            page-break-inside: auto;
+            margin: 15px 0;
+        }
+
+        table, tr {
+            page-break-inside: avoid;
+        }
+
+        tr {
+            page-break-after: auto;
+        }
+    }
 </style>
 
 <div class="container mt-3">
@@ -72,7 +157,7 @@
     <div class="row" id="contentToPrint">
         <div class="card-body printpage">
             <div class="printcontent">
-                <style>
+                @* <style>
                     .footerRepeat {
                         position: relative!important;
                         bottom: 0px!important
@@ -109,7 +194,7 @@
                             page-break-inside: auto;
                         }
                     }      
-                </style>
+                </style> *@
                 <div class="row">
                     <div class="Header mt-1">
                         <partial name="_PrintHeaderTippaniAndSamjhautapatrta" />
@@ -242,7 +327,7 @@
                         </div>
                         <div class="point3 print-body1">
                             <div class="d-flex justify-content-start">
-                                <span style="page-break-before:always">३. उपभोक्ता समिति /गैर सरकारी संस्था /समुदायमा आधारीत संस्था सम्बन्धी विवरण :</span>
+                                <span>३. उपभोक्ता समिति /गैर सरकारी संस्था /समुदायमा आधारीत संस्था सम्बन्धी विवरण :</span>
                             </div><br />
                             <div class="accordion-body1" style="margin-left: 22px;">
                                 <div class="accordion-body1" style="margin-left: 24px;">
@@ -279,7 +364,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="point5 print-body1" style="page-break-before:always">
+                        <div class="point5 print-body1">
                             <div class="d-flex justify-content-center mt-4"> <u><span>सम्झौताका शर्तहरुः</span> </u> </div>
                             <div class="d-flex justify-content-start">
                                 <span>उपभोक्ता समितिको जिम्मेवारी तथा पालना गरिने शर्तहरु:-</span>
@@ -293,7 +378,7 @@
                         </div>
                         <div class="d-flex justify-content-center"> <u><span>उपयुक्त बमोजिम सम्झौता गर्न हामी मञ्जुर छौ ।</span> </u> </div><br />
 
-                        <div class="Sign  container d-flex"  style="line-height:15px;justify-content:space-around;">
+                        <div class="Sign  container d-flex"  style="line-height:15px;justify-content:space-around;margin-bottom:25px">
                             <div >
                                 <p><b>@worktype को तर्फवाटः</b> </p>
                                 <p>नामः-@Model.RepresentativeName </p>
@@ -345,6 +430,7 @@
         @* <footer style="position:relative; bottom:0;">
             <partial name="_printfooter" />
         </footer> *@
+
     </div>
 </div>
 
