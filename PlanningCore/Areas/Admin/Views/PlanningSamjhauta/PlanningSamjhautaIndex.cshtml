@@ -215,19 +215,23 @@
                                                         <img src="~/Icon/bhutikpragati.jpg" width="16" height="16" style=" font-weight:1; font-size:12px;">  <span>  </span>
                                                     </a>
                                                 } *@
-                                                @if (User.IsInRole("SuperAdmin") || User.IsInRole("Administrator"))
+                                                @if (!item.IsAnugaman)
                                                 {
-                                                    <a asp-area="Admin"
-                                                       asp-controller="AnugamanPartiBedan"
-                                                       asp-action="CreateAnugamanPartibedan"
-                                                       asp-route-planningSamjhautaId="@item.PlanningSamjhautaId"
-                                                       class="btn btn-sm d-flex"
-                                                       title="अनुगमन प्रतिबेदन"
-                                                       style="border-right:1px solid #ccc; height:25px;">
+                                                    @if (User.IsInRole("SuperAdmin") || User.IsInRole("Administrator"))
+                                                    {
+                                                        <a asp-area="Admin"
+                                                           asp-controller="AnugamanPartiBedan"
+                                                           asp-action="CreateAnugamanPartibedan"
+                                                           asp-route-planningSamjhautaId="@item.PlanningSamjhautaId"
+                                                           class="btn btn-sm d-flex"
+                                                           title="अनुगमन प्रतिबेदन"
+                                                           style="border-right:1px solid #ccc; height:25px;">
 
-                                                        <i class="fas fa-file-alt" style="font-weight:1; font-size:12px;"></i>
-                                                    </a>
+                                                            <i class="fas fa-file-alt" style="font-weight:1; font-size:12px;"></i>
+                                                        </a>
+                                                    }
                                                 }
+                                                
                                             </div>
                                         </td>
                                     </tr>

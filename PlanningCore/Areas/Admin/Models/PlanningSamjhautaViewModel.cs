@@ -320,7 +320,8 @@ namespace PlanningCore.Areas.Admin.Models
         public string YojanaWardsEng { get; set; }
         public string YojanaAddressEng { get; set; }
 
-
+        //new added
+        public bool IsAnugaman { get; set; }
 
     }
     public class PlanningSamjhautaPaymentRecordViewModel

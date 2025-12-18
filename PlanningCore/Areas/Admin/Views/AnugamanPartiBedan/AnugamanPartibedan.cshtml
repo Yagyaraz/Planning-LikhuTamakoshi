@@ -175,30 +175,30 @@
             <p><b>८. उपभोक्ताहरुमा योजनाबाट छरिएको सन्दर्भमा कुनै विवाद छ?<br /></b> @((Model.IsBibad) ? "छ" : "छैन")</p>
             <p><b>९. योजनामा अन्य कुनै विवाद रहेको वा गम्भीर विवादका सम्भावनाहरु छन्?<br /></b> @((Model.IsGambirBibad) ? "छ" : "छैन")</p>
             <p>यदि छ भने विवादको किसिम, विवाद हुनाको कारणहरु तथा समाधानका उपायहरुः-</p>
-            <div class="big-box">@Model.BibadDetails</div>
+            <div  >@Model.BibadDetails</div><br />
 
             <p>१०. कुनै विवाद, बाह्य जोखिमहरु जस्तै भूक्षय तथा अन्य तत्वहरुको कारणले रेखाइन उपयुक्त हुन नसकेको भए सुधारका विकल्पहरु तथा उपायहरु उल्लेख गर्नुहोस । साथै सडकको दायाँ बायाँ भू-भाग संरक्षण गर्न के तरिका अपनाईएको छ ?</p>
-            <div class="big-box">@Model.BahiyaJokhim</div>
+            <div  >@Model.BahiyaJokhim</div><br />
 
             <p>११. उपभोक्ता समितिका पदाधिकारीहरु योजनाको सन्दर्भमा आफ्नो भुमिका र जिम्मेवारीको बारेमा जानकार छन् ?<br /> @((Model.IsJimmewari) ? "छन्" : "छैनन्")</p>
             <p>यदि छैनन् भने किन छैनन्, पदाधिकारी कुन विषयमा जानकार छैनन् ? जानकार नहुनका कारणहरु तथा समाधानका उपायहरुः-</p>
-            <div class="big-box">@Model.JimmwariDetails</div>
+            <div  >@Model.JimmwariDetails</div><br />
 
-            <p>१२. बैंक खाता खोलिएको छ, छैन ?<br /> @((Model.IsBankAccountOppen) ? "छ" : "छैन")</p>
+            <p>१२. बैंक खाता खोलिएको छ, छैन ? @((Model.IsBankAccountOppen) ? "छ" : "छैन")</p>
             <p>यदि छैन भने खाता नखोलिनुको कारणहरु उल्लेख गर्नुहोस् र खात खोल्ने सम्भावित समय समेत उल्लेख गर्नुहोस् ।</p>
-            <div class="big-box">@Model.BankAcocuntDetail</div>
+            <div  >@Model.BankAcocuntDetail</div>
 
             <p>यदि खोलिएको छ भने खाताको विवरण उल्लेख गर्नुहोस् ।</p>
-            <table class="border table table-bordered" style="text-align:center; width:100% !important;">
-                <tr>
-                    <th>क्र.स.</th>
-                    <th>बैंकको नाम</th>
-                    <th>बैंक रहेको स्थान</th>
-                    <th>खाता नं.</th>
-                    <th>खाताको किसिम</th>
-                    <th>कैफियत</th>
+            <table class="border table table-bordered" style="text-align:center; width:100% !important;page-break-inside: avoid !important;">
+                <tr style="border: 1px solid black !important;page-break-inside: avoid !important;">
+                    <th style="border: 1px solid black !important;">क्र.स.</th>
+                    <th style="border: 1px solid black !important;">बैंकको नाम</th>
+                    <th style="border: 1px solid black !important;">बैंक रहेको स्थान</th>
+                    <th style="border: 1px solid black !important;">खाता नं.</th>
+                    <th style="border: 1px solid black !important;">खाताको किसिम</th>
+                    <th style="border: 1px solid black !important;">कैफियत</th>
                 </tr>
-                <tr>
+                <tr style="page-break-inside:avoid;">
                     <td>१</td>
                     <td>@Model.BankName</td>
                     <td>@Model.BankAddress</td>
@@ -209,29 +209,29 @@
             </table>
 
             <p><b>खाता संचालकहरुको नाम तथा पद </b></p>
-            <table class="border table table-bordered" style="text-align:center; width:100% !important;">
-                <tr>
-                    <th>क्र.स.</th>
-                    <th>नाम थर</th>
-                    <th>लिङ्ग</th>
-                    <th>पद</th>
-                    <th>कैफियत</th>
+            <table class="border table table-bordered" style="text-align:center; width:100% !important;page-break-inside: avoid !important;">
+                <tr style="border: 1px solid black !important;page-break-inside: avoid !important;">
+                    <th style="border: 1px solid black !important;">क्र.स.</th>
+                    <th style="border: 1px solid black !important;">नाम थर</th>
+                    <th style="border: 1px solid black !important;">लिङ्ग</th>
+                    <th style="border: 1px solid black !important;">पद</th>
+                    <th style="border: 1px solid black !important;">कैफियत</th>
                 </tr>
-                <tr>
+                <tr style="page-break-inside:avoid;">
                     <td>१</td>
                     <td>@Model.KhataSanchalak1Name</td>
                     <td>@Model.KhataSanchalak1Gender</td>
                     <td>@Model.KhataSanchalak1Post</td>
                     <td>@Model.KhataSanchalak1Remarks</td>
                 </tr>
-                <tr>
+                <tr style="page-break-inside:avoid;">
                     <td>२</td>
                     <td>@Model.KhataSanchalak2Name</td>
                     <td>@Model.KhataSanchalak2Gender</td>
                     <td>@Model.KhataSanchalak2Post</td>
                     <td>@Model.KhataSanchalak2Remarks</td>
                 </tr>
-                <tr>
+                <tr style="page-break-inside:avoid;">
                     <td>३</td>
                     <td>@Model.KhataSanchalak3Name</td>
                     <td>@Model.KhataSanchalak3Gender</td>
@@ -242,23 +242,23 @@
 
             <p>१३. यस योजनाबाट प्रत्यक्ष रुपमा महिला तथा वज्चितिकरणमा परेका समुहको घरधुरीहरुले प्रत्यक्ष फाइदा पाएका छन् ? @((Model.PratakshyaFaida) ? "छन्" : "छैनन्")</p>
             <p>यदि पाएका छन् भने कति घरधुरीले पाएका छन्: @Model.GharDhuri</p>
-            <div class="big-box">@Model.PratakshyaFaidaDetails</div>
+            <div  >@Model.PratakshyaFaidaDetails</div>
 
             <p>१४. योजनाको सूचना पाटी उपयुक्त स्थानमा राखिएको छ ? <br />@((Model.IsSuchanaPati) ? "छ" : "छैन")</p>
             <p>१५. आमभेला मार्फत सार्वजनिक परीक्षण गरिएको छ ?<br /> @((Model.IsAambhela) ? "छ" : "छैन")</p>
             <p>१६. प्राविधिक साइट इन्चार्जको नाम: @Model.EngineerName</p>
             <p>१७. भुक्तानीको लागि सिफारिस रकम रु. @Model.BhuktaniSifarishRakam</p>
             <p>१८. कार्यान्वयनमा देखिएका समस्याहरु:</p>
-            <div class="big-box">@Model.KaryanayanDetails</div>
+            <div  >@Model.KaryanayanDetails</div><br />
             <p>१९. समस्या समाधान गर्न अपनाइएका उपायहरु:</p>
-            <div class="big-box">@Model.SamasyaSamadhanUpaya</div>
-            <p>१९. अनुगमन विवरण:</p>
-            <div class="big-box">@Model.AnugamanBibaran</div>
+            <div >@Model.SamasyaSamadhanUpaya</div><br />
+            <p>२०. अनुगमन विवरण:</p>
+            <div>@Model.AnugamanBibaran</div><br />
 
             <p>योजना अनुगमन तथा सुपरिवेक्षण समितिका पदाधिकारीहरुः-</p>
-            <table style="width:100% !important" class="table table-bordered">
+            <table style="width:100% !important" class="table table-bordered;page-break-inside: avoid !important;">
                 <thead>
-                    <tr>
+                    <tr style="page-break-inside:avoid;">
                         <th>क्र.स.</th>
                         <th>अनुगमन कर्ताको पद</th>
                         <th>नाम थर</th>
@@ -267,35 +267,35 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr style="page-break-inside:avoid;">
                         <td>१.</td>
                         <td>@Model.AnugamanKarta1Post</td>
                         <td>@Model.AnugamanKarta1Name</td>
                         <td></td>
                         <td>@Model.AnugamanKarta1Remarks</td>
                     </tr>
-                    <tr>
+                    <tr style="page-break-inside:avoid;">
                         <td>२.</td>
                         <td>@Model.AnugamanKarta2Post</td>
                         <td>@Model.AnugamanKarta2Name</td>
                         <td></td>
                         <td>@Model.AnugamanKarta2Remarks</td>
                     </tr>
-                    <tr>
+                    <tr style="page-break-inside:avoid;">
                         <td>३.</td>
                         <td>@Model.AnugamanKarta3Post</td>
                         <td>@Model.AnugamanKarta3Name</td>
                         <td></td>
                         <td>@Model.AnugamanKarta3Remarks</td>
                     </tr>
-                    <tr>
+                    <tr style="page-break-inside:avoid;">
                         <td>४.</td>
                         <td>@Model.AnugamanKarta4Post</td>
                         <td>@Model.AnugamanKarta4Name</td>
                         <td></td>
                         <td>@Model.AnugamanKarta4Remarks</td>
                     </tr>
-                    <tr>
+                    <tr style="page-break-inside:avoid;">
                         <td>५.</td>
                         <td>@Model.AnugamanKarta5Post</td>
                         <td>@Model.AnugamanKarta5Name</td>
@@ -304,18 +304,57 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+        <style>
+            .photo-page {
+                background: #fff;
+                padding: 30px;
+                border-radius: 12px;
+                box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            }
 
-           
-            <p>योजना संचालन पूर्व अनुगमन गरिएको फोटोहरु:</p>
-            <img src="@Model.BeforePhotos" alt="पूर्व अनुगमन फोटो" class="image" />
+            .photo-item {
+                margin-bottom: 25px;
+            }
 
-            <p>योजना संचालन भईरहदाँ अनुगमन गरिएको फोटोहरु:</p>
-            <img src="@Model.AfterPhotos" alt="अनुगमन फोटो" class="image" />
+            .photo-title {
+                font-size: 18px;
+                font-weight: 600;
+                margin-bottom: 8px;
+                border-left: 5px solid #007bff;
+                padding-left: 10px;
+            }
 
-            <p>योजना सम्पन्न पश्चात अनुगमन गरिएको फोटोहरु:</p>
-            <img src="@Model.BetweenPhotos" alt="सम्पन्न पश्चात फोटो" class="image"  />
+            .photo-img {
+                width: 100%;
+                max-height: 350px;
+                object-fit: contain;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                padding: 10px;
+                background: #f8f8f8;
+            }
+        </style>
+
+        <div class="photo-page" style="page-break-before:always;">
+
+            <div class="photo-item">
+                <p class="photo-title">योजना संचालन पूर्व अनुगमन गरिएको फोटो:</p>
+                <img src="@Model.BeforePhotos" class="photo-img" alt="पूर्व अनुगमन" />
+            </div>
+
+            <div class="photo-item">
+                <p class="photo-title">योजना संचालन भईरहदाँ अनुगमन गरिएको फोटो:</p>
+                <img src="@Model.AfterPhotos" class="photo-img" alt="अनुगमन" />
+            </div>
+
+            <div class="photo-item" style="page-break-before:always;">
+                <p class="photo-title">योजना सम्पन्न पश्चात अनुगमन गरिएको फोटो:</p>
+                <img src="@Model.BetweenPhotos" class="photo-img" alt="पश्चात" />
+            </div>
 
         </div>
+
     </div>
 
 </div>

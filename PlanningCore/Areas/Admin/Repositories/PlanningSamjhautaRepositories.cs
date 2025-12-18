@@ -498,6 +498,7 @@ namespace PlanningCore.Areas.Admin.Repositories
                                       Project_Complete_Date=ped.Project_Complete_Date,
                                       YojanaNames = string.Join(",<br/> ", _context.UpabhoktaSamitiDetailYojanas.Where(u => u.UpabhoktaSamitiDetailId == p.SamitiDetailId).Select(x => x.YojanaSetup.YojanaName).ToList()),
                                       YojanaWards = string.Join(",<br/> ", _context.UpabhoktaSamitiDetailYojanas.Where(u => u.UpabhoktaSamitiDetailId == p.SamitiDetailId).Select(u => _context.Ward.Where(w => w.Id == u.YojanaSetup.WardId).Select(w => w.Name).FirstOrDefault()).ToList()),
+                                      IsAnugaman = _context.AnugamanPartibdeans.Any(x => x.PlanningSamjhautaId == p.PlanningSamjhautaId),
                                   }).ToListAsync();
             if (upavokta != null)
             {
